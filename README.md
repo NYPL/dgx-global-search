@@ -1,6 +1,6 @@
-# NYPL React boilerplate
+# NYPL Global Search
 
-Isomorphic React boilplate
+This repository is the global search application for nypl.org
 
 The goods:
 
