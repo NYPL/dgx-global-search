@@ -1,7 +1,7 @@
 {
-  "name": "nypl-app-boilerplate",
-  "version": "0.1.0",
-  "description": "Isomorphic React boilerplate",
+  "name": "dgx-global-search",
+  "version": "0.0.1",
+  "description": "DGX Global Search Repository",
   "main": "index.js",
   "scripts": {
     "start": "node index",
@@ -16,7 +16,6 @@
   "keywords": [
     "react",
     "webpack",
-    "boilerplate",
     "sass",
     "hot",
     "reload"
