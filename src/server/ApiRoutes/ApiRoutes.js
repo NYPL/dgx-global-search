@@ -60,8 +60,6 @@ function MainApp(req, res, next) {
           headerData: [],
         },
         Store: {
-          _angularApps: [],
-          _reactApps: [],
         }
       };
       next();
