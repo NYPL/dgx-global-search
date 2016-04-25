@@ -22,7 +22,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com//issues"
+    "url": "https://bitbucket.org/NYPL/dgx-global-search"
   },
   "devDependencies": {
     "babel-core": "^6.5.2",
