@@ -15,6 +15,7 @@ const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 const searchOptions = createOptions(searchApi);
 const headerOptions = createOptions(headerApi);
+const searchApiUrl = parser.getCompleteApi(searchOptions);
 
 function createOptions(apiValue) {
   return {
@@ -29,7 +30,6 @@ function fetchApiData(url) {
 }
 
 function getSearchData() {
-  const searchApiUrl = parser.getCompleteApi(searchOptions);
   return fetchApiData(searchApiUrl);
 }
 
@@ -57,7 +57,7 @@ function MainApp(req, res, next) {
         },
         // Set the API URL here so we can access it when we
         // render in the EJS file.
-        // completeApiUrl: searchApiUrl,
+        completeApiUrl: searchApiUrl,
       };
 
       next();
