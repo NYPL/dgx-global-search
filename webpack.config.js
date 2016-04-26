@@ -70,7 +70,7 @@ if (ENV === 'development') {
       loaders: [
         {
           test: /\.jsx?$/,
-          exclude: /(node_modules|bower_components)/,
+          exclude: /(node_modules)/,
           loaders: ['react-hot', 'babel'],
         },
         {
@@ -98,7 +98,7 @@ if (ENV === 'production') {
       loaders: [
         {
           test: /\.jsx?$/,
-          exclude: /(node_modules|bower_components)/,
+          exclude: /(node_modules)/,
           loaders: ['babel'],
         },
         {
