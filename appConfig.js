@@ -18,7 +18,7 @@ export default {
       'items',
     ],
     filters: {
-      q: 'treasure island',
+      q: '',
     },
   },
   headerApi: {

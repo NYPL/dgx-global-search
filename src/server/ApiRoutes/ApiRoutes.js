@@ -65,6 +65,7 @@ function MainApp(req, res, next) {
     .catch(error => {
       console.log(`error calling API : ${error}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
+      console.log(`search keywords is ${api.filters}`)
 
       res.locals.data = {};
 

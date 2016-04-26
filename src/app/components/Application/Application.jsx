@@ -15,6 +15,10 @@ class App extends React.Component {
 
   // Helper functions below the render() function:
   _getList(appsArray) {
+    if (appsArray === undefined) {
+      return 'No result found. Please make sure you enter search key words.';
+    }
+
     return appsArray.map((appName, index) =>
       (<li key={index}>{appName.attributes.title}</li>)
     );
