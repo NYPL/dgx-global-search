@@ -15,14 +15,13 @@ class App extends React.Component {
 
   // Helper functions below the render() function:
   _getList(appsArray) {
-    return appsArray.map((appName, index) => {
-      return (<li key={index}>{appName}</li>);
-    });
+    return appsArray.map((appName, index) =>
+      (<li key={index}>{appName.attributes.title}</li>)
+    );
   }
 
   render() {
-    const angularApps = this._getList(this.state._angularApps);
-    const reactApps = this._getList(this.state._reactApps);
+    const searchResults = this._getList(this.state.searchData);
 
     return (
       <div className="app-wrapper">
@@ -31,11 +30,7 @@ class App extends React.Component {
         <h2>NYPL Rocks!</h2>
         <p>Our Angular Apps</p>
         <ul>
-          {angularApps}
-        </ul>
-        <p>Our React Apps</p>
-        <ul>
-          {reactApps}
+          {searchResults}
         </ul>
 
         <Footer />

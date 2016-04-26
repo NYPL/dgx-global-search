@@ -11,6 +11,16 @@ export default {
       production: 'https://refinery.nypl.org',
     },
   },
+  searchApi: {
+    endpoint: '/api/nypl/ndo/v0.1/searches/global-searches/default',
+    includes: [
+      'facets',
+      'items',
+    ],
+    filters: {
+      q: 'treasure island',
+    },
+  },
   headerApi: {
     endpoint: '/api/nypl/ndo/v0.1/site-data/header-items',
     includes: [
@@ -20,10 +30,10 @@ export default {
       'related-mega-menu-panes.current-mega-menu-item.related-content.location',
       'related-mega-menu-panes.default-mega-menu-item.images',
       'related-mega-menu-panes.default-mega-menu-item.related-content.authors.nypl-location',
-      'related-mega-menu-panes.default-mega-menu-item.related-content.location'
+      'related-mega-menu-panes.default-mega-menu-item.related-content.location',
     ],
     filters: {
-      'relationships': {'parent': 'null'}
-    }
+      relationships: { parent: 'null' },
+    },
   },
 };
