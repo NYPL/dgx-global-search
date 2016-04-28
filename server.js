@@ -42,10 +42,9 @@ app.use(express.static(DIST_PATH));
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
-
 app.use('/', apiRoutes);
 
-app.get('/', (req, res) => {
+app.use('/', (req, res) => {
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
   const iso = new Iso();
@@ -61,7 +60,7 @@ app.get('/', (req, res) => {
     gaCode: analytics.google.code(isProduction),
     webpackPort: WEBPACK_DEV_PORT,
     appEnv: process.env.APP_ENV,
-    apiUrl: res.locals.data.completeApiUrl,
+    apiUrl: (res.locals.data) ? res.locals.data.completeApiUrl : '',
     isProduction,
   });
 });

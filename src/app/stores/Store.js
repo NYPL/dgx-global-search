@@ -1,14 +1,20 @@
-import BookActions from '../actions/Actions.js';
+import Actions from '../actions/Actions.js';
 import alt from 'dgx-alt-center';
 
-class Store {
+class SearchStore {
   constructor() {
     this.bindListeners({
+      updateSearchData: Actions.UPDATE_SEARCH_DATA,
     });
 
     this.on('init', () => {
+      this.searchData = [];
     });
+  }
+
+  updateSearchData(data) {
+    this.searchData = data;
   }
 }
 
-export default alt.createStore(Store, 'Store');
+export default alt.createStore(SearchStore, 'SearchStore');
