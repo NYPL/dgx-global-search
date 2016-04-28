@@ -23,14 +23,40 @@ const createOptions = (apiValue) => ({
 const searchOptions = createOptions(searchApi);
 const headerOptions = createOptions(headerApi);
 const searchApiUrl = parser.getCompleteApi(searchOptions);
+const headerApiUrl = parser.getCompleteApi(headerOptions);
 
 const fetchApiData = (url) => axios.get(url);
 
 const getSearchData = () => fetchApiData(searchApiUrl);
 
-const getHeaderData = () => {
-  const headerApiUrl = parser.getCompleteApi(headerOptions);
-  return fetchApiData(headerApiUrl);
+const getHeaderData = () => fetchApiData(headerApiUrl);
+
+const mainApp = (req, res, next) => {
+  // This is promised based call that will wait until all promises are resolved.
+  // Add the app API calls here.
+  axios.all([getHeaderData()])
+    .then(axios.spread((headerData) => {
+      // We neeed a model for search result later
+      const headerParsed = parser.parse(headerData.data, headerOptions);
+      const headerModelData = HeaderItemModel.build(headerParsed);
+
+      res.locals.data = {
+        HeaderStore: {
+          headerData: headerModelData,
+        },
+      };
+
+      next();
+    }))
+    .catch(error => {
+      console.log(`error calling API for the header: ${error}`);
+      console.log(error.data.errors[0].title);
+      console.log(`from the endpoint: ${headerApiUrl}`);
+
+      res.locals.data = {};
+
+      next();
+    }); /* end Axios call */
 };
 
 const requestSearchResult = (req, res, next) => {
@@ -72,6 +98,10 @@ const requestSearchResult = (req, res, next) => {
       next();
     }); /* end Axios call */
 };
+
+router
+  .route('/')
+  .get(mainApp);
 
 router
   .route('/search/apachesolr_search/:query')
