@@ -13,11 +13,8 @@ const { api, searchApi, headerApi } = appConfig;
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
-const searchOptions = createOptions(searchApi);
-const headerOptions = createOptions(headerApi);
-const searchApiUrl = parser.getCompleteApi(searchOptions);
 
-function createOptions(apiValue) {
+const createOptions = (apiValue) => {
   return {
     endpoint: `${apiRoot}${apiValue.endpoint}`,
     includes: apiValue.includes,
@@ -25,20 +22,24 @@ function createOptions(apiValue) {
   };
 }
 
-function fetchApiData(url) {
+const searchOptions = createOptions(searchApi);
+const headerOptions = createOptions(headerApi);
+const searchApiUrl = parser.getCompleteApi(searchOptions);
+
+const fetchApiData = (url) => {
   return axios.get(url);
 }
 
-function getSearchData() {
+const getSearchData = () => {
   return fetchApiData(searchApiUrl);
 }
 
-function getHeaderData() {
+const getHeaderData = () => {
   const headerApiUrl = parser.getCompleteApi(headerOptions);
   return fetchApiData(headerApiUrl);
 }
 
-function MainApp(req, res, next) {
+const MainApp = (req, res, next) => {
   // This is promised based call that will wait until all promises are resolved.
   // Add the app API calls here.
   axios.all([getSearchData(), getHeaderData()])
