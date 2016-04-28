@@ -14,15 +14,13 @@ const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 
-const createOptions = (apiValue) => ({
+const createOptions = (apiValue, queryString) => ({
   endpoint: `${apiRoot}${apiValue.endpoint}`,
   includes: apiValue.includes,
-  filters: apiValue.filters,
+  filters: (queryString)? { q: queryString } : apiValue.filters,
 });
 
-const searchOptions = createOptions(searchApi);
 const headerOptions = createOptions(headerApi);
-const searchApiUrl = parser.getCompleteApi(searchOptions);
 const headerApiUrl = parser.getCompleteApi(headerOptions);
 
 const fetchApiData = (url) => axios.get(url);
@@ -60,6 +58,10 @@ const mainApp = (req, res, next) => {
 };
 
 const requestSearchResult = (req, res, next) => {
+  const searchOptions = createOptions(searchApi, req.params.query);
+  const searchApiUrl = parser.getCompleteApi(searchOptions);
+  const getSearchData = () => fetchApiData(searchApiUrl);
+
   // This is promised based call that will wait until all promises are resolved.
   // Add the app API calls here.
   axios.all([getSearchData(), getHeaderData()])
@@ -104,7 +106,7 @@ router
   .get(mainApp);
 
 router
-  .route('/search/apachesolr_search/:query')
+  .route('/search/apachesolr_search/:query/?')
   .get(requestSearchResult);
 
 export default router;
