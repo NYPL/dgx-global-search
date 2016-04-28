@@ -8,12 +8,12 @@ class SearchStore {
     });
 
     this.on('init', () => {
-      this._searchData = [];
+      this.searchData = [];
     });
   }
 
   updateSearchData(data) {
-    this._searchData = data;
+    this.searchData = data;
   }
 }
 

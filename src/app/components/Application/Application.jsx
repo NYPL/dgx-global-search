@@ -19,9 +19,7 @@ class App extends React.Component {
       return 'No result found. Please make sure you enter search key words.';
     }
 
-    return appsArray.map((appName, index) =>
-      (<li key={index}>{appName.attributes.title}</li>)
-    );
+    return appsArray.map((appName, index) => (<li key={index}>{appName.attributes.title}</li>));
   }
 
   render() {
