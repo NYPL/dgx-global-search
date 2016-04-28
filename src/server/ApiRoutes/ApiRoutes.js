@@ -33,7 +33,7 @@ const getHeaderData = () => {
   return fetchApiData(headerApiUrl);
 };
 
-const MainApp = (req, res, next) => {
+const requestSearchResult = (req, res, next) => {
   // This is promised based call that will wait until all promises are resolved.
   // Add the app API calls here.
   axios.all([getSearchData(), getHeaderData()])
@@ -63,14 +63,18 @@ const MainApp = (req, res, next) => {
       console.log(`from the endpoint: ${searchApiUrl}`);
       console.log(`search keywords is ${api.filters}`);
 
-      res.locals.data = {};
+      res.locals.data = {
+        SearchStore: {
+          searchData: undefined,
+        },
+      };
 
       next();
     }); /* end Axios call */
 };
 
 router
-  .route('/')
-  .get(MainApp);
+  .route('/search/apachesolr_search/:query')
+  .get(requestSearchResult);
 
 export default router;
