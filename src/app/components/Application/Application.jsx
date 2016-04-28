@@ -5,7 +5,7 @@ import Footer from 'dgx-react-footer';
 
 import Store from '../../stores/Store.js';
 
-import {map as _map} from 'underscore';
+import { map as _map } from 'underscore';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class App extends React.Component {
       return 'No result found. Please make sure you enter search key words.';
     }
 
-    return _map(appsArray,(appName, index) => (<li key={index}>{appName.attributes.title}</li>));
+    return _map(appsArray, (appName, index) => (<li key={index}>{appName.attributes.title}</li>));
   }
 
   render() {

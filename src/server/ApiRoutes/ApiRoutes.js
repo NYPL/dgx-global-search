@@ -14,30 +14,24 @@ const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 
-const createOptions = (apiValue) => {
-  return {
-    endpoint: `${apiRoot}${apiValue.endpoint}`,
-    includes: apiValue.includes,
-    filters: apiValue.filters,
-  };
-}
+const createOptions = (apiValue) => ({
+  endpoint: `${apiRoot}${apiValue.endpoint}`,
+  includes: apiValue.includes,
+  filters: apiValue.filters,
+});
 
 const searchOptions = createOptions(searchApi);
 const headerOptions = createOptions(headerApi);
 const searchApiUrl = parser.getCompleteApi(searchOptions);
 
-const fetchApiData = (url) => {
-  return axios.get(url);
-}
+const fetchApiData = (url) => axios.get(url);
 
-const getSearchData = () => {
-  return fetchApiData(searchApiUrl);
-}
+const getSearchData = () => fetchApiData(searchApiUrl);
 
 const getHeaderData = () => {
   const headerApiUrl = parser.getCompleteApi(headerOptions);
   return fetchApiData(headerApiUrl);
-}
+};
 
 const MainApp = (req, res, next) => {
   // This is promised based call that will wait until all promises are resolved.
@@ -73,8 +67,7 @@ const MainApp = (req, res, next) => {
 
       next();
     }); /* end Axios call */
-}
-
+};
 
 router
   .route('/')
