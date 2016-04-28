@@ -8,7 +8,7 @@ class SearchStore {
     });
 
     this.on('init', () => {
-      this.searchData = [];
+      this.searchData = undefined;
     });
   }
 
