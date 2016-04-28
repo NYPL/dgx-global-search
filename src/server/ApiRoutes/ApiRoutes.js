@@ -106,7 +106,7 @@ router
   .get(mainApp);
 
 router
-  .route('/search/apachesolr_search/:query/?')
+  .route('/search/apachesolr_search/:query')
   .get(requestSearchResult);
 
 export default router;
