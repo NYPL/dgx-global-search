@@ -32,8 +32,6 @@ const getSearchData = () => fetchApiData(searchApiUrl);
 const getHeaderData = () => fetchApiData(headerApiUrl);
 
 const mainApp = (req, res, next) => {
-  // This is promised based call that will wait until all promises are resolved.
-  // Add the app API calls here.
   getHeaderData()
     .then((headerData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
@@ -59,12 +57,10 @@ const mainApp = (req, res, next) => {
       };
 
       next();
-    }); /* end Axios call */
+    });
 };
 
 const requestSearchResult = (req, res, next) => {
-  // This is promised based call that will wait until all promises are resolved.
-  // Add the app API calls here.
   axios.all([getSearchData(), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
@@ -79,8 +75,6 @@ const requestSearchResult = (req, res, next) => {
         SearchStore: {
           searchData: searchParsed.items,
         },
-        // Set the API URL here so we can access it when we
-        // render in the EJS file.
         completeApiUrl: searchApiUrl,
       };
 
@@ -102,7 +96,7 @@ const requestSearchResult = (req, res, next) => {
       };
 
       next();
-    }); /* end Axios call */
+    });
 };
 
 router
