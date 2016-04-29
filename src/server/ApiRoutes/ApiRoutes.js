@@ -34,9 +34,8 @@ const getHeaderData = () => fetchApiData(headerApiUrl);
 const mainApp = (req, res, next) => {
   // This is promised based call that will wait until all promises are resolved.
   // Add the app API calls here.
-  axios.all([getHeaderData()])
-    .then(axios.spread((headerData) => {
-      // We neeed a model for search result later
+  getHeaderData()
+    .then((headerData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed);
 
@@ -47,13 +46,17 @@ const mainApp = (req, res, next) => {
       };
 
       next();
-    }))
+    })
     .catch(error => {
       console.log(`error calling API for the header: ${error}`);
       console.log(error.data.errors[0].title);
       console.log(`from the endpoint: ${headerApiUrl}`);
 
-      res.locals.data = [];
+      res.locals.data = {
+        HeaderStore: {
+          headerData: [],
+        },
+      };
 
       next();
     }); /* end Axios call */
@@ -90,6 +93,9 @@ const requestSearchResult = (req, res, next) => {
       console.log(`search keywords is ${api.filters}`);
 
       res.locals.data = {
+        HeaderStore: {
+          headerData: [],
+        },
         SearchStore: {
           searchData: undefined,
         },
