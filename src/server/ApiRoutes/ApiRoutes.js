@@ -30,6 +30,17 @@ const getSearchData = () => fetchApiData(searchApiUrl);
 const getHeaderData = () => fetchApiData(headerApiUrl);
 
 const mainApp = (req, res, next) => {
+  // console.log(req.path);
+  // console.log(req.path.match('/search/apachesolr_search/'));
+
+  // redirect all the invalid paths to homepage
+  if (req.path !== '/') {
+    // console.log('>>>redirect');
+    res.redirect('/');
+    return;
+  }
+
+  console.log('only main');
   getHeaderData()
     .then((headerData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
@@ -62,6 +73,8 @@ const requestSearchResult = (req, res, next) => {
   const searchOptions = createOptions(searchApi, req.params.query);
   const searchApiUrl = parser.getCompleteApi(searchOptions);
   const getSearchData = () => fetchApiData(searchApiUrl);
+
+  console.log('query is ' + req.params.query);
 
   axios.all([getSearchData(), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
@@ -99,14 +112,20 @@ const requestSearchResult = (req, res, next) => {
 
       next();
     });
+
 };
 
 router
-  .route('/')
-  .get(mainApp);
+  .route('/search/apachesolr_search/:query?')
+  .get(requestSearchResult);
+
+// /\/blog\/([^]+)\/?/
+
+// ^(?!/search/apachesolr_search/).*$
 
 router
-  .route('/search/apachesolr_search/:query')
-  .get(requestSearchResult);
+  .route('/*')
+  // .route('/^(?!/search/apachesolr_search/).*$/')
+  .get(mainApp);
 
 export default router;

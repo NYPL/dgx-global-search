@@ -65,6 +65,11 @@ app.use('/', (req, res) => {
   });
 });
 
+// app.all('*', function(req, res) {
+//   console.log('redirect');
+//   res.redirect('/');
+// });
+
 const server = app.listen(app.get('port'), (error) => {
   if (error) {
     console.log(colors.red(error));
