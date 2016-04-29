@@ -53,7 +53,7 @@ const mainApp = (req, res, next) => {
       console.log(error.data.errors[0].title);
       console.log(`from the endpoint: ${headerApiUrl}`);
 
-      res.locals.data = {};
+      res.locals.data = [];
 
       next();
     }); /* end Axios call */
