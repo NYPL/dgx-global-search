@@ -17,7 +17,7 @@ const apiRoot = api.root[appEnvironment];
 const createOptions = (apiValue, queryString) => ({
   endpoint: `${apiRoot}${apiValue.endpoint}`,
   includes: apiValue.includes,
-  filters: (queryString)? { q: queryString } : apiValue.filters,
+  filters: (queryString) ? { q: queryString } : apiValue.filters,
 });
 
 const headerOptions = createOptions(headerApi);
@@ -25,22 +25,14 @@ const headerApiUrl = parser.getCompleteApi(headerOptions);
 
 const fetchApiData = (url) => axios.get(url);
 
-const getSearchData = () => fetchApiData(searchApiUrl);
-
 const getHeaderData = () => fetchApiData(headerApiUrl);
 
 const mainApp = (req, res, next) => {
-  // console.log(req.path);
-  // console.log(req.path.match('/search/apachesolr_search/'));
-
-  // redirect all the invalid paths to homepage
   if (req.path !== '/') {
-    // console.log('>>>redirect');
     res.redirect('/');
     return;
   }
 
-  console.log('only main');
   getHeaderData()
     .then((headerData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
@@ -73,8 +65,6 @@ const requestSearchResult = (req, res, next) => {
   const searchOptions = createOptions(searchApi, req.params.query);
   const searchApiUrl = parser.getCompleteApi(searchOptions);
   const getSearchData = () => fetchApiData(searchApiUrl);
-
-  console.log('query is ' + req.params.query);
 
   axios.all([getSearchData(), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
@@ -112,20 +102,14 @@ const requestSearchResult = (req, res, next) => {
 
       next();
     });
-
 };
 
 router
   .route('/search/apachesolr_search/:query?')
   .get(requestSearchResult);
 
-// /\/blog\/([^]+)\/?/
-
-// ^(?!/search/apachesolr_search/).*$
-
 router
-  .route('/*')
-  // .route('/^(?!/search/apachesolr_search/).*$/')
+  .route(/^((?!\/search\/apachesolr_search).)*$/)
   .get(mainApp);
 
 export default router;
