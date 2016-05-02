@@ -31,8 +31,8 @@ class App extends React.Component {
       <div className="app-wrapper">
         <Header />
 
-        <h2>NYPL Rocks!</h2>
-        <p>Our Angular Apps</p>
+        <h2>Global Search Results</h2>
+        <p>the search item titles</p>
         <ul>
           {searchResults}
         </ul>

@@ -14,24 +14,25 @@ const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 
-const createOptions = (apiValue) => ({
+const createOptions = (apiValue, queryString) => ({
   endpoint: `${apiRoot}${apiValue.endpoint}`,
   includes: apiValue.includes,
-  filters: apiValue.filters,
+  filters: (queryString) ? { q: queryString } : apiValue.filters,
 });
 
-const searchOptions = createOptions(searchApi);
 const headerOptions = createOptions(headerApi);
-const searchApiUrl = parser.getCompleteApi(searchOptions);
 const headerApiUrl = parser.getCompleteApi(headerOptions);
 
 const fetchApiData = (url) => axios.get(url);
 
-const getSearchData = () => fetchApiData(searchApiUrl);
-
 const getHeaderData = () => fetchApiData(headerApiUrl);
 
 const mainApp = (req, res, next) => {
+  if (req.path !== '/') {
+    res.redirect('/');
+    return;
+  }
+
   getHeaderData()
     .then((headerData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
@@ -61,6 +62,10 @@ const mainApp = (req, res, next) => {
 };
 
 const requestSearchResult = (req, res, next) => {
+  const searchOptions = createOptions(searchApi, req.params.query);
+  const searchApiUrl = parser.getCompleteApi(searchOptions);
+  const getSearchData = () => fetchApiData(searchApiUrl);
+
   axios.all([getSearchData(), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
@@ -100,11 +105,11 @@ const requestSearchResult = (req, res, next) => {
 };
 
 router
-  .route('/')
-  .get(mainApp);
+  .route('/search/apachesolr_search/:query?')
+  .get(requestSearchResult);
 
 router
-  .route('/search/apachesolr_search/:query')
-  .get(requestSearchResult);
+  .route(/^((?!\/search\/apachesolr_search[\/]).)*$/)
+  .get(mainApp);
 
 export default router;
