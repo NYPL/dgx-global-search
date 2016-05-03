@@ -14,10 +14,10 @@ const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 
-const createOptions = (apiValue, queryString) => ({
+const createOptions = (apiValue) => ({
   endpoint: `${apiRoot}${apiValue.endpoint}`,
   includes: apiValue.includes,
-  filters: (queryString) ? { q: queryString } : apiValue.filters,
+  filters: apiValue.filters,
 });
 
 const headerOptions = createOptions(headerApi);
@@ -62,7 +62,10 @@ const mainApp = (req, res, next) => {
 };
 
 const requestSearchResult = (req, res, next) => {
-  const searchOptions = createOptions(searchApi, req.params.query);
+  const searchOptions = createOptions(searchApi);
+  searchOptions.filters = {
+    q: (req.params.query) ? req.params.query : '',
+  };
   const searchApiUrl = parser.getCompleteApi(searchOptions);
   const getSearchData = () => fetchApiData(searchApiUrl);
 
