@@ -28,9 +28,9 @@ class Results extends React.Component {
 
   render() {
     return (
-      <div id={this.props.id} className={this.props.className}>
+      <ul id={this.props.id} className={this.props.className}>
         {this._getList(this.props.results)}
-      </div>
+      </ul>
     );
   }
 }
