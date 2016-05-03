@@ -13,6 +13,7 @@ class App extends React.Component {
 
     this.state = {
       searchKeywords: '',
+      placeholder: 'What would you like to find?',
       searchResults: Store.getState(),
     };
 
@@ -22,14 +23,14 @@ class App extends React.Component {
   }
 
   /**
-   * _inputChange(field, event)
-   * Listen to the changes on keywords input field and option input fields.
+   * _inputChange(event)
+   * Listen to the changes on keywords input field.
    * Grab the event value, and change the state.
    * The parameter indicates which input field has been changed.
    * Passng event as the argument here as FireFox doesn't accept event
    * as a global variable.
    *
-   * @param {String} field  {Event Object} event
+   * @param {Event} event
    */
   _inputChange(event) {
     this.setState({ searchKeywords: event.target.value });
@@ -44,6 +45,9 @@ class App extends React.Component {
   _submitSearchRequest() {
     const requestParameter = this.state.searchKeywords.trim();
     const requestUrl = `http://localhost:3001/search/apachesolr_search/${requestParameter}`;
+    if (!requestParameter) {
+       this.setState({ placeholder: 'Please enter a search term.' });
+    }
     window.location.assign(requestUrl);
   }
 
@@ -69,7 +73,7 @@ class App extends React.Component {
         <h2>NYPL Global Search</h2>
         <InputField
           type="text"
-          placeholder="this is placeholder"
+          placeholder={this.state.placeholder}
           ref="keywords"
           value={this.state.searchKeywords}
           onChange={this._inputChange.bind(this)}
