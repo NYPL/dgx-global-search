@@ -2,13 +2,15 @@ import React from 'react';
 
 const SearchResult = ({ id, className, index, title, link }) =>
   (
-    <a
-      id={`${id}-${index}`}
-      className={className}
-      href={link}
-    >
-      <li>{title}</li>
-    </a>
+    <li>
+      <a
+        id={`${id}-${index}`}
+        className={className}
+        href={link}
+      >
+        {title}
+      </a>
+    </li>
   );
 
 SearchResult.propTypes = {
@@ -24,8 +26,6 @@ SearchResult.defaultProps = {
   id: 'searchResult',
   className: 'searchResult',
   index: 0,
-  title: React.PropTypes.string,
-  link: React.PropTypes.string,
 };
 
 export default SearchResult;
