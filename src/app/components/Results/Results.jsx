@@ -13,7 +13,7 @@ class Results extends React.Component {
   // Helper functions below the render() function:
   _getList(appsArray) {
     if (!appsArray) {
-      return 'No result found. Please make sure you enter search key words.';
+      return 'No result found. Please make sure you enter search keywords.';
     }
 
     return _map(appsArray, (appName, index) => (

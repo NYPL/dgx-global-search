@@ -12,9 +12,10 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      searchKeywords: '',
+      searchKeyword: Store.getState().searchKeyword,
       placeholder: 'What would you like to find?',
       searchResults: Store.getState(),
+      searchDataLength: Store.getState().searchDataLength,
     };
 
     this._inputChange = this._inputChange.bind(this);
@@ -33,7 +34,7 @@ class App extends React.Component {
    * @param {Event} event
    */
   _inputChange(event) {
-    this.setState({ searchKeywords: event.target.value });
+    this.setState({ searchKeyword: event.target.value });
   }
 
   /**
@@ -43,10 +44,10 @@ class App extends React.Component {
    * @param {String} value
    */
   _submitSearchRequest() {
-    const requestParameter = this.state.searchKeywords.trim();
+    const requestParameter = this.state.searchKeyword.trim();
     const requestUrl = `http://localhost:3001/search/apachesolr_search/${requestParameter}`;
     if (!requestParameter) {
-       this.setState({ placeholder: 'Please enter a search term.' });
+      this.setState({ placeholder: 'Please enter a search term.' });
     }
     window.location.assign(requestUrl);
   }
@@ -66,6 +67,11 @@ class App extends React.Component {
 
 
   render() {
+    const inputValue = (this.state.searchKeyword === '') ?
+      '' : this.state.searchKeyword;
+
+    const keywordHint = inputValue || 'No search keyword found.';
+
     return (
       <div className="app-wrapper" onKeyPress={this._triggerSubmit}>
         <Header />
@@ -75,14 +81,16 @@ class App extends React.Component {
           type="text"
           placeholder={this.state.placeholder}
           ref="keywords"
-          value={this.state.searchKeywords}
+          value={inputValue}
           onChange={this._inputChange.bind(this)}
         />
         <button onClick={this._submitSearchRequest.bind(this)}>
           SUBMIT
         </button>
         <h2>Search Results</h2>
-        <p>the search item titles</p>
+        <p>The search keyword is: {keywordHint}</p>
+        <p>We got {this.state.searchDataLength} results.</p>
+        <h3>the result item titles</h3>
         <Results results={this.state.searchResults.searchData} />
 
         <Footer />

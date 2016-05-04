@@ -81,7 +81,9 @@ const requestSearchResult = (req, res, next) => {
           headerData: headerModelData,
         },
         SearchStore: {
+          searchKeyword: searchParsed.attributes.q,
           searchData: searchParsed.items,
+          searchDataLength: searchParsed.attributes.meta['total-results'],
         },
         completeApiUrl: searchApiUrl,
       };
@@ -99,7 +101,9 @@ const requestSearchResult = (req, res, next) => {
           headerData: [],
         },
         SearchStore: {
+          searchKeyword: '',
           searchData: undefined,
+          searchDataLength: 0,
         },
       };
 
