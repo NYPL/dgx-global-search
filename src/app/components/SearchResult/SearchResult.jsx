@@ -1,17 +1,16 @@
 import React from 'react';
 
-const SearchResult = ({ id, className, index, title, link }) =>
-  (
-    <li>
-      <a
-        id={`${id}-${index}`}
-        className={className}
-        href={link}
-      >
-        {title}
-      </a>
-    </li>
-  );
+const SearchResult = ({ id, className, index, title, link }) => (
+  <li>
+    <a
+      id={`${id}-${index}`}
+      className={className}
+      href={link}
+    >
+      {title}
+    </a>
+  </li>
+);
 
 SearchResult.propTypes = {
   id: React.PropTypes.string,
