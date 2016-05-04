@@ -27,9 +27,11 @@ class Results extends React.Component {
   }
 
   render() {
+    const results = this._getList(this.props.results);
+
     return (
       <ul id={this.props.id} className={this.props.className}>
-        {this._getList(this.props.results)}
+        {results}
       </ul>
     );
   }
