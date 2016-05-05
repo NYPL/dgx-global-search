@@ -12,10 +12,6 @@ class Results extends React.Component {
 
   // Helper functions below the render() function:
   _getList(appsArray) {
-    if (!appsArray) {
-      return 'No result found. Please make sure you enter search key words.';
-    }
-
     return _map(appsArray, (appName, index) => (
       <SearchResult
         key={index}
@@ -27,7 +23,9 @@ class Results extends React.Component {
   }
 
   render() {
-    const results = this._getList(this.props.results);
+    const results = (this.props.results) ?
+      this._getList(this.props.results) :
+      'No result found. Please make sure you enter search key words.';
 
     return (
       <ul id={this.props.id} className={this.props.className}>
