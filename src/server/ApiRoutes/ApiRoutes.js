@@ -116,7 +116,7 @@ router
   .get(requestSearchResult);
 
 router
-  .route(/^((?!\/search\/apachesolr_search[\/]).)*$/)
+  .route(/^((?!\/search\/apachesolr_search\/[^]).)*$/)
   .get(mainApp);
 
 export default router;
