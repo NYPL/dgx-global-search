@@ -41,12 +41,11 @@
   </head>
   <body>
     <div id="app"><%- application %></div>
+    <% if (isProduction) { %>
+      <script async src="/bundle.js"></script>
+    <% } else { %>
+      <script src="http://localhost:3000/bundle.js"></script>
+    <% } %>
   </body>
-
-<% if (isProduction) { %>
-  <script async src="/bundle.js"></script>
-<% } else { %>
-  <script src="http://localhost:3000/bundle.js"></script>
-<% } %>
 
 </html>

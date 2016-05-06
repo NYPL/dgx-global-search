@@ -7,11 +7,11 @@ class Results extends React.Component {
   constructor(props) {
     super(props);
 
-    this._getList = this._getList.bind(this);
+    this.getList = this.getList.bind(this);
   }
 
   // Helper functions below the render() function:
-  _getList(appsArray) {
+  getList(appsArray) {
     return _map(appsArray, (appName, index) => (
       <SearchResult
         key={index}
@@ -23,9 +23,13 @@ class Results extends React.Component {
   }
 
   render() {
-    const results = (this.props.results) ?
-      this._getList(this.props.results) :
-      'No result found. Please make sure you enter search key words.';
+    const results = this.getList(this.props.results);
+
+    if (results.length === 0) {
+      return (
+        <div>No result found.</div>
+      );
+    }
 
     return (
       <ul id={this.props.id} className={this.props.className}>
