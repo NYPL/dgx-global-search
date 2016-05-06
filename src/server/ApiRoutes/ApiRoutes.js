@@ -64,7 +64,7 @@ const mainApp = (req, res, next) => {
 const requestSearchResult = (req, res, next) => {
   const searchOptions = createOptions(searchApi);
   searchOptions.filters = {
-    q: (req.params.query) ? req.params.query : '',
+    q: req.params.searchKeyword,
   };
   const searchApiUrl = parser.getCompleteApi(searchOptions);
   const getSearchData = () => fetchApiData(searchApiUrl);
@@ -108,7 +108,7 @@ const requestSearchResult = (req, res, next) => {
 };
 
 router
-  .route('/search/apachesolr_search/:query?')
+  .route('/search/apachesolr_search/:searchKeyword?')
   .get(requestSearchResult);
 
 router
