@@ -18,9 +18,9 @@ class App extends React.Component {
       searchDataLength: Store.getState().searchDataLength,
     };
 
-    this._inputChange = this._inputChange.bind(this);
-    this._submitSearchRequest = this._submitSearchRequest.bind(this);
-    this._triggerSubmit = this._triggerSubmit.bind(this);
+    this.inputChange = this.inputChange.bind(this);
+    this.submitSearchRequest = this.submitSearchRequest.bind(this);
+    this.triggerSubmit = this.triggerSubmit.bind(this);
   }
 
   /**
@@ -33,7 +33,7 @@ class App extends React.Component {
    *
    * @param {Event} event
    */
-  _inputChange(event) {
+  inputChange(event) {
     this.setState({ searchKeyword: event.target.value });
   }
 
@@ -43,7 +43,7 @@ class App extends React.Component {
    *
    * @param {String} value
    */
-  _submitSearchRequest() {
+  submitSearchRequest() {
     const requestParameter = this.state.searchKeyword.trim();
     const requestUrl = `/search/apachesolr_search/${requestParameter}`;
     if (!requestParameter) {
@@ -60,9 +60,9 @@ class App extends React.Component {
    *
    * @param {Event} event
    */
-  _triggerSubmit(event) {
+  triggerSubmit(event) {
     if (event && event.charCode === 13) {
-      this._submitSearchRequest(null);
+      this.submitSearchRequest(null);
     }
   }
 
@@ -74,7 +74,7 @@ class App extends React.Component {
     const keywordHint = inputValue || 'No search keyword found.';
 
     return (
-      <div className="app-wrapper" onKeyPress={this._triggerSubmit}>
+      <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
         <Header />
 
         <h2>NYPL Global Search</h2>
@@ -83,9 +83,9 @@ class App extends React.Component {
           placeholder={this.state.placeholder}
           ref="keywords"
           value={inputValue}
-          onChange={this._inputChange.bind(this)}
+          onChange={this.inputChange}
         />
-        <button onClick={this._submitSearchRequest.bind(this)}>
+        <button onClick={this.submitSearchRequest}>
           SUBMIT
         </button>
         <h2>Search Results</h2>
