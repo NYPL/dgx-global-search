@@ -27,40 +27,6 @@ const fetchApiData = (url) => axios.get(url);
 
 const getHeaderData = () => fetchApiData(headerApiUrl);
 
-const mainApp = (req, res, next) => {
-  if (req.path !== '/') {
-    res.redirect('/');
-    return;
-  }
-
-  getHeaderData()
-    .then((headerData) => {
-      const headerParsed = parser.parse(headerData.data, headerOptions);
-      const headerModelData = HeaderItemModel.build(headerParsed);
-
-      res.locals.data = {
-        HeaderStore: {
-          headerData: headerModelData,
-        },
-      };
-
-      next();
-    })
-    .catch(error => {
-      console.log(`error calling API for the header: ${error}`);
-      console.log(error.data.errors[0].title);
-      console.log(`from the endpoint: ${headerApiUrl}`);
-
-      res.locals.data = {
-        HeaderStore: {
-          headerData: [],
-        },
-      };
-
-      next();
-    });
-};
-
 const requestSearchResult = (req, res, next) => {
   const searchOptions = createOptions(searchApi);
   searchOptions.filters = {
@@ -107,12 +73,50 @@ const requestSearchResult = (req, res, next) => {
     });
 };
 
+const requestEmptyResult = (req, res, next) => {
+  if (req.path !== '/search/apachesolr_search/') {
+    res.redirect('/search/apachesolr_search/');
+    return;
+  }
+
+  getHeaderData()
+    .then((headerData) => {
+      const headerParsed = parser.parse(headerData.data, headerOptions);
+      const headerModelData = HeaderItemModel.build(headerParsed);
+
+      res.locals.data = {
+        HeaderStore: {
+          headerData: headerModelData,
+        },
+      };
+
+      next();
+    })
+    .catch(error => {
+      console.log(`error calling API for the header: ${error}`);
+      console.log(error.data.errors[0].title);
+      console.log(`from the endpoint: ${headerApiUrl}`);
+
+      res.locals.data = {
+        HeaderStore: {
+          headerData: [],
+        },
+      };
+
+      next();
+    });
+};
+
 router
-  .route('/search/apachesolr_search/:searchKeyword?')
+  .route('/search/apachesolr_search/')
+  .get(requestEmptyResult);
+
+router
+  .route('/search/apachesolr_search/:searchKeyword')
   .get(requestSearchResult);
 
 router
-  .route(/^((?!\/search\/apachesolr_search\/[^]).)*$/)
-  .get(mainApp);
+  .route(/^((?!\/search\/apachesolr_search).)*$/)
+  .get(requestEmptyResult);
 
 export default router;
