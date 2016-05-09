@@ -70,15 +70,13 @@ class App extends React.Component {
   render() {
     const inputValue = (this.state.searchKeyword === '') ?
       '' : this.state.searchKeyword;
-
     const keywordHint = inputValue || 'No search keyword found.';
 
     return (
       <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
         <Header skipNav={{ target: 'app-title' }} />
-                <div style={{'height': '2500px'}}></div>
 
-        <h2 id="app-title" style={{'height': '2500px'}}>NYPL Global Search</h2>
+        <h2 id="app-title">NYPL Global Search</h2>
         <InputField
           type="text"
           placeholder={this.state.placeholder}
