@@ -75,9 +75,10 @@ class App extends React.Component {
 
     return (
       <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
-        <Header />
+        <Header skipNav={{ target: 'app-title' }} />
+                <div style={{'height': '2500px'}}></div>
 
-        <h2>NYPL Global Search</h2>
+        <h2 id="app-title" style={{'height': '2500px'}}>NYPL Global Search</h2>
         <InputField
           type="text"
           placeholder={this.state.placeholder}
