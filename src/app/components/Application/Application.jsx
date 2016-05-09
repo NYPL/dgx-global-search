@@ -48,6 +48,7 @@ class App extends React.Component {
     const requestUrl = `/search/apachesolr_search/${requestParameter}`;
     if (!requestParameter) {
       this.setState({ placeholder: 'Please enter a search term.' });
+      return;
     }
     window.location.assign(requestUrl);
   }
