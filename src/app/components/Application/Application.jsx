@@ -9,16 +9,16 @@ import InputField from '../InputField/InputField.jsx';
 // Import alt components
 import Store from '../../stores/Store.js';
 
+// Import libraries
+import { extend as _extend } from 'underscore';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      searchKeyword: Store.getState().searchKeyword,
-      placeholder: 'What would you like to find?',
-      searchResults: Store.getState(),
-      searchDataLength: Store.getState().searchDataLength,
-    };
+    this.state = _extend(Store.getState(),
+      { placeholder: 'What would you like to find?' }
+    );
 
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
@@ -70,7 +70,6 @@ class App extends React.Component {
 
   render() {
     const inputValue = this.state.searchKeyword || '';
-
     const keywordHint = inputValue || 'No search keyword found.';
 
     return (
@@ -92,7 +91,7 @@ class App extends React.Component {
         <p>The search keyword is: {keywordHint}</p>
         <p>We got {this.state.searchDataLength} results.</p>
         <h3>the result item titles</h3>
-        <Results results={this.state.searchResults.searchData} />
+        <Results results={this.state.searchData} />
 
         <Footer />
       </div>
