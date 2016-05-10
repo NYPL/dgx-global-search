@@ -26,7 +26,7 @@ class App extends React.Component {
   }
 
   /**
-   * _inputChange(event)
+   * inputChange(event)
    * Listen to the changes on keywords input field.
    * Grab the event value, and change the state.
    * The parameter indicates which input field has been changed.
@@ -40,7 +40,7 @@ class App extends React.Component {
   }
 
   /**
-   * _submitSearchRequest(value)
+   * submitSearchRequest(value)
    * Submit the search request based on the values of the input fields.
    *
    * @param {String} value
@@ -56,7 +56,7 @@ class App extends React.Component {
   }
 
   /**
-   * _triggerSubmit(event)
+   * triggerSubmit(event)
    * The fuction listens to the event of enter key.
    * Submit search request if enter is pressed.
    *
