@@ -1,9 +1,11 @@
 import React from 'react';
 
+// Import components
 import Header from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 import Results from '../Results/Results.jsx';
 
+// Import alt components
 import Store from '../../stores/Store.js';
 
 class App extends React.Component {
@@ -12,7 +14,6 @@ class App extends React.Component {
 
     this.state = Store.getState();
   }
-
 
   render() {
     return (
