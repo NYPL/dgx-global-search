@@ -46,13 +46,15 @@ class App extends React.Component {
    * @param {String} value
    */
   submitSearchRequest() {
-    const requestParameter = this.state.searchKeyword.trim();
-    const requestUrl = `/search/apachesolr_search/${requestParameter}`;
+    const requestParameter = this.state.searchKeyword.trim() || '';
+
     if (!requestParameter) {
       this.setState({ placeholder: 'Please enter a search term.' });
-      return;
+    } else {
+      const requestUrl = `/search/apachesolr_search/${requestParameter}`;
+
+      window.location.assign(requestUrl);
     }
-    window.location.assign(requestUrl);
   }
 
   /**
