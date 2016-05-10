@@ -1,10 +1,5 @@
 import React from 'react';
 
-const styles = {
-  base: {
-  },
-};
-
 class InputField extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +20,7 @@ class InputField extends React.Component {
         onClick={this.props.onClick}
         onChange={this.props.onChange}
         required={this.props.isRequired || false}
-        style={[styles.base, this.props.style]}
+        style={this.props.style}
       />
     );
   }

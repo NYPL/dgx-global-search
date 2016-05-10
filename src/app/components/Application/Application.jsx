@@ -9,16 +9,16 @@ import InputField from '../InputField/InputField.jsx';
 // Import alt components
 import Store from '../../stores/Store.js';
 
+// Import libraries
+import { extend as _extend } from 'underscore';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      searchKeyword: Store.getState().searchKeyword,
-      placeholder: 'What would you like to find?',
-      searchResults: Store.getState(),
-      searchDataLength: Store.getState().searchDataLength,
-    };
+    this.state = _extend(Store.getState(),
+      { placeholder: 'What would you like to find?' }
+    );
 
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
@@ -46,13 +46,15 @@ class App extends React.Component {
    * @param {String} value
    */
   submitSearchRequest() {
-    const requestParameter = this.state.searchKeyword.trim();
-    const requestUrl = `/search/apachesolr_search/${requestParameter}`;
+    const requestParameter = this.state.searchKeyword.trim() || '';
+
     if (!requestParameter) {
       this.setState({ placeholder: 'Please enter a search term.' });
-      return;
+    } else {
+      const requestUrl = `/search/apachesolr_search/${requestParameter}`;
+
+      window.location.assign(requestUrl);
     }
-    window.location.assign(requestUrl);
   }
 
   /**
@@ -64,13 +66,12 @@ class App extends React.Component {
    */
   triggerSubmit(event) {
     if (event && event.charCode === 13) {
-      this.submitSearchRequest(null);
+      this.submitSearchRequest();
     }
   }
 
   render() {
-    const inputValue = (this.state.searchKeyword === '') ?
-      '' : this.state.searchKeyword;
+    const inputValue = this.state.searchKeyword || '';
     const keywordHint = inputValue || 'No search keyword found.';
 
     return (
@@ -92,7 +93,7 @@ class App extends React.Component {
         <p>The search keyword is: {keywordHint}</p>
         <p>We got {this.state.searchDataLength} results.</p>
         <h3>the result item titles</h3>
-        <Results results={this.state.searchResults.searchData} />
+        <Results results={this.state.searchData} />
 
         <Footer />
       </div>
