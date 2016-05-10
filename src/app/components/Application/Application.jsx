@@ -64,7 +64,7 @@ class App extends React.Component {
    */
   triggerSubmit(event) {
     if (event && event.charCode === 13) {
-      this.submitSearchRequest(null);
+      this.submitSearchRequest();
     }
   }
 
