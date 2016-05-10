@@ -20,47 +20,21 @@ const createOptions = (apiValue) => ({
   filters: apiValue.filters,
 });
 
-const searchOptions = createOptions(searchApi);
 const headerOptions = createOptions(headerApi);
-const searchApiUrl = parser.getCompleteApi(searchOptions);
 const headerApiUrl = parser.getCompleteApi(headerOptions);
 
 const fetchApiData = (url) => axios.get(url);
 
-const getSearchData = () => fetchApiData(searchApiUrl);
-
 const getHeaderData = () => fetchApiData(headerApiUrl);
 
-const mainApp = (req, res, next) => {
-  getHeaderData()
-    .then((headerData) => {
-      const headerParsed = parser.parse(headerData.data, headerOptions);
-      const headerModelData = HeaderItemModel.build(headerParsed);
-
-      res.locals.data = {
-        HeaderStore: {
-          headerData: headerModelData,
-        },
-      };
-
-      next();
-    })
-    .catch(error => {
-      console.log(`error calling API for the header: ${error}`);
-      console.log(error.data.errors[0].title);
-      console.log(`from the endpoint: ${headerApiUrl}`);
-
-      res.locals.data = {
-        HeaderStore: {
-          headerData: [],
-        },
-      };
-
-      next();
-    });
-};
-
 const requestSearchResult = (req, res, next) => {
+  const searchOptions = createOptions(searchApi);
+  searchOptions.filters = {
+    q: req.params.searchKeyword,
+  };
+  const searchApiUrl = parser.getCompleteApi(searchOptions);
+  const getSearchData = () => fetchApiData(searchApiUrl);
+
   axios.all([getSearchData(), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
@@ -99,12 +73,53 @@ const requestSearchResult = (req, res, next) => {
     });
 };
 
-router
-  .route('/')
-  .get(mainApp);
+const requestEmptyResult = (req, res, next) => {
+  if (req.path !== '/search/apachesolr_search/') {
+    res.redirect('/search/apachesolr_search/');
+    return;
+  }
 
+  getHeaderData()
+    .then((headerData) => {
+      const headerParsed = parser.parse(headerData.data, headerOptions);
+      const headerModelData = HeaderItemModel.build(headerParsed);
+
+      res.locals.data = {
+        HeaderStore: {
+          headerData: headerModelData,
+        },
+      };
+
+      next();
+    })
+    .catch(error => {
+      console.log(`error calling API for the header: ${error}`);
+      console.log(error.data.errors[0].title);
+      console.log(`from the endpoint: ${headerApiUrl}`);
+
+      res.locals.data = {
+        HeaderStore: {
+          headerData: [],
+        },
+      };
+
+      next();
+    });
+};
+
+// The route with valid pattern but no keyword will show no result
 router
-  .route('/search/apachesolr_search/:query')
+  .route('/search/apachesolr_search/')
+  .get(requestEmptyResult);
+
+// The route with valid pattern and the keyword will request the search results
+router
+  .route('/search/apachesolr_search/:searchKeyword')
   .get(requestSearchResult);
+
+// All the other router will show no result
+router
+  .route(/^((?!\/search\/apachesolr_search).)*$/)
+  .get(requestEmptyResult);
 
 export default router;
