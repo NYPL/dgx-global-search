@@ -68,7 +68,7 @@ const requestSearchResult = (req, res, next) => {
         },
         SearchStore: {
           searchKeyword: '',
-          searchData: undefined,
+          searchData: [],
           searchDataLength: 0,
         },
       };
