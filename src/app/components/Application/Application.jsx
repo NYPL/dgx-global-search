@@ -69,8 +69,7 @@ class App extends React.Component {
   }
 
   render() {
-    const inputValue = (this.state.searchKeyword === '') ?
-      '' : this.state.searchKeyword;
+    const inputValue = this.state.searchKeyword || '';
 
     const keywordHint = inputValue || 'No search keyword found.';
 
