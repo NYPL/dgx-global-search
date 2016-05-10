@@ -111,14 +111,17 @@ const requestEmptyResult = (req, res, next) => {
     });
 };
 
+// The route with valid pattern but no keyword will show no result
 router
   .route('/search/apachesolr_search/')
   .get(requestEmptyResult);
 
+// The route with valid pattern and the keyword will request the search results
 router
   .route('/search/apachesolr_search/:searchKeyword')
   .get(requestSearchResult);
 
+// All the other router will show no result
 router
   .route(/^((?!\/search\/apachesolr_search).)*$/)
   .get(requestEmptyResult);

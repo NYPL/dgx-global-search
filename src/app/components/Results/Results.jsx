@@ -1,6 +1,9 @@
 import React from 'react';
+
+// Import components
 import SearchResult from '../SearchResult/SearchResult.jsx';
 
+// Import libraries
 import { map as _map } from 'underscore';
 
 class Results extends React.Component {
@@ -10,7 +13,6 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
   }
 
-  // Helper functions below the render() function:
   getList(appsArray) {
     return _map(appsArray, (appName, index) => (
       <SearchResult
@@ -25,6 +27,7 @@ class Results extends React.Component {
   render() {
     const results = this.getList(this.props.results);
 
+    // Message if no result found
     if (results.length === 0) {
       return (
         <div>No result found.</div>
