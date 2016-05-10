@@ -1,10 +1,5 @@
 import React from 'react';
 
-const styles = {
-  base: {
-  },
-};
-
 class InputField extends React.Component {
   constructor(props) {
     super(props);
