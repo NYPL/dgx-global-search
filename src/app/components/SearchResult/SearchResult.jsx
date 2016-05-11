@@ -1,13 +1,22 @@
 import React from 'react';
 
-const SearchResult = ({ id, className, index, title, link }) => (
+const SearchResult = ({
+  id,
+  className,
+  index,
+  title,
+  link,
+  snippet,
+  thumbnailSrc
+}) => (
   <li>
     <a
       id={`${id}-${index}`}
       className={className}
       href={link}
     >
-      {title}
+      <h3>{title}</h3>
+      <p>{snippet}</p>
     </a>
   </li>
 );

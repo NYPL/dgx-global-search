@@ -78,7 +78,7 @@ class App extends React.Component {
       <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
         <Header skipNav={{ target: 'maincontent' }} />
 
-        <div id="maincontent" tabindex="-1">
+        <div id="maincontent" tabIndex="-1">
           <h2>NYPL Global Search</h2>
           <InputField
             type="text"

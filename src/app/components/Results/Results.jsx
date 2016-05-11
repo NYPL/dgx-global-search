@@ -20,6 +20,8 @@ class Results extends React.Component {
         index={index}
         title={appName.attributes.title}
         link={appName.attributes.link}
+        snippet={appName.attributes.snippet}
+        thumbnailSrc={appName.pagemap.cse_image.src}
       />
     ));
   }
