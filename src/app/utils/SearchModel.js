@@ -3,7 +3,11 @@ const fetchResultLength = (data) => {
 }
 
 const fetchResultItem = (data) => {
-  return data.items;
+  if (!data.item) {
+    return [];
+  }
+
+  return data.item;
 }
 
 const fetchSearchKeyword = (data) => {
