@@ -1,17 +1,13 @@
-const fetchResultLength = (data) => {
-  return data.attributes.meta['total-results'];
-}
+const fetchResultLength = (data) => data.attributes.meta['total-results'];
 
 const fetchResultItem = (data) => {
-  if (!data.item) {
+  if (!data.items) {
     return [];
   }
 
-  return data.item;
-}
+  return data.items;
+};
 
-const fetchSearchKeyword = (data) => {
-  return data.attributes.q;
-}
+const fetchSearchKeyword = (data) => data.attributes.q;
 
-export { fetchResultLength, fetchResultItem, fetchSearchKeyword};
+export { fetchResultLength, fetchResultItem, fetchSearchKeyword };

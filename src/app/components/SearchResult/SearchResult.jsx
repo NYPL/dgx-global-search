@@ -7,7 +7,7 @@ const SearchResult = ({
   title,
   link,
   snippet,
-  thumbnailSrc
+  thumbnailSrc,
 }) => (
   <li>
     <a
@@ -15,9 +15,10 @@ const SearchResult = ({
       className={className}
       href={link}
     >
+      <img src={thumbnailSrc} alt={title} style={{ height: '200px' }} />
       <h3>{title}</h3>
-      <p>{snippet}</p>
     </a>
+    <p>{snippet}</p>
   </li>
 );
 
@@ -27,6 +28,8 @@ SearchResult.propTypes = {
   index: React.PropTypes.number,
   title: React.PropTypes.string,
   link: React.PropTypes.string,
+  snippet: React.PropTypes.string,
+  thumbnailSrc: React.PropTypes.string,
 };
 
 SearchResult.defaultProps = {

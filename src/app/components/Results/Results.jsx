@@ -21,7 +21,7 @@ class Results extends React.Component {
         title={appName.attributes.title}
         link={appName.attributes.link}
         snippet={appName.attributes.snippet}
-        thumbnailSrc={appName.pagemap.cse_image.src}
+        thumbnailSrc={appName.attributes.pagemap.cse_image[0].src}
       />
     ));
   }
