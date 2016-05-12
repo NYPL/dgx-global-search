@@ -5,7 +5,7 @@ import parser from 'jsonapi-parserinator';
 import Model from 'dgx-model-data';
 import {
   fetchResultLength,
-  fetchResultItem,
+  fetchResultItems,
   fetchSearchKeyword,
 } from '../../app/utils/SearchModel.js';
 
@@ -53,7 +53,7 @@ const requestSearchResult = (req, res, next) => {
         },
         SearchStore: {
           searchKeyword: fetchSearchKeyword(searchParsed),
-          searchData: fetchResultItem(searchParsed),
+          searchData: fetchResultItems(searchParsed),
           searchDataLength: fetchResultLength(searchParsed),
         },
         completeApiUrl: searchApiUrl,
