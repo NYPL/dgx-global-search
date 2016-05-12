@@ -1,34 +1,48 @@
 // Import libraries
 import { map as _map } from 'underscore';
 
+/**
+ * fetchResultLength(data)
+ * The function gets the total search result number.
+ *
+ * @param {Object} item
+ * @return {String}
+ */
 const fetchResultLength = (data) => data.attributes.meta['total-results'];
 
+/**
+ * fetchItemThumbnailSrc(item)
+ * The function gets thumbnail image src from an result item.
+ *
+ * @param {Object} item
+ * @return {String}
+ */
 const fetchSearchKeyword = (data) => data.attributes.q;
 
-const fetchItemTitle = (item) => {
-  if (!item.attributes.title) {
+/**
+ * fetchItemFeature(item, string)
+ * The function gets features from an result item.
+ * The second argument indicates which feature it is going to get.
+ *
+ * @param {Object} item
+ * @param {String} feature
+ * @return {String}
+ */
+const fetchItemFeature = (item, feature) => {
+  if (!item.attributes[feature]) {
     return '';
   }
 
-  return item.attributes.title;
+  return item.attributes[feature];
 };
 
-const fetchItemLink = (item) => {
-  if (!item.attributes.link) {
-    return '';
-  }
-
-  return item.attributes.link;
-};
-
-const fetchItemSnippet = (item) => {
-  if (!item.attributes.snippet) {
-    return '';
-  }
-
-  return item.attributes.snippet;
-};
-
+/**
+ * fetchItemThumbnailSrc(item)
+ * The function gets thumbnail image src from an result item.
+ *
+ * @param {Object} item
+ * @return {String}
+ */
 const fetchItemThumbnailSrc = (item) => {
   if (!item.attributes.pagemap.cse_image[0].src) {
     return '';
@@ -37,7 +51,15 @@ const fetchItemThumbnailSrc = (item) => {
   return item.attributes.pagemap.cse_image[0].src;
 };
 
-const fetchItemFeature = (item) => {
+/**
+ * fetchItem(item)
+ * The function gets each search result with its features.
+ * It returns an object.
+ *
+ * @param {Object} item
+ * @return {Object}
+ */
+const fetchItem = (item) => {
   if (!item || !item.attributes) {
     return {
       title: '',
@@ -48,13 +70,21 @@ const fetchItemFeature = (item) => {
   }
 
   return {
-    title: fetchItemTitle(item),
-    link: fetchItemLink(item),
-    snippet: fetchItemSnippet(item),
+    title: fetchItemFeature(item, 'title'),
+    link: fetchItemFeature(item, 'link'),
+    snippet: fetchItemFeature(item, 'snippet'),
     thumbnailSrc: fetchItemThumbnailSrc(item),
-  }
-}
+  };
+};
 
+/**
+ * fetchResultItems(data)
+ * The function gets search results.
+ * It returns an array with each item inside.
+ *
+ * @param {Array} data
+ * @return {Array}
+ */
 const fetchResultItems = (data) => {
   if (!data.items) {
     return [];
@@ -62,9 +92,9 @@ const fetchResultItems = (data) => {
 
   const resultItems = [];
 
-  return _map(data.items, (item, index) => {
-    return resultItems[index] = fetchItemFeature(item);
-  });
+  return _map(data.items, (item, index) =>
+    (resultItems[index] = fetchItem(item))
+  );
 };
 
 export { fetchResultLength, fetchResultItems, fetchSearchKeyword };
