@@ -3,6 +3,11 @@ import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 
 import Model from 'dgx-model-data';
+import {
+  fetchResultLength,
+  fetchResultItems,
+  fetchSearchKeyword,
+} from '../../app/utils/SearchModel.js';
 
 import appConfig from '../../../appConfig.js';
 
@@ -47,9 +52,9 @@ const requestSearchResult = (req, res, next) => {
           headerData: headerModelData,
         },
         SearchStore: {
-          searchKeyword: searchParsed.attributes.q,
-          searchData: searchParsed.items,
-          searchDataLength: searchParsed.attributes.meta['total-results'],
+          searchKeyword: fetchSearchKeyword(searchParsed),
+          searchData: fetchResultItems(searchParsed),
+          searchDataLength: fetchResultLength(searchParsed),
         },
         completeApiUrl: searchApiUrl,
       };
