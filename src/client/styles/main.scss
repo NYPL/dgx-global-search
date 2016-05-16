@@ -1,4 +1,10 @@
 /*
+Import utils and fonts
+*/
+@import 'utils/colors';
+@import "utils/fonts";
+
+/*
 Import style rules from NYPL React module components
 */
 @import "~dgx-header-component/dist/styles/main";
@@ -6,4 +12,25 @@ Import style rules from NYPL React module components
 
 #app {
   margin: 0;
+}
+
+.maincontent {
+  margin: 0 14px;
+  padding: 19px 0 0 0;
+
+  h2 {
+    @include Kievit-Medium;
+
+    color: $PRIMARY_COLOR;
+    font-size: 18px;
+    line-height: 21px;
+    margin: 0;
+
+    span {
+      &:last-child {
+        font-size: 12px;
+        vertical-align: 12px;
+      }
+    }
+  }
 }

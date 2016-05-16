@@ -1,0 +1,117 @@
+//@import url('//fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700');
+
+$FONT_PATH: '//ux-static.nypl.org';
+
+$SECONDARY_FONT_KIEVIT: 'Helvetica';
+$THIRD_FONT_KIEVIT: 'arial';
+$FOURTH_FONT_KIEVIT: 'sans-serif';
+
+$SECONDARY_FONT_MILO: 'serif';
+
+/* FONT FACE MIXIN
+ * ---------------
+ * Usage: @include font-face('Kievit-Regular', 'http://...');
+ * Desc: Do not include the font file extension, this mixin
+ * will generate the proper extensions.
+*/
+@mixin font-face($font-family, $file-path) {
+  @font-face {
+    font-family: $font-family;
+    src: url('#{$file-path}.eot');
+    src: url('#{$file-path}.eot?#iefix') format('embedded-opentype'),
+      url('#{$file-path}.woff') format('woff'),
+      url('#{$file-path}.ttf') format('truetype');
+  }
+}
+
+/* FONT DEFINITIONS
+ * ---------------------------
+*/
+/* KIEVIT */
+//@include font-face(Kievit-Regular, '#{$FONT_PATH}/ff_kievit_web/KievitWeb');
+// * Kievit Thin * /
+//@include font-face(Kievit-Thin, '#{$FONT_PATH}/ff_kievit_web/KievitWeb-Thin');
+/* Kievit Light */
+@include font-face(Kievit-Light, '#{$FONT_PATH}/ff_kievit_web/KievitWeb-Light');
+/* Kievit Book */
+@include font-face(Kievit-Book, '#{$FONT_PATH}/ff_kievit_web/KievitWeb-Book');
+/* Kievit Book Italic */
+@include font-face(Kievit-Book-Italic, '#{$FONT_PATH}/ff_kievit_web/KievitWeb-BookIta');
+/* Kievit Medium */
+@include font-face(Kievit-Medium, '#{$FONT_PATH}/ff_kievit_web/KievitWeb-Medi');
+/* Kievit Meduim Italic */
+@include font-face(Kievit-Medium-Italic, '#{$FONT_PATH}/ff_kievit_web/KievitWeb-MediIta');
+/* Kievit Bold */
+@include font-face(Kievit-Bold, '#{$FONT_PATH}/ff_kievit_web/KievitWeb-Bold');
+/* KIEVIT Small Caps */
+//@include font-face(Kievit-SC, '#{$FONT_PATH}/ff_kievit_web/KievitScWeb');
+
+/* MILO */
+/* Milo Slab Light */
+@include font-face(Milo-Light, '#{$FONT_PATH}/milo-web/milo-slab-pro-light/MiloSlabWebPro-Light');
+/* Milo Slab Light Italic */
+@include font-face(Milo-Light-Italic, '#{$FONT_PATH}/milo-web/milo-slab-pro-light-italic/MiloSlabWebPro-LightItalic');
+/* Milo Slab Regular */
+@include font-face(Milo-Regular, '#{$FONT_PATH}/milo-web/milo-slab-pro-regular/MiloSlabWebPro');
+/* Milo Slab Regular Italic */
+@include font-face(Milo-Regular-Italic, '#{$FONT_PATH}/milo-web/milo-slab-pro-regular-italic/MiloSlabWebPro-Italic');
+/* Milo Slab Medium  */
+@include font-face(Milo-Medium, '#{$FONT_PATH}/milo-web/milo-slab-pro-medium/MiloSlabWebPro-Medium');
+
+/* KIEVIT INCLUDES */
+@mixin Kievit-Light {
+  font-family: 'Kievit-Light', $SECONDARY_FONT_KIEVIT, $THIRD_FONT_KIEVIT;
+}
+
+@mixin Kievit-Book {
+  font-family: 'Kievit-Book', $SECONDARY_FONT_KIEVIT, $THIRD_FONT_KIEVIT;
+}
+
+@mixin Kievit-Book-Italic {
+  font-family: 'Kievit-Book-Italic', $SECONDARY_FONT_KIEVIT, $THIRD_FONT_KIEVIT;
+}
+
+//@mixin Kievit-Regular {
+//  font-family: 'Kievit-Regular', $SECONDARY_FONT_KIEVIT, $THIRD_FONT_KIEVIT;
+//}
+
+@mixin Kievit-Medium {
+  font-family: 'Kievit-Medium', $SECONDARY_FONT_KIEVIT, $THIRD_FONT_KIEVIT;
+}
+
+@mixin Kievit-Medium-Italic {
+  font-family: 'Kievit-Medium-Italic', $SECONDARY_FONT_KIEVIT, $THIRD_FONT_KIEVIT;
+}
+
+@mixin Kievit-Bold {
+  font-family: 'Kievit-Bold', $SECONDARY_FONT_KIEVIT, $THIRD_FONT_KIEVIT;
+}
+
+//@mixin Kievit-Thin {
+//  font-family: 'Kievit-Thin', $SECONDARY_FONT_KIEVIT, $THIRD_FONT_KIEVIT;
+//}
+
+//@mixin Kievit-SC {
+//  font-family: 'Kievit-SC', $SECONDARY_FONT_KIEVIT, $THIRD_FONT_KIEVIT;
+//}
+
+/* MILO INCLUDES */
+@mixin Milo-Regular {
+  font-family: 'Milo-Regular', $SECONDARY_FONT_MILO;
+}
+
+@mixin Milo-Regular-Italic {
+  font-family: 'Milo-Regular-Italic', $SECONDARY_FONT_MILO;
+}
+
+@mixin Milo-Light {
+  font-family: 'Milo-Light', $SECONDARY_FONT_MILO;
+}
+
+@mixin Milo-Light-Italic {
+  font-family: 'Milo-Light-Italic', $SECONDARY_FONT_MILO;
+}
+
+@mixin Milo-Medium {
+  font-family: 'Milo-Medium', $SECONDARY_FONT_MILO;
+}
