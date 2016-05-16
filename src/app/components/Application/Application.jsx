@@ -5,6 +5,7 @@ import Header from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
+import HintBlock from '../HintBlock/HintBlock.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -17,7 +18,7 @@ class App extends React.Component {
     super(props);
 
     this.state = _extend(Store.getState(),
-      { placeholder: 'What would you like to find?' }
+      { placeholder: 'Enter Search Terms' }
     );
 
     this.inputChange = this.inputChange.bind(this);
@@ -59,7 +60,7 @@ class App extends React.Component {
 
   /**
    * triggerSubmit(event)
-   * The fuction listens to the event of enter key.
+   * The function listens to the event of enter key.
    * Submit search request if enter is pressed.
    *
    * @param {Event} event
@@ -73,28 +74,41 @@ class App extends React.Component {
   render() {
     const inputValue = this.state.searchKeyword || '';
     const keywordHint = inputValue || 'No search keyword found.';
+    const thankYouMessage = 'Thank you for beta testing the new NYPL Search. Please give us your ' +
+      'feedback to help make it even better.';
 
     return (
       <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
         <Header skipNav={{ target: 'maincontent' }} />
 
-        <div id="maincontent" tabIndex="-1">
-          <h2>NYPL Global Search</h2>
-          <InputField
-            type="text"
-            placeholder={this.state.placeholder}
-            ref="keywords"
-            value={inputValue}
-            onChange={this.inputChange}
-          />
-          <button onClick={this.submitSearchRequest}>
-            SUBMIT
-          </button>
-          <h2>Search Results</h2>
-          <p>The search keyword is: {keywordHint}</p>
-          <p>We got {this.state.searchDataLength} results.</p>
-          <h3>the result item titles</h3>
-          <Results results={this.state.searchData} />
+        <div id="maincontent" className="maincontent" tabIndex="-1">
+          <h2>NYPL Search <span>BETA</span></h2>
+          <HintBlock className="hintblock" message={thankYouMessage} />
+          <div className="inputWrapper">
+            <InputField
+              className="inputField"
+              type="text"
+              placeholder={this.state.placeholder}
+              ref="keywords"
+              value={inputValue}
+              onChange={this.inputChange}
+            />
+          </div>
+          <div className="searchButtonWrapper">
+            <div className="searchButton" onClick={this.submitSearchRequest}>
+              SEARCH
+            </div>
+          </div>
+          <div className="filterWrapper">
+            <p>Filter your search:</p>
+          </div>
+          <div className="resultWrapper">
+            <h2>Search Results</h2>
+            <p>The search keyword is: {keywordHint}</p>
+            <p>We got {this.state.searchDataLength} results.</p>
+            <h3>the result item titles</h3>
+            <Results results={this.state.searchData} />
+          </div>
         </div>
 
         <Footer />
