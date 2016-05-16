@@ -15,8 +15,6 @@ Import style rules from NYPL React module components
 }
 
 .maincontent {
-  margin: 0 14px;
-  padding: 19px 0 0 0;
 
   h2 {
     @include Kievit-Medium;
@@ -24,7 +22,7 @@ Import style rules from NYPL React module components
     color: $PRIMARY_COLOR;
     font-size: 18px;
     line-height: 21px;
-    margin: 0;
+    margin: 19px 14px 0 14px;
 
     span {
       &:last-child {
@@ -33,4 +31,12 @@ Import style rules from NYPL React module components
       }
     }
   }
+}
+
+.hintblock {
+  @include Kievit-Medium;
+  background-color: $HINTBLOCK_YELLOW_COLOR;
+  font-size: 16px;
+  line-height: 21px;
+  padding: 14px 14px 17px 14px;
 }

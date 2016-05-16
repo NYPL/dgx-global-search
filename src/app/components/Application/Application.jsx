@@ -74,7 +74,7 @@ class App extends React.Component {
   render() {
     const inputValue = this.state.searchKeyword || '';
     const keywordHint = inputValue || 'No search keyword found.';
-    const thankYouMessage = 'Thank you for beta testing the new NYPL Search. Please give us your' +
+    const thankYouMessage = 'Thank you for beta testing the new NYPL Search. Please give us your ' +
       'feedback to help make it even better.';
 
     return (
@@ -83,7 +83,7 @@ class App extends React.Component {
 
         <div id="maincontent" className="maincontent" tabIndex="-1">
           <h2>NYPL Search <span>BETA</span></h2>
-          <HintBlock message={thankYouMessage} />
+          <HintBlock className="hintblock" message={thankYouMessage} />
           <InputField
             type="text"
             placeholder={this.state.placeholder}
