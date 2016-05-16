@@ -18,7 +18,7 @@ class App extends React.Component {
     super(props);
 
     this.state = _extend(Store.getState(),
-      { placeholder: 'What would you like to find?' }
+      { placeholder: 'Enter Search Terms' }
     );
 
     this.inputChange = this.inputChange.bind(this);
