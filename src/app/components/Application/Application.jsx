@@ -94,10 +94,10 @@ class App extends React.Component {
               onChange={this.inputChange}
             />
           </div>
-          <div>
-            <button onClick={this.submitSearchRequest}>
-              SUBMIT
-            </button>
+          <div className="searchWrapper">
+            <div className="searchButton" onClick={this.submitSearchRequest}>
+              SEARCH
+            </div>
           </div>
           <h2>Search Results</h2>
           <p>The search keyword is: {keywordHint}</p>

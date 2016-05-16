@@ -44,6 +44,8 @@ Import style rules from NYPL React module components
   }
 
   .hintblock {
+    @include Kievit-Medium;
+
     background-color: $HINTBLOCK_YELLOW_COLOR;
     color: #333;
     font-size: 16px;
@@ -63,10 +65,10 @@ Import style rules from NYPL React module components
 
   .inputWrapper {
     padding: 0 14px;
+    margin: 0 0 22px 0;
   }
 
   .inputField {
-    @include grid-span(3, 1);
 
     border: 2px solid #665C52;
     border-radius: 3px;
@@ -76,7 +78,24 @@ Import style rules from NYPL React module components
     font-size: 18px;
     font-style: italic;
     line-height: 16px;
-    margin: 0 0 18px 0;
     padding: 16px 17px;
+    width: 100%;
+  }
+
+  .searchWrapper {
+    padding: 0 14px;
+    margin: 0 0 15px 0;
+  }
+  .searchButton {
+    @include Kievit-Medium;
+
+    background-color: $SEARCH_BLUE;
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: #FFF;
+    font-size: 16px;
+    line-height: 16px;
+    padding: 20px;
+    text-align: center;
   }
 }
