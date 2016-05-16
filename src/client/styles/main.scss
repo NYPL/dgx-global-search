@@ -44,12 +44,11 @@ Import style rules from NYPL React module components
   }
 
   .hintblock {
-    @include Kievit-Medium;
-
     background-color: $HINTBLOCK_YELLOW_COLOR;
+    color: #333;
     font-size: 16px;
     line-height: 21px;
-    margin: 0;
+    margin: 0 0 18px 0;
     padding: 14px 14px 17px;
 
     p {
@@ -61,5 +60,20 @@ Import style rules from NYPL React module components
     .closeButton {
       float: right;
     }
+  }
+
+  .inputWrapper {
+    margin: 0 0 18px 0;
+    padding: 0 14px 0 14px;
+  }
+
+  .inputField {
+    border: 2px solid #665C52;
+    border-radius: 3px;
+    color: #665C52;
+    font-size: 18px;
+    font-style: italic;
+    line-height: 16px;
+    padding: 15px 83px 16px 17px;
   }
 }

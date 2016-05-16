@@ -84,16 +84,21 @@ class App extends React.Component {
         <div id="maincontent" className="maincontent" tabIndex="-1">
           <h2>NYPL Search <span>BETA</span></h2>
           <HintBlock className="hintblock" message={thankYouMessage} />
-          <InputField
-            type="text"
-            placeholder={this.state.placeholder}
-            ref="keywords"
-            value={inputValue}
-            onChange={this.inputChange}
-          />
-          <button onClick={this.submitSearchRequest}>
-            SUBMIT
-          </button>
+          <div className="inputWrapper">
+            <InputField
+              className="inputField"
+              type="text"
+              placeholder={this.state.placeholder}
+              ref="keywords"
+              value={inputValue}
+              onChange={this.inputChange}
+            />
+          </div>
+          <div>
+            <button onClick={this.submitSearchRequest}>
+              SUBMIT
+            </button>
+          </div>
           <h2>Search Results</h2>
           <p>The search keyword is: {keywordHint}</p>
           <p>We got {this.state.searchDataLength} results.</p>
