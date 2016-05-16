@@ -37,21 +37,6 @@ const fetchItemFeature = (item, feature) => {
 };
 
 /**
- * fetchItemThumbnailSrc(item)
- * The function gets thumbnail image src from an result item.
- *
- * @param {Object} item
- * @return {String}
- */
-const fetchItemThumbnailSrc = (item) => {
-  if (!item.attributes.pagemap.cse_image[0].src) {
-    return '';
-  }
-
-  return item.attributes.pagemap.cse_image[0].src;
-};
-
-/**
  * fetchItem(item)
  * The function gets each search result with its features.
  * It returns an object.
@@ -73,7 +58,7 @@ const fetchItem = (item) => {
     title: fetchItemFeature(item, 'title'),
     link: fetchItemFeature(item, 'link'),
     snippet: fetchItemFeature(item, 'snippet'),
-    thumbnailSrc: fetchItemThumbnailSrc(item),
+    thumbnailSrc: fetchItemFeature(item, 'thumbnail-url'),
   };
 };
 
