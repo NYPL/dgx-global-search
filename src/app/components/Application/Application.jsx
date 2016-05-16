@@ -99,11 +99,15 @@ class App extends React.Component {
               SEARCH
             </div>
           </div>
-          <h2>Search Results</h2>
-          <p>The search keyword is: {keywordHint}</p>
-          <p>We got {this.state.searchDataLength} results.</p>
-          <h3>the result item titles</h3>
-          <Results results={this.state.searchData} />
+          <div className="filterWrapper">
+          </div>
+          <div className="resultWrapper">
+            <h2>Search Results</h2>
+            <p>The search keyword is: {keywordHint}</p>
+            <p>We got {this.state.searchDataLength} results.</p>
+            <h3>the result item titles</h3>
+            <Results results={this.state.searchData} />
+          </div>
         </div>
 
         <Footer />
