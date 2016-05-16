@@ -16,6 +16,14 @@ Import style rules from NYPL React module components
 @import "~dgx-header-component/dist/styles/main";
 @import '~dgx-react-footer/dist/styles/styles';
 
+/*
+Import style rules from App components
+*/
+@import "components/_Hintblock";
+@import "components/_InputField";
+@import "components/_SearchButton";
+@import "components/_Result";
+
 #app {
   margin: 0;
   padding: 0;
@@ -41,65 +49,5 @@ Import style rules from NYPL React module components
         vertical-align: 12px;
       }
     }
-  }
-
-  .hintblock {
-    @include Kievit-Medium;
-
-    background-color: $HINTBLOCK_YELLOW_COLOR;
-    color: #333;
-    font-size: 16px;
-    line-height: 21px;
-    margin: 0 0 18px 0;
-    padding: 14px 14px 17px;
-
-    p {
-      margin: 0;
-      padding: 0 52px 0 0;
-    }
-
-    .closeButton {
-      float: right;
-    }
-  }
-
-  .inputWrapper {
-    padding: 0 14px;
-    margin: 0 0 22px 0;
-  }
-
-  .inputField {
-
-    border: 2px solid #665C52;
-    border-radius: 3px;
-    box-sizing: border-box;
-    
-    color: #665C52;
-    font-size: 18px;
-    font-style: italic;
-    line-height: 16px;
-    padding: 16px 17px;
-    width: 100%;
-  }
-
-  .searchWrapper {
-    padding: 0 14px;
-    margin: 0 0 15px 0;
-  }
-  .searchButton {
-    @include Kievit-Medium;
-
-    background-color: $SEARCH_BLUE;
-    border-radius: 6px;
-    box-sizing: border-box;
-    color: #FFF;
-    font-size: 16px;
-    line-height: 16px;
-    padding: 20px;
-    text-align: center;
-  }
-
-  .resultWrapper {
-    display: none;
   }
 }

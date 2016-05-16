@@ -1,0 +1,17 @@
+.searchButtonWrapper {
+  padding: 0 14px;
+  margin: 0 0 15px 0;
+}
+.searchButton {
+  @include Kievit-Medium;
+
+  background-color: $SEARCH_BLUE;
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #FFF;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 20px;
+  text-align: center;
+}
