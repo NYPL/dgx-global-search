@@ -2,7 +2,7 @@ import React from 'react';
 
 const HintBlock = ({className, message}) => (
   <div className={className}>
-    <div>X</div>
+    <div className="closeButton">X</div>
     <p>{message}</p>
   </div>
 );
