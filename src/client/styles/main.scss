@@ -56,24 +56,27 @@ Import style rules from NYPL React module components
       padding: 0 52px 0 0;
     }
 
-
     .closeButton {
       float: right;
     }
   }
 
   .inputWrapper {
-    margin: 0 0 18px 0;
-    padding: 0 14px 0 14px;
+    padding: 0 14px;
   }
 
   .inputField {
+    @include grid-span(3, 1);
+
     border: 2px solid #665C52;
     border-radius: 3px;
+    box-sizing: border-box;
+    
     color: #665C52;
     font-size: 18px;
     font-style: italic;
     line-height: 16px;
-    padding: 15px 83px 16px 17px;
+    margin: 0 0 18px 0;
+    padding: 16px 17px;
   }
 }
