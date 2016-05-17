@@ -37,9 +37,12 @@ class Results extends React.Component {
     }
 
     return (
-      <ul id={this.props.id} className={this.props.className}>
-        {results}
-      </ul>
+      <div className="resultWrapper">
+        <p>We got {this.props.amount} results.</p>
+        <ul id={this.props.id} className={this.props.className}>
+          {results}
+        </ul>
+      </div>
     );
   }
 }
