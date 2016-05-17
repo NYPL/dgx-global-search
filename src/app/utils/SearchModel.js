@@ -9,11 +9,20 @@ import { map as _map } from 'underscore';
  * @return {String}
  */
 const fetchResultLength = (data) => {
-  if (!data.attributes || !data.attributes.meta || data.attributes.meta['total-results']) {
+  try {
+    const {
+      attributes: {
+        meta: {
+          'total-results': totalResults = 0,
+        },
+      },
+    } = data;
+
+    return totalResults;
+  } catch (e) {
+    console.log(e);
     return 0;
   }
-
-  return data.attributes.meta['total-results'];
 };
 
 /**
@@ -24,12 +33,20 @@ const fetchResultLength = (data) => {
  * @return {String}
  */
 const fetchSearchKeyword = (data) => {
-  if (!data.attributes || !data.attributes.q) {
-    return 0;
-  }
+  try {
+    const {
+      attributes: {
+        q = '',
+      },
+    } = data;
 
-  data.attributes.q;
-}
+    return q;
+
+  } catch (e) {
+    console.log(e);
+    return '';
+  }
+};
 
 /**
  * fetchItemFeature(item, string)
