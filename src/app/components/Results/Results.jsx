@@ -32,7 +32,7 @@ class Results extends React.Component {
     // Message if no result found
     if (results.length === 0) {
       return (
-        <div>No result found.</div>
+        <p className='noResultMessage'>No items were found.</p>
       );
     }
 

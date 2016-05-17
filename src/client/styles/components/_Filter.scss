@@ -1,0 +1,12 @@
+.filterWrapper {
+  @include Kievit-Medium;
+
+  color: #837E77;
+  padding: 0 14px;
+  text-align: right;
+
+  p {
+    font-size: 16px;
+    line-height: 21px;
+  }
+}

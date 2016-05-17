@@ -103,7 +103,6 @@ class App extends React.Component {
             <p>Filter your search:</p>
           </div>
           <div className="resultWrapper">
-            <h2>Search Results</h2>
             <p>The search keyword is: {keywordHint}</p>
             <p>We got {this.state.searchDataLength} results.</p>
             <h3>the result item titles</h3>
