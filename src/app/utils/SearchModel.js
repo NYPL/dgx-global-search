@@ -101,13 +101,11 @@ const fetchItem = (item) => {
  * @return {Array}
  */
 const fetchResultItems = (data) => {
-  if (!data || !data.items) {
+  try {
+    return _map(data.items, (item) => (fetchItem(item)));
+  } catch (e) {
     return [];
   }
-
-  return _map(data.items, (item) =>
-    (fetchItem(item))
-  );
 };
 
 export { fetchResultLength, fetchResultItems, fetchSearchKeyword };
