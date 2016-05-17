@@ -77,8 +77,8 @@ const fetchResultItems = (data) => {
 
   const resultItems = [];
 
-  return _map(data.items, (item, index) =>
-    (resultItems[index] = fetchItem(item))
+  return _map(data.items, (item) =>
+    (fetchItem(item))
   );
 };
 
