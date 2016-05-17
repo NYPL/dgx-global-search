@@ -6,7 +6,7 @@ import { map as _map } from 'underscore';
  * The function gets the total search result number.
  *
  * @param {Object} item
- * @return {String}
+ * @return {Num}
  */
 const fetchResultLength = (data) => {
   try {
