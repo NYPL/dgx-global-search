@@ -8,7 +8,22 @@ import { map as _map } from 'underscore';
  * @param {Object} item
  * @return {String}
  */
-const fetchResultLength = (data) => data.attributes.meta['total-results'];
+const fetchResultLength = (data) => {
+  try {
+    const {
+      attributes: {
+        meta: {
+          'total-results': totalResults = 0,
+        },
+      },
+    } = data;
+
+    return totalResults;
+  } catch (e) {
+    console.log(e);
+    return 0;
+  }
+};
 
 /**
  * fetchItemThumbnailSrc(item)
@@ -17,7 +32,20 @@ const fetchResultLength = (data) => data.attributes.meta['total-results'];
  * @param {Object} item
  * @return {String}
  */
-const fetchSearchKeyword = (data) => data.attributes.q;
+const fetchSearchKeyword = (data) => {
+  try {
+    const {
+      attributes: {
+        q = '',
+      },
+    } = data;
+
+    return q;
+  } catch (e) {
+    console.log(e);
+    return '';
+  }
+};
 
 /**
  * fetchItemFeature(item, string)
@@ -39,6 +67,8 @@ const fetchItemFeature = (item, feature) => {
 /**
  * fetchItem(item)
  * The function gets each search result with its features.
+ * All the features are under the item's attributes object,
+ * so if attributes is missing, it passes default empty features.
  * It returns an object.
  *
  * @param {Object} item
@@ -67,18 +97,16 @@ const fetchItem = (item) => {
  * The function gets search results.
  * It returns an array with each item inside.
  *
- * @param {Array} data
+ * @param {Object} data
  * @return {Array}
  */
 const fetchResultItems = (data) => {
-  if (!data.items) {
+  if (!data || !data.items) {
     return [];
   }
 
-  const resultItems = [];
-
-  return _map(data.items, (item, index) =>
-    (resultItems[index] = fetchItem(item))
+  return _map(data.items, (item) =>
+    (fetchItem(item))
   );
 };
 

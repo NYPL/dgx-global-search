@@ -15,7 +15,10 @@ const SearchResult = ({
       className={className}
       href={link}
     >
-      <img src={thumbnailSrc} alt={title} style={{ height: '200px' }} />
+      <img
+        src={thumbnailSrc}
+        alt={title}
+        style={SearchResult.styles.thumbnailImage} />
       <h3>{title}</h3>
     </a>
     <p>{snippet}</p>
@@ -37,6 +40,12 @@ SearchResult.defaultProps = {
   id: 'searchResult',
   className: 'searchResult',
   index: 0,
+};
+
+SearchResult.styles ={
+  thumbnailImage: {
+    height: '200px',
+  },
 };
 
 export default SearchResult;
