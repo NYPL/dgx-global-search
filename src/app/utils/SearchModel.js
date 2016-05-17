@@ -12,7 +12,7 @@ const fetchResultLength = (data) => {
   if (!data.attributes || !data.attributes.meta || data.attributes.meta['total-results']) {
     return 0;
   }
-  
+
   return data.attributes.meta['total-results'];
 };
 
@@ -51,8 +51,8 @@ const fetchItemFeature = (item, feature) => {
 /**
  * fetchItem(item)
  * The function gets each search result with its features.
- * All the features are under the item's attributes object, 
- * so if attributes is missing, it passes default empty features. 
+ * All the features are under the item's attributes object,
+ * so if attributes is missing, it passes default empty features.
  * It returns an object.
  *
  * @param {Object} item
