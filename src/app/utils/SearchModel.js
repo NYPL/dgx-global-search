@@ -41,7 +41,6 @@ const fetchSearchKeyword = (data) => {
     } = data;
 
     return q;
-
   } catch (e) {
     console.log(e);
     return '';
@@ -105,8 +104,6 @@ const fetchResultItems = (data) => {
   if (!data || !data.items) {
     return [];
   }
-
-  const resultItems = [];
 
   return _map(data.items, (item) =>
     (fetchItem(item))
