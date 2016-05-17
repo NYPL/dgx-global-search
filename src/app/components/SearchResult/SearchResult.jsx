@@ -9,7 +9,7 @@ const SearchResult = ({
   snippet,
   thumbnailSrc,
 }) => (
-  <li>
+  <li className="resultItem">
     <a
       id={`${id}-${index}`}
       className={className}
@@ -21,7 +21,8 @@ const SearchResult = ({
         style={SearchResult.styles.thumbnailImage} />
       <h3>{title}</h3>
     </a>
-    <p>{snippet}</p>
+    <p className="linkText">{link}</p>
+    <p className="snippet">{snippet}</p>
   </li>
 );
 
@@ -44,6 +45,7 @@ SearchResult.defaultProps = {
 
 SearchResult.styles ={
   thumbnailImage: {
+    display: 'none',
     height: '200px',
   },
 };

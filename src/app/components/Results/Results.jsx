@@ -38,7 +38,16 @@ class Results extends React.Component {
 
     return (
       <div className="resultWrapper">
-        <p>We got {this.props.amount} results.</p>
+        <p className="length">We found about {this.props.amount} results.</p>
+        <svg width="84" height="2" 
+          viewPort="0 0 84 2" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="0" 
+              x2="84" y2="0" 
+              stroke="#ED1C24" 
+              strokeWidth="2"
+          />
+        </svg>
         <ul id={this.props.id} className={this.props.className}>
           {results}
         </ul>
@@ -55,8 +64,8 @@ Results.propTypes = {
 
 Results.defaultProps = {
   lang: 'en',
-  id: 'searchResults',
-  className: 'searchResults',
+  id: 'results',
+  className: 'results',
 };
 
 export default Results;
