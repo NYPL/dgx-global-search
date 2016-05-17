@@ -18,8 +18,10 @@ class Results extends React.Component {
       <SearchResult
         key={index}
         index={index}
-        title={appName.attributes.title}
-        link={appName.attributes.link}
+        title={appName.title}
+        link={appName.link}
+        snippet={appName.snippet}
+        thumbnailSrc={appName.thumbnailSrc}
       />
     ));
   }

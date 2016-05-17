@@ -59,7 +59,7 @@ class App extends React.Component {
 
   /**
    * triggerSubmit(event)
-   * The fuction listens to the event of enter key.
+   * The function listens to the event of enter key.
    * Submit search request if enter is pressed.
    *
    * @param {Event} event
