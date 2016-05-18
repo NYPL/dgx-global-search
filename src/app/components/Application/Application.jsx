@@ -4,8 +4,9 @@ import React from 'react';
 import Header from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 import Results from '../Results/Results.jsx';
-import InputField from '../InputField/InputField.jsx';
 import HintBlock from '../HintBlock/HintBlock.jsx';
+import InputField from '../InputField/InputField.jsx';
+import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
 
 // Import alt components
@@ -95,11 +96,7 @@ class App extends React.Component {
               onChange={this.inputChange}
             />
           </div>
-          <div className="searchButtonWrapper">
-            <div className="searchButton" onClick={this.submitSearchRequest}>
-              SEARCH
-            </div>
-          </div>
+          <SearchButton className="searchButton" onClick={this.submitSearchRequest} />
           <Filter className={"filter"} />
           <Results
             amount={this.state.searchDataLength}
