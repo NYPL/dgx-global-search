@@ -16,6 +16,7 @@
 
 .linkText {
   color: $PRIMARY_COLOR;
+  font-size: 16px;
   text-decoration: underline;
 }
 
