@@ -12,6 +12,11 @@
   cursor: pointer;
   font-size: 16px;
   line-height: 16px;
-  padding: 20px;
+  padding: 3px 20px;
   text-align: center;
+
+  p {
+    display: inline-block;
+    vertical-align: 12px;
+  }
 }
