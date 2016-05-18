@@ -21,8 +21,12 @@ const icon = (
   </svg>
 );
 
+const onClick = () => {
+  console.log('filter icon is clicked.');
+}
+
 const FilterIcon = ({ className }) => (
-  <span className={className}>
+  <span className={className} onClick={onClick}>
     {icon}
   </span>
 );
