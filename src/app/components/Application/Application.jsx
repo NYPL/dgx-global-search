@@ -76,9 +76,11 @@ class App extends React.Component {
   render() {
     const inputValue = this.state.searchKeyword || '';
     const thankYouMessage = (
-      <p>Thank you for beta testing the new NYPL Search. Please
+      <p>
+        <span>Thank you for beta testing the new NYPL Search.&nbsp;&nbsp; Please &nbsp;</span>
         <a className="linkText">give us your feedback</a>
-      to help make it even better.</p>
+        <span> to help make it even better.</span>
+      </p>
     );
 
     return (
