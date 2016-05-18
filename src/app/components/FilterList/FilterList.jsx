@@ -9,7 +9,7 @@ const FilterList = ({
 }) => (
   <div className={`${className} ${active}`}>
     <div>
-      <FilterIcon />
+      <FilterIcon fill="#FFF" />
       <h4>Filter by</h4>
 
       <button className="PillButton apply">

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const icon = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+const FilterIcon = ({ fill }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill={fill} viewBox="0 0 32 32">
     <title>filter.v3</title>
     <g>
       <circle cx="13.0944" cy="7.375" r="1.3192" />
@@ -20,19 +20,5 @@ const icon = (
     </g>
   </svg>
 );
-
-const onClick = () => {
-  console.log('filter icon is clicked.');
-}
-
-const FilterIcon = ({ className }) => (
-  <span className={className} onClick={onClick}>
-    {icon}
-  </span>
-);
-
-FilterIcon.propTypes = {
-  className: React.PropTypes.string,
-};
 
 export default FilterIcon;
