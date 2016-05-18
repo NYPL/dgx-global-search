@@ -4,11 +4,11 @@
 }
 
 .inputField {
-  border: 2px solid #665C52;
+  border: 2px solid $INPUT_FIELD_GREY;
   border-radius: 3px;
   box-sizing: border-box;
   
-  color: #665C52;
+  color: $INPUT_FIELD_GREY;
   font-size: 18px;
   font-style: italic;
   line-height: 16px;
