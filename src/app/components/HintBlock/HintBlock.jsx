@@ -5,13 +5,13 @@ import CloseButton from '../CloseButton/CloseButton.jsx';
 const HintBlock = ({ className, message }) => (
   <div className={className}>
     <CloseButton className="closeButton" />
-    <p>{message}</p>
+    {message}
   </div>
 );
 
 HintBlock.propTypes = {
   className: React.PropTypes.string,
-  message: React.PropTypes.string,
+  message: React.PropTypes.object,
 };
 
 export default HintBlock;

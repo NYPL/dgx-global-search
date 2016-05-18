@@ -75,8 +75,11 @@ class App extends React.Component {
 
   render() {
     const inputValue = this.state.searchKeyword || '';
-    const thankYouMessage = 'Thank you for beta testing the new NYPL Search. Please give us your ' +
-      'feedback to help make it even better.';
+    const thankYouMessage = (
+      <p>Thank you for beta testing the new NYPL Search. Please
+        <a className="linkText">give us your feedback</a>
+      to help make it even better.</p>
+    );
 
     return (
       <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
@@ -90,7 +93,6 @@ class App extends React.Component {
               className="inputField"
               type="text"
               placeholder={this.state.placeholder}
-              ref="keywords"
               value={inputValue}
               onChange={this.inputChange}
             />
