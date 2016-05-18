@@ -3,10 +3,10 @@ import React from 'react';
 class IconButton extends React.Component {
   constructor(props) {
     super(props);
-    this._onClick = this._onClick.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
-  _onClick(e) {
+  onClick(e) {
     e.preventDefault();
     // this.props.onClick();
     console.log('close button clicked');
@@ -16,7 +16,7 @@ class IconButton extends React.Component {
     return (
       <span
         className={this.props.className}
-        onClick={this._onClick}
+        onClick={this.onClick}
       >
         {this.props.icon}
       </span>

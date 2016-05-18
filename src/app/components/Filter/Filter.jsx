@@ -2,9 +2,7 @@ import React from 'react';
 
 import FilterIcon from '../FilterIcon/FilterIcon.jsx';
 
-const Filter = ({
-  className
-}) => (
+const Filter = ({ className }) => (
   <div className={`${className}Wrapper`}>
     <p>Filter your search:</p>
     <FilterIcon className={`${className}Icon`} />
@@ -12,3 +10,7 @@ const Filter = ({
 );
 
 export default Filter;
+
+Filter.propTypes = {
+  className: React.PropTypes.string,
+};

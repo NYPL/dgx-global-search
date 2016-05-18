@@ -75,7 +75,6 @@ class App extends React.Component {
 
   render() {
     const inputValue = this.state.searchKeyword || '';
-    const keywordHint = inputValue || 'No search keyword found.';
     const thankYouMessage = 'Thank you for beta testing the new NYPL Search. Please give us your ' +
       'feedback to help make it even better.';
 

@@ -1,30 +1,36 @@
 import React from 'react';
 
-class InputField extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <input
-        id={this.props.id}
-        lang={this.props.lang}
-        type={this.props.type}
-        name={this.props.name}
-        value={this.props.value}
-        checked={this.props.checked}
-        maxLength={this.props.maxLength}
-        placeholder={this.props.placeholder}
-        className={this.props.className}
-        onClick={this.props.onClick}
-        onChange={this.props.onChange}
-        required={this.props.isRequired || false}
-        style={this.props.style}
-      />
-    );
-  }
-}
+const InputField = ({
+  id,
+  lang,
+  type,
+  name,
+  value,
+  checked,
+  maxLength,
+  placeholder,
+  className,
+  onClick,
+  onChange,
+  isRequired,
+  style,
+}) => (
+  <input
+    id={id}
+    lang={lang}
+    type={type}
+    name={name}
+    value={value}
+    checked={checked}
+    maxLength={maxLength}
+    placeholder={placeholder}
+    className={className}
+    onClick={onClick}
+    onChange={onChange}
+    required={isRequired}
+    style={style}
+  />
+);
 
 InputField.propTypes = {
   type: React.PropTypes.string,
@@ -47,6 +53,7 @@ InputField.defaultProps = {
   type: 'text',
   lang: 'en',
   name: 'InputField',
+  isRequired: false,
 };
 
 export default InputField;
