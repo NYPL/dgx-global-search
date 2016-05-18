@@ -32,14 +32,26 @@ class Results extends React.Component {
     // Message if no result found
     if (results.length === 0) {
       return (
-        <div>No result found.</div>
+        <p className="noResultMessage">No items were found...</p>
       );
     }
 
     return (
-      <ul id={this.props.id} className={this.props.className}>
-        {results}
-      </ul>
+      <div className="resultWrapper">
+        <p className="length">We found about {this.props.amount} results.</p>
+        <svg width="84" height="2" 
+          viewPort="0 0 84 2" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="0" 
+              x2="84" y2="0" 
+              stroke="#ED1C24" 
+              strokeWidth="2"
+          />
+        </svg>
+        <ul id={this.props.id} className={this.props.className}>
+          {results}
+        </ul>
+      </div>
     );
   }
 }
@@ -48,12 +60,13 @@ Results.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   results: React.PropTypes.array,
+  amount: React.PropTypes.number,
 };
 
 Results.defaultProps = {
   lang: 'en',
-  id: 'searchResults',
-  className: 'searchResults',
+  id: 'results',
+  className: 'results',
 };
 
 export default Results;

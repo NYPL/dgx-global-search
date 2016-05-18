@@ -1,0 +1,24 @@
+.filterWrapper {
+  @include Kievit-Medium;
+
+  color: #837E77;
+  margin: 0 0 10px 0;
+  padding: 0 14px;
+  text-align: right;
+
+  p {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 21px;
+    margin: 0 10px 0 0;
+    vertical-align: 8px;
+  }
+}
+
+.filterIcon {
+  border: 2px solid $FILTER_ICON_GREY;
+  border-radius: 32px;
+  color: $FILTER_ICON_GREY;
+  display: inline-block;
+  padding: 0 2px;
+}

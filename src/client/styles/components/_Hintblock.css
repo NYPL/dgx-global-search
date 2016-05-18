@@ -1,0 +1,25 @@
+.hintblock {
+  @include Kievit-Medium;
+
+  background-color: $HINTBLOCK_YELLOW_COLOR;
+  color: #333;
+  font-size: 16px;
+  line-height: 21px;
+  margin: 0 0 18px 0;
+  padding: 14px 14px 17px;
+
+  p {
+    margin: 0;
+    padding: 0 52px 0 0;
+  }
+
+  .linkText {
+    color: $PRIMARY_COLOR;
+    font-size: 16px;
+    text-decoration: underline;
+  }
+}
+
+.closeButton {
+  float: right;
+}
