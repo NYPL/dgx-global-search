@@ -15,9 +15,12 @@
 }
 
 .noResultMessage {
+  @include Kievit-Medium;
+
   color: red;
   font-size: 20px;
   line-height: 21px;
+  padding: 0 0 0 14px;
 }
 
 .results {
@@ -35,6 +38,7 @@
   color: #575757;
   font-size: 14px;
   line-height: 16px;
+  word-break: break-all;
 }
 
 .resultItem {
