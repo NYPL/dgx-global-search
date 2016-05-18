@@ -6,6 +6,8 @@
 }
 
 .noResultMessage {
+  @include Kievit-Medium;
+
   color: red;
   font-size: 20px;
   line-height: 21px;
