@@ -16,9 +16,9 @@
 }
 
 .filterIcon {
-  border: 2px solid #837e77;
+  border: 2px solid $FILTER_ICON_GREY;
   border-radius: 32px;
-  color: #837E77;
+  color: $FILTER_ICON_GREY;
   display: inline-block;
   padding: 0 2px;
 }

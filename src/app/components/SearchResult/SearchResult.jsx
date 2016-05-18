@@ -18,7 +18,8 @@ const SearchResult = ({
       <img
         src={thumbnailSrc}
         alt={title}
-        style={SearchResult.styles.thumbnailImage} />
+        style={SearchResult.styles.thumbnailImage}
+      />
       <h3>{title}</h3>
     </a>
     <p className="linkText">{link}</p>
@@ -43,7 +44,7 @@ SearchResult.defaultProps = {
   index: 0,
 };
 
-SearchResult.styles ={
+SearchResult.styles = {
   thumbnailImage: {
     display: 'none',
     height: '200px',

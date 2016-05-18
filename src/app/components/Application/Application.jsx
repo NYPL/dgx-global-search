@@ -4,8 +4,10 @@ import React from 'react';
 import Header from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 import Results from '../Results/Results.jsx';
-import InputField from '../InputField/InputField.jsx';
 import HintBlock from '../HintBlock/HintBlock.jsx';
+import InputField from '../InputField/InputField.jsx';
+import SearchButton from '../SearchButton/SearchButton.jsx';
+import Filter from '../Filter/Filter.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -73,9 +75,11 @@ class App extends React.Component {
 
   render() {
     const inputValue = this.state.searchKeyword || '';
-    const keywordHint = inputValue || 'No search keyword found.';
-    const thankYouMessage = 'Thank you for beta testing the new NYPL Search. Please give us your ' +
-      'feedback to help make it even better.';
+    const thankYouMessage = (
+      <p>Thank you for beta testing the new NYPL Search. Please
+        <a className="linkText">give us your feedback</a>
+      to help make it even better.</p>
+    );
 
     return (
       <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
@@ -89,20 +93,12 @@ class App extends React.Component {
               className="inputField"
               type="text"
               placeholder={this.state.placeholder}
-              ref="keywords"
               value={inputValue}
               onChange={this.inputChange}
             />
           </div>
-          <div className="searchButtonWrapper">
-            <div className="searchButton" onClick={this.submitSearchRequest}>
-              SEARCH
-            </div>
-          </div>
-          <div className="filterWrapper">
-            <p>Filter your search:</p>
-            <FilterIcon className="filterIcon" />
-          </div>
+          <SearchButton className="searchButton" onClick={this.submitSearchRequest} />
+          <Filter className={"filter"} />
           <Results
             amount={this.state.searchDataLength}
             results={this.state.searchData}
@@ -113,36 +109,6 @@ class App extends React.Component {
       </div>
     );
   }
-}
-
-
-class FilterIcon extends React.Component {
-  render() {
-    const icon = (
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-        <title>filter.v3</title>
-        <g>
-          <circle cx="13.0944" cy="7.375" r="1.3192" />
-          <circle cx="19.6222" cy="6.375" r="1.3189" />
-          <circle cx="15.9997" cy="10.5242" r="1.3193" />
-          <g>
-            <path d="M14.1785,27.562a0.95,0.95,0,0,1-.95-0.95v-10.27L6.6875,9.2893a0.95,0.95,0,0,1,1.3956-1.29l7.0455,7.598v11.015A0.95,0.95,0,0,1,14.1785,27.562Z" />
-            <path d="M18.0387,24.794a0.95,0.95,0,0,1-.95-0.95V15.603l7.126-7.8149a0.95,0.95,0,0,1,1.41,1.2744l-6.636,7.2729v7.5083A0.95,0.95,0,0,1,18.0387,24.794Z" />
-          </g>
-        </g>
-      </svg>
-    );
-
-    return (
-      <span className={this.props.className}>
-        {icon}
-      </span>
-    );
-  }
-}
-
-FilterIcon.propTypes = {
-  className: React.PropTypes.string,
 }
 
 export default App;

@@ -14,6 +14,11 @@
   }
 }
 
+.linkText {
+  color: $PRIMARY_COLOR;
+  text-decoration: underline;
+}
+
 .closeButton {
   float: right;
 }
