@@ -98,7 +98,7 @@ class App extends React.Component {
 
         <div id="maincontent" className="maincontent" tabIndex="-1">
           <h2>NYPL Search <span>BETA</span></h2>
-          <HintBlock className="hintblock" message={this.generateThankYouMessage()} />
+          <HintBlock className="hintBlock" message={this.generateThankYouMessage()} />
           <div className="inputWrapper">
             <InputField
               className="inputField"
