@@ -47,7 +47,7 @@ class Results extends React.Component {
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <line x1="0" y1="0" x2="84" y2="0" stroke="#ED1C24" strokeWidth="2" />
+          <line x1="0" y1="0" x2="84" y2="0" stroke="#279975" strokeWidth="2" />
         </svg>
         <ul id={this.props.id} className={this.props.className}>
           {results}
