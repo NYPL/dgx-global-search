@@ -2,6 +2,7 @@ import React from 'react';
 
 const SearchButton = ({
   className,
+  label,
   onClick,
 }) => (
   <div className={`${className}Wrapper`}>
@@ -14,13 +15,14 @@ const SearchButton = ({
             '5.75012,5.74948A5.75662,5.75662,0,0,1,9.109,14.52943Z'}
         />
       </svg>
-      <p>SEARCH</p>
+      <p>{label}</p>
     </div>
   </div>
 );
 
 SearchButton.propTypes = {
   onClick: React.PropTypes.func,
+  label: React.PropTypes.string,
   className: React.PropTypes.string,
 };
 
