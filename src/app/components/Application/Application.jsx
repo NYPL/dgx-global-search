@@ -108,7 +108,11 @@ class App extends React.Component {
               onChange={this.inputChange}
             />
           </div>
-          <SearchButton className="searchButton" onClick={this.submitSearchRequest} />
+          <SearchButton
+            className="searchButton"
+            label="SEARCH"
+            onClick={this.submitSearchRequest}
+          />
           <Filter className={"filter"} />
           <Results
             amount={this.state.searchDataLength}
