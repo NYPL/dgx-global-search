@@ -29,6 +29,22 @@ class App extends React.Component {
   }
 
   /**
+   * generateThankYouMessage()
+   * Generates the message to greet users and intruct them to give feedback.
+   *
+   * @return {Object} object
+   */
+  generateThankYouMessage() {
+    return (
+      <p>
+        <span>Thank you for beta testing the new NYPL Search.&nbsp;&nbsp; Please &nbsp;</span>
+        <a className="linkText">give us your feedback</a>
+        <span> to help make it even better.</span>
+      </p>
+    );
+  };
+
+  /**
    * inputChange(event)
    * Listen to the changes on keywords input field.
    * Grab the event value, and change the state.
@@ -75,13 +91,6 @@ class App extends React.Component {
 
   render() {
     const inputValue = this.state.searchKeyword || '';
-    const thankYouMessage = (
-      <p>
-        <span>Thank you for beta testing the new NYPL Search.&nbsp;&nbsp; Please &nbsp;</span>
-        <a className="linkText">give us your feedback</a>
-        <span> to help make it even better.</span>
-      </p>
-    );
 
     return (
       <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
@@ -89,7 +98,7 @@ class App extends React.Component {
 
         <div id="maincontent" className="maincontent" tabIndex="-1">
           <h2>NYPL Search <span>BETA</span></h2>
-          <HintBlock className="hintblock" message={thankYouMessage} />
+          <HintBlock className="hintblock" message={this.generateThankYouMessage()} />
           <div className="inputWrapper">
             <InputField
               className="inputField"
