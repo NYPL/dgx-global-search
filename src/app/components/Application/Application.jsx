@@ -19,9 +19,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = _extend(Store.getState(),
-      { placeholder: 'Enter Search Terms' }
-    );
+    this.state = Store.getState();
 
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
@@ -68,7 +66,7 @@ class App extends React.Component {
     const requestParameter = this.state.searchKeyword.trim() || '';
 
     if (!requestParameter) {
-      this.setState({ placeholder: 'Please enter a search term.' });
+      this.setState({ searchPlaceholder: 'Please enter a search term.' });
     } else {
       const requestUrl = `/search/apachesolr_search/${requestParameter}`;
 
@@ -103,7 +101,7 @@ class App extends React.Component {
             <InputField
               className="inputField"
               type="text"
-              placeholder={this.state.placeholder}
+              placeholder={this.state.searchPlaceholder}
               value={inputValue}
               onChange={this.inputChange}
             />
