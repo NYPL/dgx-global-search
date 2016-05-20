@@ -7,12 +7,14 @@ class SearchStore {
       updateSearchKeyword: Actions.UPDATE_SEARCH_KEYWORD,
       updateSearchData: Actions.UPDATE_SEARCH_DATA,
       updateSearchDataLength: Actions.UPDATE_SEARCH_DATA_LENGTH,
+      updateSearchPlaceholder: Actions.UPDATE_SEARCH_PLACEHOLDER,
     });
 
     this.on('init', () => {
       this.searchKeyword = '';
       this.searchData = [];
       this.searchDataLength = 0;
+      this.searchPlaceholder = 'Enter Search Terms';
     });
   }
 
@@ -26,6 +28,10 @@ class SearchStore {
 
   updateSearchDataLength(data) {
     this.searchDataLength = data;
+  }
+
+  updateSearchPlaceholder(data) {
+    this.searchPlaceholder = data;
   }
 }
 

@@ -7,6 +7,7 @@
 
   background-color: $SEARCH_BLUE;
   border-radius: 6px;
+  border: none;
   box-sizing: border-box;
   color: #FFF;
   cursor: pointer;
@@ -14,6 +15,7 @@
   line-height: 16px;
   padding: 3px 20px;
   text-align: center;
+  width: 100%;
 
   p {
     display: inline-block;

@@ -1,4 +1,4 @@
-.hintblock {
+.hintBlock {
   @include Kievit-Medium;
 
   background-color: $HINTBLOCK_YELLOW_COLOR;
@@ -18,8 +18,11 @@
     font-size: 16px;
     text-decoration: underline;
   }
+
+  .closeButton {
+    background: none;
+    border: none;
+    float: right;
+  }
 }
 
-.closeButton {
-  float: right;
-}

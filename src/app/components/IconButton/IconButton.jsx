@@ -14,12 +14,12 @@ class IconButton extends React.Component {
 
   render() {
     return (
-      <span
+      <button
         className={this.props.className}
         onClick={this.onClick}
       >
         {this.props.icon}
-      </span>
+      </button>
     );
   }
 }
