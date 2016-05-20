@@ -87,7 +87,14 @@ class App extends React.Component {
     }
   }
 
-  results() {
+  /**
+   * renderResults()
+   * The function renders the results of the search request.
+   * If no search keyword input, it won't render anything.
+   *
+   * @return {Object} object
+   */
+  renderResults() {
     if (this.state.searchKeyword === '') {
       return;
     }
@@ -125,7 +132,7 @@ class App extends React.Component {
             onClick={this.submitSearchRequest}
           />
           <Filter className={"filter"} />
-          {this.results()}
+          {this.renderResults()}
         </div>
 
         <Footer />
