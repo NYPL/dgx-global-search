@@ -26,10 +26,11 @@
   .filterList {
     background-color: #737069;
     color: #FFF;
-    padding: 33px 10px 0 10px;
+    padding: 0 10px 0 10px;
     text-align: left;
 
     &-navigation {
+      border-bottom: 2px solid #FFF;
     }
 
     svg {
@@ -38,6 +39,27 @@
 
     h4 {
       display: inline-block;
+      font-size: 20px;
+      line-height: 26px;
+      vertical-align: 22px;
+    }
+
+    &-buttonWrapper {
+      display: inline-block;
+      float: right;
+      margin: 21px 0 0 0;
+    }
+
+    &-filterIcon {
+      vertical-align: 7px;
+    }
+
+    .apply {
+      vertical-align: 10px;
+    }
+
+    .closeButton {
+      vertical-align: -4px;
     }
 
   }
