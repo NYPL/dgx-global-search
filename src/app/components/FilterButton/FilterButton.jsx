@@ -8,7 +8,7 @@ const onClick = () => {
 
 const FilterButton = ({ className }) => (
   <span className={className} onClick={onClick}>
-    <FilterIcon fill="#000" />
+    <FilterIcon fill="#837E77" />
   </span>
 );
 
