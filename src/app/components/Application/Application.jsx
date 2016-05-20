@@ -24,6 +24,7 @@ class App extends React.Component {
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
+    this.renderResults = this.renderResults.bind(this);
   }
 
   /**
