@@ -11,8 +11,8 @@ const Filter = ({ className }) => (
   </div>
 );
 
-export default Filter;
-
 Filter.propTypes = {
   className: React.PropTypes.string,
 };
+
+export default Filter;

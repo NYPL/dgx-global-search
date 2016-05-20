@@ -2,10 +2,11 @@ import React from 'react';
 
 const SearchButton = ({
   className,
+  label,
   onClick,
 }) => (
   <div className={`${className}Wrapper`}>
-    <div className={className} onClick={onClick}>
+    <button className={className} onClick={onClick}>
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#FFF" viewBox="0 0 32 32">
         <title>search.icon.v1</title>
         <path
@@ -14,13 +15,14 @@ const SearchButton = ({
             '5.75012,5.74948A5.75662,5.75662,0,0,1,9.109,14.52943Z'}
         />
       </svg>
-      <p>SEARCH</p>
-    </div>
+      <p>{label}</p>
+    </button>
   </div>
 );
 
 SearchButton.propTypes = {
   onClick: React.PropTypes.func,
+  label: React.PropTypes.string,
   className: React.PropTypes.string,
 };
 

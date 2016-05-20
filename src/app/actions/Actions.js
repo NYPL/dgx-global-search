@@ -13,6 +13,10 @@ class Actions {
   updateSearchDataLength(data) {
     this.dispatch(data);
   }
+
+   updateSearchPlaceholder(data) {
+    this.dispatch(data);
+  }
 }
 
 export default alt.createActions(Actions);

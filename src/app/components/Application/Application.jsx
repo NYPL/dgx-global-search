@@ -19,14 +19,28 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = _extend(Store.getState(),
-      { placeholder: 'Enter Search Terms' }
-    );
+    this.state = Store.getState();
 
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
   }
+
+  /**
+   * generateThankYouMessage()
+   * Generates the message to greet users and intruct them to give feedback.
+   *
+   * @return {Object} object
+   */
+  generateThankYouMessage() {
+    return (
+      <p>
+        <span>Thank you for beta testing the new NYPL Search.&nbsp;&nbsp; Please &nbsp;</span>
+        <a className="linkText">give us your feedback</a>
+        <span> to help make it even better.</span>
+      </p>
+    );
+  };
 
   /**
    * inputChange(event)
@@ -52,7 +66,7 @@ class App extends React.Component {
     const requestParameter = this.state.searchKeyword.trim() || '';
 
     if (!requestParameter) {
-      this.setState({ placeholder: 'Please enter a search term.' });
+      this.setState({ searchPlaceholder: 'Please enter a search term.' });
     } else {
       const requestUrl = `/search/apachesolr_search/${requestParameter}`;
 
@@ -73,15 +87,28 @@ class App extends React.Component {
     }
   }
 
+  /**
+   * renderResults()
+   * The function renders the results of the search request.
+   * If no search keyword input, it won't render anything.
+   *
+   * @return {Object} object
+   */
+  renderResults() {
+    if (this.state.searchKeyword === '') {
+      return;
+    }
+
+    return (
+      <Results
+        amount={this.state.searchDataLength}
+        results={this.state.searchData}
+      />
+    );
+  };
+
   render() {
     const inputValue = this.state.searchKeyword || '';
-    const thankYouMessage = (
-      <p>
-        <span>Thank you for beta testing the new NYPL Search.&nbsp;&nbsp; Please &nbsp;</span>
-        <a className="linkText">give us your feedback</a>
-        <span> to help make it even better.</span>
-      </p>
-    );
 
     return (
       <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
@@ -89,22 +116,23 @@ class App extends React.Component {
 
         <div id="maincontent" className="maincontent" tabIndex="-1">
           <h2>NYPL Search <span>BETA</span></h2>
-          <HintBlock className="hintblock" message={thankYouMessage} />
+          <HintBlock className="hintBlock" message={this.generateThankYouMessage()} />
           <div className="inputWrapper">
             <InputField
               className="inputField"
               type="text"
-              placeholder={this.state.placeholder}
+              placeholder={this.state.searchPlaceholder}
               value={inputValue}
               onChange={this.inputChange}
             />
           </div>
-          <SearchButton className="searchButton" onClick={this.submitSearchRequest} />
-          <Filter className={"filter"} />
-          <Results
-            amount={this.state.searchDataLength}
-            results={this.state.searchData}
+          <SearchButton
+            className="searchButton"
+            label="SEARCH"
+            onClick={this.submitSearchRequest}
           />
+          <Filter className={"filter"} />
+          {this.renderResults()}
         </div>
 
         <Footer />

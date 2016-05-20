@@ -24,6 +24,7 @@
 }
 
 .results {
+  margin: 15px 0 0 0;
   padding: 0;
 }
 
@@ -52,4 +53,12 @@
   line-height: 21px;
   margin: 0 0 23px 0;
   padding: 0 0 17px 0;
+}
+
+.label {
+  color: #575757;
+  font-size: 12px;
+  line-height: 21px;
+  margin: 0 0 21px 0;
+  text-transform: uppercase;
 }

@@ -8,8 +8,10 @@ const SearchResult = ({
   link,
   snippet,
   thumbnailSrc,
+  label,
 }) => (
   <li className="resultItem">
+    <p className="label">{label}</p>
     <a
       id={`${id}-${index}`}
       className={className}
@@ -35,6 +37,7 @@ SearchResult.propTypes = {
   link: React.PropTypes.string,
   snippet: React.PropTypes.string,
   thumbnailSrc: React.PropTypes.string,
+  label: React.PropTypes.string,
 };
 
 SearchResult.defaultProps = {

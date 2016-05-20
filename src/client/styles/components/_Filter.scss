@@ -2,7 +2,7 @@
   @include Kievit-Medium;
 
   color: #837E77;
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   padding: 0 14px;
   text-align: right;
 
@@ -13,19 +13,19 @@
     margin: 0 10px 0 0;
     vertical-align: 8px;
   }
-}
 
-.filterIcon {
-  border: 2px solid $FILTER_ICON_GREY;
-  border-radius: 32px;
-  color: $FILTER_ICON_GREY;
-  cursor: pointer;
-  display: inline-block;
-  padding: 0 2px;
-}
+  .filterIcon {
+    border: 2px solid $FILTER_ICON_GREY;
+    border-radius: 32px;
+    color: $FILTER_ICON_GREY;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 2px;
+  }
 
-.filterList {
-  background-color: #737069;
-  color: #FFF;
-  text-align: left;
+  .filterList {
+    background-color: #737069;
+    color: #FFF;
+    text-align: left;
+  }
 }
