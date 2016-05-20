@@ -87,6 +87,19 @@ class App extends React.Component {
     }
   }
 
+  results() {
+    if (this.state.searchKeyword === '') {
+      return;
+    }
+
+    return (
+      <Results
+        amount={this.state.searchDataLength}
+        results={this.state.searchData}
+      />
+    );
+  };
+
   render() {
     const inputValue = this.state.searchKeyword || '';
 
@@ -112,10 +125,7 @@ class App extends React.Component {
             onClick={this.submitSearchRequest}
           />
           <Filter className={"filter"} />
-          <Results
-            amount={this.state.searchDataLength}
-            results={this.state.searchData}
-          />
+          {this.results()}
         </div>
 
         <Footer />
