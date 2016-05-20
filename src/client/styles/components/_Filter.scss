@@ -51,6 +51,7 @@
     }
 
     &-filterIcon {
+      padding: 0 0 0 16px;
       vertical-align: 7px;
     }
 
@@ -60,6 +61,14 @@
 
     .closeButton {
       vertical-align: -4px;
+    }
+
+    &-filterItems {
+      padding: 0 0 0 25px;
+      li {
+        list-style-type: none;
+        margin: 0 0 28px 0;
+      }
     }
 
   }

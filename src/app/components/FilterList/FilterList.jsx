@@ -28,7 +28,7 @@ const FilterList = ({
         />
       </div>
     </div>
-    <ul>
+    <ul className={`${className}-filterItems`}>
       <li>ALL</li>
       <li>DIGITAL COLLECTIONS</li>
       <li>EXHIBITIONS</li>
