@@ -20,7 +20,12 @@ const FilterList = ({
         </svg>
       </button>
 
-      <CloseButton className="closeButton" fill="#FFF" />
+      <CloseButton
+        className="closeButton"
+        width="42px"
+        height="42px"
+        fill="#FFF"
+      />
     </div>
     <ul>
       <li>ALL</li>

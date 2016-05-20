@@ -10,9 +10,15 @@ class CloseButton extends React.Component {
     this.icon = this.icon.bind(this);
   }
 
-  icon(fill) {
+  icon() {
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="1rem" height="1rem" fill={this.props.fill} >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 100 100"
+        width={this.props.width}
+        height={this.props.height}
+        fill={this.props.fill}
+      >
         <title>solo.x</title>
         <polygon
           points={'54.26 6.34 47.91 0 27.13 20.79 6.34 0 0 6.34 20.79 27.13 0 47.91 6.34 54.26 ' +
@@ -24,7 +30,10 @@ class CloseButton extends React.Component {
 
   render() {
     return(
-      <IconButton className={this.props.className} icon={this.icon(this.props.fill)} />
+      <IconButton
+        className={this.props.className}
+        icon={this.icon()}
+      />
     );
   }
 }

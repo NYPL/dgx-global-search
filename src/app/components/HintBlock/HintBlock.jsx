@@ -4,7 +4,12 @@ import CloseButton from '../CloseButton/CloseButton.jsx';
 
 const HintBlock = ({ className, message }) => (
   <div className={className}>
-    <CloseButton className="closeButton" fill="#837E77"/>
+    <CloseButton
+      className="closeButton"
+      width="1rem"
+      height="1rem"
+      fill="#837E77"
+    />
     {message}
   </div>
 );
