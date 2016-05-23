@@ -4,7 +4,10 @@ import React from 'react';
 import Header from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 import Results from '../Results/Results.jsx';
+import HintBlock from '../HintBlock/HintBlock.jsx';
 import InputField from '../InputField/InputField.jsx';
+import SearchButton from '../SearchButton/SearchButton.jsx';
+import Filter from '../Filter/Filter.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -16,14 +19,29 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = _extend(Store.getState(),
-      { placeholder: 'What would you like to find?' }
-    );
+    this.state = Store.getState();
 
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
+    this.renderResults = this.renderResults.bind(this);
   }
+
+  /**
+   * generateThankYouMessage()
+   * Generates the message to greet users and intruct them to give feedback.
+   *
+   * @return {Object} object
+   */
+  generateThankYouMessage() {
+    return (
+      <p>
+        <span>Thank you for beta testing the new NYPL Search.&nbsp;&nbsp; Please &nbsp;</span>
+        <a className="linkText">give us your feedback</a>
+        <span> to help make it even better.</span>
+      </p>
+    );
+  };
 
   /**
    * inputChange(event)
@@ -49,7 +67,7 @@ class App extends React.Component {
     const requestParameter = this.state.searchKeyword.trim() || '';
 
     if (!requestParameter) {
-      this.setState({ placeholder: 'Please enter a search term.' });
+      this.setState({ searchPlaceholder: 'Please enter a search term.' });
     } else {
       const requestUrl = `/search/apachesolr_search/${requestParameter}`;
 
@@ -70,31 +88,52 @@ class App extends React.Component {
     }
   }
 
+  /**
+   * renderResults()
+   * The function renders the results of the search request.
+   * If no search keyword input, it won't render anything.
+   *
+   * @return {Object} object
+   */
+  renderResults() {
+    if (this.state.searchKeyword === '') {
+      return;
+    }
+
+    return (
+      <Results
+        amount={this.state.searchDataLength}
+        results={this.state.searchData}
+      />
+    );
+  };
+
   render() {
     const inputValue = this.state.searchKeyword || '';
-    const keywordHint = inputValue || 'No search keyword found.';
 
     return (
       <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
         <Header skipNav={{ target: 'maincontent' }} />
 
-        <div id="maincontent" tabIndex="-1">
-          <h2>NYPL Global Search</h2>
-          <InputField
-            type="text"
-            placeholder={this.state.placeholder}
-            ref="keywords"
-            value={inputValue}
-            onChange={this.inputChange}
+        <div id="maincontent" className="maincontent" tabIndex="-1">
+          <h2>NYPL Search <span>BETA</span></h2>
+          <HintBlock className="hintBlock" message={this.generateThankYouMessage()} />
+          <div className="inputWrapper">
+            <InputField
+              className="inputField"
+              type="text"
+              placeholder={this.state.searchPlaceholder}
+              value={inputValue}
+              onChange={this.inputChange}
+            />
+          </div>
+          <SearchButton
+            className="searchButton"
+            label="SEARCH"
+            onClick={this.submitSearchRequest}
           />
-          <button onClick={this.submitSearchRequest}>
-            SUBMIT
-          </button>
-          <h2>Search Results</h2>
-          <p>The search keyword is: {keywordHint}</p>
-          <p>We got {this.state.searchDataLength} results.</p>
-          <h3>the result item titles</h3>
-          <Results results={this.state.searchData} />
+          <Filter className={"filter"} />
+          {this.renderResults()}
         </div>
 
         <Footer />

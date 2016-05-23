@@ -32,14 +32,17 @@ class Results extends React.Component {
     // Message if no result found
     if (results.length === 0) {
       return (
-        <div>No result found.</div>
+        <p className="noResultMessage">No items were found...</p>
       );
     }
 
     return (
-      <ul id={this.props.id} className={this.props.className}>
-        {results}
-      </ul>
+      <div className="resultWrapper">
+        <p>We got {this.props.amount} results.</p>
+        <ul id={this.props.id} className={this.props.className}>
+          {results}
+        </ul>
+      </div>
     );
   }
 }
@@ -48,6 +51,7 @@ Results.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   results: React.PropTypes.array,
+  amount: React.PropTypes.number,
 };
 
 Results.defaultProps = {

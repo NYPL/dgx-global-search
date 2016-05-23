@@ -1,0 +1,15 @@
+.resultWrapper {
+  @include Kievit-Medium;
+
+  padding: 0 14px;
+
+}
+
+.noResultMessage {
+  @include Kievit-Medium;
+
+  color: red;
+  font-size: 20px;
+  line-height: 21px;
+  padding: 0 0 0 14px;
+}
