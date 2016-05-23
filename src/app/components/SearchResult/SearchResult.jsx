@@ -11,7 +11,7 @@ const SearchResult = ({
   label,
 }) => (
   <li id={`${id}-${index}`} className={className}>
-    <p className="label">{label}</p>
+    <p className={`${className}-label`}>{label}</p>
     <a
       className={`${className}-link`}
       href={link}
@@ -23,8 +23,8 @@ const SearchResult = ({
       />
       <h3>{title}</h3>
     </a>
-    <p className="linkText">{link}</p>
-    <p className="snippet">{snippet}</p>
+    <p className={`${className}-linkText`}>{link}</p>
+    <p className={`${className}-snippet`}>{snippet}</p>
   </li>
 );
 

@@ -35,30 +35,30 @@
   margin: 0 0 21px 0;
 }
 
-.linkText {
-  color: #575757;
-  font-size: 14px;
-  line-height: 16px;
-  word-break: break-all;
-}
-
 .searchResult {
   list-style-type: none;
-}
 
-.snippet {
-  border-bottom: 2px solid #A3A19E;
-  color: #333;
-  font-size: 16px;
-  line-height: 21px;
-  margin: 0 0 23px 0;
-  padding: 0 0 17px 0;
-}
+  &-snippet {
+    border-bottom: 2px solid #A3A19E;
+    color: #333;
+    font-size: 16px;
+    line-height: 21px;
+    margin: 0 0 23px 0;
+    padding: 0 0 17px 0;
+  }
 
-.label {
-  color: #575757;
-  font-size: 12px;
-  line-height: 21px;
-  margin: 0 0 21px 0;
-  text-transform: uppercase;
+  &-label {
+    color: #575757;
+    font-size: 12px;
+    line-height: 21px;
+    margin: 0 0 21px 0;
+    text-transform: uppercase;
+  }
+
+  &-linkText {
+    color: #575757;
+    font-size: 14px;
+    line-height: 16px;
+    word-break: break-all;
+  }
 }
