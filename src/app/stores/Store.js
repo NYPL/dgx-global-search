@@ -8,6 +8,7 @@ class SearchStore {
       updateSearchData: Actions.UPDATE_SEARCH_DATA,
       updateSearchDataLength: Actions.UPDATE_SEARCH_DATA_LENGTH,
       updateSearchPlaceholder: Actions.UPDATE_SEARCH_PLACEHOLDER,
+      updateSearchFacets: Actions.UPDATE_SEARCH_FACETS,
     });
 
     this.on('init', () => {
@@ -15,6 +16,17 @@ class SearchStore {
       this.searchData = [];
       this.searchDataLength = 0;
       this.searchPlaceholder = 'Enter Search Terms';
+      this.searchFacets = [
+        'all',
+        'digital collections',
+        'exhibitions',
+        'archives',
+        'audio / visual',
+        'blog',
+        'projects',
+        'events / classes',
+        'recommendations',
+      ];
     });
   }
 
@@ -32,6 +44,10 @@ class SearchStore {
 
   updateSearchPlaceholder(data) {
     this.searchPlaceholder = data;
+  }
+
+  updateSearchFacets(data) {
+    this.searchFacets = data;
   }
 }
 

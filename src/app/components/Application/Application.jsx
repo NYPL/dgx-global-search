@@ -132,7 +132,7 @@ class App extends React.Component {
             label="SEARCH"
             onClick={this.submitSearchRequest}
           />
-          <Filter className={"filter"} />
+          <Filter className={"filter"} facets={this.state.searchFacets} />
           {this.renderResults()}
         </div>
 

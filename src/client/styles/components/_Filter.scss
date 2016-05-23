@@ -70,6 +70,7 @@
       li {
         list-style-type: none;
         margin: 28px 0 28px 0;
+        text-transform: uppercase;
       }
     }
 
@@ -77,7 +78,8 @@
       border: 2px solid #FFF;
       border-radius: 60px;
       display: inline-block;
-      padding: 18px 60px;
+      padding: 9px 60px;
+      margin: 72px 0 0 0;
     }
 
     .reset {

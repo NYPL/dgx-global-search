@@ -3,11 +3,11 @@ import React from 'react';
 import FilterButton from '../FilterButton/FilterButton.jsx';
 import FilterList from '../FilterList/FilterList.jsx';
 
-const Filter = ({ className }) => (
+const Filter = ({ className, facets }) => (
   <div className={`${className}Wrapper`}>
     <p>Filter your search:</p>
     <FilterButton className={`${className}Icon`} />
-    <FilterList className={`${className}List`} active="active" />
+    <FilterList className={`${className}List`} facets={facets} active="active" />
   </div>
 );
 
