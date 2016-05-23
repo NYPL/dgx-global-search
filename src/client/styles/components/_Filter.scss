@@ -26,6 +26,7 @@
   .filterList {
     background-color: #737069;
     color: #FFF;
+    display: none;
     padding: 0 10px 84px 10px;
     text-align: center;
 
@@ -93,6 +94,9 @@
         vertical-align: 9px;
       }
     }
+  }
 
+  .active {
+    display: block;
   }
 }

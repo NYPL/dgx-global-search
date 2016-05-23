@@ -33,6 +33,7 @@ class CloseButton extends React.Component {
       <IconButton
         className={this.props.className}
         icon={this.icon()}
+        onClick={this.props.clickClose}
       />
     );
   }

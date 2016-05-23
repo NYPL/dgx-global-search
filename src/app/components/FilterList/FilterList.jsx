@@ -39,6 +39,7 @@ class FilterList extends React.Component {
               width="42px"
               height="42px"
               fill="#FFF"
+              clickClose={this.props.clickClose}
             />
           </div>
         </div>
