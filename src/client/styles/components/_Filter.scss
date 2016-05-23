@@ -26,11 +26,12 @@
   .filterList {
     background-color: #737069;
     color: #FFF;
-    padding: 0 10px 0 10px;
-    text-align: left;
+    padding: 0 10px 84px 10px;
+    text-align: center;
 
     &-navigation {
       border-bottom: 2px solid #FFF;
+      text-align: left;
     }
 
     svg {
@@ -65,9 +66,29 @@
 
     &-filterItems {
       padding: 0 0 0 25px;
+      text-align: left;
       li {
         list-style-type: none;
-        margin: 0 0 28px 0;
+        margin: 28px 0 28px 0;
+      }
+    }
+
+    .reset-wrapper {
+      border: 2px solid #FFF;
+      border-radius: 60px;
+      display: inline-block;
+      padding: 18px 60px;
+    }
+
+    .reset {
+      background-color: transparent;
+      border: 0;
+      font-size: 18px;
+      padding: 0;
+
+      span {
+        margin: 0 0 0 22px;
+        vertical-align: 9px;
       }
     }
 
