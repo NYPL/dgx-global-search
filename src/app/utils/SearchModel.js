@@ -1,5 +1,8 @@
 // Import libraries
-import { map as _map, isArray as _isArray } from 'underscore';
+import {
+  map as _map,
+  isArray as _isArray
+} from 'underscore';
 
 /**
  * fetchResultLength(data)
