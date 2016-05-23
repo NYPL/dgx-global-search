@@ -13,16 +13,16 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
   }
 
-  getList(appsArray) {
-    return _map(appsArray, (appName, index) => (
+  getList(itemsArray) {
+    return _map(itemsArray, (item, index) => (
       <SearchResult
         key={index}
         index={index}
-        title={appName.title}
-        link={appName.link}
-        snippet={appName.snippet}
-        thumbnailSrc={appName.thumbnailSrc}
-        label={appName.label}
+        title={item.title}
+        link={item.link}
+        snippet={item.snippet}
+        thumbnailSrc={item.thumbnailSrc}
+        label={item.label}
       />
     ));
   }

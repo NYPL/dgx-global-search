@@ -10,11 +10,10 @@ const SearchResult = ({
   thumbnailSrc,
   label,
 }) => (
-  <li className="resultItem">
+  <li id={`${id}-${index}`} className={className}>
     <p className="label">{label}</p>
     <a
-      id={`${id}-${index}`}
-      className={className}
+      className={`${className}-link`}
       href={link}
     >
       <img
