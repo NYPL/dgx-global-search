@@ -1,5 +1,8 @@
 // Import libraries
-import { map as _map } from 'underscore';
+import {
+  map as _map,
+  isArray as _isArray
+} from 'underscore';
 
 /**
  * fetchResultLength(data)
@@ -71,7 +74,7 @@ const fetchSearchKeyword = (data) => {
  * @return {String}
  */
 const fetchDisplayName = (labelsArray) => {
-  if (!labelsArray[0].displayName) {
+  if ( !_isArray(labelsArray) || !labelsArray[0].displayName) {
     return '';
   }
 

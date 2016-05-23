@@ -39,7 +39,7 @@ class Results extends React.Component {
 
     return (
       <div className="resultWrapper">
-        <p className="length">We found about {this.props.amount} results.</p>
+        <p className="resultListLength">We found about {this.props.amount} results.</p>
         <svg
           width="84"
           height="2"
