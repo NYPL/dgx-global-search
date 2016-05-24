@@ -1,28 +1,19 @@
-.gs-results-wrapper {
-  @include Kievit-Medium;
-
-  padding: 0 14px;
-}
-
-.noResultMessage {
-  @include Kievit-Medium;
-
-  color: red;
-  font-size: 20px;
-  line-height: 21px;
-  padding: 0 0 0 14px;
-}
-
-.gs-results-length {
-  color: #A3A19E;
-  font-size: 18px;
-  line-height: 21px;
-  margin: 0 0 21px 0;
-}
-
 .gs-results {
   margin: 15px 0 0 0;
   padding: 0;
+
+  &-wrapper {
+    @include Kievit-Medium;
+
+    padding: 0 14px;
+  }
+
+  &-length {
+    color: #A3A19E;
+    font-size: 18px;
+    line-height: 21px;
+    margin: 0 0 21px 0;
+  }
 
   &Item {
     list-style-type: none;
@@ -60,4 +51,13 @@
       word-break: break-all;
     }
   }
+}
+
+.noResultMessage {
+  @include Kievit-Medium;
+
+  color: red;
+  font-size: 20px;
+  line-height: 21px;
+  padding: 0 0 0 14px;
 }

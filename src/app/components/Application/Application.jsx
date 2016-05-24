@@ -121,7 +121,7 @@ class App extends React.Component {
             className="gs-hintBlock"
             message={this.generateThankYouMessage()}
           />
-          <div id="gs-input-wrapper" className="gs-input-wrapper">
+          <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
             <InputField
               id="gs-inputField"
               className="gs-inputField"
