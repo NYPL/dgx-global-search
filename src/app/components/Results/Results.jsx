@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Import components
-import SearchResult from '../SearchResult/SearchResult.jsx';
+import SearchResult from '../ResultsItem/ResultsItem.jsx';
 
 // Import libraries
 import { map as _map } from 'underscore';

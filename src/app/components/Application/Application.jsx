@@ -12,9 +12,6 @@ import Filter from '../Filter/Filter.jsx';
 // Import alt components
 import Store from '../../stores/Store.js';
 
-// Import libraries
-import { extend as _extend } from 'underscore';
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -41,7 +38,7 @@ class App extends React.Component {
         <span> to help make it even better.</span>
       </p>
     );
-  };
+  }
 
   /**
    * inputChange(event)
@@ -91,36 +88,42 @@ class App extends React.Component {
   /**
    * renderResults()
    * The function renders the results of the search request.
-   * If no search keyword input, it won't render anything.
+   * If no search keyword input, it won't render anything and return null.
    *
    * @return {Object} object
    */
   renderResults() {
     if (this.state.searchKeyword === '') {
-      return;
+      return null;
     }
 
     return (
       <Results
         amount={this.state.searchDataLength}
         results={this.state.searchData}
+        id="gs-results"
         className="gs-results"
       />
     );
-  };
+  }
 
   render() {
     const inputValue = this.state.searchKeyword || '';
 
     return (
-      <div className="gs-appWrapper" onKeyPress={this.triggerSubmit}>
+      <div id="gs-appWrapper" className="gs-appWrapper" onKeyPress={this.triggerSubmit}>
         <Header skipNav={{ target: 'gs-mainContent' }} />
 
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <h2>NYPL Search <span>BETA</span></h2>
-          <HintBlock className="gs-hintBlock" message={this.generateThankYouMessage()} />
-          <div className="gs-input-wrapper">
+          <HintBlock
+            id="gs-hintBlock"
+            className="gs-hintBlock"
+            message={this.generateThankYouMessage()}
+          />
+          <div id="gs-input-wrapper" className="gs-input-wrapper">
             <InputField
+              id="gs-inputField"
               className="gs-inputField"
               type="text"
               placeholder={this.state.searchPlaceholder}
@@ -129,11 +132,12 @@ class App extends React.Component {
             />
           </div>
           <SearchButton
+            id="gs-searchButton"
             className="gs-searchButton"
             label="SEARCH"
             onClick={this.submitSearchRequest}
           />
-          <Filter className="gs-filter" />
+          <Filter id="gs-filter" className="gs-filter" />
           {this.renderResults()}
         </div>
 
