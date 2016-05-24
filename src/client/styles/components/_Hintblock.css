@@ -1,4 +1,4 @@
-.hintBlock {
+.gs-hintBlock {
   @include Kievit-Medium;
 
   background-color: $HINTBLOCK_YELLOW_COLOR;

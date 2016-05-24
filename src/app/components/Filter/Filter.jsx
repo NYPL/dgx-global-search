@@ -3,9 +3,9 @@ import React from 'react';
 import FilterIcon from '../FilterIcon/FilterIcon.jsx';
 
 const Filter = ({ className }) => (
-  <div className={`${className}Wrapper`}>
+  <div className={`${className}-wrapper`}>
     <p>Filter your search:</p>
-    <FilterIcon className={`${className}Icon`} />
+    <FilterIcon className={`${className}-icon`} />
   </div>
 );
 

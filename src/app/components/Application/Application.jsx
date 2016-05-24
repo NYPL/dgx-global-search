@@ -104,6 +104,7 @@ class App extends React.Component {
       <Results
         amount={this.state.searchDataLength}
         results={this.state.searchData}
+        className="gs-results"
       />
     );
   };
@@ -112,15 +113,15 @@ class App extends React.Component {
     const inputValue = this.state.searchKeyword || '';
 
     return (
-      <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
-        <Header skipNav={{ target: 'maincontent' }} />
+      <div className="gs-appWrapper" onKeyPress={this.triggerSubmit}>
+        <Header skipNav={{ target: 'gs-mainContent' }} />
 
-        <div id="maincontent" className="maincontent" tabIndex="-1">
+        <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <h2>NYPL Search <span>BETA</span></h2>
-          <HintBlock className="hintBlock" message={this.generateThankYouMessage()} />
-          <div className="inputWrapper">
+          <HintBlock className="gs-hintBlock" message={this.generateThankYouMessage()} />
+          <div className="gs-input-wrapper">
             <InputField
-              className="inputField"
+              className="gs-inputField"
               type="text"
               placeholder={this.state.searchPlaceholder}
               value={inputValue}
@@ -128,11 +129,11 @@ class App extends React.Component {
             />
           </div>
           <SearchButton
-            className="searchButton"
+            className="gs-searchButton"
             label="SEARCH"
             onClick={this.submitSearchRequest}
           />
-          <Filter className={"filter"} />
+          <Filter className="gs-filter" />
           {this.renderResults()}
         </div>
 

@@ -23,6 +23,7 @@ class Results extends React.Component {
         snippet={item.snippet}
         thumbnailSrc={item.thumbnailSrc}
         label={item.label}
+        className={`${this.props.className}Item`}
       />
     ));
   }
@@ -38,8 +39,8 @@ class Results extends React.Component {
     }
 
     return (
-      <div className="resultWrapper">
-        <p className="resultListLength">We found about {this.props.amount} results.</p>
+      <div className={`${this.props.className}-wrapper`}>
+        <p className={`${this.props.className}-length`}>We found about {this.props.amount} results.</p>
         <svg
           width="84"
           height="2"

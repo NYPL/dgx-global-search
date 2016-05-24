@@ -1,8 +1,8 @@
-.searchButtonWrapper {
+.gs-searchButton-wrapper {
   padding: 0 14px;
   margin: 0 0 15px 0;
 }
-.searchButton {
+.gs-searchButton {
   @include Kievit-Medium;
 
   background-color: $SEARCH_BLUE;

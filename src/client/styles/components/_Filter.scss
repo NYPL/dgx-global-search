@@ -1,4 +1,4 @@
-.filterWrapper {
+.gs-filter-wrapper {
   @include Kievit-Medium;
 
   color: #837E77;
@@ -14,7 +14,7 @@
     vertical-align: 8px;
   }
 
-  .filterIcon {
+  .gs-filter-icon {
     border: 2px solid $FILTER_ICON_GREY;
     border-radius: 32px;
     color: $FILTER_ICON_GREY;
