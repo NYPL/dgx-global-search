@@ -1,8 +1,4 @@
-.searchButtonWrapper {
-  padding: 0 14px;
-  margin: 0 0 15px 0;
-}
-.searchButton {
+.gs-searchButton {
   @include Kievit-Medium;
 
   background-color: $SEARCH_BLUE;
@@ -20,5 +16,10 @@
   p {
     display: inline-block;
     vertical-align: 12px;
+  }
+
+  &-wrapper {
+    padding: 0 14px;
+    margin: 0 0 15px 0;
   }
 }

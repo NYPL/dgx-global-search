@@ -8,11 +8,12 @@ const SearchResult = ({
   link,
   snippet,
   thumbnailSrc,
+  label,
 }) => (
-  <li>
+  <li id={`${id}-${index}`} className={className}>
+    <p className={`${className}-label`}>{label}</p>
     <a
-      id={`${id}-${index}`}
-      className={className}
+      className={`${className}-link`}
       href={link}
     >
       <img
@@ -22,7 +23,8 @@ const SearchResult = ({
       />
       <h3>{title}</h3>
     </a>
-    <p>{snippet}</p>
+    <p className={`${className}-linkText`}>{link}</p>
+    <p className={`${className}-snippet`}>{snippet}</p>
   </li>
 );
 
@@ -34,6 +36,7 @@ SearchResult.propTypes = {
   link: React.PropTypes.string,
   snippet: React.PropTypes.string,
   thumbnailSrc: React.PropTypes.string,
+  label: React.PropTypes.string,
 };
 
 SearchResult.defaultProps = {
@@ -45,6 +48,7 @@ SearchResult.defaultProps = {
 
 SearchResult.styles = {
   thumbnailImage: {
+    display: 'none',
     height: '200px',
   },
 };

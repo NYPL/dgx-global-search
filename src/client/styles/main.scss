@@ -23,7 +23,7 @@ Import style rules from App components
 @import "components/_InputField";
 @import "components/_SearchButton";
 @import "components/_Filter";
-@import "components/_Result";
+@import "components/_Results";
 
 #app {
   margin: 0;
@@ -32,7 +32,7 @@ Import style rules from App components
   @include add-grid(3);
 }
 
-.maincontent {
+.gs-mainContent {
   @include grid-span(3, 1);
 
   h2 {

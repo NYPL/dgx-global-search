@@ -1,5 +1,8 @@
 // Import libraries
-import { map as _map } from 'underscore';
+import {
+  map as _map,
+  isArray as _isArray
+} from 'underscore';
 
 /**
  * fetchResultLength(data)
@@ -48,9 +51,28 @@ const fetchSearchKeyword = (data) => {
 };
 
 /**
+ * fetchDisplayName(array)
+ * The function gets the display name of the category where the search
+ * result item is from.
+ * It takes an array and return a string.
+ *
+ * @param {Array} labelsArray
+ * @return {String}
+ */
+const fetchDisplayName = (labelsArray) => {
+  if ( !_isArray(labelsArray) || !labelsArray[0].displayName) {
+    return '';
+  }
+
+  return labelsArray[0].displayName;
+};
+
+/**
  * fetchItemFeature(item, string)
  * The function gets features from an result item.
  * The second argument indicates which feature it is going to get.
+ * If the feature is "labels", it calls fetchDisplayName() to get
+ * the display name of the category from the labels array.
  *
  * @param {Object} item
  * @param {String} feature
@@ -59,6 +81,10 @@ const fetchSearchKeyword = (data) => {
 const fetchItemFeature = (item, feature) => {
   if (!item.attributes[feature]) {
     return '';
+  }
+
+  if (feature === 'labels') {
+    return fetchDisplayName(item.attributes[feature]);
   }
 
   return item.attributes[feature];
@@ -81,6 +107,7 @@ const fetchItem = (item) => {
       link: '',
       snippet: '',
       thumbnailSrc: '',
+      label: '',
     };
   }
 
@@ -89,6 +116,7 @@ const fetchItem = (item) => {
     link: fetchItemFeature(item, 'link'),
     snippet: fetchItemFeature(item, 'snippet'),
     thumbnailSrc: fetchItemFeature(item, 'thumbnail-url'),
+    label: fetchItemFeature(item, 'labels'),
   };
 };
 
