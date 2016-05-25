@@ -33,17 +33,17 @@
     &-navigation {
       border-bottom: 2px solid #FFF;
       text-align: left;
-    }
 
-    svg {
-      display: inline-block;
-    }
+      svg {
+        display: inline-block;
+      }
 
-    h4 {
-      display: inline-block;
-      font-size: 20px;
-      line-height: 26px;
-      vertical-align: 22px;
+      h4 {
+        display: inline-block;
+        font-size: 20px;
+        line-height: 26px;
+        vertical-align: 22px;
+      }
     }
 
     &-buttonWrapper {
@@ -52,20 +52,26 @@
       margin: 21px 0 0 0;
     }
 
-    &-filterIcon {
+    &-icon {
       padding: 0 0 0 16px;
       vertical-align: 7px;
     }
 
     .apply {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
       vertical-align: 10px;
     }
 
     .closeButton {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
       vertical-align: -4px;
     }
 
-    &-filterItems {
+    &-items {
       padding: 0 0 0 25px;
       text-align: left;
       li {

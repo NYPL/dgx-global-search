@@ -21,12 +21,6 @@ const FilterIcon = ({ className, width, height, fill }) => (
   </svg>
 );
 
-// const FilterIcon = ({ id, className }) => (
-//   <span id={id} className={className}>
-//     {icon}
-//   </span>
-// );
-
 FilterIcon.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
