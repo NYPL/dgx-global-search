@@ -3,7 +3,6 @@
 
   color: #837E77;
   margin: 0 0 20px 0;
-  padding: 0 14px;
   text-align: right;
 
   p {
@@ -14,12 +13,105 @@
     vertical-align: 8px;
   }
 
-  .gs-filter-icon {
+  .gs-filter-button {
     border: 2px solid $FILTER_ICON_GREY;
     border-radius: 32px;
     color: $FILTER_ICON_GREY;
+    cursor: pointer;
     display: inline-block;
+    margin: 0 14px 0 0;
     padding: 0 2px;
   }
-}
 
+  .gs-filter-list {
+    @include min-screen(466px) {
+      top: 150px;
+    }
+
+    background-color: #737069;
+    box-sizing: border-box;
+    color: #FFF;
+    display: none;
+    padding: 0 10px 84px 10px;
+    position: absolute;
+    text-align: center;
+    top: 169px;
+    width: 100%;
+    z-index: 99;
+
+    &-navigation {
+      border-bottom: 2px solid #FFF;
+      text-align: left;
+
+      svg {
+        display: inline-block;
+      }
+
+      h4 {
+        display: inline-block;
+        font-size: 20px;
+        line-height: 26px;
+        vertical-align: 22px;
+      }
+    }
+
+    &-buttonWrapper {
+      display: inline-block;
+      float: right;
+      margin: 21px 0 0 0;
+    }
+
+    &-icon {
+      padding: 0 0 0 16px;
+      vertical-align: 7px;
+    }
+
+    .apply {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      vertical-align: 10px;
+    }
+
+    .closeButton {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      vertical-align: -4px;
+    }
+
+    &-items {
+      padding: 0 0 0 25px;
+      text-align: left;
+      li {
+        list-style-type: none;
+        margin: 28px 0 28px 0;
+        text-transform: uppercase;
+      }
+    }
+
+    .reset-wrapper {
+      border: 2px solid #FFF;
+      border-radius: 60px;
+      display: inline-block;
+      padding: 9px 60px;
+      margin: 72px 0 0 0;
+    }
+
+    .reset {
+      background-color: transparent;
+      border: 0;
+      font-size: 18px;
+      padding: 0;
+
+      span {
+        margin: 0 0 0 22px;
+        vertical-align: 9px;
+      }
+    }
+  }
+
+  .active {
+    display: block;
+  }
+}

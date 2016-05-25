@@ -70,6 +70,7 @@
     "react-doc-meta": "^0.2.0",
     "react-dom": "^0.14.7",
     "react-ga": "^1.2.0",
+    "react-onclickout": "^2.0.4",
     "react-tappable": "^0.8.0",
     "rootpath": "^0.1.2",
     "singularitygs": "^1.7.0",
