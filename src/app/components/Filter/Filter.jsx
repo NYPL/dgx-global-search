@@ -11,6 +11,7 @@ class Filter extends React.Component {
       isFilterListExpanded: false,
     };
 
+    this.generateFilterList = this.generateFilterList.bind(this);
     this.onClick = this.onClick.bind(this);
   }
 
@@ -18,9 +19,25 @@ class Filter extends React.Component {
     this.setState({ isFilterListExpanded: !this.state.isFilterListExpanded });
   }
 
-  render() {
+  generateFilterList() {
     const isActive = (this.state.isFilterListExpanded) ? 'active' : '';
 
+    if (!this.state.isFilterListExpanded) {
+      return null;
+    }
+
+    return (
+      <FilterList
+        id={`${this.props.id}-list`}
+        className={`${this.props.className}-list`}
+        facets={this.props.facets}
+        active={isActive}
+        clickClose={this.onClick}
+      />
+    );
+  }
+
+  render() {
     return (
       <div
         id={`${this.props.id}-wrapper`}
@@ -32,13 +49,7 @@ class Filter extends React.Component {
           className={`${this.props.className}-button`}
           onClick={this.onClick}
         />
-        <FilterList
-          id={`${this.props.id}-list`}
-          className={`${this.props.className}-list`}
-          facets={this.props.facets}
-          active={isActive}
-          clickClose={this.onClick}
-        />
+        {this.generateFilterList()}
       </div>
     );
   }

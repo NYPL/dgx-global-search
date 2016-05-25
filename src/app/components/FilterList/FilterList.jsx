@@ -5,12 +5,18 @@ import CloseButton from '../CloseButton/CloseButton.jsx';
 
 // Import libraries
 import { map as _map } from 'underscore';
+import ClickOutComponent from 'react-onclickout';
 
-class FilterList extends React.Component {
+class FilterList extends ClickOutComponent {
   constructor(props) {
     super(props);
 
     this.renderfacets = this.renderfacets.bind(this);
+    this.onClickOut = this.onClickOut.bind(this);
+  }
+
+  onClickOut() {
+    this.props.clickClose();
   }
 
   renderfacets() {
@@ -21,7 +27,10 @@ class FilterList extends React.Component {
 
   render() {
     return (
-      <div className={`${this.props.className} ${this.props.active}`}>
+      <div
+        className={`${this.props.className} ${this.props.active}`}
+        onClickOut={this.props.clickClose}
+      >
         <div className={`${this.props.className}-navigation`}>
           <FilterIcon
             className={`${this.props.className}-icon`}
