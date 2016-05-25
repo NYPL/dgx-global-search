@@ -7,6 +7,12 @@ class ResultsItem extends React.Component {
     this.renderImage = this.renderImage.bind(this);
   }
 
+  /**
+   * renderImage()
+   * The function render <img> if this.props.thumbnailSrc is true.
+   *
+   * @return null or object
+   */
   renderImage() {
     if (!this.props.thumbnailSrc) {
       return null;

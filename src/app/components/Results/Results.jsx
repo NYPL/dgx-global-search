@@ -13,6 +13,14 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
   }
 
+  /**
+   * getList(itemsArray)
+   * The function map the array of the search result,
+   * and render each item of the array as <ResultsItem> into a new array.
+   *
+   * @param {itemsArray} array
+   * @return array
+   */
   getList(itemsArray) {
     return _map(itemsArray, (item, index) => (
       <ResultsItem
