@@ -1,32 +1,43 @@
 import React from 'react';
 
-const SearchResult = ({
-  id,
-  className,
-  index,
-  title,
-  link,
-  snippet,
-  thumbnailSrc,
-  label,
-}) => (
-  <li id={`${id}-${index}`} className={className}>
-    <p className={`${className}-label`}>{label}</p>
-    <a
-      className={`${className}-link`}
-      href={link}
-    >
+class SearchResult extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.renderImage = this.renderImage.bind(this);
+  }
+
+  renderImage() {
+    if (!this.props.thumbnailSrc) {
+      return null;
+    }
+
+    return (
       <img
-        src={thumbnailSrc}
-        alt={title}
+        src={this.props.thumbnailSrc}
+        alt={this.props.title}
         style={SearchResult.styles.thumbnailImage}
       />
-      <h3>{title}</h3>
-    </a>
-    <p className={`${className}-linkText`}>{link}</p>
-    <p className={`${className}-snippet`}>{snippet}</p>
-  </li>
-);
+    );
+  }
+
+  render() {
+    return (
+    <li id={`${this.props.id}-${this.props.index}`} className={this.props.className}>
+      <p className={`${this.props.className}-label`}>{this.props.label}</p>
+      <a
+        className={`${this.props.className}-link`}
+        href={this.props.link}
+      >
+        {this.renderImage()}
+        <h3>{this.props.title}</h3>
+      </a>
+      <p className={`${this.props.className}-linkText`}>{this.props.link}</p>
+      <p className={`${this.props.className}-snippet`}>{this.props.snippet}</p>
+    </li>
+    );
+  }
+}
 
 SearchResult.propTypes = {
   id: React.PropTypes.string,
