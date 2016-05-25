@@ -1,34 +1,51 @@
 import React from 'react';
 
-const SearchResult = ({
-  id,
-  className,
-  index,
-  title,
-  link,
-  snippet,
-  thumbnailSrc,
-  label,
-}) => (
-  <li id={`${id}-${index}`} className={className}>
-    <p className={`${className}-label`}>{label}</p>
-    <a
-      className={`${className}-link`}
-      href={link}
-    >
-      <img
-        src={thumbnailSrc}
-        alt={title}
-        style={SearchResult.styles.thumbnailImage}
-      />
-      <h3>{title}</h3>
-    </a>
-    <p className={`${className}-linkText`}>{link}</p>
-    <p className={`${className}-snippet`}>{snippet}</p>
-  </li>
-);
+class ResultsItem extends React.Component {
+  constructor(props) {
+    super(props);
 
-SearchResult.propTypes = {
+    this.renderImage = this.renderImage.bind(this);
+  }
+
+  /**
+   * renderImage()
+   * The function render <img> if this.props.thumbnailSrc is true.
+   *
+   * @return null or object
+   */
+  renderImage() {
+    if (!this.props.thumbnailSrc) {
+      return null;
+    }
+
+    return (
+      <img
+        src={this.props.thumbnailSrc}
+        alt={this.props.title}
+        style={ResultsItem.styles.thumbnailImage}
+      />
+    );
+  }
+
+  render() {
+    return (
+      <li id={`${this.props.id}-${this.props.index}`} className={this.props.className}>
+        <p className={`${this.props.className}-label`}>{this.props.label}</p>
+        <a
+          className={`${this.props.className}-link`}
+          href={this.props.link}
+        >
+          {this.renderImage()}
+          <h3>{this.props.title}</h3>
+        </a>
+        <p className={`${this.props.className}-linkText`}>{this.props.link}</p>
+        <p className={`${this.props.className}-snippet`}>{this.props.snippet}</p>
+      </li>
+    );
+  }
+}
+
+ResultsItem.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   index: React.PropTypes.number,
@@ -39,18 +56,18 @@ SearchResult.propTypes = {
   label: React.PropTypes.string,
 };
 
-SearchResult.defaultProps = {
+ResultsItem.defaultProps = {
   lang: 'en',
   id: 'searchResult',
   className: 'searchResult',
   index: 0,
 };
 
-SearchResult.styles = {
+ResultsItem.styles = {
   thumbnailImage: {
     display: 'none',
     height: '200px',
   },
 };
 
-export default SearchResult;
+export default ResultsItem;

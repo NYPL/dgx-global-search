@@ -64,7 +64,7 @@ class App extends React.Component {
     const requestParameter = this.state.searchKeyword.trim() || '';
 
     if (!requestParameter) {
-      this.setState({ searchPlaceholder: 'Please enter a search term.' });
+      this.setState({ isKeywordValid: false });
     } else {
       const requestUrl = `/search/apachesolr_search/${requestParameter}`;
 
@@ -109,9 +109,11 @@ class App extends React.Component {
 
   render() {
     const inputValue = this.state.searchKeyword || '';
+    const inputPlaceholder = (this.state.isKeywordValid) ?
+      'Enter Search Terms' : 'Please enter a search term';
 
     return (
-      <div id="gs-appWrapper" className="gs-appWrapper" onKeyPress={this.triggerSubmit}>
+      <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp" onKeyPress={this.triggerSubmit}>
         <Header skipNav={{ target: 'gs-mainContent' }} />
 
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
@@ -126,7 +128,7 @@ class App extends React.Component {
               id="gs-inputField"
               className="gs-inputField"
               type="text"
-              placeholder={this.state.searchPlaceholder}
+              placeholder={inputPlaceholder}
               value={inputValue}
               onChange={this.inputChange}
             />
@@ -137,7 +139,7 @@ class App extends React.Component {
             label="SEARCH"
             onClick={this.submitSearchRequest}
           />
-          <Filter id="gs-filter" className="gs-filter" />
+          <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
           {this.renderResults()}
         </div>
 
