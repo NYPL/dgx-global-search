@@ -1,12 +1,13 @@
 import React from 'react';
 
 const SearchButton = ({
+  id,
   className,
   label,
   onClick,
 }) => (
-  <div className={`${className}Wrapper`}>
-    <button className={className} onClick={onClick}>
+  <div id={`${id}-wrapper`} className={`${className}-wrapper`}>
+    <button id={id} className={className} onClick={onClick}>
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#FFF" viewBox="0 0 32 32">
         <title>search.icon.v1</title>
         <path
@@ -23,6 +24,7 @@ const SearchButton = ({
 SearchButton.propTypes = {
   onClick: React.PropTypes.func,
   label: React.PropTypes.string,
+  id: React.PropTypes.string,
   className: React.PropTypes.string,
 };
 

@@ -22,9 +22,9 @@ class Filter extends React.Component {
     const isActive = (this.state.isFilterListExpanded) ? 'active' : '';
 
     return (
-      <div className={`${this.props.className}Wrapper`}>
+      <div className={`${this.props.className}-wrapper`}>
         <p>Filter your search:</p>
-        <FilterButton className={`${this.props.className}Icon`} onClick={this.onClick} />
+        <FilterButton className={`${this.props.className}-button`} onClick={this.onClick} />
         <FilterList
           className={`${this.props.className}List`}
           facets={this.props.facets}
@@ -37,6 +37,7 @@ class Filter extends React.Component {
 };
 
 Filter.propTypes = {
+  id: React.PropTypes.string,
   className: React.PropTypes.string,
 };
 

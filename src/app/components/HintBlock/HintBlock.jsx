@@ -2,8 +2,12 @@ import React from 'react';
 
 import CloseButton from '../CloseButton/CloseButton.jsx';
 
-const HintBlock = ({ className, message }) => (
-  <div className={className}>
+const HintBlock = ({
+  id,
+  className,
+  message,
+}) => (
+  <div id={id} className={className}>
     <CloseButton
       className="closeButton"
       width="1rem"
@@ -15,6 +19,7 @@ const HintBlock = ({ className, message }) => (
 );
 
 HintBlock.propTypes = {
+  id: React.PropTypes.string,
   className: React.PropTypes.string,
   message: React.PropTypes.object,
 };
