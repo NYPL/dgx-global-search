@@ -14,7 +14,7 @@ class Actions {
     this.dispatch(data);
   }
 
-  updateSearchPlaceholder(data) {
+  updateIsKeywordValid(data) {
     this.dispatch(data);
   }
 

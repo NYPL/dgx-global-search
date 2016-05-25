@@ -56,6 +56,7 @@ const requestSearchResult = (req, res, next) => {
           searchKeyword: fetchSearchKeyword(searchParsed),
           searchData: fetchResultItems(searchParsed),
           searchDataLength: fetchResultLength(searchParsed),
+          isKeywordValid: true,
           searchFacets: fetchSearchFacets(),
         },
         completeApiUrl: searchApiUrl,
