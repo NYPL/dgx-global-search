@@ -26,11 +26,12 @@ class CloseButton extends React.Component {
         />
       </svg>
     );
-  };
+  }
 
   render() {
-    return(
+    return (
       <IconButton
+        id={this.props.id}
         className={this.props.className}
         icon={this.icon()}
         onClick={this.props.clickClose}
@@ -40,8 +41,18 @@ class CloseButton extends React.Component {
 }
 
 CloseButton.propTypes = {
+  id: React.PropTypes.string,
   className: React.PropTypes.string,
+  width: React.PropTypes.string,
+  height: React.PropTypes.string,
   fill: React.PropTypes.string,
+  clickClose: React.PropTypes.func,
+};
+
+CloseButton.defaultProps = {
+  lang: 'en',
+  id: 'closeButton',
+  className: 'closeButton',
 };
 
 export default CloseButton;

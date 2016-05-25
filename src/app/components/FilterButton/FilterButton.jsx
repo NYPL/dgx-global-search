@@ -2,14 +2,16 @@ import React from 'react';
 
 import FilterIcon from '../FilterIcon/FilterIcon.jsx';
 
-const FilterButton = ({ className, onClick }) => (
-  <span className={className} onClick={onClick}>
+const FilterButton = ({ id, className, onClick }) => (
+  <span id={id} className={className} onClick={onClick}>
     <FilterIcon className={`${className}-icon`} width="32px" height="32px" fill="#837E77" />
   </span>
 );
 
 FilterButton.propTypes = {
+  id: React.PropTypes.string,
   className: React.PropTypes.string,
+  onClick: React.PropTypes.func,
 };
 
 export default FilterButton;

@@ -9,7 +9,7 @@ class Filter extends React.Component {
 
     this.state = {
       isFilterListExpanded: false,
-    }
+    };
 
     this.onClick = this.onClick.bind(this);
   }
@@ -22,11 +22,19 @@ class Filter extends React.Component {
     const isActive = (this.state.isFilterListExpanded) ? 'active' : '';
 
     return (
-      <div className={`${this.props.className}-wrapper`}>
+      <div
+        id={`${this.props.id}-wrapper`}
+        className={`${this.props.className}-wrapper`}
+      >
         <p>Filter your search:</p>
-        <FilterButton className={`${this.props.className}-button`} onClick={this.onClick} />
+        <FilterButton
+          id={`${this.props.id}-button`}
+          className={`${this.props.className}-button`}
+          onClick={this.onClick}
+        />
         <FilterList
-          className={`${this.props.className}List`}
+          id={`${this.props.id}-list`}
+          className={`${this.props.className}-list`}
           facets={this.props.facets}
           active={isActive}
           clickClose={this.onClick}
@@ -34,11 +42,12 @@ class Filter extends React.Component {
       </div>
     );
   }
-};
+}
 
 Filter.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
+  facets: React.PropTypes.array,
 };
 
 export default Filter;

@@ -24,6 +24,9 @@ const FilterIcon = ({ className, width, height, fill }) => (
 FilterIcon.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
+  width: React.PropTypes.string,
+  height: React.PropTypes.string,
+  fill: React.PropTypes.string,
 };
 
 export default FilterIcon;

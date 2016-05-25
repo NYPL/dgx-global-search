@@ -1,24 +1,18 @@
 import React from 'react';
 
-class IconButton extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <button
-        className={this.props.className}
-        onClick={this.props.onClick}
-      >
-        {this.props.icon}
-      </button>
-    );
-  }
-}
+const IconButton = ({ id, className, onClick, icon }) => (
+  <button
+    id={id}
+    className={className}
+    onClick={onClick}
+  >
+    {icon}
+  </button>
+);
 
 IconButton.propTypes = {
   onClick: React.PropTypes.func,
+  id: React.PropTypes.string,
   className: React.PropTypes.string,
   icon: React.PropTypes.object,
 };
