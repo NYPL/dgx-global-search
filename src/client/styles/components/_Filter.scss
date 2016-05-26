@@ -42,6 +42,7 @@
 
     &-navigation {
       border-bottom: 2px solid #FFF;
+      padding: 30px 0 10px 0;
       text-align: left;
 
       svg {
@@ -52,6 +53,7 @@
         display: inline-block;
         font-size: 20px;
         line-height: 26px;
+        margin: 0;
         vertical-align: 20px;
       }
     }
@@ -59,26 +61,21 @@
     &-buttonWrapper {
       display: inline-block;
       float: right;
-      margin: 21px 0 0 0;
-    }
-
-    &-icon {
-      padding: 0 0 0 16px;
-      vertical-align: 7px;
     }
 
     .apply {
       background-color: transparent;
       border: none;
       cursor: pointer;
-      vertical-align: 10px;
+      padding: 0;
+      vertical-align: 28px;
     }
 
     .closeButton {
       background-color: transparent;
       border: none;
       cursor: pointer;
-      vertical-align: -4px;
+      padding: 0;
     }
 
     &-items {

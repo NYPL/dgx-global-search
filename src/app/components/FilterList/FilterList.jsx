@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ApplyIcon, ResetIcon, FilterIcon } from 'dgx-svg-icons';
+import { ApplyIcon, FilterIcon, ResetIcon } from 'dgx-svg-icons';
 
 import CloseButton from '../CloseButton/CloseButton.jsx';
 
@@ -47,20 +47,21 @@ class FilterList extends ClickOutComponent {
             <button className="apply">
               <ApplyIcon
                 ariaHidden={true}
-                className={`${this.props.className}-ApplyIcon`}
+                className={`${this.props.className}-applyIcon`}
                 fill="#FFF"
-                height="32"
-                width="32"
+                height="40"
+                width="40"
                 title="apply.icon.svg"
                 viewBox="0 0 32 32"
               />
             </button>
             <CloseButton
               className="closeButton"
-              width="42px"
-              height="42px"
+              width="64"
+              height="64"
               fill="#FFF"
               clickClose={this.props.clickClose}
+              viewBox="-8 8 32 32"
             />
           </div>
         </div>
