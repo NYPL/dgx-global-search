@@ -2,6 +2,7 @@ import React from 'react';
 
 // Import components
 import ResultsItem from '../ResultsItem/ResultsItem.jsx';
+import { DivideLineIcon } from 'dgx-svg-icons';
 
 // Import libraries
 import { map as _map } from 'underscore';
@@ -51,15 +52,18 @@ class Results extends React.Component {
         <p className={`${this.props.className}-length`}>
           We found about {this.props.amount} results.
         </p>
-        <svg
-          width="84"
+
+        <DivideLineIcon
+          ariaHidden={true}
+          className={`${this.props.className}-divideLineIcon`}
           height="2"
-          viewPort="0 0 84 2"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <line x1="0" y1="0" x2="84" y2="0" stroke="#279975" strokeWidth="2" />
-        </svg>
+          length="84"
+          stroke="#279975"
+          strokeWidth="2"
+          title="divide.line.icon.svg"
+          viewBox="0 0 84 2"
+          width="84"
+        />
         <ul id={this.props.id} className={this.props.className}>
           {results}
         </ul>
