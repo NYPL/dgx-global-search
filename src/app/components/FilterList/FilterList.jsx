@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { ResetIcon } from 'dgx-svg-icons';
+import { ResetIcon, FilterIcon } from 'dgx-svg-icons';
 
-import FilterIcon from '../FilterIcon/FilterIcon.jsx';
 import CloseButton from '../CloseButton/CloseButton.jsx';
 
 // Import libraries
@@ -35,10 +34,13 @@ class FilterList extends ClickOutComponent {
       >
         <div className={`${this.props.className}-navigation`}>
           <FilterIcon
+            aria-hidden="true"
             className={`${this.props.className}-icon`}
-            width="46px"
-            height="46px"
             fill="#FFF"
+            height="46"
+            width="46"
+            title="filter.icon.svg"
+            viewBox="0 0 32 32"
           />
           <h4>Filter by</h4>
           <div className={`${this.props.className}-buttonWrapper`}>
