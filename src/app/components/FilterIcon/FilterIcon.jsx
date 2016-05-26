@@ -1,7 +1,7 @@
 import React from 'react';
 
-const icon = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+const FilterIcon = ({ className, width, height, fill }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} width={width} height={height} fill={fill} viewBox="0 0 32 32">
     <title>filter.v3</title>
     <g>
       <circle cx="13.0944" cy="7.375" r="1.3192" />
@@ -21,15 +21,12 @@ const icon = (
   </svg>
 );
 
-const FilterIcon = ({ id, className }) => (
-  <span id={id} className={className}>
-    {icon}
-  </span>
-);
-
 FilterIcon.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
+  width: React.PropTypes.string,
+  height: React.PropTypes.string,
+  fill: React.PropTypes.string,
 };
 
 export default FilterIcon;

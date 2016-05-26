@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Import components
-import SearchResult from '../ResultsItem/ResultsItem.jsx';
+import ResultsItem from '../ResultsItem/ResultsItem.jsx';
 
 // Import libraries
 import { map as _map } from 'underscore';
@@ -13,9 +13,17 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
   }
 
+  /**
+   * getList(itemsArray)
+   * The function map the array of the search result,
+   * and render each item of the array as <ResultsItem> into a new array.
+   *
+   * @param {itemsArray} array
+   * @return array
+   */
   getList(itemsArray) {
     return _map(itemsArray, (item, index) => (
-      <SearchResult
+      <ResultsItem
         key={index}
         index={index}
         title={item.title}
@@ -40,7 +48,9 @@ class Results extends React.Component {
 
     return (
       <div className={`${this.props.className}-wrapper`}>
-        <p className={`${this.props.className}-length`}>We found about {this.props.amount} results.</p>
+        <p className={`${this.props.className}-length`}>
+          We found about {this.props.amount} results.
+        </p>
         <svg
           width="84"
           height="2"

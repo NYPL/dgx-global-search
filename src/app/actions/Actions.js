@@ -14,9 +14,14 @@ class Actions {
     this.dispatch(data);
   }
 
-   updateSearchPlaceholder(data) {
+  updateIsKeywordValid(data) {
     this.dispatch(data);
   }
+
+  updateSearchFacets(data) {
+    this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(Actions);
