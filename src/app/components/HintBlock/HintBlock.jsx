@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { XIcon } from 'dgx-svg-icons';
+
 import CloseButton from '../CloseButton/CloseButton.jsx';
 
 const HintBlock = ({
@@ -10,9 +12,10 @@ const HintBlock = ({
   <div id={id} className={className}>
     <CloseButton
       className="closeButton"
-      width="1rem"
-      height="1rem"
+      width="32"
+      height="32"
       fill="#837E77"
+      viewBox="-8 8 32 32"
     />
     {message}
   </div>
