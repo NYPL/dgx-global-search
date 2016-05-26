@@ -34,7 +34,7 @@ class FilterList extends ClickOutComponent {
       >
         <div className={`${this.props.className}-navigation`}>
           <FilterIcon
-            aria-hidden="true"
+            ariaHidden={true}
             className={`${this.props.className}-filterIcon`}
             fill="#FFF"
             height="46"
@@ -46,7 +46,7 @@ class FilterList extends ClickOutComponent {
           <div className={`${this.props.className}-buttonWrapper`}>
             <button className="apply">
               <ApplyIcon
-                aria-hidden="true"
+                ariaHidden={true}
                 className={`${this.props.className}-ApplyIcon`}
                 fill="#FFF"
                 height="32"
@@ -69,7 +69,7 @@ class FilterList extends ClickOutComponent {
         </ul>
         <button className="PillButton reset">
           <ResetIcon
-            aria-hidden="true"
+            ariaHidden={true}
             className="this.props.className"
             fill="#FFF"
             height="32"
