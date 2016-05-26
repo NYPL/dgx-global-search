@@ -38,8 +38,8 @@ class FilterList extends ClickOutComponent {
             className={`${this.props.className}-filterIcon`}
             fill="#FFF"
             height="46"
-            width="46"
             title="filter.icon.svg"
+            width="46"
             viewBox="0 0 32 32"
           />
           <h4>Filter by</h4>
