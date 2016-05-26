@@ -77,25 +77,23 @@ class FilterList extends ClickOutComponent {
         <ul className={`${this.props.className}-items`}>
           {this.renderfacets()}
         </ul>
-        <div className="reset-wrapper">
-          <button className="PillButton reset">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              fill="#FFF"
-              viewBox="0 0 32 32"
-            >
-              <title>refresh.icon.svg</title>
-              <path
-                d={'M10.96075,11l4.60907-3.19434a1,1,0,0,0-1.13965-1.64355L5.939,' +
-                  '12.04688l8.83594,6.248a0.99981,0.99981,0,0,0,1.1543-1.63281L10.75061,' +
-                  '13H23v8H6a1,1,0,0,0,0,2H25V11H10.96075Z'}
-              />
-            </svg>
-            <span>RESET</span>
-          </button>
-        </div>
+        <button className="PillButton reset">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            fill="#FFF"
+            viewBox="0 0 32 32"
+          >
+            <title>refresh.icon.svg</title>
+            <path
+              d={'M10.96075,11l4.60907-3.19434a1,1,0,0,0-1.13965-1.64355L5.939,' +
+                '12.04688l8.83594,6.248a0.99981,0.99981,0,0,0,1.1543-1.63281L10.75061,' +
+                '13H23v8H6a1,1,0,0,0,0,2H25V11H10.96075Z'}
+            />
+          </svg>
+          <span>RESET</span>
+        </button>
       </div>
     );
   }

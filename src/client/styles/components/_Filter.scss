@@ -14,6 +14,7 @@
   }
 
   .gs-filter-button {
+    background-color: transparent;
     border: 2px solid $FILTER_ICON_GREY;
     border-radius: 32px;
     color: $FILTER_ICON_GREY;
@@ -83,6 +84,7 @@
     &-items {
       padding: 0 0 0 25px;
       text-align: left;
+
       li {
         list-style-type: none;
         margin: 28px 0 28px 0;
@@ -90,19 +92,13 @@
       }
     }
 
-    .reset-wrapper {
-      border: 2px solid #FFF;
-      border-radius: 60px;
-      display: inline-block;
-      padding: 9px 60px;
-      margin: 72px 0 0 0;
-    }
-
     .reset {
       background-color: transparent;
-      border: 0;
+      border: 2px solid #FFF;
+      border-radius: 60px;
       font-size: 18px;
-      padding: 0;
+      padding: 9px 60px;
+      margin: 72px 0 0 0;
 
       span {
         margin: 0 0 0 22px;

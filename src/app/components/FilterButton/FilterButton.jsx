@@ -3,9 +3,9 @@ import React from 'react';
 import FilterIcon from '../FilterIcon/FilterIcon.jsx';
 
 const FilterButton = ({ id, className, onClick }) => (
-  <span id={id} className={className} onClick={onClick}>
+  <button id={id} className={className} onClick={onClick}>
     <FilterIcon className={`${className}-icon`} width="32px" height="32px" fill="#837E77" />
-  </span>
+  </button>
 );
 
 FilterButton.propTypes = {
