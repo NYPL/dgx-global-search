@@ -11,7 +11,7 @@ const SearchButton = ({
   <div id={`${id}-wrapper`} className={`${className}-wrapper`}>
     <button id={id} className={className} onClick={onClick}>
       <SearchIcon
-        ariaHidden={true}
+        ariaHidden
         className={`${className}-SearchIcon`}
         fill="#FFF"
         height="32"

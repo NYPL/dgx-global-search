@@ -54,7 +54,7 @@ class Results extends React.Component {
         </p>
 
         <DivideLineIcon
-          ariaHidden={true}
+          ariaHidden
           className={`${this.props.className}-divideLineIcon`}
           height="2"
           length="84"

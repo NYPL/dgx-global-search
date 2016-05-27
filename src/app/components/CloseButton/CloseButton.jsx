@@ -2,39 +2,44 @@ import React from 'react';
 
 import { XIcon } from 'dgx-svg-icons';
 
-class CloseButton extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <button
-        id={this.props.id}
-        className={this.props.className}
-        onClick={this.props.onClick}
-      >
-        <XIcon
-          ariaHidden={true}
-          className={`${this.props.className}-xIcon`}
-          fill={this.props.fill}
-          height={this.props.height}
-          title="x.icon.svg"
-          viewBox={this.props.viewBox}
-          width={this.props.width}
-        />
-      </button>
-    );
-  }
-}
+const CloseButton = ({
+  ariaHidden,
+  className,
+  fill,
+  height,
+  id,
+  onClick,
+  title,
+  width,
+  viewBox,
+}) => (
+  <button
+    id={id}
+    className={className}
+    onClick={onClick}
+  >
+    <XIcon
+      ariaHidden={ariaHidden}
+      className={`${className}-xIcon`}
+      fill={fill}
+      height={height}
+      title={title}
+      viewBox={viewBox}
+      width={width}
+    />
+  </button>
+);
 
 CloseButton.propTypes = {
+  ariaHidden: React.PropTypes.string,
   id: React.PropTypes.string,
   className: React.PropTypes.string,
+  title: React.PropTypes.string,
   width: React.PropTypes.string,
   height: React.PropTypes.string,
   fill: React.PropTypes.string,
-  clickClose: React.PropTypes.func,
+  viewBox: React.PropTypes.string,
+  onClick: React.PropTypes.func,
 };
 
 CloseButton.defaultProps = {

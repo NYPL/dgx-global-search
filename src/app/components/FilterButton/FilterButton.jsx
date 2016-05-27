@@ -5,7 +5,7 @@ import { FilterIcon } from 'dgx-svg-icons';
 const FilterButton = ({ id, className, onClick }) => (
   <button id={id} className={className} onClick={onClick}>
     <FilterIcon
-      ariaHidden={true}
+      ariaHidden
       className={`${className}-icon`}
       fill="#837E77"
       height="32px"

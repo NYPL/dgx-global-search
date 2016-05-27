@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { XIcon } from 'dgx-svg-icons';
-
 import CloseButton from '../CloseButton/CloseButton.jsx';
 
 const HintBlock = ({
@@ -11,7 +9,10 @@ const HintBlock = ({
 }) => (
   <div id={id} className={className}>
     <CloseButton
-      className="closeButton"
+      id={`${id}-closeButton`}
+      ariaHidden
+      className={`${className}-closeButton`}
+      title="x.icon.svg"
       width="32"
       height="32"
       fill="#837E77"
