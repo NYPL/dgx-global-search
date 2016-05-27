@@ -12,7 +12,7 @@ class CloseButton extends React.Component {
       <button
         id={this.props.id}
         className={this.props.className}
-        onClick={this.props.clickClose}
+        onClick={this.props.onClick}
       >
         <XIcon
           ariaHidden={true}

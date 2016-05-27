@@ -56,8 +56,10 @@ class FilterList extends ClickOut {
               />
             </button>
             <CloseButton
+              id={`${this.props.id}-closeButton`}
+              className={`customButton ${this.props.className}-closeButton`}
+              onClick={this.onClickOut}
               ariaHidden={true}
-              className="customButton closeButton"
               fill="#FFF"
               width="64"
               height="64"
