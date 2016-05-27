@@ -58,8 +58,8 @@ ResultsItem.propTypes = {
 
 ResultsItem.defaultProps = {
   lang: 'en',
-  id: 'searchResult',
-  className: 'searchResult',
+  id: 'resultsItem',
+  className: 'resultsItem',
   index: 0,
 };
 

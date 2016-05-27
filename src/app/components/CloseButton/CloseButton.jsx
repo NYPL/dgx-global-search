@@ -31,7 +31,7 @@ const CloseButton = ({
 );
 
 CloseButton.propTypes = {
-  ariaHidden: React.PropTypes.string,
+  ariaHidden: React.PropTypes.bool,
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   title: React.PropTypes.string,
