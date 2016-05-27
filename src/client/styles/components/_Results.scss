@@ -27,6 +27,11 @@
       }
     }
 
+    &-image {
+      display: none;
+      height: 200px;
+    }
+
     &-snippet {
       border-bottom: 2px solid #A3A19E;
       color: #333;
