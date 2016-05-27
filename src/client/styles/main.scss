@@ -35,6 +35,7 @@ Import style rules from App components
 
 .gs-mainContent {
   @include grid-span(3, 1);
+  position: relative;
 
   h2 {
     @include Kievit-Medium;

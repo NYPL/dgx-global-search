@@ -6,9 +6,9 @@ import CloseButton from '../CloseButton/CloseButton.jsx';
 
 // Import libraries
 import { map as _map } from 'underscore';
-import ClickOutComponent from 'react-onclickout';
+import ClickOut from 'react-onclickout';
 
-class FilterList extends ClickOutComponent {
+class FilterList extends ClickOut {
   constructor(props) {
     super(props);
 
@@ -29,7 +29,7 @@ class FilterList extends ClickOutComponent {
   render() {
     return (
       <div
-        className={`${this.props.className} ${this.props.active}`}
+        className={this.props.className}
         onClickOut={this.props.clickClose}
       >
         <div className={`${this.props.className}-navigation`}>
@@ -40,11 +40,11 @@ class FilterList extends ClickOutComponent {
             height="46"
             title="filter.icon.svg"
             width="46"
-            viewBox="0 0 32 32"
+            viewBox="4 4 32 32"
           />
           <h4>Filter by</h4>
           <div className={`${this.props.className}-buttonWrapper`}>
-            <button className="apply">
+            <button className="customButton apply">
               <ApplyIcon
                 ariaHidden={true}
                 className={`${this.props.className}-applyIcon`}
@@ -52,15 +52,15 @@ class FilterList extends ClickOutComponent {
                 height="40"
                 width="40"
                 title="apply.icon.svg"
-                viewBox="0 0 32 32"
+                viewBox="-8 0 32 32"
               />
             </button>
             <CloseButton
-              className="closeButton"
+              ariaHidden={true}
+              className="customButton closeButton"
+              fill="#FFF"
               width="64"
               height="64"
-              fill="#FFF"
-              clickClose={this.props.clickClose}
               viewBox="-8 8 32 32"
             />
           </div>
@@ -68,7 +68,7 @@ class FilterList extends ClickOutComponent {
         <ul className={`${this.props.className}-items`}>
           {this.renderfacets()}
         </ul>
-        <button className="PillButton reset">
+        <button className="customButton reset">
           <ResetIcon
             ariaHidden={true}
             className="this.props.className"
@@ -90,7 +90,6 @@ FilterList.propTypes = {
   className: React.PropTypes.string,
   facets: React.PropTypes.array,
   clickClose: React.PropTypes.func,
-  active: React.PropTypes.string,
   width: React.PropTypes.string,
   height: React.PropTypes.string,
   fill: React.PropTypes.string,

@@ -25,18 +25,13 @@
   }
 
   .gs-filter-list {
-    @include min-screen(466px) {
-      top: 150px;
-    }
-
     background-color: #737069;
     box-sizing: border-box;
     color: #FFF;
-    display: none;
     padding: 0 10px 84px 10px;
     position: absolute;
     text-align: center;
-    top: 169px;
+    top: 0;
     width: 100%;
     z-index: 99;
 
@@ -63,19 +58,15 @@
       float: right;
     }
 
-    .apply {
+    .customButton {
       background-color: transparent;
       border: none;
       cursor: pointer;
       padding: 0;
-      vertical-align: 28px;
     }
 
-    .closeButton {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0;
+    .apply {
+      vertical-align: 28px;
     }
 
     &-items {
@@ -84,7 +75,7 @@
 
       li {
         list-style-type: none;
-        margin: 28px 0 28px 0;
+        margin: 28px 0;
         text-transform: uppercase;
       }
     }
@@ -102,9 +93,5 @@
         vertical-align: 9px;
       }
     }
-  }
-
-  .active {
-    display: block;
   }
 }
