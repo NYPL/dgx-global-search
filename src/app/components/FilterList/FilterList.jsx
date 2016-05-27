@@ -5,9 +5,9 @@ import CloseButton from '../CloseButton/CloseButton.jsx';
 
 // Import libraries
 import { map as _map } from 'underscore';
-import ClickOutComponent from 'react-onclickout';
+import ClickOut from 'react-onclickout';
 
-class FilterList extends ClickOutComponent {
+class FilterList extends ClickOut {
   constructor(props) {
     super(props);
 
@@ -28,7 +28,7 @@ class FilterList extends ClickOutComponent {
   render() {
     return (
       <div
-        className={`${this.props.className} ${this.props.active}`}
+        className={this.props.className}
         onClickOut={this.props.clickClose}
       >
         <div className={`${this.props.className}-navigation`}>
@@ -40,7 +40,7 @@ class FilterList extends ClickOutComponent {
           />
           <h4>Filter by</h4>
           <div className={`${this.props.className}-buttonWrapper`}>
-            <button className="apply">
+            <button className="customButton apply">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32" height="32"
@@ -66,7 +66,7 @@ class FilterList extends ClickOutComponent {
               </svg>
             </button>
             <CloseButton
-              className="closeButton"
+              className="customButton closeButton"
               width="42px"
               height="42px"
               fill="#FFF"
@@ -77,7 +77,7 @@ class FilterList extends ClickOutComponent {
         <ul className={`${this.props.className}-items`}>
           {this.renderfacets()}
         </ul>
-        <button className="PillButton reset">
+        <button className="customButton reset">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -104,7 +104,6 @@ FilterList.propTypes = {
   className: React.PropTypes.string,
   facets: React.PropTypes.array,
   clickClose: React.PropTypes.func,
-  active: React.PropTypes.string,
   width: React.PropTypes.string,
   height: React.PropTypes.string,
   fill: React.PropTypes.string,

@@ -1,49 +1,49 @@
 import React from 'react';
 
-class ResultsItem extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.renderImage = this.renderImage.bind(this);
+/**
+ * renderImage()
+ * The function render <img> if this.props.thumbnailSrc is true.
+ *
+ * @return null or object
+ */
+const renderImage = (className, src, title) => {
+  if (!src) {
+    return null;
   }
 
-  /**
-   * renderImage()
-   * The function render <img> if this.props.thumbnailSrc is true.
-   *
-   * @return null or object
-   */
-  renderImage() {
-    if (!this.props.thumbnailSrc) {
-      return null;
-    }
+  return (
+    <img
+      className={`${className}-image`}
+      src={src}
+      alt={title}
+    />
+  );
+};
 
-    return (
-      <img
-        src={this.props.thumbnailSrc}
-        alt={this.props.title}
-        style={ResultsItem.styles.thumbnailImage}
-      />
-    );
-  }
+const ResultsItem = ({
+  className,
+  id,
+  index,
+  label,
+  link,
+  snippet,
+  title,
+  thumbnailSrc,
+}) => (
+  <li id={`${id}-${index}`} className={className}>
+    <p className={`${className}-label`}>{label}</p>
+    <a
+      className={`${className}-link`}
+      href={link}
+    >
+      {renderImage(className, thumbnailSrc, title)}
+      <h3>{title}</h3>
+    </a>
+    <p className={`${className}-linkText`}>{link}</p>
+    <p className={`${className}-snippet`}>{snippet}</p>
+  </li>
+);
 
-  render() {
-    return (
-      <li id={`${this.props.id}-${this.props.index}`} className={this.props.className}>
-        <p className={`${this.props.className}-label`}>{this.props.label}</p>
-        <a
-          className={`${this.props.className}-link`}
-          href={this.props.link}
-        >
-          {this.renderImage()}
-          <h3>{this.props.title}</h3>
-        </a>
-        <p className={`${this.props.className}-linkText`}>{this.props.link}</p>
-        <p className={`${this.props.className}-snippet`}>{this.props.snippet}</p>
-      </li>
-    );
-  }
-}
 
 ResultsItem.propTypes = {
   id: React.PropTypes.string,
@@ -61,13 +61,6 @@ ResultsItem.defaultProps = {
   id: 'searchResult',
   className: 'searchResult',
   index: 0,
-};
-
-ResultsItem.styles = {
-  thumbnailImage: {
-    display: 'none',
-    height: '200px',
-  },
 };
 
 export default ResultsItem;
