@@ -53,7 +53,6 @@ class Results extends React.Component {
         <p className={`${this.props.className}-length`}>
           We found about {this.props.amount} results.
         </p>
-
         <DivideLineIcon
           ariaHidden
           className={`${this.props.className}-divideLineIcon`}
