@@ -5,9 +5,9 @@ import CloseButton from '../CloseButton/CloseButton.jsx';
 
 // Import libraries
 import { map as _map } from 'underscore';
-import ClickOutComponent from 'react-onclickout';
+import ClickOut from 'react-onclickout';
 
-class FilterList extends ClickOutComponent {
+class FilterList extends ClickOut {
   constructor(props) {
     super(props);
 
