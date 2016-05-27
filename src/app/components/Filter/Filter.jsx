@@ -22,20 +22,17 @@ class Filter extends React.Component {
   /**
    * generateFilterList()
    * The function generate <FilterList> based on the state of isFilterListExpanded.
-   * If the state is false, it will generate the object.
+   * If the state is true, it will generate the object.
    *
    * @return null or object
    */
   generateFilterList() {
-    const isActive = (this.state.isFilterListExpanded) ? 'active' : '';
-
     if (this.state.isFilterListExpanded) {
       return (
         <FilterList
           id={`${this.props.id}-list`}
           className={`${this.props.className}-list`}
           facets={this.props.facets}
-          active={isActive}
           clickClose={this.onClick}
         />
       );

@@ -28,7 +28,7 @@ class FilterList extends ClickOut {
   render() {
     return (
       <div
-        className={`${this.props.className} ${this.props.active}`}
+        className={this.props.className}
         onClickOut={this.props.clickClose}
       >
         <div className={`${this.props.className}-navigation`}>
@@ -104,7 +104,6 @@ FilterList.propTypes = {
   className: React.PropTypes.string,
   facets: React.PropTypes.array,
   clickClose: React.PropTypes.func,
-  active: React.PropTypes.string,
   width: React.PropTypes.string,
   height: React.PropTypes.string,
   fill: React.PropTypes.string,

@@ -28,7 +28,6 @@
     background-color: #737069;
     box-sizing: border-box;
     color: #FFF;
-    display: none;
     padding: 0 10px 84px 10px;
     position: absolute;
     text-align: center;
@@ -102,9 +101,5 @@
         vertical-align: 9px;
       }
     }
-  }
-
-  .active {
-    display: block;
   }
 }
