@@ -67,17 +67,18 @@
       vertical-align: 7px;
     }
 
-    .apply {
+    .PillButton {
       background-color: transparent;
       border: none;
       cursor: pointer;
+      padding: 0;
+    }
+
+    .apply {
       vertical-align: 10px;
     }
 
     .closeButton {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
       vertical-align: -4px;
     }
 
