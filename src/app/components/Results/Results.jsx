@@ -3,7 +3,7 @@ import React from 'react';
 // Import components
 import ResultsItem from '../ResultsItem/ResultsItem.jsx';
 import { DivideLineIcon } from 'dgx-svg-icons';
-// import { PaginationButton } from 'dgx-react-buttons';
+import { PaginationButton } from 'dgx-react-buttons';
 
 // Import libraries
 import { map as _map } from 'underscore';
@@ -67,7 +67,11 @@ class Results extends React.Component {
         <ul id={this.props.id} className={this.props.className}>
           {results}
         </ul>
-
+        <PaginationButton
+          id={`${this.props.id}-paginationButton`}
+          className={`${this.props.id}-paginationButton`}
+          isLoading={false}
+        />
       </div>
     );
   }
