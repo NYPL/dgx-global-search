@@ -40,7 +40,7 @@ class FilterList extends ClickOutComponent {
           />
           <h4>Filter by</h4>
           <div className={`${this.props.className}-buttonWrapper`}>
-            <button className="apply">
+            <button className="customButton apply">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32" height="32"
@@ -66,7 +66,7 @@ class FilterList extends ClickOutComponent {
               </svg>
             </button>
             <CloseButton
-              className="closeButton"
+              className="customButton closeButton"
               width="42px"
               height="42px"
               fill="#FFF"
@@ -77,7 +77,7 @@ class FilterList extends ClickOutComponent {
         <ul className={`${this.props.className}-items`}>
           {this.renderfacets()}
         </ul>
-        <button className="PillButton reset">
+        <button className="customButton reset">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
