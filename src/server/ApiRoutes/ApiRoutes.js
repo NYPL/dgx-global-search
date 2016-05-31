@@ -7,6 +7,7 @@ import {
   fetchResultLength,
   fetchResultItems,
   fetchSearchKeyword,
+  fetchSearchFacets,
 } from '../../app/utils/SearchModel.js';
 
 import appConfig from '../../../appConfig.js';
@@ -55,6 +56,7 @@ const requestSearchResult = (req, res, next) => {
           searchKeyword: fetchSearchKeyword(searchParsed),
           searchData: fetchResultItems(searchParsed),
           searchDataLength: fetchResultLength(searchParsed),
+          searchFacets: fetchSearchFacets(),
         },
         completeApiUrl: searchApiUrl,
       };
@@ -75,6 +77,7 @@ const requestSearchResult = (req, res, next) => {
           searchKeyword: '',
           searchData: [],
           searchDataLength: 0,
+          searchFacets: fetchSearchFacets(),
         },
       };
 

@@ -1,14 +1,34 @@
 import React from 'react';
 
-const SearchResult = ({
-  id,
+/**
+ * renderImage()
+ * The function render <img> if this.props.thumbnailSrc is true.
+ *
+ * @return null or object
+ */
+const renderImage = (className, src, title) => {
+  if (!src) {
+    return null;
+  }
+
+  return (
+    <img
+      className={`${className}-image`}
+      src={src}
+      alt={title}
+    />
+  );
+};
+
+const ResultsItem = ({
   className,
+  id,
   index,
-  title,
+  label,
   link,
   snippet,
+  title,
   thumbnailSrc,
-  label,
 }) => (
   <li id={`${id}-${index}`} className={className}>
     <p className={`${className}-label`}>{label}</p>
@@ -16,11 +36,7 @@ const SearchResult = ({
       className={`${className}-link`}
       href={link}
     >
-      <img
-        src={thumbnailSrc}
-        alt={title}
-        style={SearchResult.styles.thumbnailImage}
-      />
+      {renderImage(className, thumbnailSrc, title)}
       <h3>{title}</h3>
     </a>
     <p className={`${className}-linkText`}>{link}</p>
@@ -28,7 +44,8 @@ const SearchResult = ({
   </li>
 );
 
-SearchResult.propTypes = {
+
+ResultsItem.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   index: React.PropTypes.number,
@@ -39,18 +56,11 @@ SearchResult.propTypes = {
   label: React.PropTypes.string,
 };
 
-SearchResult.defaultProps = {
+ResultsItem.defaultProps = {
   lang: 'en',
   id: 'searchResult',
   className: 'searchResult',
   index: 0,
 };
 
-SearchResult.styles = {
-  thumbnailImage: {
-    display: 'none',
-    height: '200px',
-  },
-};
-
-export default SearchResult;
+export default ResultsItem;

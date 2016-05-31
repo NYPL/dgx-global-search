@@ -8,7 +8,12 @@ const HintBlock = ({
   message,
 }) => (
   <div id={id} className={className}>
-    <CloseButton className="closeButton" />
+    <CloseButton
+      className="closeButton"
+      width="1rem"
+      height="1rem"
+      fill="#837E77"
+    />
     {message}
   </div>
 );

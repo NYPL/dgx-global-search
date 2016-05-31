@@ -111,7 +111,7 @@ class App extends React.Component {
     const inputValue = this.state.searchKeyword || '';
 
     return (
-      <div id="gs-appWrapper" className="gs-appWrapper" onKeyPress={this.triggerSubmit}>
+      <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp" onKeyPress={this.triggerSubmit}>
         <Header skipNav={{ target: 'gs-mainContent' }} />
 
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
@@ -137,7 +137,7 @@ class App extends React.Component {
             label="SEARCH"
             onClick={this.submitSearchRequest}
           />
-          <Filter id="gs-filter" className="gs-filter" />
+          <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
           {this.renderResults()}
         </div>
 

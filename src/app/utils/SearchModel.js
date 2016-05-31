@@ -28,6 +28,20 @@ const fetchResultLength = (data) => {
   }
 };
 
+const fetchSearchFacets = () => {
+  return [
+    'all',
+    'digital collections',
+    'exhibitions',
+    'archives',
+    'audio / visual',
+    'blog',
+    'projects',
+    'events / classes',
+    'recommendations',
+  ];
+}
+
 /**
  * fetchItemThumbnailSrc(item)
  * The function gets thumbnail image src from an result item.
@@ -136,4 +150,4 @@ const fetchResultItems = (data) => {
   }
 };
 
-export { fetchResultLength, fetchResultItems, fetchSearchKeyword };
+export { fetchResultLength, fetchResultItems, fetchSearchKeyword, fetchSearchFacets };
