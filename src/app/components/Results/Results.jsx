@@ -107,12 +107,15 @@ class Results extends React.Component {
         <ul id={this.props.id} className={this.props.className}>
           {results}
         </ul>
-        <PaginationButton
-          id={`${this.props.id}-paginationButton`}
-          className={`${this.props.id}-paginationButton`}
-          isLoading={false}
-          onClick={this.addMoreResults}
-        />
+        <div className={`${this.props.id}-paginationButton-wrapper`}>
+          <PaginationButton
+            id={`${this.props.id}-paginationButton`}
+            className={`${this.props.id}-paginationButton`}
+            isLoading={false}
+            onClick={this.addMoreResults}
+            label={100}
+          />
+        </div>
       </div>
     );
   }
