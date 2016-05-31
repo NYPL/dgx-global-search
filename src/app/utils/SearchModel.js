@@ -146,6 +146,7 @@ const fetchResultItems = (data) => {
   try {
     return _map(data.items, (item) => (fetchItem(item)));
   } catch (e) {
+    console.log(e);
     return [];
   }
 };

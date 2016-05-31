@@ -44,7 +44,6 @@ const requestSearchResult = (req, res, next) => {
   axios.all([getSearchData(), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
-      // We neeed a model for search result later
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed);
 

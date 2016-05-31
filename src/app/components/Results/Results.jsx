@@ -1,5 +1,15 @@
 import React from 'react';
 
+import appConfig from './../../../../appConfig.js';
+import axios from 'axios';
+import parser from 'jsonapi-parserinator';
+import {
+  fetchResultLength,
+  fetchResultItems,
+  fetchSearchKeyword,
+  fetchSearchFacets,
+} from './../../utils/SearchModel.js';
+
 // Import components
 import ResultsItem from '../ResultsItem/ResultsItem.jsx';
 import { DivideLineIcon } from 'dgx-svg-icons';
@@ -13,6 +23,7 @@ class Results extends React.Component {
     super(props);
 
     this.getList = this.getList.bind(this);
+    this.addMoreResults = this.addMoreResults.bind(this);
   }
 
   /**
@@ -36,6 +47,35 @@ class Results extends React.Component {
         className={`${this.props.className}Item`}
       />
     ));
+  }
+
+  addMoreResults() {
+    const { api, searchApi } = appConfig;
+    const appEnvironment = process.env.APP_ENV || 'production';
+    const apiRoot = api.root[appEnvironment];
+
+    const createOptions = (apiValue) => ({
+      endpoint: `${apiRoot}${apiValue.endpoint}`,
+      includes: apiValue.includes,
+      filters: apiValue.filters,
+    });
+
+    const searchOptions = createOptions(searchApi);
+
+    searchOptions.filters = {
+      q: 'apple',
+      // start: 10,
+    };
+
+    const searchApiUrl = parser.getCompleteApi(searchOptions);
+
+    console.log(searchApiUrl);
+
+    axios.get(searchApiUrl)
+    .then((response) => {
+      const requestResult = parser.parse(response.data, searchOptions);
+      console.log(fetchResultItems(requestResult));
+    });
   }
 
   render() {
@@ -71,6 +111,7 @@ class Results extends React.Component {
           id={`${this.props.id}-paginationButton`}
           className={`${this.props.id}-paginationButton`}
           isLoading={false}
+          onClick={this.addMoreResults}
         />
       </div>
     );

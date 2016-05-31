@@ -103,6 +103,7 @@ class App extends React.Component {
         results={this.state.searchData}
         id="gs-results"
         className="gs-results"
+        searchKeyword={this.state.searchKeyword}
       />
     );
   }
