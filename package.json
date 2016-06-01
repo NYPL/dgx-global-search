@@ -23,16 +23,7 @@
   "bugs": {
     "url": "https://bitbucket.org/NYPL/dgx-global-search"
   },
-  "devDependencies": {
-    "chai": "3.5.0",
-    "css-loader": "0.23.1",
-    "enzyme": "2.2.0",
-    "esdoc": "0.4.6",
-    "mocha": "2.4.5",
-    "react-addons-test-utils": "0.14.7",
-    "react-hot-loader": "1.2.8",
-    "webpack-dev-server": "1.14.1"
-  },
+  "devDependencies": {},
   "dependencies": {
     "alt": "0.18.4",
     "axios": "0.9.1",
@@ -41,10 +32,12 @@
     "babel-preset-es2015": "6.9.0",
     "babel-preset-react": "6.5.0",
     "breakpoint-sass": "2.7.0",
+    "chai": "3.5.0",
     "classnames": "2.2.5",
     "clean-webpack-plugin": "0.1.9",
     "colors": "1.1.2",
     "compression": "1.6.2",
+    "css-loader": "0.23.1",
     "dgx-alt-center": "git+ssh://bitbucket.org/NYPL/dgx-alt-center.git#master",
     "dgx-feature-flags": "git+ssh://bitbucket.org/NYPL/dgx-feature-flags.git#master",
     "dgx-header-component": "git+ssh://bitbucket.org/NYPL/dgx-header-component.git#master",
@@ -52,6 +45,7 @@
     "dgx-react-footer": "git+ssh://bitbucket.org/NYPL/dgx-react-footer.git#development",
     "dgx-react-ga": "git+ssh://bitbucket.org/NYPL/dgx-react-ga.git#master",
     "ejs": "2.4.2",
+    "enzyme": "2.2.0",
     "esdoc": "0.4.7",
     "eslint": "2.11.1",
     "eslint-loader": "1.3.0",
@@ -60,6 +54,7 @@
     "extract-text-webpack-plugin": "1.0.1",
     "iso": "5.2.0",
     "jsonapi-parserinator": "0.4.7",
+    "mocha": "2.4.5",
     "node-sass": "3.4.2",
     "radium": "^0.17.1",
     "react": "0.14.8",
@@ -68,12 +63,15 @@
     "react-ga": "1.4.1",
     "react-onclickout": "2.0.4",
     "react-tappable": "0.8.1",
+    "react-addons-test-utils": "0.14.7",
+    "react-hot-loader": "1.2.8",
     "rootpath": "0.1.2",
     "sass-loader": "3.2.0",
     "style-loader": "0.13.1",
     "singularitygs": "1.7.0",
     "underscore": "1.8.3",
     "webpack": "1.13.1",
-    "webpack-merge": "0.7.3"
+    "webpack-merge": "0.7.3",
+    "webpack-dev-server": "1.14.1"
   }
 }
