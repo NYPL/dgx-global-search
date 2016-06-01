@@ -22,7 +22,13 @@ class Results extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      searchStart: 10,
+      resultsItems: this.props.results,
+    };
+
     this.getList = this.getList.bind(this);
+    this.updateSearchStart = this.updateSearchStart.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
   }
 
@@ -49,7 +55,13 @@ class Results extends React.Component {
     ));
   }
 
+  updateSearchStart() {
+    this.setState({ searchStart: this.state.searchStart + 10, });
+  }
+
   addMoreResults() {
+    this.updateSearchStart();
+
     const { api, searchApi } = appConfig;
     const appEnvironment = process.env.APP_ENV || 'production';
     const apiRoot = api.root[appEnvironment];
@@ -67,7 +79,7 @@ class Results extends React.Component {
       // start: 10,
     };
 
-    const searchApiUrl = parser.getCompleteApi(searchOptions);
+    const searchApiUrl = `${parser.getCompleteApi(searchOptions)}&filter[start]=${this.state.searchStart}`;
 
     console.log(searchApiUrl);
 
@@ -75,11 +87,13 @@ class Results extends React.Component {
     .then((response) => {
       const requestResult = parser.parse(response.data, searchOptions);
       console.log(fetchResultItems(requestResult));
+
+      (this.state.resultsItems).push.apply(this.state.resultsItems, fetchResultItems(requestResult));
     });
   }
 
   render() {
-    const results = this.getList(this.props.results);
+    const results = this.getList(this.state.resultsItems);
     const resultsRemainLength = (this.props.amount - results.length).toString();
 
     // Message if no result found
