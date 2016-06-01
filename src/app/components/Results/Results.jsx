@@ -86,9 +86,10 @@ class Results extends React.Component {
     axios.get(searchApiUrl)
     .then((response) => {
       const requestResult = parser.parse(response.data, searchOptions);
-      console.log(fetchResultItems(requestResult));
 
-      (this.state.resultsItems).push.apply(this.state.resultsItems, fetchResultItems(requestResult));
+      this.setState({
+        resultsItems: this.state.resultsItems.concat(fetchResultItems(requestResult)),
+      });
     });
   }
 
