@@ -25,10 +25,12 @@
   }
 }
 
-@include min-screen($tablet-portrait) {
-  .gs-searchButton {
-    padding: 7px 38px;
-    &-wrapper {
+.gs-searchButton {
+  padding: 7px 38px;
+  &-wrapper {
+    @include layout-at(7, $tablet-portrait) {
+      @include grid-span(2, 4);
+
       display: inline-block;
       margin: 0;
       padding: 0;

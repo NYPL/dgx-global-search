@@ -5,9 +5,11 @@
   margin: 0 0 20px 0;
   text-align: right;
 
-  @include min-screen($tablet-portrait) {
+  @include layout-at(7, $tablet-portrait) {
+    @include grid-span(2, 6);
+
     display: inline-block;
-    margin: 0;
+    margin: 5px 0 0 0;
   }
 
   p {
@@ -16,6 +18,10 @@
     line-height: 21px;
     margin: 0 10px 0 0;
     vertical-align: 8px;
+
+    @include min-screen($tablet-portrait) {
+      vertical-align: 14px;
+    }
   }
 
   .gs-filter-button {
@@ -27,6 +33,11 @@
     display: inline-block;
     margin: 0 14px 0 0;
     padding: 0 2px;
+
+    @include min-screen($tablet-portrait) {
+      margin: 0;
+      vertical-align: 4px;
+    }
   }
 
   .gs-filter-list {

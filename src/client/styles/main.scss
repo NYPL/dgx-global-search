@@ -54,7 +54,7 @@ Import style rules from App components
     padding: 0 14px;
 
     @include min-screen($tablet-portrait) {
-       padding: 0 36px;
+      padding: 0 36px;
     }
 
     span {
@@ -68,25 +68,15 @@ Import style rules from App components
   .gs-operations {
     display: block;
   }
-}
 
-@include layout-at(7, $tablet-portrait) {
-  #app {
-    @include grid-span(7, 1);
-  }
+  @include layout-at(7, $tablet-portrait) {
+    .gs-operations {
+      @include grid-span(7, 1);
 
-  .gs-mainContent {
-
-    @include min-screen($tablet-portrait) {
-      .gs-operations {
-        @include grid-span(7, 1);
-
-        box-sizing: border-box;
-        display: inline-block;
-        margin: 0 0 27px 0;
-        padding: 0 36px;
-      }
+      box-sizing: border-box;
+      display: inline-block;
+      margin: 0 0 27px 0;
+      padding: 0 36px;
     }
   }
 }
-
