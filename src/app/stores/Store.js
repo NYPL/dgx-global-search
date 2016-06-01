@@ -7,7 +7,7 @@ class SearchStore {
       updateSearchKeyword: Actions.UPDATE_SEARCH_KEYWORD,
       updateSearchData: Actions.UPDATE_SEARCH_DATA,
       updateSearchDataLength: Actions.UPDATE_SEARCH_DATA_LENGTH,
-      updateSearchPlaceholder: Actions.UPDATE_SEARCH_PLACEHOLDER,
+      updateIsKeywordValid: Actions.UPDATE_IS_KEYWORD_VALID,
       updateSearchFacets: Actions.UPDATE_SEARCH_FACETS,
     });
 
@@ -15,7 +15,7 @@ class SearchStore {
       this.searchKeyword = '';
       this.searchData = [];
       this.searchDataLength = 0;
-      this.searchPlaceholder = 'Enter Search Terms';
+      this.isKeywordValid = true;
       this.searchFacets = [
         'all',
         'digital collections',
@@ -42,8 +42,8 @@ class SearchStore {
     this.searchDataLength = data;
   }
 
-  updateSearchPlaceholder(data) {
-    this.searchPlaceholder = data;
+  updateIsKeywordValid(data) {
+    this.isKeywordValid = data;
   }
 
   updateSearchFacets(data) {
