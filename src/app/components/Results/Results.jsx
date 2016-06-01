@@ -80,6 +80,7 @@ class Results extends React.Component {
 
   render() {
     const results = this.getList(this.props.results);
+    const resultsRemainLength = (this.props.amount - results.length).toString();
 
     // Message if no result found
     if (results.length === 0) {
@@ -113,7 +114,7 @@ class Results extends React.Component {
             className={`${this.props.id}-paginationButton`}
             isLoading={false}
             onClick={this.addMoreResults}
-            label={100}
+            label={resultsRemainLength}
           />
         </div>
       </div>
