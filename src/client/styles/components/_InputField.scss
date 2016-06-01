@@ -14,3 +14,16 @@
     margin: 0 0 22px 0;
   }
 }
+
+@include min-screen($tablet-portrait) {
+  .gs-inputField {
+    padding: 12px 17px;
+
+    &-wrapper {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      vertical-align: 7px;
+    }
+  }
+}

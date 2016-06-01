@@ -12,11 +12,13 @@ const renderImage = (className, src, title) => {
   }
 
   return (
-    <img
-      className={`${className}-image`}
-      src={src}
-      alt={title}
-    />
+    <div className={`${className}-imageWrapper`}>
+      <img
+        className={`${className}-image`}
+        src={src}
+        alt={title}
+      />
+    </div>
   );
 };
 

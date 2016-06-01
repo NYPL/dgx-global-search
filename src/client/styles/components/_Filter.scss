@@ -5,6 +5,11 @@
   margin: 0 0 20px 0;
   text-align: right;
 
+  @include min-screen($tablet-portrait) {
+    display: inline-block;
+    margin: 0;
+  }
+
   p {
     display: inline-block;
     font-size: 16px;

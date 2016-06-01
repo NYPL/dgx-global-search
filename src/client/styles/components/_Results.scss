@@ -6,6 +6,10 @@
     @include Kievit-Medium;
 
     padding: 0 14px;
+
+    @include min-screen($tablet-portrait) {
+      padding: 0 36px;
+    }
   }
 
   &-length {
@@ -28,8 +32,20 @@
     }
 
     &-image {
-      display: none;
-      height: 200px;
+      display: block;
+      position: relative;
+      width: 100%;
+
+      &Wrapper {
+        display: none;
+        height: 116px;
+        width: 186px;
+        overflow: hidden;
+
+        @include min-screen(768px, portrait) {
+          display: block;
+        }
+      }
     }
 
     &-snippet {

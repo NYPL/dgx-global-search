@@ -9,17 +9,29 @@
   cursor: pointer;
   font-size: 16px;
   line-height: 16px;
-  padding: 3px 20px;
+  padding: 10px 20px;
   text-align: center;
   width: 100%;
 
   p {
     display: inline-block;
-    vertical-align: 12px;
+    margin: 0;
+    vertical-align: 11px;
   }
 
   &-wrapper {
-    padding: 0 14px;
     margin: 0 0 15px 0;
+    padding: 0 14px;
+  }
+}
+
+@include min-screen($tablet-portrait) {
+  .gs-searchButton {
+    padding: 7px 38px;
+    &-wrapper {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
   }
 }
