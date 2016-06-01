@@ -7,7 +7,7 @@
 
     padding: 0 14px;
 
-    @include min-screen($tablet-portrait) {
+    @include layout-at(7, $tablet-portrait) {
       padding: 0 36px;
     }
   }
@@ -28,6 +28,10 @@
       h3 {
         font-size: 18px;
         line-height: 21px;
+
+        @include layout-at(7, $tablet-portrait) {
+          @include grid-span(5, 3);
+        }
       }
     }
 
@@ -42,7 +46,9 @@
         width: 186px;
         overflow: hidden;
 
-        @include min-screen(768px, portrait) {
+        @include layout-at(7, $tablet-portrait) {
+          @include grid-span(2, 1);
+
           display: block;
         }
       }
@@ -55,6 +61,10 @@
       line-height: 21px;
       margin: 0 0 23px 0;
       padding: 0 0 17px 0;
+
+      @include layout-at(7, $tablet-portrait) {
+        @include grid-span(5, 3);
+      }
     }
 
     &-label {
@@ -63,6 +73,9 @@
       line-height: 21px;
       margin: 0 0 21px 0;
       text-transform: uppercase;
+       @include layout-at(7, $tablet-portrait) {
+        @include grid-span(5, 3);
+      }
     }
 
     &-linkText {
@@ -70,6 +83,10 @@
       font-size: 14px;
       line-height: 16px;
       word-break: break-all;
+
+       @include layout-at(7, $tablet-portrait) {
+        @include grid-span(5, 3);
+      }
     }
   }
 
@@ -78,6 +95,10 @@
       display: block;
       margin: 45px 0 72px 0;
       text-align: center;
+
+      @include layout-at(7, $tablet-portrait) {
+        @include grid-span(7, 1);
+      }
     }
 
     -moz-appearance: none;

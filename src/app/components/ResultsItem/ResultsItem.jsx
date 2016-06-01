@@ -8,7 +8,12 @@ import React from 'react';
  */
 const renderImage = (className, src, title) => {
   if (!src) {
-    return null;
+    // return null;
+    return (
+      <div className={`${className}-imageWrapper`}>
+        <img className={`${className}-image`} />
+      </div>
+    );
   }
 
   return (
