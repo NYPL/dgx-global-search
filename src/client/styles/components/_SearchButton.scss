@@ -26,7 +26,10 @@
 }
 
 .gs-searchButton {
-  padding: 7px 38px;
+  @include layout-at(7, $tablet-portrait) {
+    padding: 7px 35px;
+  }
+
   &-wrapper {
     @include layout-at(7, $tablet-portrait) {
       @include grid-span(2, 4);
