@@ -158,6 +158,10 @@
   font-size: 20px;
   line-height: 21px;
   padding: 0 0 0 14px;
+
+  @include layout-at(7, $tablet-portrait) {
+    padding: 0 0 0 36px;
+  }
 }
 
 .whole-row {

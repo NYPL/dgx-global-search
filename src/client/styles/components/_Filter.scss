@@ -51,6 +51,12 @@
     width: 100%;
     z-index: 99;
 
+    @include layout-at(7, $tablet-portrait) {
+      @include grid-span(7, 1);
+
+      left: 0;
+    }
+
     &-navigation {
       border-bottom: 2px solid #FFF;
       padding: 30px 0 10px 0;
@@ -109,5 +115,11 @@
         vertical-align: 9px;
       }
     }
+  }
+}
+
+.filter-open {
+  @include layout-at(7, $tablet-portrait) {
+    @include grid-span(7, 1);
   }
 }
