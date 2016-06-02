@@ -78,11 +78,14 @@
       transform: scale(1.2, 1.2);
     }
 
-    &-closeButton-xIcon {
-      -ms-transform: scale(2, 2);
-      -webkit-transform: scale(2, 2);
+    &-closeButton {
       margin: 0 4px 0 30px;
-      transform: scale(2, 2);
+
+      &-xIcon {
+        -ms-transform: scale(2, 2);
+        -webkit-transform: scale(2, 2);
+        transform: scale(2, 2);
+      }
     }
 
     &-items {
