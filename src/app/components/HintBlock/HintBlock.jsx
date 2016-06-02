@@ -12,11 +12,11 @@ const HintBlock = ({
       id={`${id}-closeButton`}
       ariaHidden
       className={`${className}-closeButton`}
-      title="x.icon.svg"
-      width="32"
-      height="32"
       fill="#837E77"
-      viewBox="-8 8 32 32"
+      height="32"
+      title="x.icon.svg"
+      viewBox="0 0 32 32"
+      width="32"
     />
     {message}
   </div>
