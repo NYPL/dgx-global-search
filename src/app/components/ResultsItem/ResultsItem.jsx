@@ -1,79 +1,76 @@
 import React from 'react';
 
-class ResultsItem extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.renderImage = this.renderImage.bind(this);
+/**
+ * renderImage()
+ * The function render <img> if this.props.thumbnailSrc is true.
+ *
+ * @return null or object
+ */
+const renderImage = (className, src, title) => {
+  if (!src) {
+    return null;
   }
 
-  /**
-   * renderImage()
-   * The function render <img> if this.props.thumbnailSrc is true.
-   *
-   * @return null or object
-   */
-  renderImage(className, src, title) {
-    if (!src) {
-      return null;
-    }
-
-    return (
-      <div className={`${className}-imageWrapper`}>
-        <img
-          className={`${className}-image`}
-          src={src}
-          alt={title}
-        />
-      </div>
-    );
-  }
-
-  render() {
-    const wholeRow = (this.props.thumbnailSrc) ? '' : 'whole-row';
-
-    return (
-      <li id={`${this.props.id}-${this.props.index}`} className={this.props.className}>
-        <p className={`${this.props.className}-label ${wholeRow}`}>{this.props.label}</p>
-        <a
-          className={`${this.props.className}-link ${wholeRow}`}
-          href={this.props.link}
-        >
-          {this.renderImage(this.props.className, this.props.thumbnailSrc, this.props.title)}
-          <h3 className={`${this.props.className}-title ${wholeRow}`}>{this.props.title}</h3>
-        </a>
-        <p className={`${this.props.className}-linkText ${wholeRow}`}>{this.props.link}</p>
-        <p className={`${this.props.className}-snippet ${wholeRow}`}>{this.props.snippet}</p>
-      </li>
-    );
-  }
+  return (
+    <div className={`${className}-imageWrapper`}>
+      <img
+        className={`${className}-image`}
+        src={src}
+        alt={title}
+      />
+    </div>
+  );
 }
 
-// const wholeRow = (thumbnailSrc) ? '' : 'whole-row';
+const generateWholeRowClass = (src) => {
+  if (!src) {
+    return 'whole-row';
+  }
 
-// const ResultsItem = ({
-//   className,
-//   id,
-//   index,
-//   label,
-//   link,
-//   snippet,
-//   title,
-//   thumbnailSrc,
-// }) => (
-//   <li id={`${id}-${index}`} className={`${className} ${wholeRow}`}>
-//     <p className={`${className}-label`}>{label}</p>
-//     <a
-//       className={`${className}-link`}
-//       href={link}
-//     >
-//       {renderImage(className, thumbnailSrc, title)}
-//       <h3>{title}</h3>
-//     </a>
-//     <p className={`${className}-linkText`}>{link}</p>
-//     <p className={`${className}-snippet`}>{snippet}</p>
-//   </li>
-// );
+  return '';
+}
+
+const ResultsItem = ({
+  className,
+  id,
+  index,
+  label,
+  link,
+  snippet,
+  title,
+  thumbnailSrc,
+}) => (
+  <li id={`${id}-${index}`}
+    className={`${className} ${generateWholeRowClass(thumbnailSrc)}`}
+  >
+    <p
+      className={`${className}-label ${generateWholeRowClass(thumbnailSrc)}`}
+    >
+      {label}
+    </p>
+    <a
+      className={`${className}-link ${generateWholeRowClass(thumbnailSrc)}`}
+      href={link}
+    >
+      {renderImage(className, thumbnailSrc, title)}
+      <h3
+        className={`${className}-title ${generateWholeRowClass(thumbnailSrc)}`}
+      >
+        {title}
+      </h3>
+    </a>
+    <p
+      className={`${className}-linkText ${generateWholeRowClass(thumbnailSrc)}`}
+    >
+      {link}
+    </p>
+    <p
+      className={`${className}-snippet ${generateWholeRowClass(thumbnailSrc)}`}
+    >
+      {snippet}
+    </p>
+  </li>
+);
 
 
 ResultsItem.propTypes = {

@@ -75,7 +75,7 @@ class Results extends React.Component {
     const searchOptions = createOptions(searchApi);
 
     searchOptions.filters = {
-      q: 'apple',
+      q: this.props.searchKeyword,
       // start: 10,
     };
 
