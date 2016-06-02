@@ -16,7 +16,7 @@ const HintBlock = ({
       width="32"
       height="32"
       fill="#837E77"
-      viewBox="-8 8 32 32"
+      viewBox="0 0 32 32"
     />
     {message}
   </div>
