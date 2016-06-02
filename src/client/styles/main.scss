@@ -20,11 +20,11 @@ Import style rules from NYPL React module components
 /*
 Import style rules from App components
 */
-@import "components/_HintBlock";
-@import "components/_InputField";
-@import "components/_SearchButton";
-@import "components/_Filter";
-@import "components/_Results";
+@import "components/HintBlock";
+@import "components/InputField";
+@import "components/SearchButton";
+@import "components/Filter";
+@import "components/Results";
 
 #app {
   margin: 0;
