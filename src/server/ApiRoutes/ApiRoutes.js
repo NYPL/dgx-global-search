@@ -10,6 +10,9 @@ import {
   fetchSearchFacets,
 } from '../../app/utils/SearchModel.js';
 
+import SearchStore from '../../app/stores/Store.js';
+import Actions from '../../app/actions/Actions.js';
+
 import appConfig from '../../../appConfig.js';
 
 // Syntax that both ES6 and Babel 6 support
@@ -38,50 +41,78 @@ const requestSearchResult = (req, res, next) => {
   searchOptions.filters = {
     q: req.params.searchKeyword,
   };
-  const searchApiUrl = parser.getCompleteApi(searchOptions);
+  const searchStart = req.query.start || 0;
+  const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
   const getSearchData = () => fetchApiData(searchApiUrl);
 
-  axios.all([getSearchData(), getHeaderData()])
-    .then(axios.spread((searchData, headerData) => {
+  if (searchStart > 0) {
+    requestMoreResult(req, res, next);
+  } else {
+    axios.all([getSearchData(), getHeaderData()])
+      .then(axios.spread((searchData, headerData) => {
+        const searchParsed = parser.parse(searchData.data, searchOptions);
+        const headerParsed = parser.parse(headerData.data, headerOptions);
+        const headerModelData = HeaderItemModel.build(headerParsed);
+
+        res.locals.data = {
+          HeaderStore: {
+            headerData: headerModelData,
+          },
+          SearchStore: {
+            searchKeyword: fetchSearchKeyword(searchParsed),
+            searchData: fetchResultItems(searchParsed),
+            searchDataLength: fetchResultLength(searchParsed),
+            isKeywordValid: true,
+            searchFacets: fetchSearchFacets(),
+          },
+          completeApiUrl: searchApiUrl,
+        };
+
+        next();
+      }))
+      .catch(error => {
+        console.log(`error calling API : ${error}`);
+        console.log(error.data.errors[0].title);
+        console.log(`from the endpoint: ${searchApiUrl}`);
+        console.log(`search keywords is ${api.filters}`);
+
+        res.locals.data = {
+          HeaderStore: {
+            headerData: [],
+          },
+          SearchStore: {
+            searchKeyword: '',
+            searchData: [],
+            searchDataLength: 0,
+            searchFacets: fetchSearchFacets(),
+          },
+        };
+
+        next();
+      });
+  }
+};
+
+const requestMoreResult = (req, res, next) => {
+  const searchOptions = createOptions(searchApi);
+  searchOptions.filters = {
+    q: req.params.searchKeyword,
+  };
+  const searchStart = req.query.start || 0;
+  const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
+  const getSearchData = () => fetchApiData(searchApiUrl);
+
+  getSearchData()
+    .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
-      const headerParsed = parser.parse(headerData.data, headerOptions);
-      const headerModelData = HeaderItemModel.build(headerParsed);
 
-      res.locals.data = {
-        HeaderStore: {
-          headerData: headerModelData,
-        },
-        SearchStore: {
-          searchKeyword: fetchSearchKeyword(searchParsed),
-          searchData: fetchResultItems(searchParsed),
-          searchDataLength: fetchResultLength(searchParsed),
-          isKeywordValid: true,
-          searchFacets: fetchSearchFacets(),
-        },
-        completeApiUrl: searchApiUrl,
-      };
-
-      next();
-    }))
+      res.json(searchData);
+    })
     .catch(error => {
       console.log(`error calling API : ${error}`);
       console.log(error.data.errors[0].title);
       console.log(`from the endpoint: ${searchApiUrl}`);
       console.log(`search keywords is ${api.filters}`);
-
-      res.locals.data = {
-        HeaderStore: {
-          headerData: [],
-        },
-        SearchStore: {
-          searchKeyword: '',
-          searchData: [],
-          searchDataLength: 0,
-          searchFacets: fetchSearchFacets(),
-        },
-      };
-
-      next();
     });
 };
 

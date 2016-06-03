@@ -10,6 +10,10 @@ import {
   fetchSearchFacets,
 } from './../../utils/SearchModel.js';
 
+// Import alt components
+import Store from '../../stores/Store.js';
+import Actions from '../../actions/Actions.js';
+
 // Import components
 import ResultsItem from '../ResultsItem/ResultsItem.jsx';
 import { DivideLineIcon } from 'dgx-svg-icons';
@@ -62,33 +66,13 @@ class Results extends React.Component {
   addMoreResults() {
     this.updateSearchStart();
 
-    const { api, searchApi } = appConfig;
-    const appEnvironment = process.env.APP_ENV || 'production';
-    const apiRoot = api.root[appEnvironment];
-
-    const createOptions = (apiValue) => ({
-      endpoint: `${apiRoot}${apiValue.endpoint}`,
-      includes: apiValue.includes,
-      filters: apiValue.filters,
-    });
-
-    const searchOptions = createOptions(searchApi);
-
-    searchOptions.filters = {
-      q: 'apple',
-      // start: 10,
-    };
-
-    const searchApiUrl = `${parser.getCompleteApi(searchOptions)}&filter[start]=${this.state.searchStart}`;
-
-    console.log(searchApiUrl);
-
-    axios.get(searchApiUrl)
+    axios.get(`/search/apachesolr_search/${this.props.searchKeyword}?start=${this.state.searchStart}`)
     .then((response) => {
-      const requestResult = parser.parse(response.data, searchOptions);
+      const requestResult = parser.parse(response.data.data);
 
+      Actions.addMoreSearchData(fetchResultItems(requestResult));
       this.setState({
-        resultsItems: this.state.resultsItems.concat(fetchResultItems(requestResult)),
+        resultsItems: Store.getState().searchData,
       });
     });
   }
