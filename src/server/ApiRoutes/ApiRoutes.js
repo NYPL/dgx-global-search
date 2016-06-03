@@ -10,9 +10,6 @@ import {
   fetchSearchFacets,
 } from '../../app/utils/SearchModel.js';
 
-import SearchStore from '../../app/stores/Store.js';
-import Actions from '../../app/actions/Actions.js';
-
 import appConfig from '../../../appConfig.js';
 
 // Syntax that both ES6 and Babel 6 support

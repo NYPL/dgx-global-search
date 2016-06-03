@@ -1,6 +1,5 @@
 import React from 'react';
 
-import appConfig from './../../../../appConfig.js';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 import {
