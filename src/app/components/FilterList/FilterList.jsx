@@ -1,6 +1,7 @@
 import React from 'react';
 
-import FilterIcon from '../FilterIcon/FilterIcon.jsx';
+import { ApplyIcon, FilterIcon, ResetIcon } from 'dgx-svg-icons';
+
 import CloseButton from '../CloseButton/CloseButton.jsx';
 
 // Import libraries
@@ -33,44 +34,37 @@ class FilterList extends ClickOut {
       >
         <div className={`${this.props.className}-navigation`}>
           <FilterIcon
-            className={`${this.props.className}-icon`}
-            width="46px"
-            height="46px"
+            ariaHidden
+            className={`${this.props.className}-filterIcon`}
             fill="#FFF"
+            height="32"
+            title="filter.icon.svg"
+            viewBox="0 0 32 32"
+            width="32"
           />
           <h4>Filter by</h4>
           <div className={`${this.props.className}-buttonWrapper`}>
             <button className="customButton apply">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32" height="32"
+              <ApplyIcon
+                ariaHidden
+                className={`${this.props.className}-applyIcon`}
                 fill="#FFF"
+                height="32"
+                title="apply.icon.svg"
                 viewBox="0 0 32 32"
-              >
-                <title>apply.icon.svg</title>
-                <path
-                  d={'M23.26,13.1819a1.2736,1.2736,0,0,0-1.7332,0L17,17.6253V6.1041a1.0119,' +
-                    '1.0119,0,1,0-2,0V17.6253l-4.5268-4.4434a1.2212,1.2212,0,0,0-1.6916,0,1.17,' +
-                    '1.17,0,0,0-.0208,1.65L15.1786,21.26l0,0.0083a1.1694,1.1694,0,0,0,1.6488,' +
-                    '0l0.0048-.0083L23.26,14.8318A1.17,1.17,0,0,0,23.26,13.1819Z'}
-                />
-                <rect
-                  x="14.8333"
-                  y="16.3602"
-                  width="2.3333"
-                  height="16.6711"
-                  rx="1.1667"
-                  ry="1.1667"
-                  transform="translate(-8.6957 40.6957) rotate(-90)"
-                />
-              </svg>
+                width="32"
+              />
             </button>
             <CloseButton
-              className="customButton closeButton"
-              width="42px"
-              height="42px"
+              id={`${this.props.id}-closeButton`}
+              className={`customButton ${this.props.className}-closeButton`}
+              onClick={this.onClickOut}
+              ariaHidden
               fill="#FFF"
-              clickClose={this.props.clickClose}
+              height="32"
+              title="x.icon.svg"
+              viewBox="0 0 32 32"
+              width="32"
             />
           </div>
         </div>
@@ -78,20 +72,15 @@ class FilterList extends ClickOut {
           {this.renderfacets()}
         </ul>
         <button className="customButton reset">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
+          <ResetIcon
+            ariaHidden
+            className={`${this.props.className}-resetIcon`}
             fill="#FFF"
+            height="32"
+            title="refresh.icon.svg"
             viewBox="0 0 32 32"
-          >
-            <title>refresh.icon.svg</title>
-            <path
-              d={'M10.96075,11l4.60907-3.19434a1,1,0,0,0-1.13965-1.64355L5.939,' +
-                '12.04688l8.83594,6.248a0.99981,0.99981,0,0,0,1.1543-1.63281L10.75061,' +
-                '13H23v8H6a1,1,0,0,0,0,2H25V11H10.96075Z'}
-            />
-          </svg>
+            width="32"
+          />
           <span>RESET</span>
         </button>
       </div>

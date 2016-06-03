@@ -9,10 +9,14 @@ const HintBlock = ({
 }) => (
   <div id={id} className={className}>
     <CloseButton
-      className="closeButton"
-      width="1rem"
-      height="1rem"
+      id={`${id}-closeButton`}
+      ariaHidden
+      className={`${className}-closeButton`}
       fill="#837E77"
+      height="32"
+      title="x.icon.svg"
+      viewBox="0 0 32 32"
+      width="32"
     />
     {message}
   </div>
