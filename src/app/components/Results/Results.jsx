@@ -79,6 +79,8 @@ class Results extends React.Component {
   addMoreResults() {
     this.updateSearchStart();
 
+    // Change the state: isLoading during the api call so the animation of the pagination button
+    // can be triggered.
     axios.interceptors.request.use(config => {
       // Do something before request is sent
       this.setState({ isLoading: true });
