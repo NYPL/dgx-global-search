@@ -2,12 +2,7 @@ import React from 'react';
 
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
-import {
-  fetchResultLength,
-  fetchResultItems,
-  fetchSearchKeyword,
-  fetchSearchFacets,
-} from './../../utils/SearchModel.js';
+import { fetchResultItems } from './../../utils/SearchModel.js';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -66,7 +61,7 @@ class Results extends React.Component {
    *
    */
   updateSearchStart() {
-    this.setState({ searchStart: this.state.searchStart + 10, });
+    this.setState({ searchStart: this.state.searchStart + 10 });
   }
 
   /**
@@ -87,7 +82,9 @@ class Results extends React.Component {
       return config;
     }, error => Promise.reject(error));
 
-    axios.get(`/search/apachesolr_search/${this.props.searchKeyword}?start=${this.state.searchStart}`)
+    axios.get(
+      `/search/apachesolr_search/${this.props.searchKeyword}?start=${this.state.searchStart}`
+    )
     .then((response) => {
       const requestResult = parser.parse(response.data.data);
 
@@ -152,12 +149,16 @@ Results.propTypes = {
   className: React.PropTypes.string,
   results: React.PropTypes.array,
   amount: React.PropTypes.number,
+  searchKeyword: React.PropTypes.string,
 };
 
 Results.defaultProps = {
   lang: 'en',
   id: 'results',
   className: 'results',
+  results: [],
+  amount: 0,
+  searchKeyword: '',
 };
 
 export default Results;
