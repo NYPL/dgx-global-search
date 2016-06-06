@@ -104,51 +104,6 @@
       }
     }
   }
-
-  &-paginationButton {
-    &-wrapper {
-      display: block;
-      margin: 45px 0 72px 0;
-      text-align: center;
-
-      @include layout-at(7, $tablet-portrait) {
-        @include grid-span(7, 1);
-      }
-    }
-
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: transparent;
-    border-radius: 33px;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Kievit-Medium;
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    line-height: 16.21px;
-    overflow: hidden;
-    padding: 5px 20px;
-    &__dot-row {
-      display: block;
-      list-style: none;
-      margin: 0 auto;
-      padding: 0;
-      &__element {
-        border-radius: 100%;
-        display: inline-block;
-        margin: 0 4px 0 0;
-        vertical-align: 1px;
-      }
-      &__number {
-        display: inline-table;
-        margin: 0 4px 0 0;
-      }
-    }
-    &--hide {
-      display: none;
-    }
-  }
 }
 
 .noResultMessage {

@@ -1,14 +1,12 @@
 import React from 'react';
 
-import appConfig from './../../../../appConfig.js';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
-import {
-  fetchResultLength,
-  fetchResultItems,
-  fetchSearchKeyword,
-  fetchSearchFacets,
-} from './../../utils/SearchModel.js';
+import { fetchResultItems } from './../../utils/SearchModel.js';
+
+// Import alt components
+import Store from '../../stores/Store.js';
+import Actions from '../../actions/Actions.js';
 
 // Import components
 import ResultsItem from '../ResultsItem/ResultsItem.jsx';
@@ -25,6 +23,7 @@ class Results extends React.Component {
     this.state = {
       searchStart: 10,
       resultsItems: this.props.results,
+      isLoading: false,
     };
 
     this.getList = this.getList.bind(this);
@@ -54,41 +53,48 @@ class Results extends React.Component {
       />
     ));
   }
-
+  /**
+   * updateSearchStart()
+   * The function updates which result item the api call is going to start to fetch at,
+   * and then updates it to the state. Now it always starts from the next tenth item
+   * after clickin the pagination button.
+   *
+   */
   updateSearchStart() {
-    this.setState({ searchStart: this.state.searchStart + 10, });
+    this.setState({ searchStart: this.state.searchStart + 10 });
   }
 
+  /**
+   * addMoreResults()
+   * The function calls updateSearchStart() and then fires axios get method with the new start item.
+   * When it gets the response data, it models the data and adds the new results items to the exist
+   * result array by Actions.addMoreSearchData().
+   *
+   */
   addMoreResults() {
     this.updateSearchStart();
+    // Change the state: isLoading during the api call so the animation of the pagination button
+    // can be triggered.
+    axios.interceptors.request.use(config => {
+      // Do something before request is sent
+      this.setState({ isLoading: true });
+      return config;
+    }, error => Promise.reject(error));
 
-    const { api, searchApi } = appConfig;
-    const appEnvironment = process.env.APP_ENV || 'production';
-    const apiRoot = api.root[appEnvironment];
-
-    const createOptions = (apiValue) => ({
-      endpoint: `${apiRoot}${apiValue.endpoint}`,
-      includes: apiValue.includes,
-      filters: apiValue.filters,
-    });
-
-    const searchOptions = createOptions(searchApi);
-
-    searchOptions.filters = {
-      q: this.props.searchKeyword,
-      // start: 10,
-    };
-
-    const searchApiUrl = `${parser.getCompleteApi(searchOptions)}&filter[start]=${this.state.searchStart}`;
-
-    console.log(searchApiUrl);
-
-    axios.get(searchApiUrl)
+    axios.get(
+      `/search/apachesolr_search/${this.props.searchKeyword}?start=${this.state.searchStart}`
+    )
     .then((response) => {
-      const requestResult = parser.parse(response.data, searchOptions);
+      const requestResult = parser.parse(response.data.data);
 
+      // Actions.addMoreSearchData concats the new result items to the exist result items array in
+      // the Store.
+      Actions.addMoreSearchData(fetchResultItems(requestResult));
+
+      // Updates the state by the new array of Store.getState().searchData
       this.setState({
-        resultsItems: this.state.resultsItems.concat(fetchResultItems(requestResult)),
+        resultsItems: Store.getState().searchData,
+        isLoading: false,
       });
     });
   }
@@ -127,7 +133,7 @@ class Results extends React.Component {
           <PaginationButton
             id={`${this.props.id}-paginationButton`}
             className={`${this.props.id}-paginationButton`}
-            isLoading={false}
+            isLoading={this.state.isLoading}
             onClick={this.addMoreResults}
             label={resultsRemainLength}
           />
@@ -142,12 +148,16 @@ Results.propTypes = {
   className: React.PropTypes.string,
   results: React.PropTypes.array,
   amount: React.PropTypes.number,
+  searchKeyword: React.PropTypes.string,
 };
 
 Results.defaultProps = {
   lang: 'en',
   id: 'results',
   className: 'results',
+  results: [],
+  amount: 0,
+  searchKeyword: '',
 };
 
 export default Results;

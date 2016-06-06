@@ -9,6 +9,7 @@ class SearchStore {
       updateSearchDataLength: Actions.UPDATE_SEARCH_DATA_LENGTH,
       updateIsKeywordValid: Actions.UPDATE_IS_KEYWORD_VALID,
       updateSearchFacets: Actions.UPDATE_SEARCH_FACETS,
+      addMoreSearchData: Actions.ADD_MORE_SEARCH_DATA,
     });
 
     this.on('init', () => {
@@ -48,6 +49,10 @@ class SearchStore {
 
   updateSearchFacets(data) {
     this.searchFacets = data;
+  }
+
+  addMoreSearchData(data) {
+    this.searchData = this.searchData.concat(data);
   }
 }
 

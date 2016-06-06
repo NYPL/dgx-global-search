@@ -199,3 +199,39 @@
   #{$property}: -moz-calc(#{$expression});
   #{$property}: calc(#{$expression});
 }
+
+/*
+ * ANIMATION CROSS-BROWSER COMPATIBILTY MIXIN
+ * ---------------------
+ * Usage: Makes CSS animations available on
+ * multiple browsers.
+ */
+@mixin animation($animation...) {
+  -moz-animation: $animation;
+  -ms-animation: $animation;
+  -o-animation: $animation;
+  -webkit-animation: $animation;
+  animation: $animation;
+}
+
+@mixin keyframes($animationName) {
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+
+  @-ms-keyframes #{$animationName} {
+    @content;
+  }
+
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
