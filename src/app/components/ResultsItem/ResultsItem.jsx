@@ -12,13 +12,23 @@ const renderImage = (className, src, title) => {
   }
 
   return (
-    <img
-      className={`${className}-image`}
-      src={src}
-      alt={title}
-    />
+    <div className={`${className}-imageWrapper`}>
+      <img
+        className={`${className}-image`}
+        src={src}
+        alt={title}
+      />
+    </div>
   );
-};
+}
+
+const generateWholeRowClass = (src) => {
+  if (!src) {
+    return 'whole-row';
+  }
+
+  return '';
+}
 
 const ResultsItem = ({
   className,
@@ -30,17 +40,35 @@ const ResultsItem = ({
   title,
   thumbnailSrc,
 }) => (
-  <li id={`${id}-${index}`} className={className}>
-    <p className={`${className}-label`}>{label}</p>
+  <li id={`${id}-${index}`}
+    className={`${className} ${generateWholeRowClass(thumbnailSrc)}`}
+  >
+    <p
+      className={`${className}-label ${generateWholeRowClass(thumbnailSrc)}`}
+    >
+      {label}
+    </p>
     <a
-      className={`${className}-link`}
+      className={`${className}-link ${generateWholeRowClass(thumbnailSrc)}`}
       href={link}
     >
       {renderImage(className, thumbnailSrc, title)}
-      <h3>{title}</h3>
+      <h3
+        className={`${className}-title ${generateWholeRowClass(thumbnailSrc)}`}
+      >
+        {title}
+      </h3>
     </a>
-    <p className={`${className}-linkText`}>{link}</p>
-    <p className={`${className}-snippet`}>{snippet}</p>
+    <p
+      className={`${className}-linkText ${generateWholeRowClass(thumbnailSrc)}`}
+    >
+      {link}
+    </p>
+    <p
+      className={`${className}-snippet ${generateWholeRowClass(thumbnailSrc)}`}
+    >
+      {snippet}
+    </p>
   </li>
 );
 

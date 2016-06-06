@@ -22,6 +22,10 @@ class Actions {
     this.dispatch(data);
   }
 
+  addMoreSearchData(data) {
+    this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(Actions);

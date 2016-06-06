@@ -38,51 +38,74 @@ const requestSearchResult = (req, res, next) => {
   searchOptions.filters = {
     q: req.params.searchKeyword,
   };
-  const searchApiUrl = parser.getCompleteApi(searchOptions);
+  const searchStart = req.query.start || 0;
+  const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
   const getSearchData = () => fetchApiData(searchApiUrl);
 
-  axios.all([getSearchData(), getHeaderData()])
-    .then(axios.spread((searchData, headerData) => {
-      const searchParsed = parser.parse(searchData.data, searchOptions);
-      // We neeed a model for search result later
-      const headerParsed = parser.parse(headerData.data, headerOptions);
-      const headerModelData = HeaderItemModel.build(headerParsed);
+  // If the search api calls with a start point filter that is not from the
+  // beginning, it will call requestMoreResult(req, res, api, apiOptions)
+  if (searchStart > 0) {
+    requestMoreResult(req, res, searchApiUrl, searchOptions);
+  } else {
+    axios.all([getSearchData(), getHeaderData()])
+      .then(axios.spread((searchData, headerData) => {
+        const searchParsed = parser.parse(searchData.data, searchOptions);
+        const headerParsed = parser.parse(headerData.data, headerOptions);
+        const headerModelData = HeaderItemModel.build(headerParsed);
 
-      res.locals.data = {
-        HeaderStore: {
-          headerData: headerModelData,
-        },
-        SearchStore: {
-          searchKeyword: fetchSearchKeyword(searchParsed),
-          searchData: fetchResultItems(searchParsed),
-          searchDataLength: fetchResultLength(searchParsed),
-          isKeywordValid: true,
-          searchFacets: fetchSearchFacets(),
-        },
-        completeApiUrl: searchApiUrl,
-      };
+        res.locals.data = {
+          HeaderStore: {
+            headerData: headerModelData,
+          },
+          SearchStore: {
+            searchKeyword: fetchSearchKeyword(searchParsed),
+            searchData: fetchResultItems(searchParsed),
+            searchDataLength: fetchResultLength(searchParsed),
+            isKeywordValid: true,
+            searchFacets: fetchSearchFacets(),
+          },
+          completeApiUrl: searchApiUrl,
+        };
 
-      next();
-    }))
+        next();
+      }))
+      .catch(error => {
+        console.log(`error calling API : ${error}`);
+        console.log(error.data.errors[0].title);
+        console.log(`from the endpoint: ${searchApiUrl}`);
+        console.log(`search keywords is ${api.filters}`);
+
+        res.locals.data = {
+          HeaderStore: {
+            headerData: [],
+          },
+          SearchStore: {
+            searchKeyword: '',
+            searchData: [],
+            searchDataLength: 0,
+            searchFacets: fetchSearchFacets(),
+          },
+        };
+
+        next();
+      });
+  }
+};
+
+const requestMoreResult = (req, res, api, apiOptions) => {
+  const getSearchData = () => fetchApiData(api);
+
+  getSearchData()
+    .then((searchData) => {
+      const searchParsed = parser.parse(searchData.data, apiOptions);
+
+      res.json(searchData);
+    })
     .catch(error => {
       console.log(`error calling API : ${error}`);
       console.log(error.data.errors[0].title);
       console.log(`from the endpoint: ${searchApiUrl}`);
       console.log(`search keywords is ${api.filters}`);
-
-      res.locals.data = {
-        HeaderStore: {
-          headerData: [],
-        },
-        SearchStore: {
-          searchKeyword: '',
-          searchData: [],
-          searchDataLength: 0,
-          searchFacets: fetchSearchFacets(),
-        },
-      };
-
-      next();
     });
 };
 

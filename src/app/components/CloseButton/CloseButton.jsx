@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { BasicButton } from 'dgx-react-buttons';
 import { XIcon } from 'dgx-svg-icons';
 
 const CloseButton = ({
@@ -13,21 +14,24 @@ const CloseButton = ({
   width,
   viewBox,
 }) => (
-  <button
+  <BasicButton
     id={id}
     className={className}
     onClick={onClick}
-  >
-    <XIcon
-      ariaHidden={ariaHidden}
-      className={`${className}-xIcon`}
-      fill={fill}
-      height={height}
-      title={title}
-      viewBox={viewBox}
-      width={width}
-    />
-  </button>
+    icon={
+      <XIcon
+        ariaHidden={ariaHidden}
+        className={`${className}-xIcon`}
+        fill={fill}
+        height={height}
+        title={title}
+        viewBox={viewBox}
+        width={width}
+      />
+    }
+    label="Close Button"
+    labelAccessible
+  />
 );
 
 CloseButton.propTypes = {
