@@ -42,8 +42,10 @@ const requestSearchResult = (req, res, next) => {
   const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
   const getSearchData = () => fetchApiData(searchApiUrl);
 
+  // If the search api calls with a start point filter that is not from the
+  // beginning, it will call requestMoreResult(req, res, api, apiOptions)
   if (searchStart > 0) {
-    requestMoreResult(req, res, next);
+    requestMoreResult(req, res, searchApiUrl, searchOptions);
   } else {
     axios.all([getSearchData(), getHeaderData()])
       .then(axios.spread((searchData, headerData) => {
@@ -90,18 +92,12 @@ const requestSearchResult = (req, res, next) => {
   }
 };
 
-const requestMoreResult = (req, res, next) => {
-  const searchOptions = createOptions(searchApi);
-  searchOptions.filters = {
-    q: req.params.searchKeyword,
-  };
-  const searchStart = req.query.start || 0;
-  const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
-  const getSearchData = () => fetchApiData(searchApiUrl);
+const requestMoreResult = (req, res, api, apiOptions) => {
+  const getSearchData = () => fetchApiData(api);
 
   getSearchData()
     .then((searchData) => {
-      const searchParsed = parser.parse(searchData.data, searchOptions);
+      const searchParsed = parser.parse(searchData.data, apiOptions);
 
       res.json(searchData);
     })
