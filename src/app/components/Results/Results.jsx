@@ -28,6 +28,7 @@ class Results extends React.Component {
     this.state = {
       searchStart: 10,
       resultsItems: this.props.results,
+      isLoading: false,
     };
 
     this.getList = this.getList.bind(this);
@@ -78,6 +79,12 @@ class Results extends React.Component {
   addMoreResults() {
     this.updateSearchStart();
 
+    axios.interceptors.request.use(config => {
+      // Do something before request is sent
+      this.setState({ isLoading: true });
+      return config;
+    }, error => Promise.reject(error));
+
     axios.get(`/search/apachesolr_search/${this.props.searchKeyword}?start=${this.state.searchStart}`)
     .then((response) => {
       const requestResult = parser.parse(response.data.data);
@@ -89,6 +96,7 @@ class Results extends React.Component {
       // Updates the state by the new array of Store.getState().searchData
       this.setState({
         resultsItems: Store.getState().searchData,
+        isLoading: false,
       });
     });
   }
@@ -127,7 +135,7 @@ class Results extends React.Component {
           <PaginationButton
             id={`${this.props.id}-paginationButton`}
             className={`${this.props.id}-paginationButton`}
-            isLoading={false}
+            isLoading={this.state.isLoading}
             onClick={this.addMoreResults}
             label={resultsRemainLength}
           />

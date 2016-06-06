@@ -107,3 +107,86 @@
   line-height: 21px;
   padding: 0 0 0 14px;
 }
+
+/*
+ * ANIMATION CROSS-BROWSER COMPATIBILTY MIXIN
+ * ---------------------
+ * Usage: Makes CSS animations available on
+ * multiple browsers.
+ */
+@mixin animation($animation...) {
+  -moz-animation: $animation;
+  -ms-animation: $animation;
+  -o-animation: $animation;
+  -webkit-animation: $animation;
+  animation: $animation;
+}
+
+@mixin keyframes($animationName) {
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+
+  @-ms-keyframes #{$animationName} {
+    @content;
+  }
+
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+/*
+ * PAGINATION BUTTON LOADING ANIMATION
+ * ---------------------
+ * Usage: The animation for the loader
+ * in the pagaination button.
+ */
+.loading {
+  @include animation(loading 2s infinite);
+
+  &:nth-child(1n) {
+    -moz-animation-delay: 0s;
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+  }
+  &:nth-child(2n) {
+    -moz-animation-delay: 0.2s;
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+  }
+  &:nth-child(3n) {
+    -moz-animation-delay: 0.4s;
+    -webkit-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+  }
+}
+
+@include keyframes(loading) {
+  0% {
+    -moz-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    background: $COOLGRAY_COLOR;
+  }
+  50% {
+    -moz-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    background: #FFFFFF;
+  }
+  100% {
+    -moz-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    background: $COOLGRAY_COLOR;
+  }
+}
