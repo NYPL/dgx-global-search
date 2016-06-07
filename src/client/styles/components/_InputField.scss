@@ -1,0 +1,16 @@
+.gs-inputField {
+  border: 2px solid $INPUT_FIELD_GREY;
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: $INPUT_FIELD_GREY;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 16px;
+  padding: 16px 17px;
+  width: 100%;
+
+  &-wrapper {
+    padding: 0 14px;
+    margin: 0 0 22px 0;
+  }
+}

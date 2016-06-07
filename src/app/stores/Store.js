@@ -1,26 +1,54 @@
-import BookActions from '../actions/Actions.js';
+import Actions from '../actions/Actions.js';
 import alt from 'dgx-alt-center';
 
-class Store {
+class SearchStore {
   constructor() {
     this.bindListeners({
-      updateAngularApps: BookActions.UPDATE_ANGULAR_APPS,
-      updateReactApps: BookActions.UPDATE_REACT_APPS,
+      updateSearchKeyword: Actions.UPDATE_SEARCH_KEYWORD,
+      updateSearchData: Actions.UPDATE_SEARCH_DATA,
+      updateSearchDataLength: Actions.UPDATE_SEARCH_DATA_LENGTH,
+      updateIsKeywordValid: Actions.UPDATE_IS_KEYWORD_VALID,
+      updateSearchFacets: Actions.UPDATE_SEARCH_FACETS,
     });
 
     this.on('init', () => {
-      this._angularApps = [];
-      this._reactApps = [];
+      this.searchKeyword = '';
+      this.searchData = [];
+      this.searchDataLength = 0;
+      this.isKeywordValid = true;
+      this.searchFacets = [
+        'all',
+        'digital collections',
+        'exhibitions',
+        'archives',
+        'audio / visual',
+        'blog',
+        'projects',
+        'events / classes',
+        'recommendations',
+      ];
     });
   }
 
-  updateAngularApps(data) {
-    this._angularApps = data;
+  updateSearchKeyword(data) {
+    this.searchKeyword = data;
   }
 
-  updateReactApps(data) {
-    this._reactApps = data;
+  updateSearchData(data) {
+    this.searchData = data;
+  }
+
+  updateSearchDataLength(data) {
+    this.searchDataLength = data;
+  }
+
+  updateIsKeywordValid(data) {
+    this.isKeywordValid = data;
+  }
+
+  updateSearchFacets(data) {
+    this.searchFacets = data;
   }
 }
 
-export default alt.createStore(Store, 'Store');
+export default alt.createStore(SearchStore, 'SearchStore');

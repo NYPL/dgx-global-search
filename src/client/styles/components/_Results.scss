@@ -1,0 +1,68 @@
+.gs-results {
+  margin: 15px 0 0 0;
+  padding: 0;
+
+  &-wrapper {
+    @include Kievit-Medium;
+
+    padding: 0 14px;
+  }
+
+  &-length {
+    color: #A3A19E;
+    font-size: 18px;
+    line-height: 21px;
+    margin: 0 0 21px 0;
+  }
+
+  &Item {
+    list-style-type: none;
+    a {
+      color: #000;
+      text-decoration: none;
+
+      h3 {
+        font-size: 18px;
+        line-height: 21px;
+      }
+    }
+
+    &-image {
+      display: none;
+      height: 200px;
+    }
+
+    &-snippet {
+      border-bottom: 2px solid #A3A19E;
+      color: #333;
+      font-size: 16px;
+      line-height: 21px;
+      margin: 0 0 23px 0;
+      padding: 0 0 17px 0;
+    }
+
+    &-label {
+      color: #575757;
+      font-size: 12px;
+      line-height: 21px;
+      margin: 0 0 21px 0;
+      text-transform: uppercase;
+    }
+
+    &-linkText {
+      color: #575757;
+      font-size: 14px;
+      line-height: 16px;
+      word-break: break-all;
+    }
+  }
+}
+
+.noResultMessage {
+  @include Kievit-Medium;
+
+  color: red;
+  font-size: 20px;
+  line-height: 21px;
+  padding: 0 0 0 14px;
+}

@@ -1,0 +1,25 @@
+.gs-searchButton {
+  @include Kievit-Medium;
+
+  background-color: $SEARCH_BLUE;
+  border-radius: 6px;
+  border: none;
+  box-sizing: border-box;
+  color: #FFF;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 3px 20px;
+  text-align: center;
+  width: 100%;
+
+  p {
+    display: inline-block;
+    vertical-align: 12px;
+  }
+
+  &-wrapper {
+    padding: 0 14px;
+    margin: 0 0 15px 0;
+  }
+}

@@ -2,13 +2,26 @@
 import alt from 'dgx-alt-center';
 
 class Actions {
-  updateAngularApps(data) {
+  updateSearchKeyword(data) {
     this.dispatch(data);
   }
 
-  updateReactApps(data) {
+  updateSearchData(data) {
     this.dispatch(data);
   }
+
+  updateSearchDataLength(data) {
+    this.dispatch(data);
+  }
+
+  updateIsKeywordValid(data) {
+    this.dispatch(data);
+  }
+
+  updateSearchFacets(data) {
+    this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(Actions);

@@ -1,9 +1,56 @@
 /*
+Import utils and fonts
+*/
+@import 'utils/mixins';
+@import 'utils/colors';
+@import "utils/fonts";
+
+/*
+Import singularity and breakpoints
+*/
+@import "~singularitygs/stylesheets/singularitygs";
+@import "~breakpoint-sass/stylesheets/breakpoint";
+
+/*
 Import style rules from NYPL React module components
 */
 @import "~dgx-header-component/dist/styles/main";
 @import '~dgx-react-footer/dist/styles/styles';
 
+/*
+Import style rules from App components
+*/
+@import "components/HintBlock";
+@import "components/InputField";
+@import "components/SearchButton";
+@import "components/Filter";
+@import "components/Results";
+
 #app {
   margin: 0;
+  padding: 0;
+
+  @include add-grid(3);
+}
+
+.gs-mainContent {
+  @include grid-span(3, 1);
+  position: relative;
+
+  h2 {
+    @include Kievit-Medium;
+
+    color: $PRIMARY_COLOR;
+    font-size: 18px;
+    line-height: 21px;
+    margin: 19px 0 23px 0;
+    padding: 0 14px;
+
+    span {
+      &:last-child {
+        font-size: 12px;
+        vertical-align: 12px;
+      }
+    }
+  }
 }
