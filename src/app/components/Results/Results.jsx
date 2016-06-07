@@ -81,9 +81,7 @@ class Results extends React.Component {
       return config;
     }, error => Promise.reject(error));
 
-    axios.get(
-      `/search/apachesolr_search/${this.props.searchKeyword}?start=${this.state.searchStart}`
-    )
+    axios.get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}/`)
     .then((response) => {
       const requestResult = parser.parse(response.data.data);
 
@@ -94,6 +92,14 @@ class Results extends React.Component {
       // Updates the state by the new array of Store.getState().searchData
       this.setState({
         resultsItems: Store.getState().searchData,
+        isLoading: false,
+      });
+    })
+    .catch(error => {
+      console.log(`error calling API to add more results: ${error}`);
+      console.log(error.data.errors[0].title);
+
+      this.setState({
         isLoading: false,
       });
     });
