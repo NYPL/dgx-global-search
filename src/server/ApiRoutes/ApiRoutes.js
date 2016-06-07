@@ -96,8 +96,11 @@ const requestMoreResult = (req, res) => {
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
-
-      res.json(fetchResultItems(searchParsed));
+      if (parseInt(searchStart) > 0) {
+        res.json(fetchResultItems(searchParsed));
+      } else {
+         res.json([]);
+      }
     })
     .catch(error => {
       console.log(`error calling API : ${error}`);
