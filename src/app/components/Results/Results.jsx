@@ -24,6 +24,7 @@ class Results extends React.Component {
       searchStart: 10,
       resultsItems: this.props.results,
       isLoading: false,
+      incrementResutls: 10,
     };
 
     this.getList = this.getList.bind(this);
@@ -61,7 +62,7 @@ class Results extends React.Component {
    *
    */
   updateSearchStart() {
-    this.setState({ searchStart: this.state.searchStart + 10 });
+    this.setState({ searchStart: this.state.searchStart + this.state.incrementResutls });
   }
 
   /**
