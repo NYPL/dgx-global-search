@@ -27,6 +27,7 @@ const createOptions = (apiValue) => ({
 });
 
 const headerOptions = createOptions(headerApi);
+const searchOptions = createOptions(searchApi);
 const headerApiUrl = parser.getCompleteApi(headerOptions);
 
 const fetchApiData = (url) => axios.get(url);
@@ -34,70 +35,69 @@ const fetchApiData = (url) => axios.get(url);
 const getHeaderData = () => fetchApiData(headerApiUrl);
 
 const requestSearchResult = (req, res, next) => {
-  const searchOptions = createOptions(searchApi);
   searchOptions.filters = {
     q: req.params.searchKeyword,
   };
-  const searchStart = req.query.start || 0;
-  const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
+
+  const searchApiUrl = parser.getCompleteApi(searchOptions);
   const getSearchData = () => fetchApiData(searchApiUrl);
 
-  // If the search api calls with a start point filter that is not from the
-  // beginning, it will call requestMoreResult(req, res, api, apiOptions)
-  if (searchStart > 0) {
-    requestMoreResult(req, res, searchApiUrl, searchOptions);
-  } else {
-    axios.all([getSearchData(), getHeaderData()])
-      .then(axios.spread((searchData, headerData) => {
-        const searchParsed = parser.parse(searchData.data, searchOptions);
-        const headerParsed = parser.parse(headerData.data, headerOptions);
-        const headerModelData = HeaderItemModel.build(headerParsed);
+  axios.all([getSearchData(), getHeaderData()])
+    .then(axios.spread((searchData, headerData) => {
+      const searchParsed = parser.parse(searchData.data, searchOptions);
+      const headerParsed = parser.parse(headerData.data, headerOptions);
+      const headerModelData = HeaderItemModel.build(headerParsed);
 
-        res.locals.data = {
-          HeaderStore: {
-            headerData: headerModelData,
-          },
-          SearchStore: {
-            searchKeyword: fetchSearchKeyword(searchParsed),
-            searchData: fetchResultItems(searchParsed),
-            searchDataLength: fetchResultLength(searchParsed),
-            isKeywordValid: true,
-            searchFacets: fetchSearchFacets(),
-          },
-          completeApiUrl: searchApiUrl,
-        };
+      res.locals.data = {
+        HeaderStore: {
+          headerData: headerModelData,
+        },
+        SearchStore: {
+          searchKeyword: fetchSearchKeyword(searchParsed),
+          searchData: fetchResultItems(searchParsed),
+          searchDataLength: fetchResultLength(searchParsed),
+          isKeywordValid: true,
+          searchFacets: fetchSearchFacets(),
+        },
+        completeApiUrl: searchApiUrl,
+      };
 
-        next();
-      }))
-      .catch(error => {
-        console.log(`error calling API : ${error}`);
-        console.log(error.data.errors[0].title);
-        console.log(`from the endpoint: ${searchApiUrl}`);
-        console.log(`search keywords is ${api.filters}`);
+      next();
+    }))
+    .catch(error => {
+      console.log(`error calling API : ${error}`);
+      console.log(error.data.errors[0].title);
+      console.log(`from the endpoint: ${searchApiUrl}`);
+      console.log(`search keyword is ${searchOptions.filters.q}`);
 
-        res.locals.data = {
-          HeaderStore: {
-            headerData: [],
-          },
-          SearchStore: {
-            searchKeyword: '',
-            searchData: [],
-            searchDataLength: 0,
-            searchFacets: fetchSearchFacets(),
-          },
-        };
+      res.locals.data = {
+        HeaderStore: {
+          headerData: [],
+        },
+        SearchStore: {
+          searchKeyword: '',
+          searchData: [],
+          searchDataLength: 0,
+          searchFacets: fetchSearchFacets(),
+        },
+      };
 
-        next();
-      });
-  }
+      next();
+    });
 };
 
-const requestMoreResult = (req, res, api, apiOptions) => {
-  const getSearchData = () => fetchApiData(api);
+const requestMoreResult = (req, res) => {
+  searchOptions.filters = {
+    q: req.params.searchKeyword,
+  };
+  const searchStart = req.query.start;
+  const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
+
+  const getSearchData = () => fetchApiData(searchApiUrl);
 
   getSearchData()
     .then((searchData) => {
-      const searchParsed = parser.parse(searchData.data, apiOptions);
+      const searchParsed = parser.parse(searchData.data, searchOptions);
 
       res.json(searchData);
     })
@@ -105,7 +105,7 @@ const requestMoreResult = (req, res, api, apiOptions) => {
       console.log(`error calling API : ${error}`);
       console.log(error.data.errors[0].title);
       console.log(`from the endpoint: ${searchApiUrl}`);
-      console.log(`search keywords is ${api.filters}`);
+      console.log(`search keyword is ${searchOptions.filters.q}`);
     });
 };
 
@@ -152,6 +152,11 @@ router
 router
   .route('/search/apachesolr_search/:searchKeyword')
   .get(requestSearchResult);
+
+// The route is specific for client side ajax call. It returns a json file
+router
+  .route('/api/:searchKeyword/')
+  .get(requestMoreResult);
 
 // All the other router will show no result
 router
