@@ -33,6 +33,7 @@ const headerApiUrl = parser.getCompleteApi(headerOptions);
 const fetchApiData = (url) => axios.get(url);
 
 const getHeaderData = () => fetchApiData(headerApiUrl);
+const getSearchData = (url) => fetchApiData(url);
 
 const requestSearchResult = (req, res, next) => {
   searchOptions.filters = {
@@ -40,9 +41,8 @@ const requestSearchResult = (req, res, next) => {
   };
 
   const searchApiUrl = parser.getCompleteApi(searchOptions);
-  const getSearchData = () => fetchApiData(searchApiUrl);
 
-  axios.all([getSearchData(), getHeaderData()])
+  axios.all([getSearchData(searchApiUrl), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
       const headerParsed = parser.parse(headerData.data, headerOptions);
@@ -93,9 +93,7 @@ const requestMoreResult = (req, res) => {
   const searchStart = req.query.start;
   const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
 
-  const getSearchData = () => fetchApiData(searchApiUrl);
-
-  getSearchData()
+  getSearchData(searchApiUrl)
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
 
