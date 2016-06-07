@@ -114,19 +114,10 @@
       padding: 0 0 0 25px;
       text-align: left;
 
-      @include min-screen($tablet-portrait) {
-        max-height: 467px;
-      }
-
       li {
         list-style-type: none;
         margin: 28px 0;
         text-transform: uppercase;
-
-        @include min-screen($tablet-portrait) {
-          font-size: 18px;
-          line-height: 66px;
-        }
       }
     }
 
