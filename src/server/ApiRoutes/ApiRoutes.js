@@ -97,7 +97,7 @@ const requestMoreResult = (req, res) => {
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
 
-      res.json(searchData);
+      res.json(fetchResultItems(searchParsed));
     })
     .catch(error => {
       console.log(`error calling API : ${error}`);
