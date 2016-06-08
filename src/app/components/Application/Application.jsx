@@ -9,8 +9,17 @@ import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
 
+import axios from 'axios';
+
 // Import alt components
 import Store from '../../stores/Store.js';
+import Actions from '../../actions/Actions.js';
+
+import {
+  fetchResultLength,
+  fetchResultItems,
+  fetchSearchKeyword,
+} from './../../utils/SearchModel.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -66,9 +75,25 @@ class App extends React.Component {
     if (!requestParameter) {
       this.setState({ isKeywordValid: false });
     } else {
-      const requestUrl = `/search/apachesolr_search/${requestParameter}`;
+      // window.location.assign(requestUrl);
+      axios.get(`/api/${requestParameter}/`)
+      .then((response) => {
+        // Actions.addMoreSearchData concats the new result items to the exist result items array in
+        // the Store.
+        // Actions.addMoreSearchData(response.data);
+        Actions.updateSearchKeyword(fetchSearchKeyword(response.data));
+        Actions.updateSearchData(fetchResultItems(response.data));
+        Actions.updateSearchDataLength(fetchResultLength(response.data));
 
-      window.location.assign(requestUrl);
+        // Updates the state by the new array of Store.getState().searchData
+        this.setState({
+          searchKeyword: Store.getState().searchKeyword,
+          searchData: Store.getState().searchData,
+          searchDataLength: Store.getState().searchDataLength,
+          isKeywordValid: true,
+        });
+      })
+      .catch();
     }
   }
 

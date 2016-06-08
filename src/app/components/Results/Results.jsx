@@ -14,13 +14,15 @@ import { PaginationButton } from 'dgx-react-buttons';
 // Import libraries
 import { map as _map } from 'underscore';
 
+import { fetchResultItems } from './../../utils/SearchModel.js';
+
 class Results extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       searchStart: 10,
-      resultsItems: this.props.results,
+      resultsItems: [],
       isLoading: false,
       incrementResults: 10,
     };
@@ -28,6 +30,10 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
     this.updateSearchStart = this.updateSearchStart.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
+  }
+
+  componentWillReceiveProps() {
+    this.setState({ resultsItems: this.props.results });
   }
 
   /**
@@ -82,10 +88,9 @@ class Results extends React.Component {
 
     axios.get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}/`)
     .then((response) => {
-
       // Actions.addMoreSearchData concats the new result items to the exist result items array in
       // the Store.
-      Actions.addMoreSearchData(response.data);
+      Actions.addMoreSearchData(fetchResultItems(response.data));
 
       // Updates the state by the new array of Store.getState().searchData
       this.setState({
