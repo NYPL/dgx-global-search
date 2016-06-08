@@ -31,6 +31,7 @@ class App extends React.Component {
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
+    this.callRenderResults = this.callRenderResults.bind(this);
   }
 
   /**
@@ -75,7 +76,6 @@ class App extends React.Component {
     if (!requestParameter) {
       this.setState({ isKeywordValid: false });
     } else {
-      // window.location.assign(requestUrl);
       axios.get(`/api/${requestParameter}?start=0`)
       .then((response) => {
         // The fucntions of Actions.js update the Store with different feature values
@@ -96,6 +96,8 @@ class App extends React.Component {
         console.log(error.data.errors[0].title);
       });
     }
+
+    this.callRenderResults();
   }
 
   /**
@@ -134,6 +136,14 @@ class App extends React.Component {
     );
   }
 
+  callRenderResults() {
+    const data = this.renderResults();
+
+    console.log('call render');
+
+    return data;
+  }
+
   render() {
     const inputValue = this.state.searchKeyword || '';
     const inputPlaceholder = (this.state.isKeywordValid) ?
@@ -169,7 +179,7 @@ class App extends React.Component {
             />
             <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
           </div>
-          {this.renderResults()}
+          {this.callRenderResults()}
         </div>
 
         <Footer />

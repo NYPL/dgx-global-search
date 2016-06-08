@@ -24,11 +24,18 @@ class Results extends React.Component {
       searchStart: 10,
       isLoading: false,
       incrementResults: 10,
+      searchResults: this.props.results,
     };
 
     this.getList = this.getList.bind(this);
     this.updateSearchStart = this.updateSearchStart.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      searchResults: Store.getState().searchData,
+    });
   }
 
   /**
@@ -90,6 +97,7 @@ class Results extends React.Component {
       // Updates the state by the new array of Store.getState().searchData
       this.setState({
         isLoading: false,
+        searchResults: Store.getState().searchData,
       });
     })
     .catch(error => {
@@ -103,8 +111,7 @@ class Results extends React.Component {
   }
 
   render() {
-    const searchData = Store.getState().searchData;
-    const results = this.getList(searchData);
+    const results = this.getList(this.state.searchResults);
     const resultsRemainLength = (this.props.amount - results.length).toString();
 
     // Message if no result found
