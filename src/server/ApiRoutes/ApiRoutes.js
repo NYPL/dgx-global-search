@@ -27,24 +27,24 @@ const createOptions = (apiValue) => ({
 });
 
 const headerOptions = createOptions(headerApi);
+const searchOptions = createOptions(searchApi);
 const headerApiUrl = parser.getCompleteApi(headerOptions);
 
 const fetchApiData = (url) => axios.get(url);
 
 const getHeaderData = () => fetchApiData(headerApiUrl);
+const getSearchData = (url) => fetchApiData(url);
 
 const requestSearchResult = (req, res, next) => {
-  const searchOptions = createOptions(searchApi);
   searchOptions.filters = {
     q: req.params.searchKeyword,
   };
-  const searchApiUrl = parser.getCompleteApi(searchOptions);
-  const getSearchData = () => fetchApiData(searchApiUrl);
 
-  axios.all([getSearchData(), getHeaderData()])
+  const searchApiUrl = parser.getCompleteApi(searchOptions);
+
+  axios.all([getSearchData(searchApiUrl), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
-      // We neeed a model for search result later
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed);
 
@@ -68,7 +68,7 @@ const requestSearchResult = (req, res, next) => {
       console.log(`error calling API : ${error}`);
       console.log(error.data.errors[0].title);
       console.log(`from the endpoint: ${searchApiUrl}`);
-      console.log(`search keywords is ${api.filters}`);
+      console.log(`search keyword is ${searchOptions.filters.q}`);
 
       res.locals.data = {
         HeaderStore: {
@@ -83,6 +83,30 @@ const requestSearchResult = (req, res, next) => {
       };
 
       next();
+    });
+};
+
+const requestMoreResult = (req, res) => {
+  searchOptions.filters = {
+    q: req.params.searchKeyword,
+  };
+  const searchStart = req.query.start || '0';
+  const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
+
+  getSearchData(searchApiUrl)
+    .then((searchData) => {
+      const searchParsed = parser.parse(searchData.data, searchOptions);
+      if (parseInt(searchStart) > 0) {
+        res.json(fetchResultItems(searchParsed));
+      } else {
+         res.json([]);
+      }
+    })
+    .catch(error => {
+      console.log(`error calling API : ${error}`);
+      console.log(error.data.errors[0].title);
+      console.log(`from the endpoint: ${searchApiUrl}`);
+      console.log(`search keyword is ${searchOptions.filters.q}`);
     });
 };
 
@@ -129,6 +153,11 @@ router
 router
   .route('/search/apachesolr_search/:searchKeyword')
   .get(requestSearchResult);
+
+// The route is specific for client side ajax call. It returns a json file
+router
+  .route('/api/:searchKeyword/')
+  .get(requestMoreResult);
 
 // All the other router will show no result
 router

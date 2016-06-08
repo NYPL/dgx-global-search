@@ -12,6 +12,12 @@ Import singularity and breakpoints
 @import "~breakpoint-sass/stylesheets/breakpoint";
 
 /*
+Import Normalize and Grid settings for nyplHomepage App
+*/
+@import "utils/normalize";
+@import "utils/gridSettings";
+
+/*
 Import style rules from NYPL React module components
 */
 @import "~dgx-header-component/dist/styles/main";
@@ -25,6 +31,7 @@ Import style rules from App components
 @import "components/SearchButton";
 @import "components/Filter";
 @import "components/Results";
+@import "components/PaginationButton";
 
 #app {
   margin: 0;
@@ -35,6 +42,7 @@ Import style rules from App components
 
 .gs-mainContent {
   @include grid-span(3, 1);
+
   position: relative;
 
   h2 {
@@ -46,6 +54,10 @@ Import style rules from App components
     margin: 19px 0 23px 0;
     padding: 0 14px;
 
+    @include min-screen($tablet-portrait) {
+      padding: 0 36px;
+    }
+
     span {
       &:last-child {
         font-size: 12px;
@@ -53,4 +65,29 @@ Import style rules from App components
       }
     }
   }
+
+  .gs-operations {
+    display: block;
+  }
+
+  @include layout-at(7, $tablet-portrait) {
+    .gs-operations {
+      @include grid-span(7, 1);
+
+      box-sizing: border-box;
+      display: inline-block;
+      margin: 0 0 27px 0;
+      padding: 0 36px;
+    }
+  }
 }
+
+.visuallyHidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0); /* IE6, IE7 */
+  clip: rect(0, 0, 0, 0);
+}
+

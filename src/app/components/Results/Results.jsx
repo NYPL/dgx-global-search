@@ -1,8 +1,15 @@
 import React from 'react';
 
+import axios from 'axios';
+
+// Import alt components
+import Store from '../../stores/Store.js';
+import Actions from '../../actions/Actions.js';
+
 // Import components
 import ResultsItem from '../ResultsItem/ResultsItem.jsx';
 import { DivideLineIcon } from 'dgx-svg-icons';
+import { PaginationButton } from 'dgx-react-buttons';
 
 // Import libraries
 import { map as _map } from 'underscore';
@@ -11,7 +18,16 @@ class Results extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      searchStart: 10,
+      resultsItems: this.props.results,
+      isLoading: false,
+      incrementResults: 10,
+    };
+
     this.getList = this.getList.bind(this);
+    this.updateSearchStart = this.updateSearchStart.bind(this);
+    this.addMoreResults = this.addMoreResults.bind(this);
   }
 
   /**
@@ -36,9 +52,60 @@ class Results extends React.Component {
       />
     ));
   }
+  /**
+   * updateSearchStart()
+   * The function updates which result item the api call is going to start to fetch at,
+   * and then updates it to the state. Now it always starts from the next tenth item
+   * after clickin the pagination button.
+   *
+   */
+  updateSearchStart() {
+    this.setState({ searchStart: this.state.searchStart + this.state.incrementResults });
+  }
+
+  /**
+   * addMoreResults()
+   * The function calls updateSearchStart() and then fires axios get method with the new start item.
+   * When it gets the response data, it models the data and adds the new results items to the exist
+   * result array by Actions.addMoreSearchData().
+   *
+   */
+  addMoreResults() {
+    this.updateSearchStart();
+    // Change the state: isLoading during the api call so the animation of the pagination button
+    // can be triggered.
+    axios.interceptors.request.use(config => {
+      // Do something before request is sent
+      this.setState({ isLoading: true });
+      return config;
+    }, error => Promise.reject(error));
+
+    axios.get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}/`)
+    .then((response) => {
+
+      // Actions.addMoreSearchData concats the new result items to the exist result items array in
+      // the Store.
+      Actions.addMoreSearchData(response.data);
+
+      // Updates the state by the new array of Store.getState().searchData
+      this.setState({
+        resultsItems: Store.getState().searchData,
+        isLoading: false,
+      });
+    })
+    .catch(error => {
+      console.log(`error calling API to add more results: ${error}`);
+      console.log(error.data.errors[0].title);
+
+      this.setState({
+        isLoading: false,
+      });
+    });
+  }
 
   render() {
-    const results = this.getList(this.props.results);
+    const results = this.getList(this.state.resultsItems);
+    const resultsRemainLength = (this.props.amount - results.length).toString();
 
     // Message if no result found
     if (results.length === 0) {
@@ -66,6 +133,15 @@ class Results extends React.Component {
         <ul id={this.props.id} className={this.props.className}>
           {results}
         </ul>
+        <div className={`${this.props.id}-paginationButton-wrapper`}>
+          <PaginationButton
+            id={`${this.props.id}-paginationButton`}
+            className={`${this.props.id}-paginationButton`}
+            isLoading={this.state.isLoading}
+            onClick={this.addMoreResults}
+            label={resultsRemainLength}
+          />
+        </div>
       </div>
     );
   }
@@ -76,12 +152,16 @@ Results.propTypes = {
   className: React.PropTypes.string,
   results: React.PropTypes.array,
   amount: React.PropTypes.number,
+  searchKeyword: React.PropTypes.string,
 };
 
 Results.defaultProps = {
   lang: 'en',
   id: 'results',
   className: 'results',
+  results: [],
+  amount: 0,
+  searchKeyword: '',
 };
 
 export default Results;

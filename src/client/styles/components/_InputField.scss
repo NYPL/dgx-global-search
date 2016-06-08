@@ -14,3 +14,17 @@
     margin: 0 0 22px 0;
   }
 }
+
+.gs-inputField {
+  padding: 12px 17px;
+
+  &-wrapper {
+    @include layout-at(7, $tablet-portrait) {
+      @include grid-span(4, 1);
+
+      display: inline-block;
+      margin: 0 -84px 0 0;
+      padding: 0;
+    }
+  }
+}

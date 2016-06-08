@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { BasicButton } from 'dgx-react-buttons';
 import { ApplyIcon, FilterIcon, ResetIcon } from 'dgx-svg-icons';
 
 import CloseButton from '../CloseButton/CloseButton.jsx';
@@ -44,22 +45,27 @@ class FilterList extends ClickOut {
           />
           <h4>Filter by</h4>
           <div className={`${this.props.className}-buttonWrapper`}>
-            <button className="customButton apply">
-              <ApplyIcon
-                ariaHidden
-                className={`${this.props.className}-applyIcon`}
-                fill="#FFF"
-                height="32"
-                title="apply.icon.svg"
-                viewBox="0 0 32 32"
-                width="32"
-              />
-            </button>
+            <BasicButton
+              id="applyButton"
+              className="customButton apply"
+              icon={
+                <ApplyIcon
+                  ariaHidden
+                  className={`${this.props.className}-applyIcon`}
+                  fill="#FFF"
+                  height="32"
+                  title="apply.icon.svg"
+                  viewBox="0 0 32 32"
+                  width="32"
+                />
+              }
+              label="Apply Button"
+              labelAccessible
+            />
             <CloseButton
               id={`${this.props.id}-closeButton`}
               className={`customButton ${this.props.className}-closeButton`}
               onClick={this.onClickOut}
-              ariaHidden
               fill="#FFF"
               height="32"
               title="x.icon.svg"
@@ -71,18 +77,23 @@ class FilterList extends ClickOut {
         <ul className={`${this.props.className}-items`}>
           {this.renderfacets()}
         </ul>
-        <button className="customButton reset">
-          <ResetIcon
-            ariaHidden
-            className={`${this.props.className}-resetIcon`}
-            fill="#FFF"
-            height="32"
-            title="refresh.icon.svg"
-            viewBox="0 0 32 32"
-            width="32"
-          />
-          <span>RESET</span>
-        </button>
+        <BasicButton
+          id="resetButton"
+          className="customButton reset"
+          icon={
+            <ResetIcon
+              ariaHidden
+              className={`${this.props.className}-resetIcon`}
+              fill="#FFF"
+              height="32"
+              title="refresh.icon.svg"
+              viewBox="0 0 32 32"
+              width="32"
+            />
+          }
+          label="RESET"
+          labelAccessible={false}
+        />
       </div>
     );
   }
