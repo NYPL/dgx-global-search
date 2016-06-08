@@ -86,7 +86,7 @@ const requestSearchResult = (req, res, next) => {
     });
 };
 
-const requestMoreResult = (req, res) => {
+const requestResultFromClient = (req, res) => {
   searchOptions.filters = {
     q: req.params.searchKeyword,
   };
@@ -96,11 +96,11 @@ const requestMoreResult = (req, res) => {
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
-      // if (parseInt(searchStart) > 0) {
+      if (req.query.start) {
         res.json(searchParsed);
-      // } else {
-      //    res.json([]);
-      // }
+      } else {
+         res.json([]);
+      }
     })
     .catch(error => {
       console.log(`error calling API : ${error}`);
@@ -157,7 +157,7 @@ router
 // The route is specific for client side ajax call. It returns a json file
 router
   .route('/api/:searchKeyword/')
-  .get(requestMoreResult);
+  .get(requestResultFromClient);
 
 // All the other router will show no result
 router
