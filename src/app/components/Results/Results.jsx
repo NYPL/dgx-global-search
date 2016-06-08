@@ -1,8 +1,6 @@
 import React from 'react';
 
 import axios from 'axios';
-import parser from 'jsonapi-parserinator';
-import { fetchResultItems } from './../../utils/SearchModel.js';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -24,6 +22,7 @@ class Results extends React.Component {
       searchStart: 10,
       resultsItems: this.props.results,
       isLoading: false,
+      incrementResults: 10,
     };
 
     this.getList = this.getList.bind(this);
@@ -61,7 +60,7 @@ class Results extends React.Component {
    *
    */
   updateSearchStart() {
-    this.setState({ searchStart: this.state.searchStart + 10 });
+    this.setState({ searchStart: this.state.searchStart + this.state.incrementResults });
   }
 
   /**
@@ -83,11 +82,10 @@ class Results extends React.Component {
 
     axios.get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}/`)
     .then((response) => {
-      const requestResult = parser.parse(response.data.data);
 
       // Actions.addMoreSearchData concats the new result items to the exist result items array in
       // the Store.
-      Actions.addMoreSearchData(fetchResultItems(requestResult));
+      Actions.addMoreSearchData(response.data);
 
       // Updates the state by the new array of Store.getState().searchData
       this.setState({

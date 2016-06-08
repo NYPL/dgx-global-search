@@ -17,7 +17,7 @@ const SearchButton = ({
       icon={
         <SearchIcon
           ariaHidden
-          className={`${className}-SearchIcon`}
+          className={`${className}-searchIcon`}
           fill="#FFF"
           height="32"
           title="search.icon.svg"

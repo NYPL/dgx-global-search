@@ -10,7 +10,6 @@ const HintBlock = ({
   <div id={id} className={className}>
     <CloseButton
       id={`${id}-closeButton`}
-      ariaHidden
       className={`${className}-closeButton`}
       fill="#837E77"
       height="32"
