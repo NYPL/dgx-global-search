@@ -78,14 +78,12 @@ class App extends React.Component {
       // window.location.assign(requestUrl);
       axios.get(`/api/${requestParameter}/`)
       .then((response) => {
-        // Actions.addMoreSearchData concats the new result items to the exist result items array in
-        // the Store.
-        // Actions.addMoreSearchData(response.data);
+        // The fucntions of Actions.js update the Store with different feature values
         Actions.updateSearchKeyword(fetchSearchKeyword(response.data));
         Actions.updateSearchData(fetchResultItems(response.data));
         Actions.updateSearchDataLength(fetchResultLength(response.data));
 
-        // Updates the state by the new array of Store.getState().searchData
+        // Updates the state with the new search data
         this.setState({
           searchKeyword: Store.getState().searchKeyword,
           searchData: Store.getState().searchData,
@@ -93,7 +91,10 @@ class App extends React.Component {
           isKeywordValid: true,
         });
       })
-      .catch();
+      .catch(error => {
+        console.log(`error calling API to search '${requestParameter}': ${error}`);
+        console.log(error.data.errors[0].title);
+      });
     }
   }
 
