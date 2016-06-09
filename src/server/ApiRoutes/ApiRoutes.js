@@ -91,7 +91,6 @@ const requestResultFromClient = (req, res) => {
     q: req.params.searchKeyword,
     start: req.query.start || 0,
   };
-  // const searchStart = req.query.start || '0';
   const searchApiUrl = parser.getCompleteApi(searchOptions);
 
   getSearchData(searchApiUrl)

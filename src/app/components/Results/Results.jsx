@@ -32,10 +32,12 @@ class Results extends React.Component {
     this.addMoreResults = this.addMoreResults.bind(this);
   }
 
-  componentWillReceiveProps() {
-    this.setState({
-      searchResults: Store.getState().searchData,
-    });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.results !== this.props.results) {
+      this.setState({
+        searchResults: nextProps.results,
+      });
+    }
   }
 
   /**

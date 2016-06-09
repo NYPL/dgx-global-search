@@ -61,7 +61,7 @@ class App extends React.Component {
    */
   inputChange(event) {
     console.log(this.state.searchKeyword);
-    // this.setState({ searchKeyword: event.target.value });
+    this.setState({ searchKeyword: event.target.value });
   }
 
   /**
