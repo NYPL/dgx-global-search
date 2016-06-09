@@ -39,8 +39,7 @@ const requestSearchResult = (req, res, next) => {
   searchOptions.filters = {
     q: req.params.searchKeyword,
   };
-
-  const searchApiUrl = parser.getCompleteApi(searchOptions);
+  const searchApiUrl = parser.getCompleteApi(searchOptions) + '&filter[start]=0';
 
   axios.all([getSearchData(searchApiUrl), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
@@ -92,8 +91,6 @@ const requestMoreResult = (req, res) => {
   };
   const searchStart = req.query.start || '0';
   const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
-
-  console.log(searchApiUrl);
 
   getSearchData(searchApiUrl)
     .then((searchData) => {
