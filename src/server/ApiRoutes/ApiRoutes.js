@@ -93,13 +93,15 @@ const requestMoreResult = (req, res) => {
   const searchStart = req.query.start || '0';
   const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
 
+  console.log(searchApiUrl);
+
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
       if (parseInt(searchStart) > 0) {
         res.json(fetchResultItems(searchParsed));
       } else {
-         res.json([]);
+        res.json([]);
       }
     })
     .catch(error => {

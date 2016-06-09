@@ -80,7 +80,7 @@ class Results extends React.Component {
       return config;
     }, error => Promise.reject(error));
 
-    axios.get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}/`)
+    axios.get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}`)
     .then((response) => {
 
       // Actions.addMoreSearchData concats the new result items to the exist result items array in
