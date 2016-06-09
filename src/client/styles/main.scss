@@ -25,6 +25,7 @@ Import style rules from App components
 @import "components/SearchButton";
 @import "components/Filter";
 @import "components/Results";
+@import "components/PaginationButton";
 
 #app {
   margin: 0;
@@ -54,3 +55,13 @@ Import style rules from App components
     }
   }
 }
+
+.visuallyHidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0); /* IE6, IE7 */
+  clip: rect(0, 0, 0, 0);
+}
+
