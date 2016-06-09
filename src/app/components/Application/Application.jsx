@@ -31,7 +31,6 @@ class App extends React.Component {
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
-    this.callRenderResults = this.callRenderResults.bind(this);
   }
 
   /**
@@ -61,7 +60,8 @@ class App extends React.Component {
    * @param {Event} event
    */
   inputChange(event) {
-    this.setState({ searchKeyword: event.target.value });
+    console.log(this.state.searchKeyword);
+    // this.setState({ searchKeyword: event.target.value });
   }
 
   /**
@@ -96,8 +96,6 @@ class App extends React.Component {
         console.log(error.data.errors[0].title);
       });
     }
-
-    this.callRenderResults();
   }
 
   /**
@@ -136,15 +134,8 @@ class App extends React.Component {
     );
   }
 
-  callRenderResults() {
-    const data = this.renderResults();
-
-    console.log('call render');
-
-    return data;
-  }
-
   render() {
+        console.log('render');
     const inputValue = this.state.searchKeyword || '';
     const inputPlaceholder = (this.state.isKeywordValid) ?
       'Enter Search Terms' : 'Please enter a search term';
@@ -179,7 +170,7 @@ class App extends React.Component {
             />
             <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
           </div>
-          {this.callRenderResults()}
+          {this.renderResults()}
         </div>
 
         <Footer />
