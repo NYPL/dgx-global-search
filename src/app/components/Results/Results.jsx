@@ -82,7 +82,6 @@ class Results extends React.Component {
 
     axios.get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}`)
     .then((response) => {
-
       // Actions.addMoreSearchData concats the new result items to the exist result items array in
       // the Store.
       Actions.addMoreSearchData(response.data);
