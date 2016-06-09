@@ -88,7 +88,7 @@ const requestSearchResult = (req, res, next) => {
 const requestResultFromClient = (req, res) => {
   searchOptions.filters = {
     q: req.params.searchKeyword,
-    start: req.query.start || 0,
+    start: req.query.start || '0',
   };
   const searchApiUrl = parser.getCompleteApi(searchOptions);
 
