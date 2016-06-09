@@ -27,6 +27,8 @@ class App extends React.Component {
 
     this.state = Store.getState();
 
+    this.state.isRequestFired = false;
+
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
@@ -60,8 +62,8 @@ class App extends React.Component {
    * @param {Event} event
    */
   inputChange(event) {
-    console.log(this.state.searchKeyword);
     this.setState({ searchKeyword: event.target.value });
+    this.setState({ isRequestFired: false });
   }
 
   /**
@@ -72,6 +74,8 @@ class App extends React.Component {
    */
   submitSearchRequest() {
     const requestParameter = this.state.searchKeyword.trim() || '';
+
+    this.setState({ isRequestFired: true });
 
     if (!requestParameter) {
       this.setState({ isKeywordValid: false });
@@ -119,6 +123,10 @@ class App extends React.Component {
    * @return {Object} object
    */
   renderResults() {
+    if (this.state.isRequestFired === false) {
+      return;
+    }
+
     if (this.state.searchKeyword === '') {
       return null;
     }
@@ -135,7 +143,7 @@ class App extends React.Component {
   }
 
   render() {
-        console.log('render');
+    console.log(this.state.isRequestFired);
     const inputValue = this.state.searchKeyword || '';
     const inputPlaceholder = (this.state.isKeywordValid) ?
       'Enter Search Terms' : 'Please enter a search term';
