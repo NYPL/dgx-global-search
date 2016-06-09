@@ -26,8 +26,7 @@ class App extends React.Component {
     super(props);
 
     this.state = Store.getState();
-
-    this.state.isRequestFired = false;
+    this.state.resultsComponent = null;
 
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
@@ -63,7 +62,6 @@ class App extends React.Component {
    */
   inputChange(event) {
     this.setState({ searchKeyword: event.target.value });
-    this.setState({ isRequestFired: false });
   }
 
   /**
@@ -74,8 +72,6 @@ class App extends React.Component {
    */
   submitSearchRequest() {
     const requestParameter = this.state.searchKeyword.trim() || '';
-
-    this.setState({ isRequestFired: true });
 
     if (!requestParameter) {
       this.setState({ isKeywordValid: false });
@@ -93,6 +89,7 @@ class App extends React.Component {
           searchData: Store.getState().searchData,
           searchDataLength: Store.getState().searchDataLength,
           isKeywordValid: true,
+          resultsComponent: this.renderResults(Store.getState().searchData),
         });
       })
       .catch(error => {
@@ -122,11 +119,7 @@ class App extends React.Component {
    *
    * @return {Object} object
    */
-  renderResults() {
-    if (this.state.isRequestFired === false) {
-      return;
-    }
-
+  renderResults(resultsArray) {
     if (this.state.searchKeyword === '') {
       return null;
     }
@@ -134,7 +127,7 @@ class App extends React.Component {
     return (
       <Results
         amount={this.state.searchDataLength}
-        results={this.state.searchData}
+        results={resultsArray}
         id="gs-results"
         className="gs-results"
         searchKeyword={this.state.searchKeyword}
@@ -143,7 +136,8 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.isRequestFired);
+    console.log(this.state.resultsComponent);
+
     const inputValue = this.state.searchKeyword || '';
     const inputPlaceholder = (this.state.isKeywordValid) ?
       'Enter Search Terms' : 'Please enter a search term';
@@ -178,7 +172,7 @@ class App extends React.Component {
             />
             <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
           </div>
-          {this.renderResults()}
+          {this.state.resultsComponent}
         </div>
 
         <Footer />
