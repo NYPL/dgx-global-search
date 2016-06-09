@@ -89,7 +89,11 @@ class App extends React.Component {
           searchData: Store.getState().searchData,
           searchDataLength: Store.getState().searchDataLength,
           isKeywordValid: true,
-          resultsComponent: this.renderResults(Store.getState().searchData),
+          resultsComponent: this.renderResults(
+            Store.getState().searchKeyword,
+            Store.getState().searchData,
+            Store.getState().searchDataLength
+          ),
         });
       })
       .catch(error => {
@@ -119,18 +123,18 @@ class App extends React.Component {
    *
    * @return {Object} object
    */
-  renderResults(resultsArray) {
+  renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
     if (this.state.searchKeyword === '') {
       return null;
     }
 
     return (
       <Results
-        amount={this.state.searchDataLength}
-        results={resultsArray}
+        amount={searchResultsLength}
+        results={searchResultsArray}
         id="gs-results"
         className="gs-results"
-        searchKeyword={this.state.searchKeyword}
+        searchKeyword={searchKeyword}
       />
     );
   }
