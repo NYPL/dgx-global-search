@@ -92,14 +92,17 @@ const requestMoreResult = (req, res) => {
   const searchStart = req.query.start || '0';
   const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
 
+  // If the req.query.start is not valid or can't be convert to an integer greater than 0
+  if (!parseInt(searchStart) || parseInt(searchStart) <= 0) {
+    res.json([]);
+    return;
+  }
+
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
-      if (parseInt(searchStart) > 0) {
-        res.json(fetchResultItems(searchParsed));
-      } else {
-        res.json([]);
-      }
+
+      res.json(fetchResultItems(searchParsed));
     })
     .catch(error => {
       console.log(`error calling API : ${error}`);
