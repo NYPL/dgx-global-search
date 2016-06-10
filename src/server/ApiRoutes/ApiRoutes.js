@@ -92,7 +92,6 @@ const requestResultFromClient = (req, res) => {
     start: req.query.start || '0',
   };
   const searchApiUrl = parser.getCompleteApi(searchOptions);
-  const searchStart = searchOptions.filters.start;
 
   if (!req.query.start) {
     res.json({});
