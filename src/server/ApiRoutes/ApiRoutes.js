@@ -38,8 +38,8 @@ const getSearchData = (url) => fetchApiData(url);
 const requestSearchResult = (req, res, next) => {
   searchOptions.filters = {
     q: req.params.searchKeyword,
+    start: 0,
   };
-
   const searchApiUrl = parser.getCompleteApi(searchOptions);
 
   axios.all([getSearchData(searchApiUrl), getHeaderData()])
@@ -86,21 +86,23 @@ const requestSearchResult = (req, res, next) => {
     });
 };
 
-const requestMoreResult = (req, res) => {
+const requestResultsFromClient = (req, res) => {
   searchOptions.filters = {
     q: req.params.searchKeyword,
+    start: req.query.start || '0',
   };
-  const searchStart = req.query.start || '0';
-  const searchApiUrl = parser.getCompleteApi(searchOptions) + `&filter[start]=${searchStart}`;
+  const searchApiUrl = parser.getCompleteApi(searchOptions);
+
+  if (!req.query.start) {
+    res.json({});
+    return;
+  }
 
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
-      if (parseInt(searchStart) > 0) {
-        res.json(fetchResultItems(searchParsed));
-      } else {
-         res.json([]);
-      }
+
+      res.json(searchParsed);
     })
     .catch(error => {
       console.log(`error calling API : ${error}`);
@@ -110,7 +112,7 @@ const requestMoreResult = (req, res) => {
     });
 };
 
-const requestEmptyResult = (req, res, next) => {
+const requestHeaderOnly = (req, res, next) => {
   if (req.path !== '/search/apachesolr_search/') {
     res.redirect('/search/apachesolr_search/');
     return;
@@ -147,7 +149,7 @@ const requestEmptyResult = (req, res, next) => {
 // The route with valid pattern but no keyword will show no result
 router
   .route('/search/apachesolr_search/')
-  .get(requestEmptyResult);
+  .get(requestHeaderOnly);
 
 // The route with valid pattern and the keyword will request the search results
 router
@@ -157,11 +159,11 @@ router
 // The route is specific for client side ajax call. It returns a json file
 router
   .route('/api/:searchKeyword/')
-  .get(requestMoreResult);
+  .get(requestResultsFromClient);
 
 // All the other router will show no result
 router
   .route(/^((?!\/search\/apachesolr_search).)*$/)
-  .get(requestEmptyResult);
+  .get(requestHeaderOnly);
 
 export default router;

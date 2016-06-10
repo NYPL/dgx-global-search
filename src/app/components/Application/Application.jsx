@@ -9,19 +9,39 @@ import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
 
+import axios from 'axios';
+
 // Import alt components
 import Store from '../../stores/Store.js';
+import Actions from '../../actions/Actions.js';
+
+import {
+  fetchResultLength,
+  fetchResultItems,
+  fetchSearchKeyword,
+} from './../../utils/SearchModel.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = Store.getState();
+    this.state.resultsComponentData = null;
 
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({
+      resultsComponentData: this.renderResults(
+        Store.getState().searchKeyword,
+        Store.getState().searchData,
+        Store.getState().searchDataLength
+      ),
+    });
   }
 
   /**
@@ -66,9 +86,27 @@ class App extends React.Component {
     if (!requestParameter) {
       this.setState({ isKeywordValid: false });
     } else {
-      const requestUrl = `/search/apachesolr_search/${requestParameter}`;
+      axios.get(`/api/${requestParameter}?start=0`)
+      .then((response) => {
+        // The fucntions of Actions.js update the Store with different feature values
+        Actions.updateSearchKeyword(fetchSearchKeyword(response.data));
+        Actions.updateSearchData(fetchResultItems(response.data));
+        Actions.updateSearchDataLength(fetchResultLength(response.data));
 
-      window.location.assign(requestUrl);
+        // Updates the state with the new search data
+        this.setState({
+          isKeywordValid: true,
+          resultsComponentData: this.renderResults(
+            Store.getState().searchKeyword,
+            Store.getState().searchData,
+            Store.getState().searchDataLength
+          ),
+        });
+      })
+      .catch(error => {
+        console.log(`error calling API to search '${requestParameter}': ${error}`);
+        console.log(error.data.errors[0].title);
+      });
     }
   }
 
@@ -92,18 +130,18 @@ class App extends React.Component {
    *
    * @return {Object} object
    */
-  renderResults() {
+  renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
     if (this.state.searchKeyword === '') {
       return null;
     }
 
     return (
       <Results
-        amount={this.state.searchDataLength}
-        results={this.state.searchData}
+        amount={searchResultsLength}
+        results={searchResultsArray}
         id="gs-results"
         className="gs-results"
-        searchKeyword={this.state.searchKeyword}
+        searchKeyword={searchKeyword}
       />
     );
   }
@@ -124,24 +162,26 @@ class App extends React.Component {
             className="gs-hintBlock"
             message={this.generateThankYouMessage()}
           />
-          <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
-            <InputField
-              id="gs-inputField"
-              className="gs-inputField"
-              type="text"
-              placeholder={inputPlaceholder}
-              value={inputValue}
-              onChange={this.inputChange}
+          <div id="gs-operations" className="gs-operations">
+            <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
+              <InputField
+                id="gs-inputField"
+                className="gs-inputField"
+                type="text"
+                placeholder={inputPlaceholder}
+                value={inputValue}
+                onChange={this.inputChange}
+              />
+            </div>
+            <SearchButton
+              id="gs-searchButton"
+              className="gs-searchButton"
+              label="SEARCH"
+              onClick={this.submitSearchRequest}
             />
+            <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
           </div>
-          <SearchButton
-            id="gs-searchButton"
-            className="gs-searchButton"
-            label="SEARCH"
-            onClick={this.submitSearchRequest}
-          />
-          <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
-          {this.renderResults()}
+          {this.state.resultsComponentData}
         </div>
 
         <Footer />

@@ -12,12 +12,22 @@ const renderImage = (className, src, title) => {
   }
 
   return (
-    <img
-      className={`${className}-image`}
-      src={src}
-      alt={title}
-    />
+    <div className={`${className}-imageWrapper`}>
+      <img
+        className={`${className}-image`}
+        src={src}
+        alt={title}
+      />
+    </div>
   );
+};
+
+const generateWholeRowClass = (src) => {
+  if (!src) {
+    return 'whole-row';
+  }
+
+  return '';
 };
 
 const ResultsItem = ({
@@ -29,18 +39,38 @@ const ResultsItem = ({
   snippet,
   title,
   thumbnailSrc,
+  wholeRowClass = generateWholeRowClass(thumbnailSrc),
 }) => (
-  <li id={`${id}-${index}`} className={className}>
-    <p className={`${className}-label`}>{label}</p>
+  <li
+    id={`${id}-${index}`}
+    className={`${className} ${wholeRowClass}`}
+  >
+    <p
+      className={`${className}-label ${wholeRowClass}`}
+    >
+      {label}
+    </p>
     <a
-      className={`${className}-link`}
+      className={`${className}-link ${wholeRowClass}`}
       href={link}
     >
       {renderImage(className, thumbnailSrc, title)}
-      <h3>{title}</h3>
+      <h3
+        className={`${className}-title ${wholeRowClass}`}
+      >
+        {title}
+      </h3>
     </a>
-    <p className={`${className}-linkText`}>{link}</p>
-    <p className={`${className}-snippet`}>{snippet}</p>
+    <p
+      className={`${className}-linkText ${wholeRowClass}`}
+    >
+      {link}
+    </p>
+    <p
+      className={`${className}-snippet ${wholeRowClass}`}
+    >
+      {snippet}
+    </p>
   </li>
 );
 
@@ -54,6 +84,7 @@ ResultsItem.propTypes = {
   snippet: React.PropTypes.string,
   thumbnailSrc: React.PropTypes.string,
   label: React.PropTypes.string,
+  wholeRowClass: React.PropTypes.string,
 };
 
 ResultsItem.defaultProps = {
@@ -61,6 +92,7 @@ ResultsItem.defaultProps = {
   id: 'resultsItem',
   className: 'resultsItem',
   index: 0,
+  wholeRowClass: 'whole-row',
 };
 
 export default ResultsItem;
