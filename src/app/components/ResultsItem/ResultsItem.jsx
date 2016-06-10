@@ -92,7 +92,6 @@ ResultsItem.defaultProps = {
   id: 'resultsItem',
   className: 'resultsItem',
   index: 0,
-  wholeRowClass: 'whole-row',
 };
 
 export default ResultsItem;
