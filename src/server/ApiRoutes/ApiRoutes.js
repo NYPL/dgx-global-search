@@ -44,8 +44,6 @@ const requestSearchResult = (req, res, next) => {
   };
   const searchApiUrl = parser.getCompleteApi(searchOptions);
 
-  console.log(searchApiUrl);
-
   axios.all([getSearchData(searchApiUrl), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
@@ -96,6 +94,8 @@ const requestResultsFromClient = (req, res) => {
     start: req.query.start || '0',
   };
   const searchApiUrl = parser.getCompleteApi(searchOptions);
+
+    console.log(searchApiUrl);
 
   if (!req.query.start) {
     res.json({});

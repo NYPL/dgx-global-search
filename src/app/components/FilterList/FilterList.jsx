@@ -15,7 +15,6 @@ class FilterList extends ClickOut {
 
     this.renderfacets = this.renderfacets.bind(this);
     this.onClickOut = this.onClickOut.bind(this);
-    this.onClickFilter = this.onClickFilter.bind(this);
   }
 
   onClickOut() {
