@@ -27,6 +27,7 @@ class App extends React.Component {
 
     this.state = Store.getState();
     this.state.resultsComponentData = null;
+    this.state.selectedFacet = '';
 
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
@@ -74,6 +75,10 @@ class App extends React.Component {
     this.setState({ searchKeyword: event.target.value });
   }
 
+  updateSelectedFacet(facet) {
+    this.setState({ selectedFacet: facet });
+  }
+
   /**
    * submitSearchRequest(value)
    * Submit the search request based on the values of the input fields.
@@ -81,8 +86,9 @@ class App extends React.Component {
    * @param {String} value
    */
   submitSearchRequest() {
-    const searchKeyword = this.state.searchKeyword.trim() || ''
-    const searchFilter = ' more:locations';
+    const searchKeyword = this.state.searchKeyword.trim() || '';
+    const facet = this.state.selectedFacet;
+    const searchFilter = (facet) ? ` more:${facet}` : '';
     const requestParameter = `${searchKeyword}${searchFilter}`;
 
     if (!requestParameter) {
@@ -181,7 +187,12 @@ class App extends React.Component {
               label="SEARCH"
               onClick={this.submitSearchRequest}
             />
-            <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
+            <Filter
+              id="gs-filter"
+              className="gs-filter"
+              facets={this.state.searchFacets}
+              onClickFacet={this.updateSelectedFacet}
+            />
           </div>
           {this.state.resultsComponentData}
         </div>

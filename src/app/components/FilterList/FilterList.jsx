@@ -15,6 +15,7 @@ class FilterList extends ClickOut {
 
     this.renderfacets = this.renderfacets.bind(this);
     this.onClickOut = this.onClickOut.bind(this);
+    this.onClickFilter = this.onClickFilter.bind(this);
   }
 
   onClickOut() {
@@ -23,7 +24,7 @@ class FilterList extends ClickOut {
 
   renderfacets() {
     return _map(this.props.facets, (item, index) => (
-      <li key={index}>{item}</li>
+      <li key={index} onClick={() => this.props.clickFacet(item)}>{item}</li>
     ));
   }
 

@@ -36,13 +36,15 @@ const getHeaderData = () => fetchApiData(headerApiUrl);
 const getSearchData = (url) => fetchApiData(url);
 
 const requestSearchResult = (req, res, next) => {
-  const searchFilter = ` more:${req.params.searchFilter}`;
+  const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
   const searchRequest = `${req.params.searchKeyword}${searchFilter}`;
   searchOptions.filters = {
     q: searchRequest,
     start: 0,
   };
   const searchApiUrl = parser.getCompleteApi(searchOptions);
+
+  console.log(searchApiUrl);
 
   axios.all([getSearchData(searchApiUrl), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
@@ -55,7 +57,7 @@ const requestSearchResult = (req, res, next) => {
           headerData: headerModelData,
         },
         SearchStore: {
-          searchKeyword: fetchSearchKeyword(searchParsed),
+          searchKeyword: req.params.searchKeyword,
           searchData: fetchResultItems(searchParsed),
           searchDataLength: fetchResultLength(searchParsed),
           isKeywordValid: true,
@@ -156,6 +158,10 @@ router
 // The route with valid pattern and the keyword will request the search results
 router
   .route('/search/apachesolr_search/:searchKeyword/:searchFilter')
+  .get(requestSearchResult);
+
+router
+  .route('/search/apachesolr_search/:searchKeyword/')
   .get(requestSearchResult);
 
 // The route is specific for client side ajax call. It returns a json file
