@@ -86,7 +86,7 @@ const requestSearchResult = (req, res, next) => {
     });
 };
 
-const requestResultFromClient = (req, res) => {
+const requestResultsFromClient = (req, res) => {
   searchOptions.filters = {
     q: req.params.searchKeyword,
     start: req.query.start || '0',
@@ -159,7 +159,7 @@ router
 // The route is specific for client side ajax call. It returns a json file
 router
   .route('/api/:searchKeyword/')
-  .get(requestResultFromClient);
+  .get(requestResultsFromClient);
 
 // All the other router will show no result
 router
