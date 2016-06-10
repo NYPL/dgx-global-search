@@ -26,12 +26,22 @@ class App extends React.Component {
     super(props);
 
     this.state = Store.getState();
-    this.state.resultsComponent = null;
+    this.state.resultsComponentData = null;
 
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      resultsComponentData: this.renderResults(
+        Store.getState().searchKeyword,
+        Store.getState().searchData,
+        Store.getState().searchDataLength
+      ),
+    });
   }
 
   /**
@@ -85,11 +95,8 @@ class App extends React.Component {
 
         // Updates the state with the new search data
         this.setState({
-          searchKeyword: Store.getState().searchKeyword,
-          searchData: Store.getState().searchData,
-          searchDataLength: Store.getState().searchDataLength,
           isKeywordValid: true,
-          resultsComponent: this.renderResults(
+          resultsComponentData: this.renderResults(
             Store.getState().searchKeyword,
             Store.getState().searchData,
             Store.getState().searchDataLength
@@ -140,8 +147,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.resultsComponent);
-
     const inputValue = this.state.searchKeyword || '';
     const inputPlaceholder = (this.state.isKeywordValid) ?
       'Enter Search Terms' : 'Please enter a search term';
@@ -176,7 +181,7 @@ class App extends React.Component {
             />
             <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
           </div>
-          {this.state.resultsComponent}
+          {this.state.resultsComponentData}
         </div>
 
         <Footer />
