@@ -94,6 +94,11 @@ const requestResultFromClient = (req, res) => {
   const searchApiUrl = parser.getCompleteApi(searchOptions);
   const searchStart = searchOptions.filters.start;
 
+  if (!req.query.start) {
+    res.json({});
+    return;
+  }
+
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
@@ -108,7 +113,7 @@ const requestResultFromClient = (req, res) => {
     });
 };
 
-const requestEmptyResult = (req, res, next) => {
+const requestHeaderOnly = (req, res, next) => {
   if (req.path !== '/search/apachesolr_search/') {
     res.redirect('/search/apachesolr_search/');
     return;
@@ -145,7 +150,7 @@ const requestEmptyResult = (req, res, next) => {
 // The route with valid pattern but no keyword will show no result
 router
   .route('/search/apachesolr_search/')
-  .get(requestEmptyResult);
+  .get(requestHeaderOnly);
 
 // The route with valid pattern and the keyword will request the search results
 router
@@ -160,6 +165,6 @@ router
 // All the other router will show no result
 router
   .route(/^((?!\/search\/apachesolr_search).)*$/)
-  .get(requestEmptyResult);
+  .get(requestHeaderOnly);
 
 export default router;
