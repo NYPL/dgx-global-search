@@ -34,7 +34,7 @@ class App extends React.Component {
     this.renderResults = this.renderResults.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setState({
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
