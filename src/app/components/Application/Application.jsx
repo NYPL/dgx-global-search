@@ -81,7 +81,9 @@ class App extends React.Component {
    * @param {String} value
    */
   submitSearchRequest() {
-    const requestParameter = this.state.searchKeyword.trim() || '';
+    const searchKeyword = this.state.searchKeyword.trim() || ''
+    const searchFilter = ' more:locations';
+    const requestParameter = `${searchKeyword}${searchFilter}`;
 
     if (!requestParameter) {
       this.setState({ isKeywordValid: false });

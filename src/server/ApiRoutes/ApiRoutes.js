@@ -36,8 +36,10 @@ const getHeaderData = () => fetchApiData(headerApiUrl);
 const getSearchData = (url) => fetchApiData(url);
 
 const requestSearchResult = (req, res, next) => {
+  const searchFilter = ` more:${req.params.searchFilter}`;
+  const searchRequest = `${req.params.searchKeyword}${searchFilter}`;
   searchOptions.filters = {
-    q: req.params.searchKeyword,
+    q: searchRequest,
     start: 0,
   };
   const searchApiUrl = parser.getCompleteApi(searchOptions);
@@ -153,7 +155,7 @@ router
 
 // The route with valid pattern and the keyword will request the search results
 router
-  .route('/search/apachesolr_search/:searchKeyword')
+  .route('/search/apachesolr_search/:searchKeyword/:searchFilter')
   .get(requestSearchResult);
 
 // The route is specific for client side ajax call. It returns a json file
