@@ -20,7 +20,7 @@ const renderImage = (className, src, title) => {
       />
     </div>
   );
-}
+};
 
 const generateWholeRowClass = (src) => {
   if (!src) {
@@ -28,7 +28,7 @@ const generateWholeRowClass = (src) => {
   }
 
   return '';
-}
+};
 
 const ResultsItem = ({
   className,
@@ -39,33 +39,35 @@ const ResultsItem = ({
   snippet,
   title,
   thumbnailSrc,
+  wholeRowClass = generateWholeRowClass(thumbnailSrc),
 }) => (
-  <li id={`${id}-${index}`}
-    className={`${className} ${generateWholeRowClass(thumbnailSrc)}`}
+  <li
+    id={`${id}-${index}`}
+    className={`${className} ${wholeRowClass}`}
   >
     <p
-      className={`${className}-label ${generateWholeRowClass(thumbnailSrc)}`}
+      className={`${className}-label ${wholeRowClass}`}
     >
       {label}
     </p>
     <a
-      className={`${className}-link ${generateWholeRowClass(thumbnailSrc)}`}
+      className={`${className}-link ${wholeRowClass}`}
       href={link}
     >
       {renderImage(className, thumbnailSrc, title)}
       <h3
-        className={`${className}-title ${generateWholeRowClass(thumbnailSrc)}`}
+        className={`${className}-title ${wholeRowClass}`}
       >
         {title}
       </h3>
     </a>
     <p
-      className={`${className}-linkText ${generateWholeRowClass(thumbnailSrc)}`}
+      className={`${className}-linkText ${wholeRowClass}`}
     >
       {link}
     </p>
     <p
-      className={`${className}-snippet ${generateWholeRowClass(thumbnailSrc)}`}
+      className={`${className}-snippet ${wholeRowClass}`}
     >
       {snippet}
     </p>
@@ -82,6 +84,7 @@ ResultsItem.propTypes = {
   snippet: React.PropTypes.string,
   thumbnailSrc: React.PropTypes.string,
   label: React.PropTypes.string,
+  wholeRowClass: React.PropTypes.string,
 };
 
 ResultsItem.defaultProps = {
@@ -89,6 +92,7 @@ ResultsItem.defaultProps = {
   id: 'resultsItem',
   className: 'resultsItem',
   index: 0,
+  wholeRowClass: 'whole-row',
 };
 
 export default ResultsItem;
