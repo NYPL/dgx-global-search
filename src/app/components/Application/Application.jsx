@@ -124,23 +124,25 @@ class App extends React.Component {
             className="gs-hintBlock"
             message={this.generateThankYouMessage()}
           />
-          <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
-            <InputField
-              id="gs-inputField"
-              className="gs-inputField"
-              type="text"
-              placeholder={inputPlaceholder}
-              value={inputValue}
-              onChange={this.inputChange}
+          <div id="gs-operations" className="gs-operations">
+            <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
+              <InputField
+                id="gs-inputField"
+                className="gs-inputField"
+                type="text"
+                placeholder={inputPlaceholder}
+                value={inputValue}
+                onChange={this.inputChange}
+              />
+            </div>
+            <SearchButton
+              id="gs-searchButton"
+              className="gs-searchButton"
+              label="SEARCH"
+              onClick={this.submitSearchRequest}
             />
+            <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
           </div>
-          <SearchButton
-            id="gs-searchButton"
-            className="gs-searchButton"
-            label="SEARCH"
-            onClick={this.submitSearchRequest}
-          />
-          <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
           {this.renderResults()}
         </div>
 

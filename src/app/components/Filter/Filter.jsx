@@ -42,10 +42,12 @@ class Filter extends React.Component {
   }
 
   render() {
+    const isFilterOpen = (this.state.isFilterListExpanded) ? 'filter-open' : '';
+
     return (
       <div
         id={`${this.props.id}-wrapper`}
-        className={`${this.props.className}-wrapper`}
+        className={`${this.props.className}-wrapper ${isFilterOpen}`}
       >
         <p>Filter your search:</p>
         <FilterButton

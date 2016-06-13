@@ -72,7 +72,6 @@ class Results extends React.Component {
    */
   addMoreResults() {
     this.updateSearchStart();
-
     // Change the state: isLoading during the api call so the animation of the pagination button
     // can be triggered.
     axios.interceptors.request.use(config => {
@@ -81,9 +80,8 @@ class Results extends React.Component {
       return config;
     }, error => Promise.reject(error));
 
-    axios.get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}/`)
+    axios.get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}`)
     .then((response) => {
-
       // Actions.addMoreSearchData concats the new result items to the exist result items array in
       // the Store.
       Actions.addMoreSearchData(response.data);

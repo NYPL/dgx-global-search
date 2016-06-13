@@ -74,7 +74,7 @@ const fetchSearchKeyword = (data) => {
  * @return {String}
  */
 const fetchDisplayName = (labelsArray) => {
-  if ( !_isArray(labelsArray) || !labelsArray[0].displayName) {
+  if (!_isArray(labelsArray) || !labelsArray[0].displayName) {
     return '';
   }
 

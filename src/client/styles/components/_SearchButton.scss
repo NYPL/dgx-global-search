@@ -2,13 +2,12 @@
   @include Kievit-Medium;
 
   background-color: $SEARCH_BLUE;
-  border-radius: 6px;
   border: none;
   box-sizing: border-box;
   color: #FFF;
   cursor: pointer;
   font-size: 16px;
-  line-height: 16px;
+  line-height: 14px;
   padding: 10px 20px;
   text-align: center;
   width: 100%;
@@ -18,7 +17,23 @@
   }
 
   &-wrapper {
-    padding: 0 14px;
     margin: 0 0 15px 0;
+    padding: 0 14px;
+  }
+}
+
+.gs-searchButton {
+  @include layout-at(7, $tablet-portrait) {
+    padding: 7px 35px;
+  }
+
+  &-wrapper {
+    @include layout-at(7, $tablet-portrait) {
+      @include grid-span(2, 4);
+
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
   }
 }
