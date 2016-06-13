@@ -24,6 +24,7 @@ class FilterList extends ClickOut {
   renderfacets() {
     return _map(this.props.facets, (item, index) => (
       <li
+        className='selected'
         key={index}
         onClick={ () => this.props.clickFacet(item.label) }
       >
