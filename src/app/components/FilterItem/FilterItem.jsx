@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { BasicButton } from 'dgx-react-buttons';
 import { CircleDashIcon } from 'dgx-svg-icons';
 
 const FilterItem = ({
@@ -12,7 +13,14 @@ const FilterItem = ({
       onClick={onClick}
     >
       {label}
-      <CircleDashIcon className={`circleDashIcon ${className}`} />
+      <BasicButton
+        className={`filterItemButton customButton ${className}`}
+        icon={
+          <CircleDashIcon className={`circleDashIcon`} />
+        }
+        label={`${label} Filter`}
+        labelAccessible
+      />
     </li>
 
 );
