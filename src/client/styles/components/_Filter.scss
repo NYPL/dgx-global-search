@@ -130,8 +130,13 @@
         }
 
         .svgIcon{
+          display: none;
           float: right;
           margin: -4px 14px 0 0;
+
+          &.selected {
+            display: block;
+          }
         }
       }
     }

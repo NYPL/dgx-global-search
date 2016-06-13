@@ -23,14 +23,19 @@ class FilterList extends ClickOut {
   }
 
   renderfacets() {
-    return _map(this.props.facets, (item, index) => (
-      <FilterItem
-        className='selected'
-        key={index}
-        onClick={ () => this.props.clickFacet(item.label) }
-        label={item.anchor}
-      />
-    ));
+    return _map(this.props.facets, (item, index) => {
+      const isSelected = (item.label === this.props.selectedFacet) ?
+        'selected' : '';
+
+      return (
+        <FilterItem
+          className={isSelected}
+          key={index}
+          onClick={ () => this.props.clickFacet(item.label) }
+          label={item.anchor}
+        />
+      );
+    });
   }
 
   render() {

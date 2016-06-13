@@ -193,6 +193,7 @@ class App extends React.Component {
               id="gs-filter"
               className="gs-filter"
               facets={this.state.searchFacets}
+              selectedFacet={this.state.selectedFacet}
               onClickFacet={this.updateSelectedFacet}
             />
           </div>

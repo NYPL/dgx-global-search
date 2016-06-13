@@ -12,7 +12,7 @@ const FilterItem = ({
       onClick={onClick}
     >
       {label}
-      <CircleDashIcon className={`${className}-circleDashIcon`} />
+      <CircleDashIcon className={`circleDashIcon ${className}`} />
     </li>
 
 );

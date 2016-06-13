@@ -33,6 +33,7 @@ class Filter extends React.Component {
           id={`${this.props.id}-list`}
           className={`${this.props.className}-list`}
           facets={this.props.facets}
+          selectedFacet={this.props.selectedFacet}
           clickClose={this.onClick}
           clickFacet={this.props.onClickFacet}
         />
