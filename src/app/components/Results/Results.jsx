@@ -14,20 +14,30 @@ import { PaginationButton } from 'dgx-react-buttons';
 // Import libraries
 import { map as _map } from 'underscore';
 
+import { fetchResultItems } from './../../utils/SearchModel.js';
+
 class Results extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       searchStart: 10,
-      resultsItems: this.props.results,
       isLoading: false,
       incrementResults: 10,
+      searchResults: this.props.results,
     };
 
     this.getList = this.getList.bind(this);
     this.updateSearchStart = this.updateSearchStart.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.results !== this.props.results) {
+      this.setState({
+        searchResults: nextProps.results,
+      });
+    }
   }
 
   /**
@@ -72,7 +82,6 @@ class Results extends React.Component {
    */
   addMoreResults() {
     this.updateSearchStart();
-
     // Change the state: isLoading during the api call so the animation of the pagination button
     // can be triggered.
     axios.interceptors.request.use(config => {
@@ -81,17 +90,16 @@ class Results extends React.Component {
       return config;
     }, error => Promise.reject(error));
 
-    axios.get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}/`)
+    axios.get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}`)
     .then((response) => {
-
       // Actions.addMoreSearchData concats the new result items to the exist result items array in
       // the Store.
-      Actions.addMoreSearchData(response.data);
+      Actions.addMoreSearchData(fetchResultItems(response.data));
 
       // Updates the state by the new array of Store.getState().searchData
       this.setState({
-        resultsItems: Store.getState().searchData,
         isLoading: false,
+        searchResults: Store.getState().searchData,
       });
     })
     .catch(error => {
@@ -105,7 +113,7 @@ class Results extends React.Component {
   }
 
   render() {
-    const results = this.getList(this.state.resultsItems);
+    const results = this.getList(this.state.searchResults);
     const resultsRemainLength = (this.props.amount - results.length).toString();
 
     // Message if no result found

@@ -6,6 +6,10 @@
     @include Kievit-Medium;
 
     padding: 0 14px;
+
+    @include layout-at(7, $tablet-portrait) {
+      padding: 0 36px;
+    }
   }
 
   &-length {
@@ -16,29 +20,62 @@
   }
 
   &Item {
+    border-bottom: 2px solid #A3A19E;
     list-style-type: none;
+    margin: 0 0 15px 0;
+
+    @include layout-at(7, $tablet-portrait) {
+      @include grid-span(7, 1);
+
+      margin: 0 0 30px 0;
+    }
     a {
       color: #000;
       text-decoration: none;
+    }
 
-      h3 {
-        font-size: 18px;
-        line-height: 21px;
+    &-title {
+      font-size: 18px;
+      line-height: 21px;
+
+      @include layout-at(7, $tablet-portrait) {
+        @include grid-span(5, 3);
+
+        margin: 0 0 12px 0;
       }
     }
 
     &-image {
-      display: none;
-      height: 200px;
+      display: block;
+      position: relative;
+      width: 100%;
+
+      &Wrapper {
+        display: none;
+        height: 116px;
+        width: 186px;
+        overflow: hidden;
+
+        @include layout-at(7, $tablet-portrait) {
+          @include grid-span(2, 1);
+
+          display: block;
+        }
+      }
     }
 
     &-snippet {
-      border-bottom: 2px solid #A3A19E;
       color: #333;
       font-size: 16px;
       line-height: 21px;
       margin: 0 0 23px 0;
       padding: 0 0 17px 0;
+
+      @include layout-at(7, $tablet-portrait) {
+        @include grid-span(5, 3);
+
+        padding: 0 0 26px 0;
+      }
     }
 
     &-label {
@@ -47,6 +84,11 @@
       line-height: 21px;
       margin: 0 0 21px 0;
       text-transform: uppercase;
+       @include layout-at(7, $tablet-portrait) {
+        @include grid-span(5, 3);
+
+        margin: 0 0 18px 0;
+      }
     }
 
     &-linkText {
@@ -54,6 +96,12 @@
       font-size: 14px;
       line-height: 16px;
       word-break: break-all;
+
+       @include layout-at(7, $tablet-portrait) {
+        @include grid-span(5, 3);
+
+        margin: 0 0 11px 0;
+      }
     }
   }
 }
@@ -65,4 +113,14 @@
   font-size: 20px;
   line-height: 21px;
   padding: 0 0 0 14px;
+
+  @include layout-at(7, $tablet-portrait) {
+    padding: 0 0 0 36px;
+  }
+}
+
+.whole-row {
+  @include layout-at(7, $tablet-portrait) {
+    @include grid-span(7, 1);
+  }
 }
