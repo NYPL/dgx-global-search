@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { CircleDashIcon } from 'dgx-svg-icons';
+
 const FilterItem = ({
   className,
   onClick,
@@ -10,6 +12,7 @@ const FilterItem = ({
       onClick={onClick}
     >
       {label}
+      <CircleDashIcon className={`${className}-circleDashIcon`} />
     </li>
 
 );
