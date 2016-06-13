@@ -101,7 +101,11 @@
     }
 
     &-closeButton {
-      margin: 0 4px 0 30px;
+      margin: 0 14px 0 30px;
+
+      @include min-screen($tablet-portrait) {
+        margin: 0 20px 0 30px;
+      }
 
       &-xIcon {
         -ms-transform: scale(2, 2);
