@@ -20,8 +20,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = Store.getState();
-    _extend(this.state, { resultsComponentData: null });
+    _extend(Store.getState(), { resultsComponentData: null });
 
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
@@ -110,10 +109,12 @@ class App extends React.Component {
       axios
       .get(`/api/${requestParameter}?start=0`)
       .then((response) => {
+        const { searchKeyword, searchResultsItems, resultLength } = response.data;
+
         // The functions of Actions.js update the Store with different feature values
-        Actions.updateSearchKeyword(response.data.searchKeyword);
-        Actions.updateSearchData(response.data.searchResultsItems);
-        Actions.updateSearchDataLength(response.data.resultLength);
+        Actions.updateSearchKeyword(searchKeyword);
+        Actions.updateSearchData(searchResultsItems);
+        Actions.updateSearchDataLength(resultLength);
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);
