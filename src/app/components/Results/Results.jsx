@@ -14,8 +14,6 @@ import { PaginationButton } from 'dgx-react-buttons';
 // Import libraries
 import { map as _map } from 'underscore';
 
-import { fetchResultItems } from './../../utils/SearchModel.js';
-
 class Results extends React.Component {
   constructor(props) {
     super(props);
@@ -95,7 +93,7 @@ class Results extends React.Component {
     .then((response) => {
       // Actions.addMoreSearchData concats the new result items to the exist result items array in
       // the Store.
-      Actions.addMoreSearchData(fetchResultItems(response.data));
+      Actions.addMoreSearchData(response.data.searchResultsItems);
 
       // Updates the state by the new array of Store.getState().searchData
       this.setState({
@@ -105,7 +103,6 @@ class Results extends React.Component {
     })
     .catch(error => {
       console.log(`error calling API to add more results: ${error}`);
-      console.log(error.data.errors[0].title);
 
       this.setState({
         isLoading: false,

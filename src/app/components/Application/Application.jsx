@@ -16,12 +16,6 @@ import axios from 'axios';
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-import {
-  fetchResultLength,
-  fetchResultItems,
-  fetchSearchKeyword,
-} from './../../utils/SearchModel.js';
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -91,9 +85,9 @@ class App extends React.Component {
       .get(`/api/${requestParameter}?start=0`)
       .then((response) => {
         // The functions of Actions.js update the Store with different feature values
-        Actions.updateSearchKeyword(fetchSearchKeyword(response.data));
-        Actions.updateSearchData(fetchResultItems(response.data));
-        Actions.updateSearchDataLength(fetchResultLength(response.data));
+        Actions.updateSearchKeyword(response.data.searchKeyword);
+        Actions.updateSearchData(response.data.searchResultsItems);
+        Actions.updateSearchDataLength(response.data.resultLength);
 
         // Updates the state with the new search data
         this.setState({
@@ -107,7 +101,6 @@ class App extends React.Component {
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);
-        console.log(error.data.errors[0].title);
       });
     }
   }

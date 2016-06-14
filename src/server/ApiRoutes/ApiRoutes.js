@@ -1,6 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
+import { extend as _extend } from 'underscore';
 
 import Model from 'dgx-model-data';
 import {
@@ -66,7 +67,6 @@ const requestSearchResult = (req, res, next) => {
     }))
     .catch(error => {
       console.log(`error calling API : ${error}`);
-      console.log(error.data.errors[0].title);
       console.log(`from the endpoint: ${searchApiUrl}`);
       console.log(`search keyword is ${searchOptions.filters.q}`);
 
@@ -101,12 +101,16 @@ const requestResultsFromClient = (req, res) => {
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
+      const searchModeled = _extend({}, {
+        searchKeyword: fetchSearchKeyword(searchParsed),
+        searchResultsItems: fetchResultItems(searchParsed),
+        resultLength: fetchResultLength(searchParsed),
+      });
 
-      res.json(searchParsed);
+      res.json(searchModeled);
     })
     .catch(error => {
       console.log(`error calling API : ${error}`);
-      console.log(error.data.errors[0].title);
       console.log(`from the endpoint: ${searchApiUrl}`);
       console.log(`search keyword is ${searchOptions.filters.q}`);
     });
@@ -133,7 +137,6 @@ const requestHeaderOnly = (req, res, next) => {
     })
     .catch(error => {
       console.log(`error calling API for the header: ${error}`);
-      console.log(error.data.errors[0].title);
       console.log(`from the endpoint: ${headerApiUrl}`);
 
       res.locals.data = {
