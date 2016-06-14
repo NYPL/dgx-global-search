@@ -149,6 +149,12 @@
       padding: 9px 60px;
       margin: 72px 0 0 0;
 
+      &.greyOut {
+        border: 2px solid #9C9890;
+        color: #9C9890;
+        cursor: default;
+      }
+
       span {
         margin: 0 0 0 20px;
         vertical-align: 9px;

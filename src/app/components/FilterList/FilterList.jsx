@@ -32,7 +32,6 @@ class FilterList extends ClickOut {
           className={isSelected}
           key={index}
           onClick={ () => this.props.clickFacet(item.label) }
-          // onClickDashIcon={this.props.clickDashIcon}
           label={item.anchor}
         />
       );
@@ -40,6 +39,9 @@ class FilterList extends ClickOut {
   }
 
   render() {
+    const iconGreyOut = (this.props.selectedFacet === '') ? '#9C9890' : '#FFF';
+    const isGreyOut = (this.props.selectedFacet === '') ? 'greyOut' : '';
+
     return (
       <div
         className={this.props.className}
@@ -64,7 +66,7 @@ class FilterList extends ClickOut {
                 <ApplyIcon
                   ariaHidden
                   className={`${this.props.className}-applyIcon`}
-                  fill="#FFF"
+                  fill={iconGreyOut}
                   height="32"
                   title="apply.icon.svg"
                   viewBox="0 0 32 32"
@@ -91,12 +93,12 @@ class FilterList extends ClickOut {
         </ul>
         <BasicButton
           id="resetButton"
-          className="customButton reset"
+          className={`customButton reset ${isGreyOut}`}
           icon={
             <ResetIcon
               ariaHidden
               className={`${this.props.className}-resetIcon`}
-              fill="#FFF"
+              fill={iconGreyOut}
               height="32"
               title="refresh.icon.svg"
               viewBox="0 0 32 32"

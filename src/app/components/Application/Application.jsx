@@ -87,8 +87,9 @@ class App extends React.Component {
   }
 
   resetSelectedFacet() {
-    console.log('reset all');
-    this.setState({ selectedFacet: '' });
+    if (this.state.selectedFacet !== '') {
+      this.setState({ selectedFacet: '' });
+    }
   }
 
   /**
