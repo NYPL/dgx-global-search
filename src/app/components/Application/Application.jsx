@@ -30,11 +30,9 @@ class App extends React.Component {
     this.renderResults = this.renderResults.bind(this);
   }
 
-  componentDidMount() {
-    // Listen to any change of the Store
-    Store.listen(this.onChange);
-  }
-
+  // Setting state in componentWillMount() helps us render the results for the first time before
+  // the component making any client call. This is for the situation of the user get to the main
+  // page with a search term
   componentWillMount() {
     this.setState({
       resultsComponentData: this.renderResults(
@@ -43,6 +41,11 @@ class App extends React.Component {
         Store.getState().searchDataLength
       ),
     });
+  }
+
+  componentDidMount() {
+    // Listen to any change of the Store
+    Store.listen(this.onChange);
   }
 
   componentWillUnmount() {
