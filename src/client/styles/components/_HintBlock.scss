@@ -13,9 +13,21 @@
     margin: 0 0 30px 0;
   }
 
+  @include layout-at(9, $tablet-landscape) {
+    @include grid-span(9, 1);
+    padding: 14px 0;
+    margin: 18px 0 0 0;
+  }
+
   p {
     margin: 0;
     padding: 0 52px 0 0;
+
+    @include layout-at(9, $tablet-landscape) {
+      @include grid-span(8, 2);
+
+      padding: 0;
+    }
   }
 
   .linkText {
