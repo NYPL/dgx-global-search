@@ -130,10 +130,10 @@ class App extends React.Component {
       axios
       .get(`/api/${requestParameter}?start=0`)
       .then((response) => {
-        const { searchKeyword, searchResultsItems, resultLength } = response.data;
+        const { searchResultsItems, resultLength } = response.data;
 
         // The functions of Actions.js update the Store with different feature values
-        Actions.updateSearchKeyword(searchKeyword);
+        Actions.updateSearchKeyword(response.data.searchKeyword);
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
       })

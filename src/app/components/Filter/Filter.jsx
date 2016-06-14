@@ -68,6 +68,19 @@ Filter.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   facets: React.PropTypes.array,
+  selectedFacet: React.PropTypes.string,
+  onClickFacet: React.PropTypes.func,
+  onClickApply: React.PropTypes.func,
+};
+
+Filter.defaultProps = {
+  lang: 'en',
+  id: 'filter',
+  className: 'filter',
+  facets: [],
+  selectedFacet: '',
+  onClickFacet: () => {},
+  onClickApply: () => {},
 };
 
 export default Filter;

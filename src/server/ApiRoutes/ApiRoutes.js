@@ -1,7 +1,6 @@
 import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
-import { extend as _extend } from 'underscore';
 
 import Model from 'dgx-model-data';
 import {

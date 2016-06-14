@@ -4,7 +4,7 @@ import { BasicButton } from 'dgx-react-buttons';
 import { ApplyIcon, FilterIcon, ResetIcon } from 'dgx-svg-icons';
 
 import CloseButton from '../CloseButton/CloseButton.jsx';
-import FilterItem from  '../FilterItem/FilterItem.jsx';
+import FilterItem from '../FilterItem/FilterItem.jsx';
 
 // Import libraries
 import { map as _map } from 'underscore';
@@ -15,7 +15,7 @@ class FilterList extends ClickOut {
     super(props);
 
     this.renderfacets = this.renderfacets.bind(this);
-    // this.onClickOut = this.onClickOut.bind(this);
+    this.onClickOut = this.onClickOut.bind(this);
     this.onClickApply = this.onClickApply.bind(this);
   }
 
@@ -39,7 +39,7 @@ class FilterList extends ClickOut {
         <FilterItem
           className={isSelected}
           key={index}
-          onClick={ () => this.props.onClickFacet(item.label) }
+          onClick={() => this.props.onClickFacet(item.label)}
           label={item.anchor}
         />
       );
