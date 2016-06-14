@@ -20,10 +20,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    _extend(Store.getState(), { resultsComponentData: null });
+    this.state = Store.getState();
+    _extend(this.state, { resultsComponentData: null, selectedFacet: '' });
 
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
+    this.updateSelectedFacet = this.updateSelectedFacet.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
@@ -94,6 +96,10 @@ class App extends React.Component {
     this.setState({ searchKeyword: event.target.value });
   }
 
+  updateSelectedFacet(facet) {
+    this.setState({ selectedFacet: facet });
+  }
+
   /**
    * submitSearchRequest(value)
    * Submit the search request based on the values of the input fields.
@@ -101,7 +107,10 @@ class App extends React.Component {
    * @param {String} value
    */
   submitSearchRequest() {
-    const requestParameter = this.state.searchKeyword.trim() || '';
+    const searchKeyword = this.state.searchKeyword.trim() || '';
+    const facet = this.state.selectedFacet;
+    const searchFilter = (facet) ? ` more:${facet}` : '';
+    const requestParameter = `${searchKeyword}${searchFilter}`;
 
     if (!requestParameter) {
       this.setState({ isKeywordValid: false });
@@ -191,7 +200,12 @@ class App extends React.Component {
               label="SEARCH"
               onClick={this.submitSearchRequest}
             />
-            <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
+            <Filter
+              id="gs-filter"
+              className="gs-filter"
+              facets={this.state.searchFacets}
+              onClickFacet={this.updateSelectedFacet}
+            />
           </div>
           {this.state.resultsComponentData}
         </div>
