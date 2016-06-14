@@ -20,8 +20,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = Store.getState();
-    _extend(this.state, { resultsComponentData: null, selectedFacet: '' });
+    this.state = _extend(Store.getState(), { resultsComponentData: null, selectedFacet: '' });
 
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
