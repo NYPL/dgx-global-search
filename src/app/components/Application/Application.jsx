@@ -31,6 +31,7 @@ class App extends React.Component {
 
     this.inputChange = this.inputChange.bind(this);
     this.updateSelectedFacet = this.updateSelectedFacet.bind(this);
+    this.resetSelectedFacet = this.resetSelectedFacet.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
@@ -78,7 +79,16 @@ class App extends React.Component {
 
   updateSelectedFacet(facet) {
     console.log(facet);
-    this.setState({ selectedFacet: facet });
+    if (this.state.selectedFacet === facet) {
+      this.setState({ selectedFacet: '' });
+    } else {
+      this.setState({ selectedFacet: facet });
+    }
+  }
+
+  resetSelectedFacet() {
+    console.log('reset all');
+    this.setState({ selectedFacet: '' });
   }
 
   /**
@@ -195,6 +205,7 @@ class App extends React.Component {
               facets={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
               onClickFacet={this.updateSelectedFacet}
+              onClickReset={this.resetSelectedFacet}
             />
           </div>
           {this.state.resultsComponentData}

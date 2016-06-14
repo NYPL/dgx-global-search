@@ -32,6 +32,7 @@ class FilterList extends ClickOut {
           className={isSelected}
           key={index}
           onClick={ () => this.props.clickFacet(item.label) }
+          // onClickDashIcon={this.props.clickDashIcon}
           label={item.anchor}
         />
       );
@@ -104,6 +105,7 @@ class FilterList extends ClickOut {
           }
           label="RESET"
           labelAccessible={false}
+          onClick={this.props.clickReset}
         />
       </div>
     );

@@ -13,14 +13,7 @@ const FilterItem = ({
       onClick={onClick}
     >
       {label}
-      <BasicButton
-        className={`filterItemButton customButton ${className}`}
-        icon={
-          <CircleDashIcon className={`circleDashIcon`} />
-        }
-        label={`${label} Filter`}
-        labelAccessible
-      />
+      <CircleDashIcon className={`circleDashIcon ${className}`} />
     </li>
 
 );
