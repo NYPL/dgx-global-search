@@ -15,18 +15,18 @@ class FilterList extends ClickOut {
     super(props);
 
     this.renderfacets = this.renderfacets.bind(this);
-    this.onClickOut = this.onClickOut.bind(this);
+    // this.onClickOut = this.onClickOut.bind(this);
     this.onClickApply = this.onClickApply.bind(this);
   }
 
   onClickOut() {
-    this.props.clickClose();
+    this.props.onClickClose();
   }
 
   onClickApply() {
     if (this.props.selectedFacet) {
-      this.props.clickClose();
-      this.props.clickApply();
+      this.props.onClickClose();
+      this.props.onClickApply();
     }
   }
 
@@ -39,7 +39,7 @@ class FilterList extends ClickOut {
         <FilterItem
           className={isSelected}
           key={index}
-          onClick={ () => this.props.clickFacet(item.label) }
+          onClick={ () => this.props.onClickFacet(item.label) }
           label={item.anchor}
         />
       );
@@ -53,7 +53,7 @@ class FilterList extends ClickOut {
     return (
       <div
         className={this.props.className}
-        onClickOut={this.props.clickClose}
+        onClickOut={this.props.onClickClose}
       >
         <div className={`${this.props.className}-navigation`}>
           <FilterIcon
@@ -88,7 +88,7 @@ class FilterList extends ClickOut {
             <CloseButton
               id={`${this.props.id}-closeButton`}
               className={`customButton ${this.props.className}-closeButton`}
-              onClick={this.onClickOut}
+              onClick={this.props.onClickClose}
               fill="#FFF"
               height="32"
               title="x.icon.svg"
@@ -116,7 +116,7 @@ class FilterList extends ClickOut {
           }
           label="RESET"
           labelAccessible={false}
-          onClick={this.props.clickReset}
+          onClick={this.props.onClickReset}
         />
       </div>
     );
