@@ -1,4 +1,5 @@
 import React from 'react';
+import { extend as _extend } from 'underscore';
 
 // Import components
 import Header from 'dgx-header-component';
@@ -15,20 +16,14 @@ import axios from 'axios';
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-import {
-  fetchResultLength,
-  fetchResultItems,
-  fetchSearchKeyword,
-} from './../../utils/SearchModel.js';
-
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = Store.getState();
-    this.state.resultsComponentData = null;
-    this.state.selectedFacet = '';
+    _extend(this.state, { resultsComponentData: null, selectedFacet: '' });
 
+    this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
     this.updateSelectedFacet = this.updateSelectedFacet.bind(this);
     this.resetSelectedFacet = this.resetSelectedFacet.bind(this);
@@ -37,8 +32,33 @@ class App extends React.Component {
     this.renderResults = this.renderResults.bind(this);
   }
 
+  // Setting state in componentWillMount() helps us render the results for the first time before
+  // the component making any client call. This is for the situation of the user get to the main
+  // page with a search term
   componentWillMount() {
     this.setState({
+      resultsComponentData: this.renderResults(
+        Store.getState().searchKeyword,
+        Store.getState().searchData,
+        Store.getState().searchDataLength
+      ),
+    });
+  }
+
+  componentDidMount() {
+    // Listen to any change of the Store
+    Store.listen(this.onChange);
+  }
+
+  componentWillUnmount() {
+    // Stop listening to the Store
+    Store.unlisten(this.onChange);
+  }
+
+  onChange() {
+    // Updates the state with the new search data
+    this.setState({
+      isKeywordValid: true,
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
@@ -107,26 +127,16 @@ class App extends React.Component {
     if (!requestParameter) {
       this.setState({ isKeywordValid: false });
     } else {
-      axios.get(`/api/${requestParameter}?start=0`)
+      axios
+      .get(`/api/${requestParameter}?start=0`)
       .then((response) => {
-        // The fucntions of Actions.js update the Store with different feature values
-        Actions.updateSearchKeyword(fetchSearchKeyword(response.data));
-        Actions.updateSearchData(fetchResultItems(response.data));
-        Actions.updateSearchDataLength(fetchResultLength(response.data));
-
-        // Updates the state with the new search data
-        this.setState({
-          isKeywordValid: true,
-          resultsComponentData: this.renderResults(
-            Store.getState().searchKeyword,
-            Store.getState().searchData,
-            Store.getState().searchDataLength
-          ),
-        });
+        // The functions of Actions.js update the Store with different feature values
+        Actions.updateSearchKeyword(response.data.searchKeyword);
+        Actions.updateSearchData(response.data.searchResultsItems);
+        Actions.updateSearchDataLength(response.data.resultLength);
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);
-        console.log(error.data.errors[0].title);
       });
     }
   }
@@ -152,7 +162,7 @@ class App extends React.Component {
    * @return {Object} object
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
-    if (this.state.searchKeyword === '') {
+    if (!searchKeyword) {
       return null;
     }
 

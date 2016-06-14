@@ -1,7 +1,8 @@
 // Import libraries
 import {
   map as _map,
-  isArray as _isArray
+  isArray as _isArray,
+  isEmpty as _isEmpty,
 } from 'underscore';
 
 /**
@@ -105,7 +106,7 @@ const fetchSearchKeyword = (data) => {
  * @return {String}
  */
 const fetchDisplayName = (labelsArray) => {
-  if (!_isArray(labelsArray) || !labelsArray[0].displayName) {
+  if (!_isArray(labelsArray) || _isEmpty(labelsArray) || !labelsArray[0].displayName) {
     return '';
   }
 
