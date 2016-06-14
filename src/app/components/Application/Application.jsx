@@ -1,4 +1,5 @@
 import React from 'react';
+import { extend as _extend } from 'underscore';
 
 // Import components
 import Header from 'dgx-header-component';
@@ -9,19 +10,59 @@ import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
 
+import axios from 'axios';
+
 // Import alt components
 import Store from '../../stores/Store.js';
+import Actions from '../../actions/Actions.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = Store.getState();
+    this.state = _extend(Store.getState(), { resultsComponentData: null, selectedFacet: '' });
 
+    this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
+    this.updateSelectedFacet = this.updateSelectedFacet.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
+  }
+
+  // Setting state in componentWillMount() helps us render the results for the first time before
+  // the component making any client call. This is for the situation of the user get to the main
+  // page with a search term
+  componentWillMount() {
+    this.setState({
+      resultsComponentData: this.renderResults(
+        Store.getState().searchKeyword,
+        Store.getState().searchData,
+        Store.getState().searchDataLength
+      ),
+    });
+  }
+
+  componentDidMount() {
+    // Listen to any change of the Store
+    Store.listen(this.onChange);
+  }
+
+  componentWillUnmount() {
+    // Stop listening to the Store
+    Store.unlisten(this.onChange);
+  }
+
+  onChange() {
+    // Updates the state with the new search data
+    this.setState({
+      isKeywordValid: true,
+      resultsComponentData: this.renderResults(
+        Store.getState().searchKeyword,
+        Store.getState().searchData,
+        Store.getState().searchDataLength
+      ),
+    });
   }
 
   /**
@@ -54,6 +95,10 @@ class App extends React.Component {
     this.setState({ searchKeyword: event.target.value });
   }
 
+  updateSelectedFacet(facet) {
+    this.setState({ selectedFacet: facet });
+  }
+
   /**
    * submitSearchRequest(value)
    * Submit the search request based on the values of the input fields.
@@ -61,14 +106,27 @@ class App extends React.Component {
    * @param {String} value
    */
   submitSearchRequest() {
-    const requestParameter = this.state.searchKeyword.trim() || '';
+    const searchKeyword = this.state.searchKeyword.trim() || '';
+    const facet = this.state.selectedFacet;
+    const searchFilter = (facet) ? ` more:${facet}` : '';
+    const requestParameter = `${searchKeyword}${searchFilter}`;
 
     if (!requestParameter) {
       this.setState({ isKeywordValid: false });
     } else {
-      const requestUrl = `/search/apachesolr_search/${requestParameter}`;
+      axios
+      .get(`/api/${requestParameter}?start=0`)
+      .then((response) => {
+        const { searchKeyword, searchResultsItems, resultLength } = response.data;
 
-      window.location.assign(requestUrl);
+        // The functions of Actions.js update the Store with different feature values
+        Actions.updateSearchKeyword(searchKeyword);
+        Actions.updateSearchData(searchResultsItems);
+        Actions.updateSearchDataLength(resultLength);
+      })
+      .catch(error => {
+        console.log(`error calling API to search '${requestParameter}': ${error}`);
+      });
     }
   }
 
@@ -92,18 +150,18 @@ class App extends React.Component {
    *
    * @return {Object} object
    */
-  renderResults() {
-    if (this.state.searchKeyword === '') {
+  renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
+    if (!searchKeyword) {
       return null;
     }
 
     return (
       <Results
-        amount={this.state.searchDataLength}
-        results={this.state.searchData}
+        amount={searchResultsLength}
+        results={searchResultsArray}
         id="gs-results"
         className="gs-results"
-        searchKeyword={this.state.searchKeyword}
+        searchKeyword={searchKeyword}
       />
     );
   }
@@ -141,9 +199,14 @@ class App extends React.Component {
               label="SEARCH"
               onClick={this.submitSearchRequest}
             />
-            <Filter id="gs-filter" className="gs-filter" facets={this.state.searchFacets} />
+            <Filter
+              id="gs-filter"
+              className="gs-filter"
+              facets={this.state.searchFacets}
+              onClickFacet={this.updateSelectedFacet}
+            />
           </div>
-          {this.renderResults()}
+          {this.state.resultsComponentData}
         </div>
 
         <Footer />
