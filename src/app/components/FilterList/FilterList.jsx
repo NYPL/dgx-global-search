@@ -19,10 +19,21 @@ class FilterList extends ClickOut {
     this.onClickApply = this.onClickApply.bind(this);
   }
 
+  /**
+   * onClickOut()
+   * The function integrates with the parent component, ClickOut, to define the function to close
+   * this component if the user clicks outside of the element.
+   *
+   */
   onClickOut() {
     this.props.onClickClose();
   }
 
+  /**
+   * onClickApply()
+   * The function applies the facet and makes an AJAX call to fetch new results.
+   *
+   */
   onClickApply() {
     if (this.props.selectedFacet) {
       this.props.onClickClose();
@@ -30,6 +41,11 @@ class FilterList extends ClickOut {
     }
   }
 
+  /**
+   * renderfacets()
+   * The function renders FilterItem Component with different values of the factes.
+   *
+   */
   renderfacets() {
     return _map(this.props.facets, (item, index) => {
       const isSelected = (item.label === this.props.selectedFacet) ?

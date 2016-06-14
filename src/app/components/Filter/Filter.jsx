@@ -15,6 +15,11 @@ class Filter extends React.Component {
     this.onClickClose = this.onClickClose.bind(this);
   }
 
+  /**
+   * onClickClose()
+   * Toggle the filter list.
+   *
+   */
   onClickClose() {
     this.setState({ isFilterListExpanded: !this.state.isFilterListExpanded });
   }
