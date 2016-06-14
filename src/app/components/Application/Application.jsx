@@ -87,7 +87,8 @@ class App extends React.Component {
     if (!requestParameter) {
       this.setState({ isKeywordValid: false });
     } else {
-      axios.get(`/api/${requestParameter}?start=0`)
+      axios
+      .get(`/api/${requestParameter}?start=0`)
       .then((response) => {
         // The functions of Actions.js update the Store with different feature values
         Actions.updateSearchKeyword(fetchSearchKeyword(response.data));
