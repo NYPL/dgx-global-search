@@ -128,9 +128,14 @@ FilterList.propTypes = {
   className: React.PropTypes.string,
   facets: React.PropTypes.array,
   clickClose: React.PropTypes.func,
-  width: React.PropTypes.string,
-  height: React.PropTypes.string,
-  fill: React.PropTypes.string,
+};
+
+FilterList.defaultProps = {
+  lang: 'en',
+  id: 'filterList',
+  className: 'filterList',
+  facets: [],
+  clickClose: () => {},
 };
 
 export default FilterList;
