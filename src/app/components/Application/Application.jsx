@@ -25,7 +25,6 @@ class App extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
     this.updateSelectedFacet = this.updateSelectedFacet.bind(this);
-    this.resetSelectedFacet = this.resetSelectedFacet.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
@@ -96,17 +95,20 @@ class App extends React.Component {
     this.setState({ searchKeyword: event.target.value });
   }
 
+  /**
+   * updateSelectedFacet(facet)
+   * Set/Unset the facet with the value of the clicked facet element.
+   * It compares the previous facet value and the one waiting to be updated.
+   * If they are the same, which means the same element has been clicked again,
+   * it will unset the facet to default value, which is none.
+   *
+   * @param {String} facet
+   */
   updateSelectedFacet(facet) {
     if (this.state.selectedFacet === facet) {
       this.setState({ selectedFacet: '' });
     } else {
       this.setState({ selectedFacet: facet });
-    }
-  }
-
-  resetSelectedFacet() {
-    if (this.state.selectedFacet !== '') {
-      this.setState({ selectedFacet: '' });
     }
   }
 
@@ -216,7 +218,6 @@ class App extends React.Component {
               facets={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
               onClickFacet={this.updateSelectedFacet}
-              onClickReset={this.resetSelectedFacet}
               onClickApply={this.submitSearchRequest}
             />
           </div>

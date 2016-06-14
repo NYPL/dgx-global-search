@@ -116,7 +116,7 @@ class FilterList extends ClickOut {
           }
           label="RESET"
           labelAccessible={false}
-          onClick={this.props.onClickReset}
+          onClick={() => this.props.onClickFacet('')}
         />
       </div>
     );
