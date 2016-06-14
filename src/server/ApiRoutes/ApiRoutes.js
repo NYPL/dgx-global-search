@@ -101,11 +101,11 @@ const requestResultsFromClient = (req, res) => {
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
-      const searchModeled = _extend({}, {
+      const searchModeled = {
         searchKeyword: fetchSearchKeyword(searchParsed),
         searchResultsItems: fetchResultItems(searchParsed),
         resultLength: fetchResultLength(searchParsed),
-      });
+      };
 
       res.json(searchModeled);
     })
