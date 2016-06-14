@@ -16,10 +16,18 @@ class FilterList extends ClickOut {
 
     this.renderfacets = this.renderfacets.bind(this);
     this.onClickOut = this.onClickOut.bind(this);
+    this.onClickApply = this.onClickApply.bind(this);
   }
 
   onClickOut() {
     this.props.clickClose();
+  }
+
+  onClickApply() {
+    if (this.props.selectedFacet) {
+      this.props.clickClose();
+      this.props.clickApply();
+    }
   }
 
   renderfacets() {
@@ -39,8 +47,8 @@ class FilterList extends ClickOut {
   }
 
   render() {
-    const iconGreyOut = (this.props.selectedFacet === '') ? '#9C9890' : '#FFF';
-    const isGreyOut = (this.props.selectedFacet === '') ? 'greyOut' : '';
+    const iconGreyOut = (!this.props.selectedFacet) ? '#9C9890' : '#FFF';
+    const isGreyOut = (!this.props.selectedFacet) ? 'greyOut' : '';
 
     return (
       <div
@@ -61,7 +69,7 @@ class FilterList extends ClickOut {
           <div className={`${this.props.className}-buttonWrapper`}>
             <BasicButton
               id="applyButton"
-              className="customButton apply"
+              className={`customButton apply ${isGreyOut}`}
               icon={
                 <ApplyIcon
                   ariaHidden
@@ -75,6 +83,7 @@ class FilterList extends ClickOut {
               }
               label="Apply Button"
               labelAccessible
+              onClick={this.onClickApply}
             />
             <CloseButton
               id={`${this.props.id}-closeButton`}

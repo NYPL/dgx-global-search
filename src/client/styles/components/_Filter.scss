@@ -92,6 +92,10 @@
       border: none;
       cursor: pointer;
       padding: 0;
+
+      &.greyOut {
+        cursor: default;
+      }
     }
 
     &-applyIcon {
@@ -152,7 +156,6 @@
       &.greyOut {
         border: 2px solid #9C9890;
         color: #9C9890;
-        cursor: default;
       }
 
       span {

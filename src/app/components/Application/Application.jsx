@@ -207,6 +207,7 @@ class App extends React.Component {
               selectedFacet={this.state.selectedFacet}
               onClickFacet={this.updateSelectedFacet}
               onClickReset={this.resetSelectedFacet}
+              onClickApply={this.submitSearchRequest}
             />
           </div>
           {this.state.resultsComponentData}
