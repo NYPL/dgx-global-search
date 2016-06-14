@@ -89,7 +89,7 @@ class App extends React.Component {
     } else {
       axios.get(`/api/${requestParameter}?start=0`)
       .then((response) => {
-        // The fucntions of Actions.js update the Store with different feature values
+        // The functions of Actions.js update the Store with different feature values
         Actions.updateSearchKeyword(fetchSearchKeyword(response.data));
         Actions.updateSearchData(fetchResultItems(response.data));
         Actions.updateSearchDataLength(fetchResultLength(response.data));
@@ -132,7 +132,7 @@ class App extends React.Component {
    * @return {Object} object
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
-    if (this.state.searchKeyword === '') {
+    if (!searchKeyword) {
       return null;
     }
 
