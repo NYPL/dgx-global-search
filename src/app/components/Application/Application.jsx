@@ -1,4 +1,5 @@
 import React from 'react';
+import { extend as _extend } from 'underscore';
 
 // Import components
 import Header from 'dgx-header-component';
@@ -26,7 +27,7 @@ class App extends React.Component {
     super(props);
 
     this.state = Store.getState();
-    this.state.resultsComponentData = null;
+    _extend(this.state, { resultsComponentData: null });
 
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
