@@ -1,7 +1,8 @@
 // Import libraries
 import {
   map as _map,
-  isArray as _isArray
+  isArray as _isArray,
+  isEmpty as _isEmpty,
 } from 'underscore';
 
 /**
@@ -30,15 +31,46 @@ const fetchResultLength = (data) => {
 
 const fetchSearchFacets = () => {
   return [
-    'all',
-    'digital collections',
-    'exhibitions',
-    'archives',
-    'audio / visual',
-    'blog',
-    'projects',
-    'events / classes',
-    'recommendations',
+    {
+      anchor: 'All',
+      label: '',
+    },
+    {
+      anchor: 'Digital Collections',
+      label: 'digital_collections',
+    },
+    {
+      anchor: 'Exhibitions',
+      label: 'exhibitions',
+    },
+    {
+      anchor: 'Archives',
+      label: 'archives',
+    },
+    {
+      anchor: 'Audio / Visual',
+      label: 'audio_video',
+    },
+    {
+      anchor: 'Blog',
+      label: 'blog',
+    },
+    {
+      anchor: 'Projects',
+      label: 'projects',
+    },
+    {
+      anchor: 'Events / Classes',
+      label: 'events_classes',
+    },
+    {
+      anchor: 'Recommendations',
+      label: 'recommendations'
+    },
+    {
+      anchor: 'Locations',
+      label: 'locations',
+    },
   ];
 }
 
@@ -74,7 +106,7 @@ const fetchSearchKeyword = (data) => {
  * @return {String}
  */
 const fetchDisplayName = (labelsArray) => {
-  if (!_isArray(labelsArray) || !labelsArray[0].displayName) {
+  if (!_isArray(labelsArray) || _isEmpty(labelsArray) || !labelsArray[0].displayName) {
     return '';
   }
 

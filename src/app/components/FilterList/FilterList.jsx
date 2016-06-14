@@ -4,6 +4,7 @@ import { BasicButton } from 'dgx-react-buttons';
 import { ApplyIcon, FilterIcon, ResetIcon } from 'dgx-svg-icons';
 
 import CloseButton from '../CloseButton/CloseButton.jsx';
+import FilterItem from '../FilterItem/FilterItem.jsx';
 
 // Import libraries
 import { map as _map } from 'underscore';
@@ -15,23 +16,60 @@ class FilterList extends ClickOut {
 
     this.renderfacets = this.renderfacets.bind(this);
     this.onClickOut = this.onClickOut.bind(this);
+    this.onClickApply = this.onClickApply.bind(this);
   }
 
+  /**
+   * onClickOut()
+   * The function integrates with the parent component, ClickOut, to define the function to close
+   * this component if the user clicks outside of the element.
+   *
+   */
   onClickOut() {
-    this.props.clickClose();
+    this.props.onClickClose();
   }
 
+  /**
+   * onClickApply()
+   * The function applies the facet and makes an AJAX call to fetch new results.
+   *
+   */
+  onClickApply() {
+    if (this.props.selectedFacet) {
+      this.props.onClickClose();
+      this.props.onClickApply();
+    }
+  }
+
+  /**
+   * renderfacets()
+   * The function renders FilterItem Component with different values of the factes.
+   *
+   */
   renderfacets() {
-    return _map(this.props.facets, (item, index) => (
-      <li key={index}>{item}</li>
-    ));
+    return _map(this.props.facets, (item, index) => {
+      const isSelected = (item.label === this.props.selectedFacet) ?
+        'selected' : '';
+
+      return (
+        <FilterItem
+          className={isSelected}
+          key={index}
+          onClick={() => this.props.onClickFacet(item.label)}
+          label={item.anchor}
+        />
+      );
+    });
   }
 
   render() {
+    const iconGreyOut = (!this.props.selectedFacet) ? '#9C9890' : '#FFF';
+    const isGreyOut = (!this.props.selectedFacet) ? 'greyOut' : '';
+
     return (
       <div
         className={this.props.className}
-        onClickOut={this.props.clickClose}
+        onClickOut={this.props.onClickClose}
       >
         <div className={`${this.props.className}-navigation`}>
           <FilterIcon
@@ -47,12 +85,12 @@ class FilterList extends ClickOut {
           <div className={`${this.props.className}-buttonWrapper`}>
             <BasicButton
               id="applyButton"
-              className="customButton apply"
+              className={`customButton apply ${isGreyOut}`}
               icon={
                 <ApplyIcon
                   ariaHidden
                   className={`${this.props.className}-applyIcon`}
-                  fill="#FFF"
+                  fill={iconGreyOut}
                   height="32"
                   title="apply.icon.svg"
                   viewBox="0 0 32 32"
@@ -61,11 +99,12 @@ class FilterList extends ClickOut {
               }
               label="Apply Button"
               labelAccessible
+              onClick={this.onClickApply}
             />
             <CloseButton
               id={`${this.props.id}-closeButton`}
               className={`customButton ${this.props.className}-closeButton`}
-              onClick={this.onClickOut}
+              onClick={this.props.onClickClose}
               fill="#FFF"
               height="32"
               title="x.icon.svg"
@@ -79,12 +118,12 @@ class FilterList extends ClickOut {
         </ul>
         <BasicButton
           id="resetButton"
-          className="customButton reset"
+          className={`customButton reset ${isGreyOut}`}
           icon={
             <ResetIcon
               ariaHidden
               className={`${this.props.className}-resetIcon`}
-              fill="#FFF"
+              fill={iconGreyOut}
               height="32"
               title="refresh.icon.svg"
               viewBox="0 0 32 32"
@@ -93,6 +132,7 @@ class FilterList extends ClickOut {
           }
           label="RESET"
           labelAccessible={false}
+          onClick={() => this.props.onClickFacet('')}
         />
       </div>
     );
@@ -104,9 +144,14 @@ FilterList.propTypes = {
   className: React.PropTypes.string,
   facets: React.PropTypes.array,
   clickClose: React.PropTypes.func,
-  width: React.PropTypes.string,
-  height: React.PropTypes.string,
-  fill: React.PropTypes.string,
+};
+
+FilterList.defaultProps = {
+  lang: 'en',
+  id: 'filterList',
+  className: 'filterList',
+  facets: [],
+  clickClose: () => {},
 };
 
 export default FilterList;

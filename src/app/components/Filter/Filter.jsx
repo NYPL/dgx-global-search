@@ -12,10 +12,15 @@ class Filter extends React.Component {
     };
 
     this.generateFilterList = this.generateFilterList.bind(this);
-    this.onClick = this.onClick.bind(this);
+    this.onClickClose = this.onClickClose.bind(this);
   }
 
-  onClick() {
+  /**
+   * onClickClose()
+   * Toggle the filter list.
+   *
+   */
+  onClickClose() {
     this.setState({ isFilterListExpanded: !this.state.isFilterListExpanded });
   }
 
@@ -33,7 +38,10 @@ class Filter extends React.Component {
           id={`${this.props.id}-list`}
           className={`${this.props.className}-list`}
           facets={this.props.facets}
-          clickClose={this.onClick}
+          selectedFacet={this.props.selectedFacet}
+          onClickClose={this.onClickClose}
+          onClickFacet={this.props.onClickFacet}
+          onClickApply={this.props.onClickApply}
         />
       );
     }
@@ -53,7 +61,7 @@ class Filter extends React.Component {
         <FilterButton
           id={`${this.props.id}-button`}
           className={`${this.props.className}-button`}
-          onClick={this.onClick}
+          onClick={this.onClickClose}
         />
         {this.generateFilterList()}
       </div>
@@ -65,6 +73,19 @@ Filter.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   facets: React.PropTypes.array,
+  selectedFacet: React.PropTypes.string,
+  onClickFacet: React.PropTypes.func,
+  onClickApply: React.PropTypes.func,
+};
+
+Filter.defaultProps = {
+  lang: 'en',
+  id: 'filter',
+  className: 'filter',
+  facets: [],
+  selectedFacet: '',
+  onClickFacet: () => {},
+  onClickApply: () => {},
 };
 
 export default Filter;

@@ -44,7 +44,7 @@
     background-color: #737069;
     box-sizing: border-box;
     color: #FFF;
-    padding: 0 10px 84px 10px;
+    padding: 0 0 84px 0;
     position: absolute;
     text-align: center;
     top: 0;
@@ -92,6 +92,10 @@
       border: none;
       cursor: pointer;
       padding: 0;
+
+      &.greyOut {
+        cursor: default;
+      }
     }
 
     &-applyIcon {
@@ -101,7 +105,11 @@
     }
 
     &-closeButton {
-      margin: 0 4px 0 30px;
+      margin: 0 14px 0 30px;
+
+      @include min-screen($tablet-portrait) {
+        margin: 0 20px 0 30px;
+      }
 
       &-xIcon {
         -ms-transform: scale(2, 2);
@@ -111,13 +119,29 @@
     }
 
     &-items {
-      padding: 0 0 0 25px;
+      margin: 0;
+      padding: 0;
       text-align: left;
 
       li {
+        cursor: pointer;
         list-style-type: none;
-        margin: 28px 0;
+        padding: 14px 0 14px 25px;
         text-transform: uppercase;
+
+        &.selected {
+          background-color: #44433F;
+        }
+
+        .svgIcon {
+          display: none;
+          float: right;
+          margin: -4px 14px 0 0;
+
+          &.selected {
+            display: block;
+          }
+        }
       }
     }
 
@@ -128,6 +152,11 @@
       font-size: 18px;
       padding: 9px 60px;
       margin: 72px 0 0 0;
+
+      &.greyOut {
+        border: 2px solid #9C9890;
+        color: #9C9890;
+      }
 
       span {
         margin: 0 0 0 20px;
