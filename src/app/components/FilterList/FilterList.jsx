@@ -35,10 +35,8 @@ class FilterList extends ClickOut {
    *
    */
   onClickApply() {
-    if (this.props.selectedFacet) {
-      this.props.onClickClose();
-      this.props.onClickApply();
-    }
+    this.props.onClickClose();
+    this.props.onClickApply();
   }
 
   /**
@@ -85,12 +83,12 @@ class FilterList extends ClickOut {
           <div className={`${this.props.className}-buttonWrapper`}>
             <BasicButton
               id="applyButton"
-              className={`customButton apply ${isGreyOut}`}
+              className="customButton apply"
               icon={
                 <ApplyIcon
                   ariaHidden
                   className={`${this.props.className}-applyIcon`}
-                  fill={iconGreyOut}
+                  fill="#FFF"
                   height="32"
                   title="apply.icon.svg"
                   viewBox="0 0 32 32"
