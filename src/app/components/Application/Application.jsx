@@ -23,14 +23,37 @@ class App extends React.Component {
     this.state = Store.getState();
     _extend(this.state, { resultsComponentData: null });
 
+    this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
   }
 
+  componentDidMount() {
+    // Listen to any change of the Store
+    Store.listen(this.onChange);
+  }
+
   componentWillMount() {
     this.setState({
+      resultsComponentData: this.renderResults(
+        Store.getState().searchKeyword,
+        Store.getState().searchData,
+        Store.getState().searchDataLength
+      ),
+    });
+  }
+
+  componentWillUnmount() {
+    // Stop listening to the Store
+    Store.unlisten(this.onChange);
+  }
+
+  onChange() {
+    // Updates the state with the new search data
+    this.setState({
+      isKeywordValid: true,
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
@@ -88,16 +111,6 @@ class App extends React.Component {
         Actions.updateSearchKeyword(response.data.searchKeyword);
         Actions.updateSearchData(response.data.searchResultsItems);
         Actions.updateSearchDataLength(response.data.resultLength);
-
-        // Updates the state with the new search data
-        this.setState({
-          isKeywordValid: true,
-          resultsComponentData: this.renderResults(
-            Store.getState().searchKeyword,
-            Store.getState().searchData,
-            Store.getState().searchDataLength
-          ),
-        });
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);

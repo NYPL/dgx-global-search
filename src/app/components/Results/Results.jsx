@@ -28,14 +28,25 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
     this.updateSearchStart = this.updateSearchStart.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.results !== this.props.results) {
-      this.setState({
-        searchResults: nextProps.results,
-      });
-    }
+  componentDidMount() {
+    // Listen to any change of the Store
+    Store.listen(this.onChange);
+  }
+
+  componentWillUnmount() {
+    // Stop listening to the Store
+    Store.unlisten(this.onChange);
+  }
+
+  onChange() {
+    // Update the Store with new fetched data
+    this.setState({
+      isLoading: false,
+      searchResults: Store.getState().searchData,
+    });
   }
 
   /**
@@ -94,12 +105,6 @@ class Results extends React.Component {
       // Actions.addMoreSearchData concats the new result items to the exist result items array in
       // the Store.
       Actions.addMoreSearchData(response.data.searchResultsItems);
-
-      // Updates the state by the new array of Store.getState().searchData
-      this.setState({
-        isLoading: false,
-        searchResults: Store.getState().searchData,
-      });
     })
     .catch(error => {
       console.log(`error calling API to add more results: ${error}`);
