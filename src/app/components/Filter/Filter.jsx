@@ -41,7 +41,6 @@ class Filter extends React.Component {
           selectedFacet={this.props.selectedFacet}
           onClickClose={this.onClickClose}
           onClickFacet={this.props.onClickFacet}
-          // onClickApply={this.props.onClickApply}
         />
       );
     }
