@@ -119,10 +119,10 @@ class App extends React.Component {
    * @param {String} value
    */
   submitSearchRequest() {
-    const searchKeyword = this.state.searchKeyword.trim() || '';
+    const currentSearchKeyword = this.state.searchKeyword.trim() || '';
     const facet = this.state.selectedFacet;
     const searchFilter = (facet) ? ` more:${facet}` : '';
-    const requestParameter = `${searchKeyword}${searchFilter}`;
+    const requestParameter = `${currentSearchKeyword}${searchFilter}`;
 
     if (!requestParameter) {
       this.setState({ isKeywordValid: false });
@@ -130,10 +130,10 @@ class App extends React.Component {
       axios
       .get(`/api/${requestParameter}?start=0`)
       .then((response) => {
-        const { searchResultsItems, resultLength } = response.data;
+        const { searchKeyword, searchResultsItems, resultLength } = response.data;
 
         // The functions of Actions.js update the Store with different feature values
-        Actions.updateSearchKeyword(response.data.searchKeyword);
+        Actions.updateSearchKeyword(searchKeyword);
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
       })
