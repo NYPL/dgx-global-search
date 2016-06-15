@@ -213,7 +213,6 @@ class App extends React.Component {
               facets={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
               onClickFacet={this.searchBySelectedFacet}
-              // onClickApply={this.submitSearchRequest}
             />
           </div>
           {this.state.resultsComponentData}
