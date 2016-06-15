@@ -193,22 +193,26 @@
 
     &.gs-resultsItem-label {
       @include grid-span(6, 1);
-      margin: 12px 0 0 0;
+      margin: 0 0 12px 0;
+    }
+
+    &.gs-resultsItem-title {
+      margin: 0 0 12px 0;
     }
 
     &.gs-resultsItem-link {
       @include grid-span(6, 1);
-      margin: 12px 0 0 0;
+      margin: 0 0 12px 0;
     }
 
     &.gs-resultsItem-linkText {
       @include grid-span(6, 1);
-      margin: 12px 0 0 0;
+      margin: 0 0 12px 0;
     }
 
     &.gs-resultsItem-snippet {
       @include grid-span(8, 1);
-      margin: 12px 0 0 0;
+      margin: 0 0 12px 0;
     }
   }
 }
