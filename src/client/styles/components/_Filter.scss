@@ -22,6 +22,10 @@
     @include min-screen($tablet-portrait) {
       vertical-align: 14px;
     }
+
+    @include min-screen($tablet-landscape) {
+      display: none;
+    }
   }
 
   .gs-filter-button {
@@ -37,6 +41,10 @@
     @include min-screen($tablet-portrait) {
       margin: 0;
       vertical-align: 4px;
+    }
+
+    @include min-screen($tablet-landscape) {
+      display: none;
     }
   }
 
@@ -62,10 +70,23 @@
       left: 0;
     }
 
+    @include layout-at(9, $tablet-landscape) {
+      @include grid-span(2, 7);
+
+      background-color: transparent;
+      color: $SEARCH_BLUE;
+      display: block;
+      top: 240px;
+    }
+
     &-navigation {
       border-bottom: 2px solid #FFF;
       padding: 30px 0 20px 0;
       text-align: left;
+
+      @include min-screen($tablet-landscape) {
+        border-bottom: 0px;
+      }
 
       svg {
         display: inline-block;
@@ -77,6 +98,10 @@
         line-height: 26px;
         margin: 0;
         vertical-align: 12px;
+
+        @include min-screen($tablet-landscape) {
+          color: #737069;
+        }
       }
     }
 
@@ -85,6 +110,10 @@
       -webkit-transform: scale(1.4, 1.4);
       margin: 0 18px 0 20px;
       transform: scale(1.4, 1.4);
+
+      @include min-screen($tablet-landscape) {
+        fill: #737069;
+      }
     }
 
     &-buttonWrapper {
@@ -136,6 +165,10 @@
 
         &.selected {
           background-color: #44433F;
+
+          @include min-screen($tablet-landscape) {
+            background-color: transparent;
+          }
         }
 
         .svgIcon {
@@ -145,6 +178,10 @@
 
           &.selected {
             display: block;
+
+            @include min-screen($tablet-landscape) {
+              fill: $SEARCH_BLUE;
+            }
           }
         }
       }
@@ -157,6 +194,10 @@
       font-size: 18px;
       padding: 9px 60px;
       margin: 72px 0 0 0;
+
+      @include min-screen($tablet-landscape) {
+        display: none;
+      }
 
       &.greyOut {
         border: 2px solid #9C9890;
@@ -177,8 +218,8 @@
   }
 }
 
-.filter-open {
+/*.filter-open {
   @include layout-at(7, $tablet-portrait) {
     @include grid-span(7, 1);
   }
-}
+}*/

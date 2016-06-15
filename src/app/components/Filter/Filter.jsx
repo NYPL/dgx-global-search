@@ -32,33 +32,30 @@ class Filter extends React.Component {
    * @return null or object
    */
   generateFilterList() {
-    // if (this.state.isFilterListExpanded) {
-      // console.log(this.state.isFilterListExpanded);
-      const showFilter = (this.state.isFilterListExpanded) ? 'show-filter' : '';
+    const showFilter = (this.state.isFilterListExpanded) ? 'show-filter' : '';
 
-      return (
-        <FilterList
-          id={`${this.props.id}-list`}
-          className={`${showFilter} ${this.props.className}-list`}
-          facets={this.props.facets}
-          selectedFacet={this.props.selectedFacet}
-          onClickClose={this.onClickClose}
-          onClickFacet={this.props.onClickFacet}
-          onClickApply={this.props.onClickApply}
-        />
-      );
-    // }
+    return (
+      <FilterList
+        id={`${this.props.id}-list`}
+        className={`${showFilter} ${this.props.className}-list`}
+        facets={this.props.facets}
+        selectedFacet={this.props.selectedFacet}
+        onClickClose={this.onClickClose}
+        onClickFacet={this.props.onClickFacet}
+        onClickApply={this.props.onClickApply}
+      />
+    );
 
     return null;
   }
 
   render() {
-    const isFilterOpen = (this.state.isFilterListExpanded) ? 'filter-open' : '';
+    // const isFilterOpen = (this.state.isFilterListExpanded) ? 'filter-open' : '';
 
     return (
       <div
         id={`${this.props.id}-wrapper`}
-        className={`${this.props.className}-wrapper ${isFilterOpen}`}
+        className={`${this.props.className}-wrapper`}
       >
         <p>Filter your search:</p>
         <FilterButton
