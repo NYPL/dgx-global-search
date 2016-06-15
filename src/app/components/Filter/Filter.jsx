@@ -50,8 +50,6 @@ class Filter extends React.Component {
   }
 
   render() {
-    // const isFilterOpen = (this.state.isFilterListExpanded) ? 'filter-open' : '';
-
     return (
       <div
         id={`${this.props.id}-wrapper`}

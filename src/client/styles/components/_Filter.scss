@@ -70,13 +70,14 @@
       left: 0;
     }
 
-    @include layout-at(9, $tablet-landscape) {
-      @include grid-span(2, 7);
+    @include layout-at(12, $tablet-landscape) {
+      @include grid-span(1, 10);
 
       background-color: transparent;
       color: $SEARCH_BLUE;
       display: block;
       top: 240px;
+      width: 23%;
     }
 
     &-navigation {
@@ -86,6 +87,7 @@
 
       @include min-screen($tablet-landscape) {
         border-bottom: 0px;
+        padding: 0;
       }
 
       svg {
@@ -145,6 +147,10 @@
         margin: 0 20px 0 30px;
       }
 
+      @include min-screen($tablet-landscape) {
+        display: none;
+      }
+
       &-xIcon {
         -ms-transform: scale(2, 2);
         -webkit-transform: scale(2, 2);
@@ -168,6 +174,7 @@
 
           @include min-screen($tablet-landscape) {
             background-color: transparent;
+            padding: 14px 0 14px 28px;
           }
         }
 
@@ -217,9 +224,3 @@
     }
   }
 }
-
-/*.filter-open {
-  @include layout-at(7, $tablet-portrait) {
-    @include grid-span(7, 1);
-  }
-}*/

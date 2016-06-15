@@ -81,24 +81,6 @@ class FilterList extends ClickOut {
           />
           <h4>Filter by</h4>
           <div className={`${this.props.className}-buttonWrapper`}>
-            <BasicButton
-              id="applyButton"
-              className="customButton apply"
-              icon={
-                <ApplyIcon
-                  ariaHidden
-                  className={`${this.props.className}-applyIcon`}
-                  fill="#FFF"
-                  height="32"
-                  title="apply.icon.svg"
-                  viewBox="0 0 32 32"
-                  width="32"
-                />
-              }
-              label="Apply Button"
-              labelAccessible
-              onClick={this.onClickApply}
-            />
             <CloseButton
               id={`${this.props.id}-closeButton`}
               className={`customButton ${this.props.className}-closeButton`}
