@@ -26,7 +26,7 @@ class FilterList extends ClickOut {
    *
    */
   onClickOut() {
-    this.props.onClickClose();
+    // this.props.onClickClose();
   }
 
   /**

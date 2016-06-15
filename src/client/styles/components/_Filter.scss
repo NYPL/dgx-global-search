@@ -44,12 +44,17 @@
     background-color: #737069;
     box-sizing: border-box;
     color: #FFF;
+    display: none;
     padding: 0 0 84px 0;
     position: absolute;
     text-align: center;
     top: 0;
     width: 100%;
     z-index: 99;
+
+    &.show-filter {
+      display: block;
+    }
 
     @include layout-at(7, $tablet-portrait) {
       @include grid-span(7, 1);

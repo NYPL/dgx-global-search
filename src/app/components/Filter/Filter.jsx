@@ -32,11 +32,14 @@ class Filter extends React.Component {
    * @return null or object
    */
   generateFilterList() {
-    if (this.state.isFilterListExpanded) {
+    // if (this.state.isFilterListExpanded) {
+      // console.log(this.state.isFilterListExpanded);
+      const showFilter = (this.state.isFilterListExpanded) ? 'show-filter' : '';
+
       return (
         <FilterList
           id={`${this.props.id}-list`}
-          className={`${this.props.className}-list`}
+          className={`${showFilter} ${this.props.className}-list`}
           facets={this.props.facets}
           selectedFacet={this.props.selectedFacet}
           onClickClose={this.onClickClose}
@@ -44,7 +47,7 @@ class Filter extends React.Component {
           onClickApply={this.props.onClickApply}
         />
       );
-    }
+    // }
 
     return null;
   }
