@@ -70,7 +70,6 @@
     "rootpath": "0.1.2",
     "sass-loader": "3.2.0",
     "singularitygs": "1.7.0",
-    "string": "^3.3.1",
     "style-loader": "0.13.1",
     "underscore": "1.8.3",
     "webpack": "1.13.1",

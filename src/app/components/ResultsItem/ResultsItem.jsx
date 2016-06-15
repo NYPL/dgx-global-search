@@ -1,5 +1,5 @@
 import React from 'react';
-import string from 'string';
+import { decodeHtmlEntities } from './../../utils/decodeHtmlEntities.js';
 
 /**
  * renderImage()
@@ -22,6 +22,8 @@ const renderImage = (className, src, title) => {
     </div>
   );
 };
+
+
 
 const generateWholeRowClass = (src) => {
   if (!src) {
@@ -59,7 +61,7 @@ const ResultsItem = ({
       <h3
         className={`${className}-title ${wholeRowClass}`}
       >
-        {string(title).decodeHTMLEntities().s}
+        {decodeHtmlEntities(title)}
       </h3>
     </a>
     <p
@@ -70,7 +72,7 @@ const ResultsItem = ({
     <p
       className={`${className}-snippet ${wholeRowClass}`}
     >
-      {string(snippet).decodeHTMLEntities().s}
+      {decodeHtmlEntities(snippet)}
     </p>
   </li>
 );
