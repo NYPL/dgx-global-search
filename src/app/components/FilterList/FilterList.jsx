@@ -146,10 +146,8 @@ FilterList.propTypes = {
 
 FilterList.defaultProps = {
   lang: 'en',
-  id: 'filterList',
   className: 'filterList',
   facets: [],
-  clickClose: () => {},
 };
 
 export default FilterList;

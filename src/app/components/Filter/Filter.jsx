@@ -80,12 +80,9 @@ Filter.propTypes = {
 
 Filter.defaultProps = {
   lang: 'en',
-  id: 'filter',
   className: 'filter',
   facets: [],
   selectedFacet: '',
-  onClickFacet: () => {},
-  onClickApply: () => {},
 };
 
 export default Filter;
