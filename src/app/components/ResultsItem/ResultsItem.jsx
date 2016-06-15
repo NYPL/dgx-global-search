@@ -1,4 +1,5 @@
 import React from 'react';
+import string from 'string';
 
 /**
  * renderImage()
@@ -58,7 +59,7 @@ const ResultsItem = ({
       <h3
         className={`${className}-title ${wholeRowClass}`}
       >
-        {title}
+        {string(title).decodeHTMLEntities().s}
       </h3>
     </a>
     <p
@@ -69,7 +70,7 @@ const ResultsItem = ({
     <p
       className={`${className}-snippet ${wholeRowClass}`}
     >
-      {snippet}
+      {string(snippet).decodeHTMLEntities().s}
     </p>
   </li>
 );
