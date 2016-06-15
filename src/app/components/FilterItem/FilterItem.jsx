@@ -28,7 +28,6 @@ FilterItem.defaultProps = {
   lang: 'en',
   id: '',
   className: 'filterItem',
-  onClick: () => {},
   label: '',
 };
 

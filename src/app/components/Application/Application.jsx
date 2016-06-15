@@ -24,7 +24,7 @@ class App extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
-    this.updateSelectedFacet = this.updateSelectedFacet.bind(this);
+    this.searchBySelectedFacet = this.searchBySelectedFacet.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
@@ -96,31 +96,26 @@ class App extends React.Component {
   }
 
   /**
-   * updateSelectedFacet(facet)
-   * Set/Unset the facet with the value of the clicked facet element.
-   * It compares the previous facet value and the one waiting to be updated.
-   * If they are the same, which means the same element has been clicked again,
-   * it will unset the facet to default value, which is none.
+   * searchBySelectedFacet(facet)
+   * Set the facet with the value of the clicked facet element.
+   * It then make an client AJAX call to fetch the results.
    *
    * @param {String} facet
    */
-  updateSelectedFacet(facet) {
-    if (this.state.selectedFacet === facet) {
-      this.setState({ selectedFacet: '' });
-    } else {
-      this.setState({ selectedFacet: facet });
-    }
+  searchBySelectedFacet(facet) {
+    this.setState({ selectedFacet: facet });
+    this.submitSearchRequest(facet);
   }
 
   /**
-   * submitSearchRequest(value)
+   * submitSearchRequest(selectedFacet)
    * Submit the search request based on the values of the input fields.
    *
-   * @param {String} value
+   * @param {String} selectedFacet
    */
-  submitSearchRequest() {
+  submitSearchRequest(selectedFacet) {
     const currentSearchKeyword = this.state.searchKeyword.trim() || '';
-    const facet = this.state.selectedFacet;
+    const facet = selectedFacet;
     const searchFilter = (facet) ? ` more:${facet}` : '';
     const requestParameter = `${currentSearchKeyword}${searchFilter}`;
 
@@ -152,7 +147,7 @@ class App extends React.Component {
    */
   triggerSubmit(event) {
     if (event && event.charCode === 13) {
-      this.submitSearchRequest();
+      this.submitSearchRequest(this.state.selectedFacet);
     }
   }
 
@@ -210,15 +205,15 @@ class App extends React.Component {
               id="gs-searchButton"
               className="gs-searchButton"
               label="SEARCH"
-              onClick={this.submitSearchRequest}
+              onClick={() => this.submitSearchRequest(this.state.selectedFacet)}
             />
             <Filter
               id="gs-filter"
               className="gs-filter"
               facets={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
-              onClickFacet={this.updateSelectedFacet}
-              onClickApply={this.submitSearchRequest}
+              onClickFacet={this.searchBySelectedFacet}
+              // onClickApply={this.submitSearchRequest}
             />
           </div>
           {this.state.resultsComponentData}

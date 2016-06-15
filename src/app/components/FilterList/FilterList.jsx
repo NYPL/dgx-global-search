@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { BasicButton } from 'dgx-react-buttons';
-import { ApplyIcon, FilterIcon, ResetIcon } from 'dgx-svg-icons';
+import { FilterIcon } from 'dgx-svg-icons';
 
 import CloseButton from '../CloseButton/CloseButton.jsx';
 import FilterItem from '../FilterItem/FilterItem.jsx';
@@ -34,9 +33,9 @@ class FilterList extends ClickOut {
    * The function applies the facet and makes an AJAX call to fetch new results.
    *
    */
-  onClickApply() {
+  onClickApply(facet) {
     this.props.onClickClose();
-    this.props.onClickApply();
+    this.props.onClickFacet(facet);
   }
 
   /**
@@ -53,7 +52,7 @@ class FilterList extends ClickOut {
         <FilterItem
           className={isSelected}
           key={index}
-          onClick={() => this.props.onClickFacet(item.label)}
+          onClick={() => this.onClickApply(item.label)}
           label={item.anchor}
         />
       );
