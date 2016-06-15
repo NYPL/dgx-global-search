@@ -157,11 +157,7 @@ router
 
 // The route with valid pattern and the keyword will request the search results
 router
-  .route('/search/apachesolr_search/:searchKeyword/:searchFilter')
-  .get(requestSearchResult);
-
-router
-  .route('/search/apachesolr_search/:searchKeyword/')
+  .route('/search/apachesolr_search/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
 
 // The route is specific for client side ajax call. It returns a json file

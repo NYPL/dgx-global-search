@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { BasicButton } from 'dgx-react-buttons';
-import { ApplyIcon, FilterIcon, ResetIcon } from 'dgx-svg-icons';
+import { FilterIcon } from 'dgx-svg-icons';
 
 import CloseButton from '../CloseButton/CloseButton.jsx';
 import FilterItem from '../FilterItem/FilterItem.jsx';
@@ -34,9 +33,9 @@ class FilterList extends ClickOut {
    * The function applies the facet and makes an AJAX call to fetch new results.
    *
    */
-  onClickApply() {
+  onClickApply(facet) {
     this.props.onClickClose();
-    this.props.onClickApply();
+    this.props.onClickFacet(facet);
   }
 
   /**
@@ -53,7 +52,7 @@ class FilterList extends ClickOut {
         <FilterItem
           className={isSelected}
           key={index}
-          onClick={() => this.props.onClickFacet(item.label)}
+          onClick={() => this.onClickApply(item.label)}
           label={item.anchor}
         />
       );
@@ -61,9 +60,6 @@ class FilterList extends ClickOut {
   }
 
   render() {
-    const iconGreyOut = (!this.props.selectedFacet) ? '#9C9890' : '#FFF';
-    const isGreyOut = (!this.props.selectedFacet) ? 'greyOut' : '';
-
     return (
       <div
         className={this.props.className}
@@ -96,24 +92,6 @@ class FilterList extends ClickOut {
         <ul className={`${this.props.className}-items`}>
           {this.renderfacets()}
         </ul>
-        <BasicButton
-          id="resetButton"
-          className={`customButton reset ${isGreyOut}`}
-          icon={
-            <ResetIcon
-              ariaHidden
-              className={`${this.props.className}-resetIcon`}
-              fill={iconGreyOut}
-              height="32"
-              title="refresh.icon.svg"
-              viewBox="0 0 32 32"
-              width="32"
-            />
-          }
-          label="RESET"
-          labelAccessible={false}
-          onClick={() => this.props.onClickFacet('')}
-        />
       </div>
     );
   }
@@ -128,10 +106,8 @@ FilterList.propTypes = {
 
 FilterList.defaultProps = {
   lang: 'en',
-  id: 'filterList',
   className: 'filterList',
   facets: [],
-  clickClose: () => {},
 };
 
 export default FilterList;

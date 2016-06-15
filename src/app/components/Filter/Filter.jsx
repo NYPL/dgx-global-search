@@ -42,11 +42,8 @@ class Filter extends React.Component {
         selectedFacet={this.props.selectedFacet}
         onClickClose={this.onClickClose}
         onClickFacet={this.props.onClickFacet}
-        onClickApply={this.props.onClickApply}
       />
     );
-
-    return null;
   }
 
   render() {
@@ -78,12 +75,9 @@ Filter.propTypes = {
 
 Filter.defaultProps = {
   lang: 'en',
-  id: 'filter',
   className: 'filter',
   facets: [],
   selectedFacet: '',
-  onClickFacet: () => {},
-  onClickApply: () => {},
 };
 
 export default Filter;
