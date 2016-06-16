@@ -251,8 +251,8 @@ const ENTITIES = {
   "spades;" : 9824,
   "clubs;" : 9827,
   "hearts;" : 9829,
-  "diams;" : 9830
-}
+  "diams;" : 9830,
+};
 
 /**
  * decodeHtmlEntities(s)
@@ -263,26 +263,25 @@ const ENTITIES = {
  * @param {String} s
  */
 const decodeHtmlEntities = (s) => {
-  s = s.replace(/&#(\d+);?/g, function (_, code) {
-    return String.fromCharCode(code);
-  })
-  .replace(/&#[xX]([A-Fa-f0-9]+);?/g, function (_, hex) {
-    return String.fromCharCode(parseInt(hex, 16));
-  })
-  .replace(/&([^;\W]+;?)/g, function (m, e) {
-    var ee = e.replace(/;$/, '');
-    var target = ENTITIES[e] || (e.match(/;$/) && ENTITIES[ee]);
+  s = s.replace(/&#(\d+);?/g, (_, code) =>
+    String.fromCharCode(code)
+  )
+  .replace(/&#[xX]([A-Fa-f0-9]+);?/g, (_, hex) =>
+    String.fromCharCode(parseInt(hex, 16))
+  )
+  .replace(/&([^;\W]+;?)/g, (m, e) => {
+    const ee = e.replace(/;$/, '');
+    const target = ENTITIES[e] || (e.match(/;$/) && ENTITIES[ee]);
 
     if (typeof target === 'number') {
       return String.fromCharCode(target);
     }
-    else if (typeof target === 'string') {
+    if (typeof target === 'string') {
       return target;
     }
-    else {
-      return m;
-    }
-  })
+
+    return m;
+  });
 
   return s;
 };
