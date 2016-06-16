@@ -119,7 +119,7 @@ class App extends React.Component {
     const searchFilter = (facet) ? ` more:${facet}` : '';
     const requestParameter = `${currentSearchKeyword}${searchFilter}`;
 
-    if (!requestParameter) {
+    if (!currentSearchKeyword) {
       this.setState({ isKeywordValid: false });
     } else {
       axios
