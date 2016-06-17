@@ -187,13 +187,13 @@
             margin: -4px 20px 0 0;
           }
 
+          @include min-screen($tablet-landscape) {
+            fill: $SEARCH_BLUE; 
+            margin: -4px 0 0 0;
+          }
+
           &.selected {
             display: block;
-
-            @include min-screen($tablet-landscape) {
-              fill: $SEARCH_BLUE;
-              margin: -4px 0 0 0;
-            }
           }
         }
       }
