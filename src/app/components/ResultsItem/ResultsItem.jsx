@@ -23,8 +23,6 @@ const renderImage = (className, src, title) => {
   );
 };
 
-
-
 const generateWholeRowClass = (src) => {
   if (!src) {
     return 'whole-row';
