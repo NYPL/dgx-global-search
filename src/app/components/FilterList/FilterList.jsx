@@ -40,7 +40,7 @@ class FilterList extends ClickOut {
 
   /**
    * renderfacets()
-   * The function renders FilterItem Component with different values of the factes.
+   * The function renders FilterItem Component with different values of the facets.
    *
    */
   renderfacets() {
