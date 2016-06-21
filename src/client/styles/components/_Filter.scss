@@ -44,7 +44,7 @@
     background-color: #737069;
     box-sizing: border-box;
     color: #FFF;
-    padding: 0 10px 84px 10px;
+    padding: 0 0 84px 0;
     position: absolute;
     text-align: center;
     top: 0;
@@ -92,16 +92,18 @@
       border: none;
       cursor: pointer;
       padding: 0;
-    }
 
-    &-applyIcon {
-      -ms-transform: scale(1.2, 1.2);
-      -webkit-transform: scale(1.2, 1.2);
-      transform: scale(1.2, 1.2);
+      &.greyOut {
+        cursor: default;
+      }
     }
 
     &-closeButton {
-      margin: 0 4px 0 30px;
+      margin: 0 14px 0 30px;
+
+      @include min-screen($tablet-portrait) {
+        margin: 0 20px 0 30px;
+      }
 
       &-xIcon {
         -ms-transform: scale(2, 2);
@@ -111,34 +113,35 @@
     }
 
     &-items {
-      padding: 0 0 0 25px;
+      margin: 0;
+      padding: 0;
       text-align: left;
 
       li {
+        cursor: pointer;
         list-style-type: none;
-        margin: 28px 0;
+        padding: 14px 0 14px 25px;
         text-transform: uppercase;
+
+        &.selected {
+          background-color: #44433F;
+        }
+
+        .svgIcon {
+          display: none;
+          fill: #FFF;
+          float: right;
+          margin: -4px 14px 0 0;
+
+          @include min-screen($tablet-portrait) {
+            margin: -4px 20px 0 0;
+          }
+
+          &.selected {
+            display: block;
+          }
+        }
       }
-    }
-
-    .reset {
-      background-color: transparent;
-      border: 2px solid #FFF;
-      border-radius: 60px;
-      font-size: 18px;
-      padding: 9px 60px;
-      margin: 72px 0 0 0;
-
-      span {
-        margin: 0 0 0 20px;
-        vertical-align: 9px;
-      }
-    }
-
-    &-resetIcon {
-      -ms-transform: scale(1.3, 1.3);
-      -webkit-transform: scale(1.3, 1.3);
-      transform: scale(1.3, 1.3);
     }
   }
 }
