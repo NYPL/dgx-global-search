@@ -7,25 +7,13 @@ import FilterItem from '../FilterItem/FilterItem.jsx';
 
 // Import libraries
 import { map as _map } from 'underscore';
-import ClickOut from 'react-onclickout';
 
-class FilterList extends ClickOut {
+class FilterList extends React.Component {
   constructor(props) {
     super(props);
 
     this.renderfacets = this.renderfacets.bind(this);
-    this.onClickOut = this.onClickOut.bind(this);
     this.onClickApply = this.onClickApply.bind(this);
-  }
-
-  /**
-   * onClickOut()
-   * The function integrates with the parent component, ClickOut, to define the function to close
-   * this component if the user clicks outside of the element.
-   *
-   */
-  onClickOut() {
-    // this.props.onClickClose();
   }
 
   /**
@@ -61,10 +49,7 @@ class FilterList extends ClickOut {
 
   render() {
     return (
-      <div
-        className={this.props.className}
-        onClickOut={this.props.onClickClose}
-      >
+      <div className={this.props.className}>
         <div className={`${this.props.className}-navigation`}>
           <FilterIcon
             ariaHidden

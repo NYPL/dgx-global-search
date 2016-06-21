@@ -3,7 +3,10 @@ import React from 'react';
 import FilterButton from '../FilterButton/FilterButton.jsx';
 import FilterList from '../FilterList/FilterList.jsx';
 
-class Filter extends React.Component {
+// Import libraries
+import ClickOut from 'react-onclickout';
+
+class Filter extends ClickOut {
   constructor(props) {
     super(props);
 
@@ -13,15 +16,36 @@ class Filter extends React.Component {
 
     this.generateFilterList = this.generateFilterList.bind(this);
     this.onClickClose = this.onClickClose.bind(this);
+    this.onClickOpen = this.onClickOpen.bind(this);
+    this.onClickOut = this.onClickOut.bind(this);
+  }
+
+  /**
+   * onClickOut()
+   * The function integrates with the parent component, ClickOut, to define the function to close
+   * this component if the user clicks outside of the element.
+   *
+   */
+  onClickOut() {
+    this.onClickClose();
   }
 
   /**
    * onClickClose()
-   * Toggle the filter list.
+   * Close the filter list.
    *
    */
   onClickClose() {
-    this.setState({ isFilterListExpanded: !this.state.isFilterListExpanded });
+    this.setState({ isFilterListExpanded: false});
+  }
+
+  /**
+   * onClickOpen()
+   * Open the filter list.
+   *
+   */
+  onClickOpen() {
+    this.setState({ isFilterListExpanded: true });
   }
 
   /**
@@ -42,6 +66,7 @@ class Filter extends React.Component {
         selectedFacet={this.props.selectedFacet}
         onClickClose={this.onClickClose}
         onClickFacet={this.props.onClickFacet}
+        isFilterListExpanded={this.state.isFilterListExpanded}
       />
     );
   }
@@ -51,12 +76,13 @@ class Filter extends React.Component {
       <div
         id={`${this.props.id}-wrapper`}
         className={`${this.props.className}-wrapper`}
+        onClickOut={this.onClickClose}
       >
         <p>Filter your search:</p>
         <FilterButton
           id={`${this.props.id}-button`}
           className={`${this.props.className}-button`}
-          onClick={this.onClickClose}
+          onClick={this.onClickOpen}
         />
         {this.generateFilterList()}
       </div>
