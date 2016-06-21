@@ -173,7 +173,6 @@
 
           @include min-screen($tablet-landscape) {
             background-color: transparent;
-            padding: 14px 0 14px 28px;
           }
         }
 
@@ -188,8 +187,8 @@
           }
 
           @include min-screen($tablet-landscape) {
-            fill: $SEARCH_BLUE; 
-            margin: -4px 0 0 0;
+            fill: $SEARCH_BLUE;
+            margin: -6px 0 0 0;
           }
 
           &.selected {
