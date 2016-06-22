@@ -1,5 +1,4 @@
 import React from 'react';
-import { decodeHtmlEntities } from './../../utils/decodeHtmlEntities.js';
 
 /**
  * renderImage()
@@ -58,8 +57,8 @@ const ResultsItem = ({
       {renderImage(className, thumbnailSrc, title)}
       <h3
         className={`${className}-title ${wholeRowClass}`}
+        dangerouslySetInnerHTML={{ __html: title }}
       >
-        {decodeHtmlEntities(title)}
       </h3>
     </a>
     <p
@@ -69,8 +68,8 @@ const ResultsItem = ({
     </p>
     <p
       className={`${className}-snippet ${wholeRowClass}`}
+      dangerouslySetInnerHTML={{ __html: snippet }}
     >
-      {decodeHtmlEntities(snippet)}
     </p>
   </li>
 );
