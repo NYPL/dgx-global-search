@@ -5,7 +5,6 @@ import { extend as _extend } from 'underscore';
 import Header from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 import Results from '../Results/Results.jsx';
-import HintBlock from '../HintBlock/HintBlock.jsx';
 import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
@@ -185,11 +184,6 @@ class App extends React.Component {
 
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <h2>NYPL Search <span>BETA</span></h2>
-          <HintBlock
-            id="gs-hintBlock"
-            className="gs-hintBlock"
-            message={this.generateThankYouMessage()}
-          />
           <div id="gs-operations" className="gs-operations">
             <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
               <InputField

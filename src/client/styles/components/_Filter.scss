@@ -12,6 +12,10 @@
     margin: 5px 0 0 0;
   }
 
+  @include layout-at(9, $tablet-landscape) {
+    @include grid-span(3, 7);
+  }
+
   p {
     display: inline-block;
     font-size: 16px;
@@ -21,6 +25,10 @@
 
     @include min-screen($tablet-portrait) {
       vertical-align: 14px;
+    }
+
+    @include min-screen($tablet-landscape) {
+      display: none;
     }
   }
 
@@ -38,12 +46,17 @@
       margin: 0;
       vertical-align: 4px;
     }
+
+    @include min-screen($tablet-landscape) {
+      display: none;
+    }
   }
 
   .gs-filter-list {
     background-color: #737069;
     box-sizing: border-box;
     color: #FFF;
+    display: none;
     padding: 0 0 84px 0;
     position: absolute;
     text-align: center;
@@ -51,16 +64,35 @@
     width: 100%;
     z-index: 99;
 
+    &.show-filter {
+      display: block;
+    }
+
     @include layout-at(7, $tablet-portrait) {
       @include grid-span(7, 1);
 
       left: 0;
     }
 
+    @include layout-at(9, $tablet-landscape) {
+      @include grid-span(9, 1);
+
+      background-color: transparent;
+      color: $SEARCH_BLUE;
+      display: block;
+      margin: 30px 0 0 0;
+      position: relative;
+    }
+
     &-navigation {
       border-bottom: 2px solid #FFF;
       padding: 30px 0 20px 0;
       text-align: left;
+
+      @include min-screen($tablet-landscape) {
+        border-bottom: 0px;
+        padding: 0;
+      }
 
       svg {
         display: inline-block;
@@ -72,6 +104,10 @@
         line-height: 26px;
         margin: 0;
         vertical-align: 12px;
+
+        @include min-screen($tablet-landscape) {
+          color: #737069;
+        }
       }
     }
 
@@ -80,6 +116,10 @@
       -webkit-transform: scale(1.4, 1.4);
       margin: 0 18px 0 20px;
       transform: scale(1.4, 1.4);
+
+      @include min-screen($tablet-landscape) {
+        fill: #737069;
+      }
     }
 
     &-buttonWrapper {
@@ -105,6 +145,10 @@
         margin: 0 20px 0 30px;
       }
 
+      @include min-screen($tablet-landscape) {
+        display: none;
+      }
+
       &-xIcon {
         -ms-transform: scale(2, 2);
         -webkit-transform: scale(2, 2);
@@ -125,6 +169,10 @@
 
         &.selected {
           background-color: #44433F;
+
+          @include min-screen($tablet-landscape) {
+            background-color: transparent;
+          }
         }
 
         .svgIcon {
@@ -137,17 +185,16 @@
             margin: -4px 20px 0 0;
           }
 
+          @include min-screen($tablet-landscape) {
+            fill: $SEARCH_BLUE;
+            margin: -6px 0 0 0;
+          }
+
           &.selected {
             display: block;
           }
         }
       }
     }
-  }
-}
-
-.filter-open {
-  @include layout-at(7, $tablet-portrait) {
-    @include grid-span(7, 1);
   }
 }

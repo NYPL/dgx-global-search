@@ -2,6 +2,12 @@
   margin: 15px 0 0 0;
   padding: 0;
 
+  @include layout-at(9, $tablet-landscape) {
+    @include grid-span(6, 2);
+
+    margin: 20px 0 0 0;
+  }
+
   &-wrapper {
     @include Kievit-Medium;
 
@@ -10,6 +16,13 @@
     @include layout-at(7, $tablet-portrait) {
       padding: 0 36px;
     }
+
+    @include layout-at(9, $tablet-landscape) {
+      @include grid-span(8, 2);
+
+      margin: -550px 0 0 0;
+      padding: 0;
+    }
   }
 
   &-length {
@@ -17,6 +30,14 @@
     font-size: 18px;
     line-height: 21px;
     margin: 0 0 21px 0;
+
+    @include min-screen($tablet-landscape){
+      margin: 0 0 16px 0;
+    }
+  }
+
+  &-divideLineIcon {
+    display: block;
   }
 
   &Item {
@@ -29,6 +50,13 @@
 
       margin: 0 0 30px 0;
     }
+
+    @include layout-at(8, $tablet-landscape) {
+      @include grid-span(8, 1);
+
+      padding: 0 0 30px 0;
+    }
+
     a {
       color: #000;
       text-decoration: none;
@@ -42,6 +70,10 @@
         @include grid-span(5, 3);
 
         margin: 0 0 12px 0;
+      }
+
+      @include layout-at(6, $tablet-landscape) {
+        @include grid-span(4, 3);
       }
     }
 
@@ -60,6 +92,12 @@
 
           display: block;
         }
+
+        @include layout-at(6, $tablet-landscape) {
+          @include grid-span(2, 1);
+
+          margin: 0;
+        }
       }
     }
 
@@ -68,12 +106,17 @@
       font-size: 16px;
       line-height: 21px;
       margin: 0 0 23px 0;
-      padding: 0 0 17px 0;
 
       @include layout-at(7, $tablet-portrait) {
         @include grid-span(5, 3);
 
-        padding: 0 0 26px 0;
+        margin: 0 0 30px 0;
+      }
+
+      @include layout-at(6, $tablet-landscape) {
+        @include grid-span(4, 3);
+
+        margin: 0;
       }
     }
 
@@ -83,10 +126,16 @@
       line-height: 21px;
       margin: 0 0 21px 0;
       text-transform: uppercase;
-       @include layout-at(7, $tablet-portrait) {
+      @include layout-at(7, $tablet-portrait) {
         @include grid-span(5, 3);
 
         margin: 0 0 18px 0;
+      }
+
+      @include layout-at(6, $tablet-landscape) {
+        @include grid-span(6, 1);
+
+        margin: 0 0 12px 0;
       }
     }
 
@@ -96,10 +145,16 @@
       line-height: 16px;
       word-break: break-all;
 
-       @include layout-at(7, $tablet-portrait) {
+      @include layout-at(7, $tablet-portrait) {
         @include grid-span(5, 3);
 
         margin: 0 0 11px 0;
+      }
+
+      @include layout-at(6, $tablet-landscape) {
+        @include grid-span(4, 3);
+
+        margin: 0 0 12px 0;
       }
     }
   }
@@ -116,10 +171,21 @@
   @include layout-at(7, $tablet-portrait) {
     padding: 0 0 0 36px;
   }
+
+  @include layout-at(9, $tablet-landscape) {
+    @include grid-span(8, 2);
+
+    margin: -550px 0 0 0;
+    padding: 0;
+  }
 }
 
 .whole-row {
   @include layout-at(7, $tablet-portrait) {
     @include grid-span(7, 1);
+  }
+
+  @include layout-at(6, $tablet-landscape) {
+    @include grid-span(6, 1);
   }
 }
