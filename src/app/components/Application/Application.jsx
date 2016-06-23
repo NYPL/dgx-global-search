@@ -1,11 +1,13 @@
 import React from 'react';
-import { extend as _extend } from 'underscore';
+import { 
+  extend as _extend,
+  // omit as _omit,
+ } from 'underscore';
 
 // Import components
 import Header from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 import Results from '../Results/Results.jsx';
-import HintBlock from '../HintBlock/HintBlock.jsx';
 import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
@@ -15,6 +17,45 @@ import axios from 'axios';
 // Import alt components
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
+
+import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
+import { createAppHistory, manageHistory } from '../../utils/SearchHistory.js';
+
+const history = createAppHistory();
+
+history.listen(location => {
+  const {
+    action,
+    search,
+    state,
+    query,
+  } = location;
+
+  console.log(action);
+  console.log(location);
+  // const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);
+  // const {
+  //   availability,
+  //   publishYear,
+  // } = query;
+
+  if (action === 'POP') {
+    // makeApiCall(search, response => {
+      // const availabilityType = availability || 'New Arrival';
+      // const publicationType = publishYear || 'recentlyReleased';
+
+    makeClientApiCall('apple', '');
+    // history.go(-1);
+
+    //   if (response.data && response.data.bibItems) {
+    //     Actions.updateFiltered(filters);
+    //     Actions.updateNewArrivalsData(response.data);
+    //     Actions.updatePublicationType(publicationType);
+    //     Actions.updateAvailabilityType(availabilityType);
+    //   }
+    // });
+  }
+});
 
 class App extends React.Component {
   constructor(props) {
@@ -127,6 +168,8 @@ class App extends React.Component {
       .then((response) => {
         const { searchKeyword, searchResultsItems, resultLength } = response.data;
 
+        history.push(`/search/apachesolr_search/${currentSearchKeyword}/${facet}`);
+
         // The functions of Actions.js update the Store with different feature values
         Actions.updateSearchKeyword(searchKeyword);
         Actions.updateSearchData(searchResultsItems);
@@ -185,11 +228,6 @@ class App extends React.Component {
 
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <h2>NYPL Search <span>BETA</span></h2>
-          <HintBlock
-            id="gs-hintBlock"
-            className="gs-hintBlock"
-            message={this.generateThankYouMessage()}
-          />
           <div id="gs-operations" className="gs-operations">
             <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
               <InputField
