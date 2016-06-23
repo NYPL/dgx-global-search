@@ -1,8 +1,5 @@
 import React from 'react';
-import { 
-  extend as _extend,
-  // omit as _omit,
- } from 'underscore';
+import { extend as _extend } from 'underscore';
 
 // Import components
 import Header from 'dgx-header-component';
@@ -18,44 +15,10 @@ import axios from 'axios';
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
-import { createAppHistory, manageHistory } from '../../utils/SearchHistory.js';
+// Import utilities
+import { createAppHistory } from '../../utils/SearchHistory.js';
 
 const history = createAppHistory();
-
-history.listen(location => {
-  const {
-    action,
-    search,
-    state,
-    query,
-  } = location;
-
-  console.log(action);
-  console.log(location);
-  // const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);
-  // const {
-  //   availability,
-  //   publishYear,
-  // } = query;
-
-  if (action === 'POP') {
-    // makeApiCall(search, response => {
-      // const availabilityType = availability || 'New Arrival';
-      // const publicationType = publishYear || 'recentlyReleased';
-
-    makeClientApiCall('apple', '');
-    // history.go(-1);
-
-    //   if (response.data && response.data.bibItems) {
-    //     Actions.updateFiltered(filters);
-    //     Actions.updateNewArrivalsData(response.data);
-    //     Actions.updatePublicationType(publicationType);
-    //     Actions.updateAvailabilityType(availabilityType);
-    //   }
-    // });
-  }
-});
 
 class App extends React.Component {
   constructor(props) {
@@ -104,22 +67,6 @@ class App extends React.Component {
         Store.getState().searchDataLength
       ),
     });
-  }
-
-  /**
-   * generateThankYouMessage()
-   * Generates the message to greet users and intruct them to give feedback.
-   *
-   * @return {Object} object
-   */
-  generateThankYouMessage() {
-    return (
-      <p>
-        <span>Thank you for beta testing the new NYPL Search.&nbsp;&nbsp; Please &nbsp;</span>
-        <a className="linkText">give us your feedback</a>
-        <span> to help make it even better.</span>
-      </p>
-    );
   }
 
   /**
