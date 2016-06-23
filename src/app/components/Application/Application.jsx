@@ -1,5 +1,8 @@
 import React from 'react';
-import { extend as _extend } from 'underscore';
+import { 
+  extend as _extend,
+  // omit as _omit,
+ } from 'underscore';
 
 // Import components
 import Header from 'dgx-header-component';
@@ -14,6 +17,44 @@ import axios from 'axios';
 // Import alt components
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
+
+import { createAppHistory, manageHistory } from '../../utils/SearchHistory.js';
+
+const history = createAppHistory();
+
+history.listen(location => {
+  const {
+    action,
+    search,
+    state,
+    query,
+  } = location;
+
+  console.log(action);
+  // const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);
+  // const {
+  //   availability,
+  //   publishYear,
+  // } = query;
+
+  if (action === 'POP') {
+    // makeApiCall(search, response => {
+      // const availabilityType = availability || 'New Arrival';
+      // const publicationType = publishYear || 'recentlyReleased';
+
+    //   if (response.data && response.data.bibItems) {
+    //     Actions.updateFiltered(filters);
+    //     Actions.updateNewArrivalsData(response.data);
+    //     Actions.updatePublicationType(publicationType);
+    //     Actions.updateAvailabilityType(availabilityType);
+    //   }
+    // });
+
+    console.log(submitSearchRequest(''));
+
+    // App.submitSearchRequest(selectedFacet);
+  }
+});
 
 class App extends React.Component {
   constructor(props) {
@@ -125,6 +166,8 @@ class App extends React.Component {
       .get(`/api/${requestParameter}?start=0`)
       .then((response) => {
         const { searchKeyword, searchResultsItems, resultLength } = response.data;
+
+        history.push(`/search/apachesolr_search/${currentSearchKeyword}/${facet}`);
 
         // The functions of Actions.js update the Store with different feature values
         Actions.updateSearchKeyword(searchKeyword);
