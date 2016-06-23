@@ -18,6 +18,7 @@ import axios from 'axios';
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
+import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
 import { createAppHistory, manageHistory } from '../../utils/SearchHistory.js';
 
 const history = createAppHistory();
@@ -31,6 +32,7 @@ history.listen(location => {
   } = location;
 
   console.log(action);
+  console.log(location);
   // const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);
   // const {
   //   availability,
@@ -42,6 +44,8 @@ history.listen(location => {
       // const availabilityType = availability || 'New Arrival';
       // const publicationType = publishYear || 'recentlyReleased';
 
+    makeClientApiCall('apple', '');
+
     //   if (response.data && response.data.bibItems) {
     //     Actions.updateFiltered(filters);
     //     Actions.updateNewArrivalsData(response.data);
@@ -49,10 +53,6 @@ history.listen(location => {
     //     Actions.updateAvailabilityType(availabilityType);
     //   }
     // });
-
-    console.log(submitSearchRequest(''));
-
-    // App.submitSearchRequest(selectedFacet);
   }
 });
 
