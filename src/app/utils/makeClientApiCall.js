@@ -9,8 +9,8 @@ import { createAppHistory } from './SearchHistory.js';
 
 const history = createAppHistory();
 
-const makeClientApiCall = (currentSearchKeyword, facet) => {
-  // const currentSearchKeyword = this.state.searchKeyword.trim() || '';
+const makeClientApiCall = (searchKeyword, facet) => {
+  const currentSearchKeyword = searchKeyword || '';
   // const facet = selectedFacet;
   const searchFilter = (facet) ? ` more:${facet}` : '';
   const requestParameter = `${currentSearchKeyword}${searchFilter}`;

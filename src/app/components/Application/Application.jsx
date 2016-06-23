@@ -45,6 +45,7 @@ history.listen(location => {
       // const publicationType = publishYear || 'recentlyReleased';
 
     makeClientApiCall('apple', '');
+    // history.go(-1);
 
     //   if (response.data && response.data.bibItems) {
     //     Actions.updateFiltered(filters);
