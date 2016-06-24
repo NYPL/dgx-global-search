@@ -29,29 +29,33 @@ history.listen(location => {
     search,
     state,
     query,
+    pathname,
   } = location;
 
   console.log(action);
-  console.log(location);
+  console.log(pathname);
   // const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);
   // const {
   //   availability,
   //   publishYear,
   // } = query;
 
+  console.log(pathname.split('/'));
+
+  const searchKeyword = pathname.split('/')[3];
+
   if (action === 'POP') {
     // makeApiCall(search, response => {
       // const availabilityType = availability || 'New Arrival';
       // const publicationType = publishYear || 'recentlyReleased';
 
-    makeClientApiCall('apple', '');
-    // history.go(-1);
+    const data = makeClientApiCall(searchKeyword, '');
+    // console.log(data);
 
     //   if (response.data && response.data.bibItems) {
-    //     Actions.updateFiltered(filters);
-    //     Actions.updateNewArrivalsData(response.data);
-    //     Actions.updatePublicationType(publicationType);
-    //     Actions.updateAvailabilityType(availabilityType);
+    // Actions.updateSearchKeyword(data.searchKeyword);
+    // Actions.updateSearchData(data.searchResultsItems);
+    // Actions.updateSearchDataLength(data.resultLength);
     //   }
     // });
   }

@@ -1,5 +1,6 @@
 // Import library
 import axios from 'axios';
+import Actions from './../actions/Actions.js';
 
 import { createAppHistory } from './SearchHistory.js';
 
@@ -18,7 +19,7 @@ const makeClientApiCall = (searchKeyword, facet) => {
   // if (!currentSearchKeyword) {
   //   this.setState({ isKeywordValid: false });
   // } else {
-    axios
+  axios
     .get(`/api/${requestParameter}?start=0`)
     .then((response) => {
       const { searchKeyword, searchResultsItems, resultLength } = response.data;
@@ -26,11 +27,13 @@ const makeClientApiCall = (searchKeyword, facet) => {
       history.push(`/search/apachesolr_search/${currentSearchKeyword}/${facet}`);
 
       // The functions of Actions.js update the Store with different feature values
-      // Actions.updateSearchKeyword(searchKeyword);
-      // Actions.updateSearchData(searchResultsItems);
-      // Actions.updateSearchDataLength(resultLength);
+      Actions.updateSearchKeyword(searchKeyword);
+      Actions.updateSearchData(searchResultsItems);
+      Actions.updateSearchDataLength(resultLength);
 
-      return response.data;
+      // console.log(response.data);
+
+      // return response.data;
     })
     .catch(error => {
       console.log(`error calling API to search '${requestParameter}': ${error}`);
