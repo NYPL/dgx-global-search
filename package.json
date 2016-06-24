@@ -43,7 +43,7 @@
     "dgx-header-component": "git+ssh://bitbucket.org/NYPL/dgx-header-component.git#master",
     "dgx-model-data": "git+ssh://bitbucket.org/NYPL/dgx-model-data.git#master",
     "dgx-react-buttons": "git+ssh://bitbucket.org/NYPL/dgx-react-buttons.git#master",
-    "dgx-react-footer": "git+ssh://bitbucket.org/NYPL/dgx-react-footer.git#development",
+    "dgx-react-footer": "git+ssh://bitbucket.org/NYPL/dgx-react-footer.git#master",
     "dgx-react-ga": "git+ssh://bitbucket.org/NYPL/dgx-react-ga.git#master",
     "dgx-svg-icons": "git+ssh://bitbucket.org/NYPL/dgx-svg-icons.git#master",
     "ejs": "2.4.2",

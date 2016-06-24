@@ -212,7 +212,7 @@ class App extends React.Component {
           {this.state.resultsComponentData}
         </div>
 
-        <Footer />
+        <Footer id="footer" className="footer" />
       </div>
     );
   }
