@@ -166,11 +166,17 @@
         padding: 14px 0 14px 25px;
         text-transform: uppercase;
 
+        @include min-screen($tablet-landscape) {
+          background-color: transparent;
+          padding: 14px 0 14px 21px;
+        }
+
         &.selected {
           background-color: #44433F;
 
           @include min-screen($tablet-landscape) {
             background-color: transparent;
+            padding: 14px 0 14px 21px;
           }
         }
 
