@@ -24,7 +24,7 @@
 
 .gs-searchButton {
   @include layout-at(7, $tablet-portrait) {
-    padding: 7px 35px;
+    padding: 8px 35px;
   }
 
   &-wrapper {
@@ -34,6 +34,12 @@
       display: inline-block;
       margin: 0;
       padding: 0;
+    }
+
+    @include layout-at(9, $tablet-landscape) {
+      @include grid-span(2, 7);
+
+      margin: 0;
     }
   }
 }

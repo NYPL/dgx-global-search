@@ -30,6 +30,8 @@ const generateWholeRowClass = (src) => {
   return '';
 };
 
+const createMarkup = (text) => ({ __html: text });
+
 const ResultsItem = ({
   className,
   id,
@@ -57,8 +59,8 @@ const ResultsItem = ({
       {renderImage(className, thumbnailSrc, title)}
       <h3
         className={`${className}-title ${wholeRowClass}`}
+        dangerouslySetInnerHTML={createMarkup(title)}
       >
-        {title}
       </h3>
     </a>
     <p
@@ -68,8 +70,8 @@ const ResultsItem = ({
     </p>
     <p
       className={`${className}-snippet ${wholeRowClass}`}
+      dangerouslySetInnerHTML={createMarkup(snippet)}
     >
-      {snippet}
     </p>
   </li>
 );

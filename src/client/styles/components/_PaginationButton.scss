@@ -4,6 +4,12 @@
       display: block;
       margin: 45px 0 72px 0;
       text-align: center;
+
+      @include layout-at(8, $tablet-landscape) {
+        @include grid-span(6, 1);
+
+        clear: both;
+      }
     }
 
     -moz-appearance: none;
