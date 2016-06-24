@@ -43,13 +43,14 @@ history.listen(location => {
   console.log(pathname.split('/'));
 
   const searchKeyword = pathname.split('/')[3];
+  const searchFilter = pathname.split('/')[4];
 
   if (action === 'POP') {
     // makeApiCall(search, response => {
       // const availabilityType = availability || 'New Arrival';
       // const publicationType = publishYear || 'recentlyReleased';
 
-    const data = makeClientApiCall(searchKeyword, '');
+    const data = makeClientApiCall(searchKeyword, searchFilter);
     // console.log(data);
 
     //   if (response.data && response.data.bibItems) {
@@ -102,6 +103,7 @@ class App extends React.Component {
     // Updates the state with the new search data
     this.setState({
       isKeywordValid: true,
+      searchKeyword: Store.getState().searchKeyword,
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
