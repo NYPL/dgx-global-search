@@ -15,6 +15,11 @@ import axios from 'axios';
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
+// Import utilities
+import { createAppHistory } from '../../utils/SearchHistory.js';
+
+const history = createAppHistory();
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -65,22 +70,6 @@ class App extends React.Component {
   }
 
   /**
-   * generateThankYouMessage()
-   * Generates the message to greet users and intruct them to give feedback.
-   *
-   * @return {Object} object
-   */
-  generateThankYouMessage() {
-    return (
-      <p>
-        <span>Thank you for beta testing the new NYPL Search.&nbsp;&nbsp; Please &nbsp;</span>
-        <a className="linkText">give us your feedback</a>
-        <span> to help make it even better.</span>
-      </p>
-    );
-  }
-
-  /**
    * inputChange(event)
    * Listen to the changes on keywords input field.
    * Grab the event value, and change the state.
@@ -125,6 +114,8 @@ class App extends React.Component {
       .get(`/api/${requestParameter}?start=0`)
       .then((response) => {
         const { searchKeyword, searchResultsItems, resultLength } = response.data;
+
+        history.push(`/search/apachesolr_search/${currentSearchKeyword}/${facet}`);
 
         // The functions of Actions.js update the Store with different feature values
         Actions.updateSearchKeyword(searchKeyword);
