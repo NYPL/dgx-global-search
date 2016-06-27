@@ -103,7 +103,7 @@ class App extends React.Component {
     // Updates the state with the new search data
     this.setState({
       isKeywordValid: true,
-      searchKeyword: Store.getState().searchKeyword,
+      // searchKeyword: Store.getState().searchKeyword,
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
