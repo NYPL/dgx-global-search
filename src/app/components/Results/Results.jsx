@@ -19,7 +19,7 @@ class Results extends React.Component {
     super(props);
 
     this.state = {
-      searchStart: 10,
+      searchStart: this.props.searchStart,
       isLoading: false,
       incrementResults: 10,
       searchResults: this.props.results,
