@@ -1,7 +1,6 @@
 import React from 'react';
-import { 
+import {
   extend as _extend,
-  // omit as _omit,
  } from 'underscore';
 
 // Import components
@@ -26,6 +25,7 @@ const history = createAppHistory();
 history.listen(location => {
   const {
     action,
+    hash,
     search,
     state,
     query,
@@ -33,32 +33,13 @@ history.listen(location => {
   } = location;
 
   console.log(action);
-  console.log(pathname);
-  // const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);
-  // const {
-  //   availability,
-  //   publishYear,
-  // } = query;
+  console.log(location);
 
-  console.log(pathname.split('/'));
-
-  const searchKeyword = pathname.split('/')[3];
-  const searchFilter = pathname.split('/')[4];
+  const searchKeyword = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
+  const searchFilter = (pathname.split('/')[4]) ? pathname.split('/')[4] : '';
 
   if (action === 'POP') {
-    // makeApiCall(search, response => {
-      // const availabilityType = availability || 'New Arrival';
-      // const publicationType = publishYear || 'recentlyReleased';
-
-    const data = makeClientApiCall(searchKeyword, searchFilter);
-    // console.log(data);
-
-    //   if (response.data && response.data.bibItems) {
-    // Actions.updateSearchKeyword(data.searchKeyword);
-    // Actions.updateSearchData(data.searchResultsItems);
-    // Actions.updateSearchDataLength(data.resultLength);
-    //   }
-    // });
+    makeClientApiCall(searchKeyword, searchFilter);
   }
 });
 
@@ -174,7 +155,13 @@ class App extends React.Component {
       .then((response) => {
         const { searchKeyword, searchResultsItems, resultLength } = response.data;
 
-        history.push(`/search/apachesolr_search/${currentSearchKeyword}/${facet}`);
+        history.push({
+          pathname:`/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
+          state: {
+            keyword: currentSearchKeyword,
+            filter: facet,
+          },
+        });
 
         // The functions of Actions.js update the Store with different feature values
         Actions.updateSearchKeyword(searchKeyword);
