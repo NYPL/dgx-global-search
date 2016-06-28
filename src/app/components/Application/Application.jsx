@@ -24,7 +24,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = _extend(Store.getState(), { resultsComponentData: null, selectedFacet: '' });
+    this.state = _extend(
+      Store.getState(),
+      {
+        resultsComponentData: null,
+        searchStart: 10,
+        selectedFacet: '',
+      }
+    );
 
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
@@ -121,6 +128,8 @@ class App extends React.Component {
         Actions.updateSearchKeyword(searchKeyword);
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
+
+        this.setState({ searchStart: 10 });
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);
@@ -160,6 +169,7 @@ class App extends React.Component {
         id="gs-results"
         className="gs-results"
         searchKeyword={searchKeyword}
+        searchStart={this.state.searchStart}
       />
     );
   }
@@ -176,22 +186,24 @@ class App extends React.Component {
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <h2>NYPL Search <span>BETA</span></h2>
           <div id="gs-operations" className="gs-operations">
-            <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
-              <InputField
-                id="gs-inputField"
-                className="gs-inputField"
-                type="text"
-                placeholder={inputPlaceholder}
-                value={inputValue}
-                onChange={this.inputChange}
+            <div id="gs-searchField" className="gs-searchField">
+              <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
+                <InputField
+                  id="gs-inputField"
+                  className="gs-inputField"
+                  type="text"
+                  placeholder={inputPlaceholder}
+                  value={inputValue}
+                  onChange={this.inputChange}
+                />
+              </div>
+              <SearchButton
+                id="gs-searchButton"
+                className="gs-searchButton"
+                label="SEARCH"
+                onClick={() => this.submitSearchRequest(this.state.selectedFacet)}
               />
             </div>
-            <SearchButton
-              id="gs-searchButton"
-              className="gs-searchButton"
-              label="SEARCH"
-              onClick={() => this.submitSearchRequest(this.state.selectedFacet)}
-            />
             <Filter
               id="gs-filter"
               className="gs-filter"
