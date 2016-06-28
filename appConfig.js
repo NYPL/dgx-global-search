@@ -30,10 +30,10 @@ export default {
       'related-mega-menu-panes.current-mega-menu-item.related-content.location',
       'related-mega-menu-panes.default-mega-menu-item.images',
       'related-mega-menu-panes.default-mega-menu-item.related-content.authors.nypl-location',
-      'related-mega-menu-panes.default-mega-menu-item.related-content.location'
+      'related-mega-menu-panes.default-mega-menu-item.related-content.location',
     ],
     filters: {
-      relationships: { parent: 'null' }
+      relationships: { parent: 'null' },
     },
   },
 };
