@@ -48,6 +48,12 @@ Import style rules from App components
     min-height: 660px;
   }
 
+  @include min-screen($desktop) {
+    float: none;
+    margin: 0 auto;
+    max-width: 1313px;
+  }
+
   h2 {
     @include Kievit-Medium;
 
