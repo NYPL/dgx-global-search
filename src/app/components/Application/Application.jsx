@@ -130,7 +130,6 @@ class App extends React.Component {
         Actions.updateSearchDataLength(resultLength);
 
         this.setState({ searchStart: 10 });
-        console.log(this.state.searchStart);
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);
