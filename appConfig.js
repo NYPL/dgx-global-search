@@ -33,7 +33,7 @@ export default {
       'related-mega-menu-panes.default-mega-menu-item.related-content.location'
     ],
     filters: {
-      'relationships': {'parent': 'null'}
+      relationships: { parent: 'null' }
     },
   },
 };
