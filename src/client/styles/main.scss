@@ -95,6 +95,12 @@ Import style rules from App components
         padding: 0 20px 0 0;
     }
   }
+
+  .gs-searchField {
+    @include layout-at(8, $tablet-landscape) {
+      @include grid-span(7, 1);
+    }
+  }
 }
 
 .visuallyHidden {

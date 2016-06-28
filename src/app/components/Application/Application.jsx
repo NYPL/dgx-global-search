@@ -186,22 +186,24 @@ class App extends React.Component {
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <h2>NYPL Search <span>BETA</span></h2>
           <div id="gs-operations" className="gs-operations">
-            <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
-              <InputField
-                id="gs-inputField"
-                className="gs-inputField"
-                type="text"
-                placeholder={inputPlaceholder}
-                value={inputValue}
-                onChange={this.inputChange}
+            <div id="gs-searchField" className="gs-searchField">
+              <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
+                <InputField
+                  id="gs-inputField"
+                  className="gs-inputField"
+                  type="text"
+                  placeholder={inputPlaceholder}
+                  value={inputValue}
+                  onChange={this.inputChange}
+                />
+              </div>
+              <SearchButton
+                id="gs-searchButton"
+                className="gs-searchButton"
+                label="SEARCH"
+                onClick={() => this.submitSearchRequest(this.state.selectedFacet)}
               />
             </div>
-            <SearchButton
-              id="gs-searchButton"
-              className="gs-searchButton"
-              label="SEARCH"
-              onClick={() => this.submitSearchRequest(this.state.selectedFacet)}
-            />
             <Filter
               id="gs-filter"
               className="gs-filter"
