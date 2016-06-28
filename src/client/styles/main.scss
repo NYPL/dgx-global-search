@@ -100,6 +100,10 @@ Import style rules from App components
     @include layout-at(8, $tablet-landscape) {
       @include grid-span(7, 1);
     }
+
+    @include layout-at(8, $desktop) {
+      @include grid-span(6, 1);
+    }
   }
 }
 
