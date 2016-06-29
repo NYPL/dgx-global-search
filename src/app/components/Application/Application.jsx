@@ -29,10 +29,10 @@ history.listen(location => {
   } = location;
 
   const searchKeyword = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
-  const searchFilter = (pathname.split('/')[4]) ? pathname.split('/')[4] : '';
+  const searchFacet = (pathname.split('/')[4]) ? pathname.split('/')[4] : '';
 
   if (action === 'POP') {
-    makeClientApiCall(searchKeyword, searchFilter);
+    makeClientApiCall(searchKeyword, searchFacet, 0, 10);
   }
 });
 
@@ -43,7 +43,6 @@ class App extends React.Component {
     this.state = _extend(
       {
         resultsComponentData: null,
-        searchStart: 10,
       },
       Store.getState()
     );

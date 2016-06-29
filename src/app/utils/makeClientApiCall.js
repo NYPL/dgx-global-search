@@ -2,26 +2,26 @@
 import axios from 'axios';
 import Actions from './../actions/Actions.js';
 
-const makeClientApiCall = (keyword, facet) => {
+const makeClientApiCall = (keyword, facet = '', start = 0, increment = 10) => {
   const currentSearchKeyword = keyword || '';
   const searchFilter = (facet) ? ` more:${facet}` : '';
   const requestParameter = `${currentSearchKeyword}${searchFilter}`;
 
   if (!keyword) {
     Actions.updateSearchKeyword('');
+    Actions.updateIsKeywordValid(false);
   } else {
     axios
-      .get(`/api/${requestParameter}?start=0`)
+      .get(`/api/${requestParameter}?start=${start.toString()}`)
       .then((response) => {
-        const { searchKeyword, searchResultsItems, resultLength } = response.data;
+        const { searchResultsItems, resultLength } = response.data;
 
         // The functions of Actions.js update the Store with different feature values
         Actions.updateSearchKeyword(currentSearchKeyword);
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
         Actions.updateSelectedFacet(facet);
-
-        // this.setState({ searchStart: 10 });
+        Actions.updateSearchStart(initialStart + increment);
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);

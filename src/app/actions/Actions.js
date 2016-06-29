@@ -30,6 +30,10 @@ class Actions {
     this.dispatch(data);
   }
 
+  updateResultsStart(data) {
+    this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(Actions);

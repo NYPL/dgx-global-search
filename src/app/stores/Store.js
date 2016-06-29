@@ -11,6 +11,7 @@ class SearchStore {
       updateSearchFacets: Actions.UPDATE_SEARCH_FACETS,
       updateSelectedFacet: Actions.UPDATE_SELECTED_FACET,
       addMoreSearchData: Actions.ADD_MORE_SEARCH_DATA,
+      updateResultsStart: Actions.UPDATE_RESULTS_START,
     });
 
     this.on('init', () => {
@@ -19,6 +20,8 @@ class SearchStore {
       this.searchDataLength = 0;
       this.isKeywordValid = true;
       this.selectedFacet = '';
+      this.resultsStart = 0;
+      this.resultsIncrement = 10;
       this.searchFacets = [
         {
           anchor: 'All',
@@ -90,6 +93,10 @@ class SearchStore {
 
   addMoreSearchData(data) {
     this.searchData = this.searchData.concat(data);
+  }
+
+  updateResultsStart(data) {
+    this.searchStart = data;
   }
 }
 
