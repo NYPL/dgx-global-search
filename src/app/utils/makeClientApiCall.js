@@ -16,9 +16,12 @@ const makeClientApiCall = (keyword, facet) => {
         const { searchKeyword, searchResultsItems, resultLength } = response.data;
 
         // The functions of Actions.js update the Store with different feature values
-        Actions.updateSearchKeyword(searchKeyword);
+        Actions.updateSearchKeyword(currentSearchKeyword);
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
+        Actions.updateSelectedFacet(facet);
+
+        // this.setState({ searchStart: 10 });
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);

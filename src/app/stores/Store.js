@@ -9,6 +9,7 @@ class SearchStore {
       updateSearchDataLength: Actions.UPDATE_SEARCH_DATA_LENGTH,
       updateIsKeywordValid: Actions.UPDATE_IS_KEYWORD_VALID,
       updateSearchFacets: Actions.UPDATE_SEARCH_FACETS,
+      updateSelectedFacet: Actions.UPDATE_SELECTED_FACET,
       addMoreSearchData: Actions.ADD_MORE_SEARCH_DATA,
     });
 
@@ -17,6 +18,7 @@ class SearchStore {
       this.searchData = [];
       this.searchDataLength = 0;
       this.isKeywordValid = true;
+      this.selectedFacet = '';
       this.searchFacets = [
         {
           anchor: 'All',
@@ -80,6 +82,10 @@ class SearchStore {
 
   updateSearchFacets(data) {
     this.searchFacets = data;
+  }
+
+  updateSelectedFacet(data) {
+    this.selectedFacet = data;
   }
 
   addMoreSearchData(data) {

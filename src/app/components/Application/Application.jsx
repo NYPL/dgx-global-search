@@ -44,7 +44,6 @@ class App extends React.Component {
       {
         resultsComponentData: null,
         searchStart: 10,
-        selectedFacet: '',
       },
       Store.getState()
     );
@@ -84,29 +83,15 @@ class App extends React.Component {
     // Updates the state with the new search data
     this.setState({
       isKeywordValid: true,
-      // searchKeyword: Store.getState().searchKeyword,
+      searchKeyword: Store.getState().searchKeyword,
+      selectedFacet: Store.getState().selectedFacet,
+
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
         Store.getState().searchDataLength
       ),
     });
-  }
-
-  /**
-   * generateThankYouMessage()
-   * Generates the message to greet users and intruct them to give feedback.
-   *
-   * @return {Object} object
-   */
-  generateThankYouMessage() {
-    return (
-      <p>
-        <span>Thank you for beta testing the new NYPL Search.&nbsp;&nbsp; Please &nbsp;</span>
-        <a className="linkText">give us your feedback</a>
-        <span> to help make it even better.</span>
-      </p>
-    );
   }
 
   /**
@@ -126,12 +111,11 @@ class App extends React.Component {
   /**
    * searchBySelectedFacet(facet)
    * Set the facet with the value of the clicked facet element.
-   * It then make an client AJAX call to fetch the results.
+   * It then makes an client AJAX call to fetch the results.
    *
    * @param {String} facet
    */
-  searchBySelectedFacet(facet) {
-    this.setState({ selectedFacet: facet });
+  searchBySelectedFacet(facet = '') {
     this.submitSearchRequest(facet);
   }
 
@@ -141,9 +125,8 @@ class App extends React.Component {
    *
    * @param {String} selectedFacet
    */
-  submitSearchRequest(selectedFacet) {
+  submitSearchRequest(facet = '') {
     const currentSearchKeyword = this.state.searchKeyword.trim() || '';
-    const facet = selectedFacet;
     const searchFilter = (facet) ? ` more:${facet}` : '';
     const requestParameter = `${currentSearchKeyword}${searchFilter}`;
 
@@ -157,16 +140,13 @@ class App extends React.Component {
 
         history.push({
           pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
-          state: {
-            keyword: currentSearchKeyword,
-            filter: facet,
-          },
         });
 
         // The functions of Actions.js update the Store with different feature values
-        Actions.updateSearchKeyword(searchKeyword);
+        Actions.updateSearchKeyword(currentSearchKeyword);
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
+        Actions.updateSelectedFacet(facet);
 
         this.setState({ searchStart: 10 });
       })
