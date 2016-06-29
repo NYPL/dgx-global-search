@@ -38,8 +38,8 @@
       margin: 0;
     }
 
-    @include layout-at(6, $desktop) {
-      @include grid-span(2, 5);
+    @include min-screen($desktop) {
+      width: 20%;
     }
   }
 }
