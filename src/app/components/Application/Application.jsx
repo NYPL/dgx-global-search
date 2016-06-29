@@ -47,7 +47,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = _extend(Store.getState(), { resultsComponentData: null, selectedFacet: '' });
+    this.state = _extend(
+      {
+        resultsComponentData: null,
+        searchStart: 10,
+        selectedFacet: '',
+      },
+      Store.getState()
+    );
 
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
@@ -167,6 +174,8 @@ class App extends React.Component {
         Actions.updateSearchKeyword(searchKeyword);
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
+
+        this.setState({ searchStart: 10 });
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);
@@ -206,6 +215,7 @@ class App extends React.Component {
         id="gs-results"
         className="gs-results"
         searchKeyword={searchKeyword}
+        searchStart={this.state.searchStart}
       />
     );
   }
