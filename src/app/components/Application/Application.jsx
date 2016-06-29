@@ -18,29 +18,21 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
-import { createAppHistory, manageHistory } from '../../utils/SearchHistory.js';
+import { createAppHistory } from '../../utils/SearchHistory.js';
 
 const history = createAppHistory();
 
 history.listen(location => {
   const {
     action,
-    hash,
-    search,
-    state,
-    query,
     pathname,
   } = location;
-
-  console.log(action);
-  console.log(location);
 
   const searchKeyword = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
   const searchFilter = (pathname.split('/')[4]) ? pathname.split('/')[4] : '';
 
   if (action === 'POP') {
-    // makeClientApiCall(searchKeyword, searchFilter);
-    history.go(-1);
+    makeClientApiCall(searchKeyword, searchFilter);
   }
 });
 
@@ -164,7 +156,7 @@ class App extends React.Component {
         const { searchKeyword, searchResultsItems, resultLength } = response.data;
 
         history.push({
-          pathname:`/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
+          pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
           state: {
             keyword: currentSearchKeyword,
             filter: facet,
