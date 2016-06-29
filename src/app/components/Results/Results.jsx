@@ -134,12 +134,12 @@ class Results extends React.Component {
         <DivideLineIcon
           ariaHidden
           className={`${this.props.className}-divideLineIcon`}
-          height="2"
+          height="4"
           length="84"
-          stroke="#279975"
-          strokeWidth="2"
+          stroke="#2799C5"
+          strokeWidth="4"
           title="divide.line.icon.svg"
-          viewBox="0 0 84 2"
+          viewBox="0 0 84 4"
           width="84"
         />
         <ul id={this.props.id} className={this.props.className}>
