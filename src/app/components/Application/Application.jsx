@@ -25,12 +25,12 @@ class App extends React.Component {
     super(props);
 
     this.state = _extend(
-      Store.getState(),
       {
         resultsComponentData: null,
         searchStart: 10,
         selectedFacet: '',
-      }
+      },
+      Store.getState()
     );
 
     this.onChange = this.onChange.bind(this);
