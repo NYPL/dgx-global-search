@@ -39,7 +39,8 @@ history.listen(location => {
   const searchFilter = (pathname.split('/')[4]) ? pathname.split('/')[4] : '';
 
   if (action === 'POP') {
-    makeClientApiCall(searchKeyword, searchFilter);
+    // makeClientApiCall(searchKeyword, searchFilter);
+    history.go(-1);
   }
 });
 
