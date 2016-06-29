@@ -19,14 +19,14 @@ class Results extends React.Component {
     super(props);
 
     this.state = {
-      searchStart: this.props.searchStart,
+      resultsStart: this.props.resultsStart,
       isLoading: false,
       incrementResults: 10,
       searchResults: this.props.results,
     };
 
     this.getList = this.getList.bind(this);
-    this.updateSearchStart = this.updateSearchStart.bind(this);
+    this.updateResultsStart = this.updateResultsStart.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -72,14 +72,14 @@ class Results extends React.Component {
     ));
   }
   /**
-   * updateSearchStart()
+   * updateResultsStart()
    * The function updates which result item the api call is going to start to fetch at,
    * and then updates it to the state. Now it always starts from the next tenth item
    * after clickin the pagination button.
    *
    */
-  updateSearchStart() {
-    this.setState({ searchStart: this.state.searchStart + this.state.incrementResults });
+  updateResultsStart() {
+    this.setState({ resultsStart: this.state.resultsStart + this.state.incrementResults });
   }
 
   /**
@@ -90,7 +90,7 @@ class Results extends React.Component {
    *
    */
   addMoreResults() {
-    this.updateSearchStart();
+    this.updateResultsStart();
     // Change the state: isLoading during the api call so the animation of the pagination button
     // can be triggered.
     axios.interceptors.request.use(config => {
@@ -100,7 +100,7 @@ class Results extends React.Component {
     }, error => Promise.reject(error));
 
     axios
-    .get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}`)
+    .get(`/api/${this.props.searchKeyword}?start=${this.state.updateResultsStart}`)
     .then((response) => {
       // Actions.addMoreSearchData concats the new result items to the exist result items array in
       // the Store.

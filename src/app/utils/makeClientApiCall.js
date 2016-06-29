@@ -21,7 +21,7 @@ const makeClientApiCall = (keyword, facet = '', start = 0, increment = 10) => {
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
         Actions.updateSelectedFacet(facet);
-        Actions.updateSearchStart(initialStart + increment);
+        Actions.updateResultsStart(start + increment);
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);

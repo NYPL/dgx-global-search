@@ -135,7 +135,7 @@ class App extends React.Component {
       axios
       .get(`/api/${requestParameter}?start=0`)
       .then((response) => {
-        const { searchKeyword, searchResultsItems, resultLength } = response.data;
+        const { searchResultsItems, resultLength } = response.data;
 
         history.push({
           pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
@@ -146,8 +146,7 @@ class App extends React.Component {
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
         Actions.updateSelectedFacet(facet);
-
-        this.setState({ searchStart: 10 });
+        Actions.updateResultsStart(0);
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);
@@ -187,7 +186,7 @@ class App extends React.Component {
         id="gs-results"
         className="gs-results"
         searchKeyword={searchKeyword}
-        searchStart={this.state.searchStart}
+        resultsStart={this.state.resultsStart}
       />
     );
   }
