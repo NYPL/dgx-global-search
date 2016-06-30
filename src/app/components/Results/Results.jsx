@@ -82,6 +82,9 @@ class Results extends React.Component {
   addMoreResults() {
     const searchFilter = (this.props.selectedFacet) ? ` more:${this.props.selectedFacet}` : '';
     const requestParameter = `${this.props.searchKeyword}${searchFilter}`;
+    const nextResultCount = this.state.resultsStart + this.state.incrementResults;
+
+    Actions.updateResultsStart(nextResultCount);
 
     // Change the state: isLoading during the api call so the animation of the pagination button
     // can be triggered.
@@ -90,9 +93,6 @@ class Results extends React.Component {
       this.setState({ isLoading: true });
       return config;
     }, error => Promise.reject(error));
-
-    const nextResultCount = this.state.resultsStart + this.state.incrementResults;
-    Actions.updateResultsStart(nextResultCount);
 
     axios
     .get(`/api/${requestParameter}?start=${nextResultCount}`)
