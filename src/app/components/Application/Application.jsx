@@ -17,6 +17,7 @@ import axios from 'axios';
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
+// Import utilities
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
 import { createAppHistory } from '../../utils/SearchHistory.js';
 
