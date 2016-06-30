@@ -61,7 +61,6 @@ const requestSearchResult = (req, res, next) => {
           selectedFacet: req.params.searchFilter,
           resultsStart: 0,
           searchFacets: fetchSearchFacetsList(),
-
         },
         completeApiUrl: searchApiUrl,
       };
