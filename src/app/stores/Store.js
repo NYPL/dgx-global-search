@@ -96,7 +96,7 @@ class SearchStore {
   }
 
   updateResultsStart(data) {
-    this.searchStart = data;
+    this.resultsStart = data;
   }
 }
 
