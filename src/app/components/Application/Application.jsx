@@ -27,7 +27,6 @@ history.listen(location => {
     action,
     pathname,
   } = location;
-
   const searchKeyword = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
   const searchFacet = (pathname.split('/')[4]) ? pathname.split('/')[4] : '';
 
@@ -84,7 +83,6 @@ class App extends React.Component {
       isKeywordValid: true,
       searchKeyword: Store.getState().searchKeyword,
       selectedFacet: Store.getState().selectedFacet,
-
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
@@ -186,6 +184,7 @@ class App extends React.Component {
         id="gs-results"
         className="gs-results"
         searchKeyword={searchKeyword}
+        selectedFacet={this.state.selectedFacet}
         resultsStart={this.state.resultsStart}
       />
     );

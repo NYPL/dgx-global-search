@@ -90,6 +90,9 @@ class Results extends React.Component {
    *
    */
   addMoreResults() {
+    const searchFilter = (this.props.selectedFacet) ? ` more:${this.props.selectedFacet}` : '';
+    const requestParameter = `${this.props.searchKeyword}${searchFilter}`;
+
     this.updateResultsStart();
     // Change the state: isLoading during the api call so the animation of the pagination button
     // can be triggered.
@@ -99,8 +102,10 @@ class Results extends React.Component {
       return config;
     }, error => Promise.reject(error));
 
+    const nextResultCount = this.state.resultsStart + this.state.incrementResults;
+
     axios
-    .get(`/api/${this.props.searchKeyword}?start=${this.state.updateResultsStart}`)
+    .get(`/api/${requestParameter}?start=${nextResultCount}`)
     .then((response) => {
       // Actions.addMoreSearchData concats the new result items to the exist result items array in
       // the Store.
@@ -165,6 +170,8 @@ Results.propTypes = {
   results: React.PropTypes.array,
   amount: React.PropTypes.number,
   searchKeyword: React.PropTypes.string,
+  resultsStart: React.PropTypes.number,
+  selectedFacet: React.PropTypes.string,
 };
 
 Results.defaultProps = {
@@ -174,6 +181,8 @@ Results.defaultProps = {
   results: [],
   amount: 0,
   searchKeyword: '',
+  resultsStart: 0,
+  selectedFacet: '',
 };
 
 export default Results;

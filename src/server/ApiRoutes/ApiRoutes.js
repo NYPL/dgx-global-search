@@ -6,7 +6,6 @@ import Model from 'dgx-model-data';
 import {
   fetchResultLength,
   fetchResultItems,
-  fetchSearchKeyword,
   fetchSearchFacetsList,
 } from '../../app/utils/SearchModel.js';
 
@@ -58,9 +57,11 @@ const requestSearchResult = (req, res, next) => {
           searchKeyword: req.params.searchKeyword,
           searchData: fetchResultItems(searchParsed),
           searchDataLength: fetchResultLength(searchParsed),
-          selectedFacet: req.params.searchFilter,
           isKeywordValid: true,
+          selectedFacet: req.params.searchFilter,
+          resultsStart: 0,
           searchFacets: fetchSearchFacetsList(),
+
         },
         completeApiUrl: searchApiUrl,
       };
