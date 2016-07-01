@@ -6,8 +6,7 @@ import Model from 'dgx-model-data';
 import {
   fetchResultLength,
   fetchResultItems,
-  fetchSearchKeyword,
-  fetchSearchFacets,
+  fetchSearchFacetsList,
 } from '../../app/utils/SearchModel.js';
 
 import appConfig from '../../../appConfig.js';
@@ -59,7 +58,9 @@ const requestSearchResult = (req, res, next) => {
           searchData: fetchResultItems(searchParsed),
           searchDataLength: fetchResultLength(searchParsed),
           isKeywordValid: true,
-          searchFacets: fetchSearchFacets(),
+          selectedFacet: req.params.searchFilter,
+          resultsStart: 0,
+          searchFacets: fetchSearchFacetsList(),
         },
         completeApiUrl: searchApiUrl,
       };
@@ -79,7 +80,7 @@ const requestSearchResult = (req, res, next) => {
           searchKeyword: '',
           searchData: [],
           searchDataLength: 0,
-          searchFacets: fetchSearchFacets(),
+          searchFacets: fetchSearchFacetsList(),
         },
       };
 
@@ -89,7 +90,7 @@ const requestSearchResult = (req, res, next) => {
 
 const requestResultsFromClient = (req, res) => {
   searchOptions.filters = {
-    q: req.params.searchKeyword,
+    q: req.params.searchRequest,
     start: req.query.start || '0',
   };
   const searchApiUrl = parser.getCompleteApi(searchOptions);
@@ -103,7 +104,6 @@ const requestResultsFromClient = (req, res) => {
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
       const searchModeled = {
-        searchKeyword: fetchSearchKeyword(searchParsed),
         searchResultsItems: fetchResultItems(searchParsed),
         resultLength: fetchResultLength(searchParsed),
       };
@@ -162,7 +162,7 @@ router
 
 // The route is specific for client side ajax call. It returns a json file
 router
-  .route('/api/:searchKeyword/')
+  .route('/api/:searchRequest/')
   .get(requestResultsFromClient);
 
 // All the other router will show no result

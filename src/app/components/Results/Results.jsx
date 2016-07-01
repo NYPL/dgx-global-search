@@ -19,14 +19,14 @@ class Results extends React.Component {
     super(props);
 
     this.state = {
-      searchStart: 10,
+      resultsStart: this.props.resultsStart,
       isLoading: false,
       incrementResults: 10,
       searchResults: this.props.results,
     };
 
     this.getList = this.getList.bind(this);
-    this.updateSearchStart = this.updateSearchStart.bind(this);
+    this.updateResultsStart = this.updateResultsStart.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -72,14 +72,14 @@ class Results extends React.Component {
     ));
   }
   /**
-   * updateSearchStart()
+   * updateResultsStart()
    * The function updates which result item the api call is going to start to fetch at,
    * and then updates it to the state. Now it always starts from the next tenth item
    * after clickin the pagination button.
    *
    */
-  updateSearchStart() {
-    this.setState({ searchStart: this.state.searchStart + this.state.incrementResults });
+  updateResultsStart() {
+    this.setState({ resultsStart: this.state.resultsStart + this.state.incrementResults });
   }
 
   /**
@@ -90,7 +90,10 @@ class Results extends React.Component {
    *
    */
   addMoreResults() {
-    this.updateSearchStart();
+    const searchFilter = (this.props.selectedFacet) ? ` more:${this.props.selectedFacet}` : '';
+    const requestParameter = `${this.props.searchKeyword}${searchFilter}`;
+
+    this.updateResultsStart();
     // Change the state: isLoading during the api call so the animation of the pagination button
     // can be triggered.
     axios.interceptors.request.use(config => {
@@ -99,8 +102,10 @@ class Results extends React.Component {
       return config;
     }, error => Promise.reject(error));
 
+    const nextResultCount = this.state.resultsStart + this.state.incrementResults;
+
     axios
-    .get(`/api/${this.props.searchKeyword}?start=${this.state.searchStart}`)
+    .get(`/api/${requestParameter}?start=${nextResultCount}`)
     .then((response) => {
       // Actions.addMoreSearchData concats the new result items to the exist result items array in
       // the Store.
@@ -134,12 +139,12 @@ class Results extends React.Component {
         <DivideLineIcon
           ariaHidden
           className={`${this.props.className}-divideLineIcon`}
-          height="2"
+          height="4"
           length="84"
-          stroke="#279975"
-          strokeWidth="2"
+          stroke="#2799C5"
+          strokeWidth="4"
           title="divide.line.icon.svg"
-          viewBox="0 0 84 2"
+          viewBox="0 0 84 4"
           width="84"
         />
         <ul id={this.props.id} className={this.props.className}>
@@ -165,6 +170,8 @@ Results.propTypes = {
   results: React.PropTypes.array,
   amount: React.PropTypes.number,
   searchKeyword: React.PropTypes.string,
+  resultsStart: React.PropTypes.number,
+  selectedFacet: React.PropTypes.string,
 };
 
 Results.defaultProps = {
@@ -174,6 +181,8 @@ Results.defaultProps = {
   results: [],
   amount: 0,
   searchKeyword: '',
+  resultsStart: 0,
+  selectedFacet: '',
 };
 
 export default Results;

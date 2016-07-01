@@ -16,6 +16,10 @@
     @include grid-span(2, 7);
   }
 
+  @include layout-at(8, $desktop) {
+    @include grid-span(2, 7);
+  }
+
   p {
     display: inline-block;
     font-size: 16px;

@@ -29,7 +29,7 @@ const fetchResultLength = (data) => {
   }
 };
 
-const fetchSearchFacets = () => {
+const fetchSearchFacetsList = () => {
   return [
     {
       anchor: 'All',
@@ -183,4 +183,4 @@ const fetchResultItems = (data) => {
   }
 };
 
-export { fetchResultLength, fetchResultItems, fetchSearchKeyword, fetchSearchFacets };
+export { fetchResultLength, fetchResultItems, fetchSearchKeyword, fetchSearchFacetsList };

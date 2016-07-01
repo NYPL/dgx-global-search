@@ -9,7 +9,9 @@ class SearchStore {
       updateSearchDataLength: Actions.UPDATE_SEARCH_DATA_LENGTH,
       updateIsKeywordValid: Actions.UPDATE_IS_KEYWORD_VALID,
       updateSearchFacets: Actions.UPDATE_SEARCH_FACETS,
+      updateSelectedFacet: Actions.UPDATE_SELECTED_FACET,
       addMoreSearchData: Actions.ADD_MORE_SEARCH_DATA,
+      updateResultsStart: Actions.UPDATE_RESULTS_START,
     });
 
     this.on('init', () => {
@@ -17,6 +19,9 @@ class SearchStore {
       this.searchData = [];
       this.searchDataLength = 0;
       this.isKeywordValid = true;
+      this.selectedFacet = '';
+      this.resultsStart = 0;
+      this.resultsIncrement = 10;
       this.searchFacets = [
         {
           anchor: 'All',
@@ -82,8 +87,16 @@ class SearchStore {
     this.searchFacets = data;
   }
 
+  updateSelectedFacet(data) {
+    this.selectedFacet = data;
+  }
+
   addMoreSearchData(data) {
     this.searchData = this.searchData.concat(data);
+  }
+
+  updateResultsStart(data) {
+    this.searchStart = data;
   }
 }
 
