@@ -55,7 +55,7 @@ const requestSearchResult = (req, res, next) => {
         },
         SearchStore: {
           searchKeyword: req.params.searchKeyword,
-          searchData: fetchResultItems(searchParsed),
+          searchData: fetchResultItems(searchParsed, searchRequest),
           searchDataLength: fetchResultLength(searchParsed),
           isKeywordValid: true,
           selectedFacet: req.params.searchFilter,
@@ -104,7 +104,7 @@ const requestResultsFromClient = (req, res) => {
     .then((searchData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
       const searchModeled = {
-        searchResultsItems: fetchResultItems(searchParsed),
+        searchResultsItems: fetchResultItems(searchParsed, req.params.searchRequest),
         resultLength: fetchResultLength(searchParsed),
       };
 

@@ -80,24 +80,29 @@ const fetchSearchFacetsList = () =>
     },
   ];
 
-const extractSearchElement = () => {
-  // const requestComnbo = fetchSearchRequest();
-
-  const requestComnbo = 'dog more:exhibitions';
-
+/**
+ * extractSearchElements(requestComnbo)
+ * The function extracts searchRequest, which is a combo of the search keyword and the facet,
+ * such as "dog more:exhibitions"
+ * It then returns a object that consists of the two elements.
+ *
+ * @param {String} requestComnbo
+ * @return {Object}
+ */
+const extractSearchElements = (requestComnbo) => {
   if (!requestComnbo) {
-    return ({
+    return {
       searchKeyword: '',
       searchFacet: '',
-    });
+    };
   }
 
   const comboArray = requestComnbo.trim().split('more');
 
-  return ({
+  return {
     searchKeyword: comboArray[0].trim() || '',
     searchFacet: comboArray[1].trim().replace(/(^:)/g, '') || '',
-  });
+  };
 };
 
 /**
@@ -123,15 +128,19 @@ const fetchSearchRequest = (data) => {
 };
 
 /**
- * fetchDisplayName(array)
- * The function gets the display names of the category where the search
- * result item is from.
- * It takes an array and return an string.
+ * fetchDisplayName(labelsArray, searchRequest)
+ * The function returns the display name of the item.
+ * The display name is from the category where the item belongs to.
+ * In case an item has multiple display names,
+ * it calls extractSearchElements(searchRequest) to get the present facet,
+ * and then it compares to get the display name that matches the facet.
+ * The function takes an array and returns a string.
  *
  * @param {Array} labelsArray
+ * @param {String} searchRequest
  * @return {String}
  */
-const fetchDisplayName = (labelsArray) => {
+const fetchDisplayName = (labelsArray, searchRequest) => {
   if (!_isArray(labelsArray) || _isEmpty(labelsArray)) {
     return '';
   }
@@ -144,7 +153,7 @@ const fetchDisplayName = (labelsArray) => {
     return label.displayName;
   });
 
-  const searchFacet = extractSearchElement().searchFacet;
+  const searchFacet = extractSearchElements(searchRequest).searchFacet;
 
   if (!searchFacet) {
     return displayNameArray[0];
@@ -156,39 +165,46 @@ const fetchDisplayName = (labelsArray) => {
 };
 
 /**
- * fetchItemFeature(item, feature)
+ * fetchItemFeature(item, feature, searchRequest)
  * The function gets features from an result item.
  * The second argument indicates which feature it is going to get.
  * If the feature is "labels", it calls fetchDisplayName() to get
  * the display name of the category from the labels array.
+ * The third argument is for fetchDisplayName() to call
+ * extractSearchElements(searchRequest) to get the present facet.
  *
  * @param {Object} item
  * @param {String} feature
+ * @param {String} SearchRequest
  * @return {String}
  */
-const fetchItemFeature = (item, feature) => {
+const fetchItemFeature = (item, feature, searchRequest) => {
   if (!item.attributes[feature]) {
     return '';
   }
 
   if (feature === 'labels') {
-    return fetchDisplayName(item.attributes[feature]);
+    return fetchDisplayName(item.attributes[feature], searchRequest);
   }
 
   return item.attributes[feature];
 };
 
 /**
- * fetchItem(item)
+ * fetchItem(item, searchRequest)
  * The function gets each search result with its features.
  * All the features are under the item's attributes object,
- * so if attributes is missing, it passes default empty features.
+ * so if an attribute is missing, it will pass an empty value.
  * It returns an object.
  *
+ * The second argument is for fetchDisplayName() to call
+ * extractSearchElements(searchRequest) to get the present facet.
+ *
  * @param {Object} item
+ * @param {String} SearchRequest
  * @return {Object}
  */
-const fetchItem = (item) => {
+const fetchItem = (item, searchRequest) => {
   if (!item || !item.attributes) {
     return {
       title: '',
@@ -204,21 +220,24 @@ const fetchItem = (item) => {
     link: fetchItemFeature(item, 'link'),
     snippet: fetchItemFeature(item, 'snippet'),
     thumbnailSrc: fetchItemFeature(item, 'thumbnail-url'),
-    label: fetchItemFeature(item, 'labels'),
+    label: fetchItemFeature(item, 'labels', searchRequest),
   };
 };
 
 /**
- * fetchResultItems(data)
+ * fetchResultItems(data, searchRequest)
  * The function gets search results.
+ * The second argument is for fetchDisplayName() to call
+ * extractSearchElements(searchRequest) to get the present facet.
  * It returns an array with each item inside.
  *
  * @param {Object} data
+ * @param {String} SearchRequest
  * @return {Array}
  */
-const fetchResultItems = (data) => {
+const fetchResultItems = (data, searchRequest = '') => {
   try {
-    return _map(data.items, (item) => (fetchItem(item)));
+    return _map(data.items, (item) => (fetchItem(item, searchRequest)));
   } catch (e) {
     console.log(e);
     return [];
