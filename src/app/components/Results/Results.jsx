@@ -51,7 +51,7 @@ class Results extends React.Component {
 
   /**
    * getList(itemsArray)
-   * The function map the array of the search result,
+   * The function maps the array of the search result,
    * and render each item of the array as <ResultsItem> into a new array.
    *
    * @param {itemsArray} array
