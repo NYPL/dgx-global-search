@@ -1,9 +1,12 @@
 import React from 'react';
 
 /**
- * renderImage()
- * The function render <img> if this.props.thumbnailSrc is true.
+ * renderImage(className, src, title)
+ * The function renders <img> if this.props.thumbnailSrc is true.
  *
+ * @param {className} string
+ * @param {src} string
+ * @param {title} string
  * @return null or object
  */
 const renderImage = (className, src, title) => {
@@ -22,6 +25,16 @@ const renderImage = (className, src, title) => {
   );
 };
 
+/**
+ * generateWholeRowClass(src)
+ * The function generates the class name for the component based on the exsistence
+ * of the image data.
+ * If no image data, the class name will be 'whole-row' so the html element will be
+ * applied to the matched styles.
+ *
+ * @param {src} string
+ * @return string
+ */
 const generateWholeRowClass = (src) => {
   if (!src) {
     return 'whole-row';
@@ -30,6 +43,14 @@ const generateWholeRowClass = (src) => {
   return '';
 };
 
+/**
+ * createMarkup(text)
+ * The function converts the plain texts in to html inner text style.
+ * As a result, it helps encode special characters.
+ *
+ * @param {text} string
+ * @return object
+ */
 const createMarkup = (text) => ({ __html: text });
 
 const ResultsItem = ({
