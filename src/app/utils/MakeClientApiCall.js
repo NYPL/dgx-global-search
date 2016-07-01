@@ -2,7 +2,7 @@
 import axios from 'axios';
 import Actions from './../actions/Actions.js';
 
-const makeClientApiCall = (keyword, facet = '', start = 0, increment = 10) => {
+const makeClientApiCall = (keyword, facet = '', start = 0) => {
   const currentSearchKeyword = keyword || '';
   const searchFilter = (facet) ? ` more:${facet}` : '';
   const requestParameter = `${currentSearchKeyword}${searchFilter}`;
@@ -21,7 +21,7 @@ const makeClientApiCall = (keyword, facet = '', start = 0, increment = 10) => {
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
         Actions.updateSelectedFacet(facet);
-        Actions.updateResultsStart(start + increment);
+        Actions.updateResultsStart(start);
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);

@@ -33,7 +33,6 @@ class Actions {
   updateResultsStart(data) {
     this.dispatch(data);
   }
-
 }
 
 export default alt.createActions(Actions);

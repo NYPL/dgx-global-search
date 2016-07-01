@@ -26,7 +26,6 @@ class Results extends React.Component {
     };
 
     this.getList = this.getList.bind(this);
-    this.updateResultsStart = this.updateResultsStart.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -44,6 +43,7 @@ class Results extends React.Component {
   onChange() {
     // Update the Store with new fetched data
     this.setState({
+      resultsStart: Store.getState().resultsStart,
       isLoading: false,
       searchResults: Store.getState().searchData,
     });
@@ -71,16 +71,6 @@ class Results extends React.Component {
       />
     ));
   }
-  /**
-   * updateResultsStart()
-   * The function updates which result item the api call is going to start to fetch at,
-   * and then updates it to the state. Now it always starts from the next tenth item
-   * after clickin the pagination button.
-   *
-   */
-  updateResultsStart() {
-    this.setState({ resultsStart: this.state.resultsStart + this.state.incrementResults });
-  }
 
   /**
    * addMoreResults()
@@ -92,8 +82,10 @@ class Results extends React.Component {
   addMoreResults() {
     const searchFilter = (this.props.selectedFacet) ? ` more:${this.props.selectedFacet}` : '';
     const requestParameter = `${this.props.searchKeyword}${searchFilter}`;
+    const nextResultCount = this.state.resultsStart + this.state.incrementResults;
 
-    this.updateResultsStart();
+    Actions.updateResultsStart(nextResultCount);
+
     // Change the state: isLoading during the api call so the animation of the pagination button
     // can be triggered.
     axios.interceptors.request.use(config => {
@@ -101,8 +93,6 @@ class Results extends React.Component {
       this.setState({ isLoading: true });
       return config;
     }, error => Promise.reject(error));
-
-    const nextResultCount = this.state.resultsStart + this.state.incrementResults;
 
     axios
     .get(`/api/${requestParameter}?start=${nextResultCount}`)
