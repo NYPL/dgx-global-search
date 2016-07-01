@@ -3,6 +3,7 @@ import {
   map as _map,
   isArray as _isArray,
   isEmpty as _isEmpty,
+  filter as _filter,
 } from 'underscore';
 
 /**
@@ -29,8 +30,14 @@ const fetchResultLength = (data) => {
   }
 };
 
-const fetchSearchFacetsList = () => {
-  return [
+/**
+ * fetchSearchFacetsList()
+ * The function returns a preset facet list.
+ *
+ * @return {Array}
+ */
+const fetchSearchFacetsList = () =>
+  [
     {
       anchor: 'All',
       label: '',
@@ -65,23 +72,42 @@ const fetchSearchFacetsList = () => {
     },
     {
       anchor: 'Recommendations',
-      label: 'recommendations'
+      label: 'recommendations',
     },
     {
       anchor: 'Locations',
       label: 'locations',
     },
   ];
-}
+
+const extractSearchElement = () => {
+  // const requestComnbo = fetchSearchRequest();
+
+  const requestComnbo = 'dog more:exhibitions';
+
+  if (!requestComnbo) {
+    return ({
+      searchKeyword: '',
+      searchFacet: '',
+    });
+  }
+
+  const comboArray = requestComnbo.trim().split('more');
+
+  return ({
+    searchKeyword: comboArray[0].trim() || '',
+    searchFacet: comboArray[1].trim().replace(/(^:)/g, '') || '',
+  });
+};
 
 /**
- * fetchItemThumbnailSrc(item)
- * The function gets thumbnail image src from an result item.
+ * fetchSearchRequest(data)
+ * The function gets search request, which is a combo of the search keyword and the facet.
  *
- * @param {Object} item
+ * @param {Object} data
  * @return {String}
  */
-const fetchSearchKeyword = (data) => {
+const fetchSearchRequest = (data) => {
   try {
     const {
       attributes: {
@@ -98,23 +124,39 @@ const fetchSearchKeyword = (data) => {
 
 /**
  * fetchDisplayName(array)
- * The function gets the display name of the category where the search
+ * The function gets the display names of the category where the search
  * result item is from.
- * It takes an array and return a string.
+ * It takes an array and return an string.
  *
  * @param {Array} labelsArray
  * @return {String}
  */
 const fetchDisplayName = (labelsArray) => {
-  if (!_isArray(labelsArray) || _isEmpty(labelsArray) || !labelsArray[0].displayName) {
+  if (!_isArray(labelsArray) || _isEmpty(labelsArray)) {
     return '';
   }
 
-  return labelsArray[0].displayName;
+  const displayNameArray = _map(labelsArray, (label) => {
+    if (!label.displayName) {
+      return '';
+    }
+
+    return label.displayName;
+  });
+
+  const searchFacet = extractSearchElement().searchFacet;
+
+  if (!searchFacet) {
+    return displayNameArray[0];
+  }
+
+  return _filter(displayNameArray, (displayName) =>
+    displayName.toLowerCase() === searchFacet
+  )[0];
 };
 
 /**
- * fetchItemFeature(item, string)
+ * fetchItemFeature(item, feature)
  * The function gets features from an result item.
  * The second argument indicates which feature it is going to get.
  * If the feature is "labels", it calls fetchDisplayName() to get
@@ -183,4 +225,4 @@ const fetchResultItems = (data) => {
   }
 };
 
-export { fetchResultLength, fetchResultItems, fetchSearchKeyword, fetchSearchFacetsList };
+export { fetchResultLength, fetchResultItems, fetchSearchFacetsList };
