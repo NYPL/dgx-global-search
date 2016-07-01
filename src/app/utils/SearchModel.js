@@ -100,8 +100,8 @@ const extractSearchElements = (requestComnbo) => {
   const comboArray = requestComnbo.trim().split('more');
 
   return {
-    searchKeyword: comboArray[0].trim() || '',
-    searchFacet: comboArray[1].trim().replace(/(^:)/g, '') || '',
+    searchKeyword: (comboArray[0]) ? comboArray[0].trim() : '',
+    searchFacet: (comboArray[1]) ? comboArray[1].trim().replace(/(^:)/g, '') : '',
   };
 };
 
