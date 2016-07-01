@@ -1,5 +1,7 @@
 import React from 'react';
-import { extend as _extend } from 'underscore';
+import {
+  extend as _extend,
+ } from 'underscore';
 
 // Import components
 import Header from 'dgx-header-component';
@@ -16,9 +18,24 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import utilities
+import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
 import { createAppHistory } from '../../utils/SearchHistory.js';
 
 const history = createAppHistory();
+
+history.listen(location => {
+  const {
+    action,
+    pathname,
+  } = location;
+  const searchKeyword = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
+  const searchFacet = (pathname.split('/')[4]) ? pathname.split('/')[4] : '';
+  const incrementResults = 10;
+
+  if (action === 'POP') {
+    makeClientApiCall(searchKeyword, searchFacet, 0, incrementResults);
+  }
+});
 
 class App extends React.Component {
   constructor(props) {
@@ -27,8 +44,6 @@ class App extends React.Component {
     this.state = _extend(
       {
         resultsComponentData: null,
-        searchStart: 10,
-        selectedFacet: '',
       },
       Store.getState()
     );
@@ -68,6 +83,8 @@ class App extends React.Component {
     // Updates the state with the new search data
     this.setState({
       isKeywordValid: true,
+      searchKeyword: Store.getState().searchKeyword,
+      selectedFacet: Store.getState().selectedFacet,
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
@@ -93,12 +110,11 @@ class App extends React.Component {
   /**
    * searchBySelectedFacet(facet)
    * Set the facet with the value of the clicked facet element.
-   * It then make an client AJAX call to fetch the results.
+   * It then makes an client AJAX call to fetch the results.
    *
    * @param {String} facet
    */
-  searchBySelectedFacet(facet) {
-    this.setState({ selectedFacet: facet });
+  searchBySelectedFacet(facet = '') {
     this.submitSearchRequest(facet);
   }
 
@@ -108,9 +124,8 @@ class App extends React.Component {
    *
    * @param {String} selectedFacet
    */
-  submitSearchRequest(selectedFacet) {
+  submitSearchRequest(facet = '') {
     const currentSearchKeyword = this.state.searchKeyword.trim() || '';
-    const facet = selectedFacet;
     const searchFilter = (facet) ? ` more:${facet}` : '';
     const requestParameter = `${currentSearchKeyword}${searchFilter}`;
 
@@ -120,16 +135,18 @@ class App extends React.Component {
       axios
       .get(`/api/${requestParameter}?start=0`)
       .then((response) => {
-        const { searchKeyword, searchResultsItems, resultLength } = response.data;
+        const { searchResultsItems, resultLength } = response.data;
 
-        history.push(`/search/apachesolr_search/${currentSearchKeyword}/${facet}`);
+        history.push({
+          pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
+        });
 
         // The functions of Actions.js update the Store with different feature values
-        Actions.updateSearchKeyword(searchKeyword);
+        Actions.updateSearchKeyword(currentSearchKeyword);
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
-
-        this.setState({ searchStart: 10 });
+        Actions.updateSelectedFacet(facet);
+        Actions.updateResultsStart(0);
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);
@@ -169,7 +186,8 @@ class App extends React.Component {
         id="gs-results"
         className="gs-results"
         searchKeyword={searchKeyword}
-        searchStart={this.state.searchStart}
+        selectedFacet={this.state.selectedFacet}
+        resultsStart={this.state.resultsStart}
       />
     );
   }
