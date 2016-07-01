@@ -30,10 +30,10 @@ history.listen(location => {
   } = location;
   const searchKeyword = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
   const searchFacet = (pathname.split('/')[4]) ? pathname.split('/')[4] : '';
-  const incrementResults = 10;
+  const resultsStart = 0;
 
   if (action === 'POP') {
-    makeClientApiCall(searchKeyword, searchFacet, 0, incrementResults);
+    makeClientApiCall(searchKeyword, searchFacet, resultsStart);
   }
 });
 
