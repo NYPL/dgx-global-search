@@ -108,29 +108,6 @@ const extractSearchElements = (requestCombo) => {
 };
 
 /**
- * fetchSearchRequest(data)
- * The function gets search request, which is a combo of the search keyword and the facet,
- * such as "dog more:exhibitions"
- *
- * @param {Object} data
- * @return {String}
- */
-const fetchSearchRequest = (data) => {
-  try {
-    const {
-      attributes: {
-        q = '',
-      },
-    } = data;
-
-    return q;
-  } catch (e) {
-    console.log(e);
-    return '';
-  }
-};
-
-/**
  * fetchDisplayName(labelsArray, searchRequest)
  * The function returns the display name of the item.
  * An item's label object has two features: name and display name.
@@ -250,4 +227,4 @@ const fetchResultItems = (data, searchRequest = '') => {
   }
 };
 
-export { fetchResultLength, fetchSearchRequest, fetchResultItems, fetchSearchFacetsList };
+export { fetchResultLength, fetchResultItems, fetchSearchFacetsList };
