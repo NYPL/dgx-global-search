@@ -97,11 +97,13 @@ const extractSearchElements = (requestCombo) => {
     };
   }
 
-  const comboArray = requestCombo.trim().split('more');
+  const comboArray = requestCombo.trim().split(' more:');
+  const keyword = (comboArray[0]) ? comboArray[0].trim() : '';
+  const facet = (comboArray[1]) ? comboArray[1].trim() : '';
 
   return {
-    searchKeyword: (comboArray[0]) ? comboArray[0].trim() : '',
-    searchFacet: (comboArray[1]) ? comboArray[1].trim().replace(/(^:)/g, '') : '',
+    searchKeyword: keyword,
+    searchFacet: facet,
   };
 };
 
@@ -131,11 +133,13 @@ const fetchSearchRequest = (data) => {
 /**
  * fetchDisplayName(labelsArray, searchRequest)
  * The function returns the display name of the item.
- * The display name is from the category where the item belongs to.
- * In case an item has multiple display names,
+ * An item's label object has two features: name and display name.
+ * Both of them are from the category where the item belongs to.
+ * In case an item has multiple name/display names,
  * it calls extractSearchElements(searchRequest) to get the present facet,
- * and then it compares the facet and all the display names to get the display name
+ * and then it compares the facet and all the names to get the name
  * that matches the facet.
+ * Finally, it returns the display name that comes with the matched name.
  * The function takes an array and returns a string.
  *
  * @param {Array} labelsArray
@@ -148,22 +152,28 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
   }
 
   const displayNameArray = _map(labelsArray, (label) => {
-    if (!label.displayName) {
-      return '';
+    if (!label.displayName || !label.name) {
+      return {
+        name: '',
+        displayName: '',
+      };
     }
 
-    return label.displayName;
+    return {
+      name: label.name,
+      displayName: label.displayName,
+    };
   });
 
   const searchFacet = extractSearchElements(searchRequest).searchFacet;
 
   if (!searchFacet) {
-    return displayNameArray[0];
+    return displayNameArray[0].displayName;
   }
 
-  return _filter(displayNameArray, (displayName) =>
-    displayName.toLowerCase() === searchFacet
-  )[0];
+  return _filter(displayNameArray, (item) =>
+    item.name === searchFacet
+  )[0].displayName;
 };
 
 /**
