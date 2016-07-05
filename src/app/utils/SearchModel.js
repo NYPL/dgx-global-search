@@ -81,23 +81,23 @@ const fetchSearchFacetsList = () =>
   ];
 
 /**
- * extractSearchElements(requestComnbo)
+ * extractSearchElements(requestCombo)
  * The function extracts searchRequest, which is a combo of the search keyword and the facet,
  * such as "dog more:exhibitions"
- * It then returns a object that consists of the two elements.
+ * It then returns an object that consists of these two elements.
  *
- * @param {String} requestComnbo
+ * @param {String} requestCombo
  * @return {Object}
  */
-const extractSearchElements = (requestComnbo) => {
-  if (!requestComnbo) {
+const extractSearchElements = (requestCombo) => {
+  if (!requestCombo) {
     return {
       searchKeyword: '',
       searchFacet: '',
     };
   }
 
-  const comboArray = requestComnbo.trim().split('more');
+  const comboArray = requestCombo.trim().split('more');
 
   return {
     searchKeyword: (comboArray[0]) ? comboArray[0].trim() : '',
@@ -133,7 +133,8 @@ const fetchSearchRequest = (data) => {
  * The display name is from the category where the item belongs to.
  * In case an item has multiple display names,
  * it calls extractSearchElements(searchRequest) to get the present facet,
- * and then it compares to get the display name that matches the facet.
+ * and then it compares the facet and all the display names to get the display name
+ * that matches the facet.
  * The function takes an array and returns a string.
  *
  * @param {Array} labelsArray
@@ -168,10 +169,10 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
  * fetchItemFeature(item, feature, searchRequest)
  * The function gets features from an result item.
  * The second argument indicates which feature it is going to get.
- * If the feature is "labels", it calls fetchDisplayName() to get
- * the display name of the category from the labels array.
- * The third argument is for fetchDisplayName() to call
- * extractSearchElements(searchRequest) to get the present facet.
+ * If the feature is "labels", it calls fetchDisplayName()
+ * to get the display name of the category from the labels array.
+ * The third argument is for fetchDisplayName()
+ * to call extractSearchElements(searchRequest) to get the present facet.
  *
  * @param {Object} item
  * @param {String} feature
@@ -197,8 +198,8 @@ const fetchItemFeature = (item, feature, searchRequest) => {
  * so if an attribute is missing, it will pass an empty value.
  * It returns an object.
  *
- * The second argument is for fetchDisplayName() to call
- * extractSearchElements(searchRequest) to get the present facet.
+ * The second argument is for fetchDisplayName()
+ * to call extractSearchElements(searchRequest) to get the present facet.
  *
  * @param {Object} item
  * @param {String} SearchRequest
@@ -226,9 +227,9 @@ const fetchItem = (item, searchRequest) => {
 
 /**
  * fetchResultItems(data, searchRequest)
- * The function gets search results.
- * The second argument is for fetchDisplayName() to call
- * extractSearchElements(searchRequest) to get the present facet.
+ * The function gets the search results.
+ * The second argument is for fetchDisplayName()
+ * to call extractSearchElements(searchRequest) to get the present facet.
  * It returns an array with each item inside.
  *
  * @param {Object} data
