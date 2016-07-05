@@ -177,27 +177,19 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
 };
 
 /**
- * fetchItemFeature(item, feature, searchRequest)
- * The function gets features from an result item.
+ * fetchItemFeature(item, feature)
+ * The function gets the features, except label, from an result item.
  * The second argument indicates which feature it is going to get.
- * If the feature is "labels", it calls fetchDisplayName()
- * to get the display name of the category from the labels array.
- * The third argument is for fetchDisplayName()
- * to call extractSearchElements(searchRequest) to get the present facet.
  *
  * @param {Object} item
  * @param {String} feature
  * @param {String} SearchRequest
  * @return {String}
  */
-const fetchItemFeature = (item, feature, searchRequest) => {
+const fetchItemFeature = (item, feature) => {
   if (!item.attributes[feature]) {
     return '';
   }
-
-  // if (feature === 'labels') {
-  //   return fetchDisplayName(item.attributes[feature], searchRequest);
-  // }
 
   return item.attributes[feature];
 };
