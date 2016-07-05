@@ -82,8 +82,8 @@ const fetchSearchFacetsList = () =>
 
 /**
  * extractSearchElements(requestCombo)
- * The function extracts searchRequest, which is a combo of the search keyword and the facet,
- * such as "dog more:exhibitions"
+ * The function extracts the two searchElements from a searchRequest.
+ * The two elements are search keyword and search facet.
  * It then returns an object that consists of these two elements.
  *
  * @param {String} requestCombo
@@ -107,7 +107,8 @@ const extractSearchElements = (requestCombo) => {
 
 /**
  * fetchSearchRequest(data)
- * The function gets search request, which is a combo of the search keyword and the facet.
+ * The function gets search request, which is a combo of the search keyword and the facet,
+ * such as "dog more:exhibitions"
  *
  * @param {Object} data
  * @return {String}
