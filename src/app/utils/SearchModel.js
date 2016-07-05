@@ -195,9 +195,9 @@ const fetchItemFeature = (item, feature, searchRequest) => {
     return '';
   }
 
-  if (feature === 'labels') {
-    return fetchDisplayName(item.attributes[feature], searchRequest);
-  }
+  // if (feature === 'labels') {
+  //   return fetchDisplayName(item.attributes[feature], searchRequest);
+  // }
 
   return item.attributes[feature];
 };
@@ -232,7 +232,7 @@ const fetchItem = (item, searchRequest) => {
     link: fetchItemFeature(item, 'link'),
     snippet: fetchItemFeature(item, 'snippet'),
     thumbnailSrc: fetchItemFeature(item, 'thumbnail-url'),
-    label: fetchItemFeature(item, 'labels', searchRequest),
+    label: fetchDisplayName(item.attributes['labels'], searchRequest),
   };
 };
 
