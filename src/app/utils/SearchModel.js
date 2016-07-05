@@ -98,12 +98,12 @@ const extractSearchElements = (requestCombo) => {
   }
 
   const comboArray = requestCombo.trim().split(' more:');
-  const keyword = (comboArray[0]) ? comboArray[0].trim() : '';
-  const facet = (comboArray[1]) ? comboArray[1].trim() : '';
+  const searchKeyword = (comboArray[0]) ? comboArray[0].trim() : '';
+  const searchFacet = (comboArray[1]) ? comboArray[1].trim() : '';
 
   return {
-    searchKeyword: keyword,
-    searchFacet: facet,
+    searchKeyword,
+    searchFacet,
   };
 };
 
@@ -256,4 +256,4 @@ const fetchResultItems = (data, searchRequest = '') => {
   }
 };
 
-export { fetchResultLength, fetchResultItems, fetchSearchFacetsList };
+export { fetchResultLength, fetchSearchRequest, fetchResultItems, fetchSearchFacetsList };
