@@ -3,7 +3,7 @@ import {
   map as _map,
   isArray as _isArray,
   isEmpty as _isEmpty,
-  filter as _filter,
+  find as _find,
 } from 'underscore';
 
 /**
@@ -171,9 +171,11 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
     return displayNameArray[0].displayName;
   }
 
-  return _filter(displayNameArray, (item) =>
+  const displayName = _find(displayNameArray, (item) =>
     item.name === searchFacet
-  )[0].displayName;
+  ).displayName;
+
+  return (displayName) ? displayName : '';
 };
 
 /**
