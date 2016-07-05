@@ -175,7 +175,7 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
     item.name === searchFacet
   ).displayName;
 
-  return (displayName) ? displayName : '';
+  return displayName || '';
 };
 
 /**
@@ -226,7 +226,7 @@ const fetchItem = (item, searchRequest) => {
     link: fetchItemFeature(item, 'link'),
     snippet: fetchItemFeature(item, 'snippet'),
     thumbnailSrc: fetchItemFeature(item, 'thumbnail-url'),
-    label: fetchDisplayName(item.attributes['labels'], searchRequest),
+    label: fetchDisplayName(item.attributes.labels, searchRequest),
   };
 };
 
