@@ -6,8 +6,7 @@ import Model from 'dgx-model-data';
 import {
   fetchResultLength,
   fetchResultItems,
-  fetchSearchKeyword,
-  fetchSearchFacets,
+  fetchSearchFacetsList,
 } from '../../app/utils/SearchModel.js';
 
 import appConfig from '../../../appConfig.js';
@@ -27,24 +26,26 @@ const createOptions = (apiValue) => ({
 });
 
 const headerOptions = createOptions(headerApi);
+const searchOptions = createOptions(searchApi);
 const headerApiUrl = parser.getCompleteApi(headerOptions);
 
 const fetchApiData = (url) => axios.get(url);
 
 const getHeaderData = () => fetchApiData(headerApiUrl);
+const getSearchData = (url) => fetchApiData(url);
 
 const requestSearchResult = (req, res, next) => {
-  const searchOptions = createOptions(searchApi);
+  const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
+  const searchRequest = `${req.params.searchKeyword}${searchFilter}`;
   searchOptions.filters = {
-    q: req.params.searchKeyword,
+    q: searchRequest,
+    start: 0,
   };
   const searchApiUrl = parser.getCompleteApi(searchOptions);
-  const getSearchData = () => fetchApiData(searchApiUrl);
 
-  axios.all([getSearchData(), getHeaderData()])
+  axios.all([getSearchData(searchApiUrl), getHeaderData()])
     .then(axios.spread((searchData, headerData) => {
       const searchParsed = parser.parse(searchData.data, searchOptions);
-      // We neeed a model for search result later
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed);
 
@@ -53,11 +54,13 @@ const requestSearchResult = (req, res, next) => {
           headerData: headerModelData,
         },
         SearchStore: {
-          searchKeyword: fetchSearchKeyword(searchParsed),
-          searchData: fetchResultItems(searchParsed),
+          searchKeyword: req.params.searchKeyword,
+          searchData: fetchResultItems(searchParsed, searchRequest),
           searchDataLength: fetchResultLength(searchParsed),
           isKeywordValid: true,
-          searchFacets: fetchSearchFacets(),
+          selectedFacet: req.params.searchFilter,
+          resultsStart: 0,
+          searchFacets: fetchSearchFacetsList(),
         },
         completeApiUrl: searchApiUrl,
       };
@@ -66,9 +69,8 @@ const requestSearchResult = (req, res, next) => {
     }))
     .catch(error => {
       console.log(`error calling API : ${error}`);
-      console.log(error.data.errors[0].title);
       console.log(`from the endpoint: ${searchApiUrl}`);
-      console.log(`search keywords is ${api.filters}`);
+      console.log(`search keyword is ${searchOptions.filters.q}`);
 
       res.locals.data = {
         HeaderStore: {
@@ -78,7 +80,7 @@ const requestSearchResult = (req, res, next) => {
           searchKeyword: '',
           searchData: [],
           searchDataLength: 0,
-          searchFacets: fetchSearchFacets(),
+          searchFacets: fetchSearchFacetsList(),
         },
       };
 
@@ -86,7 +88,36 @@ const requestSearchResult = (req, res, next) => {
     });
 };
 
-const requestEmptyResult = (req, res, next) => {
+const requestResultsFromClient = (req, res) => {
+  searchOptions.filters = {
+    q: req.params.searchRequest,
+    start: req.query.start || '0',
+  };
+  const searchApiUrl = parser.getCompleteApi(searchOptions);
+
+  if (!req.query.start) {
+    res.json({});
+    return;
+  }
+
+  getSearchData(searchApiUrl)
+    .then((searchData) => {
+      const searchParsed = parser.parse(searchData.data, searchOptions);
+      const searchModeled = {
+        searchResultsItems: fetchResultItems(searchParsed, req.params.searchRequest),
+        resultLength: fetchResultLength(searchParsed),
+      };
+
+      res.json(searchModeled);
+    })
+    .catch(error => {
+      console.log(`error calling API : ${error}`);
+      console.log(`from the endpoint: ${searchApiUrl}`);
+      console.log(`search keyword is ${searchOptions.filters.q}`);
+    });
+};
+
+const requestHeaderOnly = (req, res, next) => {
   if (req.path !== '/search/apachesolr_search/') {
     res.redirect('/search/apachesolr_search/');
     return;
@@ -107,7 +138,6 @@ const requestEmptyResult = (req, res, next) => {
     })
     .catch(error => {
       console.log(`error calling API for the header: ${error}`);
-      console.log(error.data.errors[0].title);
       console.log(`from the endpoint: ${headerApiUrl}`);
 
       res.locals.data = {
@@ -123,16 +153,21 @@ const requestEmptyResult = (req, res, next) => {
 // The route with valid pattern but no keyword will show no result
 router
   .route('/search/apachesolr_search/')
-  .get(requestEmptyResult);
+  .get(requestHeaderOnly);
 
 // The route with valid pattern and the keyword will request the search results
 router
-  .route('/search/apachesolr_search/:searchKeyword')
+  .route('/search/apachesolr_search/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
+
+// The route is specific for client side ajax call. It returns a json file
+router
+  .route('/api/:searchRequest/')
+  .get(requestResultsFromClient);
 
 // All the other router will show no result
 router
   .route(/^((?!\/search\/apachesolr_search).)*$/)
-  .get(requestEmptyResult);
+  .get(requestHeaderOnly);
 
 export default router;

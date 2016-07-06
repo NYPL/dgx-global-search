@@ -5,12 +5,32 @@
   color: $INPUT_FIELD_GREY;
   font-size: 18px;
   font-style: italic;
-  line-height: 16px;
-  padding: 16px 17px;
+  line-height: 21px;
+  padding: 13px 17px;
   width: 100%;
 
   &-wrapper {
     padding: 0 14px;
     margin: 0 0 22px 0;
+
+    @include layout-at(7, $tablet-portrait) {
+      @include grid-span(3, 1);
+
+      border-right: 0px;
+      display: inline-block;
+      margin: 0 -2px 0 0;
+      padding: 0;
+    }
+
+    @include layout-at(7, $tablet-landscape) {
+      @include grid-span(5, 1);
+
+      margin: 0 -2px 0 0;
+    }
+
+    @include min-screen($desktop) {
+      width: 80%;
+    }
   }
 }
+

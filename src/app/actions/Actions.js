@@ -22,6 +22,17 @@ class Actions {
     this.dispatch(data);
   }
 
+  updateSelectedFacet(data) {
+    this.dispatch(data);
+  }
+
+  addMoreSearchData(data) {
+    this.dispatch(data);
+  }
+
+  updateResultsStart(data) {
+    this.dispatch(data);
+  }
 }
 
 export default alt.createActions(Actions);
