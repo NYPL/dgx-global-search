@@ -41,6 +41,7 @@ class FilterList extends React.Component {
           className={isSelected}
           key={index}
           onClick={() => this.onClickApply(item.label)}
+          onClickDashCircle={this.props.onClickDashCircle}
           label={item.anchor}
         />
       );

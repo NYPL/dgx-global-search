@@ -7,18 +7,20 @@ import { BasicButton } from 'dgx-react-buttons';
 const FilterItem = ({
   className,
   onClick,
+  onClickDashCircle,
   label,
 }) => (
   <li
     className={className}
-    onClick={onClick}
   >
-    {label}
+    <span onClick={onClick}>
+      {label}
+    </span>
     <BasicButton
-      className="customButton"
+      className={`circleDashButton customButton ${className}`}
       label=""
       icon={<CircleDashIcon className={`circleDashIcon ${className}`} />}
-      onClick={console.log('i am being clicked!')}
+      onClick={onClickDashCircle}
     />
   </li>
 );
