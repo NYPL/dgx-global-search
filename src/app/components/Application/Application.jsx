@@ -132,7 +132,7 @@ class App extends React.Component {
 
   /**
    * submitSearchRequest(selectedFacet)
-   * Submit the search request based on the values of the input fields.
+   * Submit the search request based on the values of the input fields and the facet.
    *
    * @param {String} selectedFacet
    */
@@ -145,6 +145,7 @@ class App extends React.Component {
           const currentSearchKeyword = this.state.searchKeyword.trim() || '';
           const facet = selectedFacet;
 
+          // Update and transit to the match URL
           history.push({
             pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
           });

@@ -14,6 +14,9 @@ import { PaginationButton } from 'dgx-react-buttons';
 // Import libraries
 import { map as _map } from 'underscore';
 
+// Import utilities
+import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
+
 class Results extends React.Component {
   constructor(props) {
     super(props);
@@ -74,40 +77,27 @@ class Results extends React.Component {
 
   /**
    * addMoreResults()
-   * The function calls updateSearchStart() and then fires axios get method with the new start item.
-   * When it gets the response data, it models the data and adds the new results items to the exist
+   * The function calls makeClientApiCall() to get the result data with the new resultsStart value.
+   * When it gets the response data, it adds the new results items to the exist
    * result array by Actions.addMoreSearchData().
-   *
+   * Finally, it updates the resultsStart in the Store with Actions.updateResultsStart().
    */
   addMoreResults() {
-    const searchFilter = (this.props.selectedFacet) ? ` more:${this.props.selectedFacet}` : '';
-    const requestParameter = `${this.props.searchKeyword}${searchFilter}`;
     const nextResultCount = this.state.resultsStart + this.state.incrementResults;
 
-    Actions.updateResultsStart(nextResultCount);
-
-    // Change the state: isLoading during the api call so the animation of the pagination button
-    // can be triggered.
-    axios.interceptors.request.use(config => {
-      // Do something before request is sent
-      this.setState({ isLoading: true });
-      return config;
-    }, error => Promise.reject(error));
-
-    axios
-    .get(`/api/${requestParameter}?start=${nextResultCount}`)
-    .then((response) => {
-      // Actions.addMoreSearchData concats the new result items to the exist result items array in
-      // the Store.
-      Actions.addMoreSearchData(response.data.searchResultsItems);
-    })
-    .catch(error => {
-      console.log(`error calling API to add more results: ${error}`);
-
-      this.setState({
-        isLoading: false,
-      });
-    });
+    makeClientApiCall(this.props.searchKeyword, this.props.selectedFacet, nextResultCount,
+      (searchResultsItems, resultLength) => {
+        Actions.addMoreSearchData(searchResultsItems);
+        Actions.updateResultsStart(nextResultCount);
+      },
+      () => {
+        Actions.updateSearchKeyword('');
+        Actions.updateIsKeywordValid(false);
+      },
+      (value) => {
+        this.setState({ isLoading: value });
+      }
+    );
   }
 
   render() {
