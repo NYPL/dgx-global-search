@@ -157,35 +157,6 @@ class App extends React.Component {
         Actions.updateIsKeywordValid(false);
       }
     );
-
-
-    // const currentSearchKeyword = this.state.searchKeyword.trim() || '';
-    // const searchFilter = (facet) ? ` more:${facet}` : '';
-    // const requestParameter = `${currentSearchKeyword}${searchFilter}`;
-
-    // if (!currentSearchKeyword) {
-    //   this.setState({ isKeywordValid: false });
-    // } else {
-    //   axios
-    //   .get(`/api/${requestParameter}?start=0`)
-    //   .then((response) => {
-    //     const { searchResultsItems, resultLength } = response.data;
-
-    //     history.push({
-    //       pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
-    //     });
-
-    //     // The functions of Actions.js update the Store with different feature values
-    //     Actions.updateSearchKeyword(currentSearchKeyword);
-    //     Actions.updateSearchData(searchResultsItems);
-    //     Actions.updateSearchDataLength(resultLength);
-    //     Actions.updateSelectedFacet(facet);
-    //     Actions.updateResultsStart(0);
-    //   })
-    //   .catch(error => {
-    //     console.log(`error calling API to search '${requestParameter}': ${error}`);
-    //   });
-    // }
   }
 
   /**
