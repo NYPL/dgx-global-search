@@ -137,26 +137,30 @@ class App extends React.Component {
    * @param {String} selectedFacet
    */
   submitSearchRequest(selectedFacet) {
-    makeClientApiCall(this.state.searchKeyword, selectedFacet, 0,
-      (searchResultsItems, resultLength) => {
-        const currentSearchKeyword = this.state.searchKeyword.trim() || '';
-        const facet = selectedFacet;
+    if (!this.state.searchKeyword) {
+      this.setState({ isKeywordValid: false });
+    } else {
+      makeClientApiCall(this.state.searchKeyword, selectedFacet, 0,
+        (searchResultsItems, resultLength) => {
+          const currentSearchKeyword = this.state.searchKeyword.trim() || '';
+          const facet = selectedFacet;
 
-        history.push({
-          pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
-        });
+          history.push({
+            pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
+          });
 
-        Actions.updateSearchKeyword(currentSearchKeyword);
-        Actions.updateSearchData(searchResultsItems);
-        Actions.updateSearchDataLength(resultLength);
-        Actions.updateSelectedFacet(facet);
-        Actions.updateResultsStart(0);
-      },
-      () => {
-        Actions.updateSearchKeyword('');
-        Actions.updateIsKeywordValid(false);
-      }
-    );
+          Actions.updateSearchKeyword(currentSearchKeyword);
+          Actions.updateSearchData(searchResultsItems);
+          Actions.updateSearchDataLength(resultLength);
+          Actions.updateSelectedFacet(facet);
+          Actions.updateResultsStart(0);
+        },
+        () => {
+          Actions.updateSearchKeyword('');
+          Actions.updateIsKeywordValid(false);
+        }
+      );
+    }
   }
 
   /**
