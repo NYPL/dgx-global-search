@@ -61,7 +61,6 @@ class App extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
     this.searchBySelectedFacet = this.searchBySelectedFacet.bind(this);
-    this.cancelSelectedFacet = this.cancelSelectedFacet.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
@@ -127,10 +126,6 @@ class App extends React.Component {
    */
   searchBySelectedFacet(facet = '') {
     this.submitSearchRequest(facet);
-  }
-
-  cancelSelectedFacet() {
-    this.searchBySelectedFacet('');
   }
 
   /**
@@ -241,7 +236,6 @@ class App extends React.Component {
               facets={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
               onClickFacet={this.searchBySelectedFacet}
-              onClickDashCircle={this.cancelSelectedFacet}
             />
           </div>
           {this.state.resultsComponentData}
