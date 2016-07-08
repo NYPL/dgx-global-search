@@ -87,7 +87,9 @@ FilterList.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   facets: React.PropTypes.array,
-  clickClose: React.PropTypes.func,
+  selectedFacet: React.PropTypes.string,
+  onClickClose: React.PropTypes.func,
+  onClickFacet: React.PropTypes.func,
 };
 
 FilterList.defaultProps = {

@@ -29,6 +29,7 @@ FilterItem.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   onClick: React.PropTypes.func,
+  onClickDashCircle: React.PropTypes.func,
   label: React.PropTypes.string,
 };
 
