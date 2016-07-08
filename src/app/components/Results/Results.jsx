@@ -1,7 +1,5 @@
 import React from 'react';
 
-import axios from 'axios';
-
 // Import alt components
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -86,7 +84,7 @@ class Results extends React.Component {
     const nextResultCount = this.state.resultsStart + this.state.incrementResults;
 
     makeClientApiCall(this.props.searchKeyword, this.props.selectedFacet, nextResultCount,
-      (searchResultsItems, resultLength) => {
+      (searchResultsItems) => {
         Actions.addMoreSearchData(searchResultsItems);
         Actions.updateResultsStart(nextResultCount);
       },
