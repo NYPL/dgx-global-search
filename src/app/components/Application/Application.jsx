@@ -33,7 +33,19 @@ history.listen(location => {
   const resultsStart = 0;
 
   if (action === 'POP') {
-    makeClientApiCall(searchKeyword, searchFacet, resultsStart);
+    makeClientApiCall(searchKeyword, searchFacet, resultsStart,
+      (searchResultsItems, resultLength) => {
+        Actions.updateSearchKeyword(searchKeyword);
+        Actions.updateSearchData(searchResultsItems);
+        Actions.updateSearchDataLength(resultLength);
+        Actions.updateSelectedFacet(searchFacet);
+        Actions.updateResultsStart(resultsStart);
+      },
+      () => {
+        Actions.updateSearchKeyword('');
+        Actions.updateIsKeywordValid(false);
+      }
+    );
   }
 });
 

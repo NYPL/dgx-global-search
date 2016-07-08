@@ -1,32 +1,38 @@
 // Import library
 import axios from 'axios';
-import Actions from './../actions/Actions.js';
 
-const makeClientApiCall = (keyword, facet = '', start = 0) => {
-  const currentSearchKeyword = keyword || '';
-  const searchFilter = (facet) ? ` more:${facet}` : '';
-  const requestParameter = `${currentSearchKeyword}${searchFilter}`;
+/**
+ * makeClientApiCall(keyword, facet, start, callbackFunction, callbackFunctionNoKeyword)
+ * The function makes a client side API call to request the data for search results.
+ * After it gets the data successfully, it executes the callback function it has passed to.
+ * Generally, the callback function will serve to update Store.js with the methods of Actions.js. 
+ * If it is not assigned with a valid keyword, it executes the callback fucntion for no keyword.
+ *
+ * @param {String} keyword
+ * @param {String} facet
+ * @param {Number} start
+ * @param {Function} callbackFunction
+ * @param {Function} callbackFunctionNoKeyword
+ */
+const makeClientApiCall =
+  (keyword = '', facet = '', start = 0, callbackFunction, callbackFunctionNoKeyword) => {
+    const searchFilter = (facet) ? ` more:${facet}` : '';
+    const requestParameter = `${keyword}${searchFilter}`;
 
-  if (!keyword) {
-    Actions.updateSearchKeyword('');
-    Actions.updateIsKeywordValid(false);
-  } else {
-    axios
-      .get(`/api/${requestParameter}?start=${start.toString()}`)
-      .then((response) => {
-        const { searchResultsItems, resultLength } = response.data;
+    if (!keyword) {
+      callbackFunctionNoKeyword();
+    } else {
+      axios
+        .get(`/api/${requestParameter}?start=${start.toString()}`)
+        .then((response) => {
+          const { searchResultsItems, resultLength } = response.data;
 
-        // The functions of Actions.js update the Store with different feature values
-        Actions.updateSearchKeyword(currentSearchKeyword);
-        Actions.updateSearchData(searchResultsItems);
-        Actions.updateSearchDataLength(resultLength);
-        Actions.updateSelectedFacet(facet);
-        Actions.updateResultsStart(start);
-      })
-      .catch(error => {
-        console.log(`error calling API to search '${requestParameter}': ${error}`);
-      });
-  }
-};
+          callbackFunction(searchResultsItems, resultLength);
+        })
+        .catch(error => {
+          console.log(`error calling API to search '${requestParameter}': ${error}`);
+        });
+    }
+  };
 
 export { makeClientApiCall };
