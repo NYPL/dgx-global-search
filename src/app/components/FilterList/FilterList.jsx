@@ -41,6 +41,7 @@ class FilterList extends React.Component {
           className={isSelected}
           key={index}
           onClick={() => this.onClickApply(item.label)}
+          onClickDashCircle={() => this.onClickApply('')}
           label={item.anchor}
         />
       );
@@ -86,7 +87,9 @@ FilterList.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   facets: React.PropTypes.array,
-  clickClose: React.PropTypes.func,
+  selectedFacet: React.PropTypes.string,
+  onClickClose: React.PropTypes.func,
+  onClickFacet: React.PropTypes.func,
 };
 
 FilterList.defaultProps = {
