@@ -220,6 +220,7 @@ const fetchItem = (item, searchRequest) => {
  */
 const fetchResultItems = (data, searchRequest = '') => {
   try {
+    console.log(data.items[0].attributes);
     return _map(data.items, (item) => (fetchItem(item, searchRequest)));
   } catch (e) {
     console.log(e);
