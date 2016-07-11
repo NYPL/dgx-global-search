@@ -11,8 +11,6 @@ import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
 
-import axios from 'axios';
-
 // Import alt components
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -132,37 +130,35 @@ class App extends React.Component {
 
   /**
    * submitSearchRequest(selectedFacet)
-   * Submit the search request based on the values of the input fields.
+   * Submit the search request based on the values of the input fields and the facet.
    *
    * @param {String} selectedFacet
    */
-  submitSearchRequest(facet = '') {
-    const currentSearchKeyword = this.state.searchKeyword.trim() || '';
-    const searchFilter = (facet) ? ` more:${facet}` : '';
-    const requestParameter = `${currentSearchKeyword}${searchFilter}`;
-
-    if (!currentSearchKeyword) {
+  submitSearchRequest(selectedFacet) {
+    if (!this.state.searchKeyword) {
       this.setState({ isKeywordValid: false });
     } else {
-      axios
-      .get(`/api/${requestParameter}?start=0`)
-      .then((response) => {
-        const { searchResultsItems, resultLength } = response.data;
+      makeClientApiCall(this.state.searchKeyword, selectedFacet, 0,
+        (searchResultsItems, resultLength) => {
+          const currentSearchKeyword = this.state.searchKeyword.trim() || '';
+          const facet = selectedFacet;
 
-        history.push({
-          pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
-        });
+          // Update and transit to the match URL
+          history.push({
+            pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
+          });
 
-        // The functions of Actions.js update the Store with different feature values
-        Actions.updateSearchKeyword(currentSearchKeyword);
-        Actions.updateSearchData(searchResultsItems);
-        Actions.updateSearchDataLength(resultLength);
-        Actions.updateSelectedFacet(facet);
-        Actions.updateResultsStart(0);
-      })
-      .catch(error => {
-        console.log(`error calling API to search '${requestParameter}': ${error}`);
-      });
+          Actions.updateSearchKeyword(currentSearchKeyword);
+          Actions.updateSearchData(searchResultsItems);
+          Actions.updateSearchDataLength(resultLength);
+          Actions.updateSelectedFacet(facet);
+          Actions.updateResultsStart(0);
+        },
+        () => {
+          Actions.updateSearchKeyword('');
+          Actions.updateIsKeywordValid(false);
+        }
+      );
     }
   }
 
