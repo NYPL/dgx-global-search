@@ -56,6 +56,13 @@ describe('fetchResultItems', () => {
       ).to.deep.equal(matchedResults.ItemWithExhibitionLabel);
     }
   );
+
+  it('should return an item with correct attributes.',
+    () => {
+      expect(fetchResultItems(testData.multipleLabels, 'apple more:exhibitions')
+      ).to.deep.equal(matchedResults.ItemWithExhibitionLabel);
+    }
+  );
 });
 
 describe('fetchSearchFacetsList', () => {
