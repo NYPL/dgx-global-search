@@ -162,6 +162,7 @@
       text-align: left;
 
       li {
+        cursor: pointer;
         list-style-type: none;
         padding: 14px 0 14px 25px;
         text-transform: uppercase;
@@ -180,12 +181,9 @@
           }
         }
 
-        span {
-          cursor: pointer;
-        }
-
-        .circleDashButton {
+        .svgIcon {
           display: none;
+          fill: #FFF;
           float: right;
           margin: -4px 14px 0 0;
 
@@ -200,14 +198,6 @@
 
           &.selected {
             display: block;
-          }
-        }
-
-        .svgIcon {
-          fill: #FFF;
-
-          @include min-screen($tablet-landscape) {
-            fill: $SEARCH_BLUE;
           }
         }
       }
