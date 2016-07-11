@@ -1,18 +1,129 @@
 /*
+Import utils and fonts
+*/
+@import 'utils/mixins';
+@import 'utils/colors';
+@import "utils/fonts";
+
+/*
+Import singularity and breakpoints
+*/
+@import "~singularitygs/stylesheets/singularitygs";
+@import "~breakpoint-sass/stylesheets/breakpoint";
+
+/*
+Import Normalize and Grid settings for nyplHomepage App
+*/
+@import "utils/normalize";
+@import "utils/gridSettings";
+
+/*
 Import style rules from NYPL React module components
 */
 @import "~dgx-header-component/dist/styles/main";
 @import '~dgx-react-footer/dist/styles/styles';
 
+/*
+Import style rules from App components
+*/
+@import "components/InputField";
+@import "components/SearchButton";
+@import "components/Filter";
+@import "components/Results";
+@import "components/PaginationButton";
+
 #app {
   margin: 0;
+  padding: 0;
+
+  @include add-grid(3);
 }
 
-#maincontent {
+.gs-mainContent {
+  @include grid-span(3, 1);
+
+  outline: none;
   position: relative;
-  border-top: 67px solid transparent;
-  margin: -50px 0 0;
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
+
+  @include layout-at(9, $tablet-landscape) {
+    box-sizing: border-box;
+    min-height: 660px;
+    padding: 0 20px;
+  }
+
+  @include min-screen($desktop) {
+    box-sizing: content-box;
+    float: none;
+    margin: 0 auto;
+    max-width: 1313px;
+    padding: 0;
+  }
+
+  h2 {
+    @include Kievit-Medium;
+
+    color: $PRIMARY_COLOR;
+    font-size: 18px;
+    line-height: 21px;
+    margin: 19px 0 23px 0;
+    padding: 0 14px;
+
+    @include min-screen($tablet-portrait) {
+      padding: 0 36px;
+    }
+
+    @include layout-at(9, $tablet-landscape) {
+      @include grid-span(8, 2);
+
+      margin: 19px 0 0 0;
+      padding: 0;
+    }
+
+    span {
+      &:last-child {
+        font-size: 12px;
+        vertical-align: 12px;
+      }
+    }
+  }
+
+  .gs-operations {
+    display: block;
+
+    @include layout-at(7, $tablet-portrait) {
+        @include grid-span(7, 1);
+
+        box-sizing: border-box;
+        display: inline-block;
+        margin: 0 0 27px 0;
+        padding: 0 36px;
+    }
+
+    @include layout-at(9, $tablet-landscape) {
+        @include grid-span(8, 2);
+
+        margin: 30px 0 27px 0;
+        padding: 0 20px 0 0;
+    }
+  }
+
+  .gs-searchField {
+    @include layout-at(8, $tablet-landscape) {
+      @include grid-span(7, 1);
+    }
+
+    @include layout-at(8, $desktop) {
+      @include grid-span(6, 1);
+    }
+  }
 }
+
+.visuallyHidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0); /* IE6, IE7 */
+  clip: rect(0, 0, 0, 0);
+}
+

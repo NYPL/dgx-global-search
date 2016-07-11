@@ -1,0 +1,45 @@
+.gs-searchButton {
+  @include Kievit-Medium;
+
+  background-color: $SEARCH_BLUE;
+  border: none;
+  box-sizing: border-box;
+  color: #FFF;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 14px;
+  padding: 10px 20px;
+  text-align: center;
+  width: 100%;
+
+  @include layout-at(7, $tablet-portrait) {
+    padding: 8px 35px;
+  }
+
+  span {
+    vertical-align: 10px;
+  }
+
+  &-wrapper {
+    margin: 0 0 15px 0;
+    padding: 0 14px;
+
+    @include layout-at(7, $tablet-portrait) {
+      @include grid-span(2, 4);
+
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
+
+    @include layout-at(7, $tablet-landscape) {
+      @include grid-span(2, 5);
+
+      margin: 0;
+    }
+
+    @include min-screen($desktop) {
+      width: 20%;
+    }
+  }
+}

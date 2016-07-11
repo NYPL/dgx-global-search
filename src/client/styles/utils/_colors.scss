@@ -1,0 +1,28 @@
+/* NYPL GLOBAL SEARCH COLOR PALETTE 
+ * ---------------------------
+ * For reference, go to https://bitbucket.org/NYPL/dgx-ethyl-style-guide
+ * and set up the Ethyl Style Guide application.
+*/
+
+/* NYPL Primary Red */
+$PRIMARY_COLOR: #ED1C24 !default;
+$SECONDARY_RED_COLOR: #FF4F43 !default;
+
+/* Coolgray */
+$COOLGRAY_COLOR: #A3A19E !default;
+
+/* Search */
+$SEARCH_BLUE: #2799C5 !default;
+$INPUT_FIELD_GREY: #665C52 !default;
+$FILTER_ICON_GREY: #837E77 !default;
+
+/* Reusable Utility Color Classes for Fonts/Background Color */
+
+// Background Color Classes
+.bgPrimaryLibraryRed {
+  background-color: $PRIMARY_COLOR;
+}
+
+.bgSecondaryLibraryRed {
+  background-color: $SECONDARY_RED_COLOR;
+}

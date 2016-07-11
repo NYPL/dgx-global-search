@@ -1,28 +1,108 @@
 import React from 'react';
+import {
+  extend as _extend,
+ } from 'underscore';
 
 // Import components
 import Header from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
+import SearchButton from '../SearchButton/SearchButton.jsx';
+import Filter from '../Filter/Filter.jsx';
+
+import axios from 'axios';
 
 // Import alt components
 import Store from '../../stores/Store.js';
+import Actions from '../../actions/Actions.js';
 
-// Import libraries
-import { extend as _extend } from 'underscore';
+// Import utilities
+import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
+import { createAppHistory } from '../../utils/SearchHistory.js';
+
+const history = createAppHistory();
+
+history.listen(location => {
+  const {
+    action,
+    pathname,
+  } = location;
+  const searchKeyword = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
+  const searchFacet = (pathname.split('/')[4]) ? pathname.split('/')[4] : '';
+  const resultsStart = 0;
+
+  if (action === 'POP') {
+    makeClientApiCall(searchKeyword, searchFacet, resultsStart,
+      (searchResultsItems, resultLength) => {
+        Actions.updateSearchKeyword(searchKeyword);
+        Actions.updateSearchData(searchResultsItems);
+        Actions.updateSearchDataLength(resultLength);
+        Actions.updateSelectedFacet(searchFacet);
+        Actions.updateResultsStart(resultsStart);
+      },
+      () => {
+        Actions.updateSearchKeyword('');
+        Actions.updateIsKeywordValid(false);
+      }
+    );
+  }
+});
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = _extend(Store.getState(),
-      { placeholder: 'What would you like to find?' }
+    this.state = _extend(
+      {
+        resultsComponentData: null,
+      },
+      Store.getState()
     );
 
+    this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
+    this.searchBySelectedFacet = this.searchBySelectedFacet.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
+    this.renderResults = this.renderResults.bind(this);
+  }
+
+  // Setting state in componentWillMount() helps us render the results for the first time before
+  // the component making any client call. This is for the situation of the user get to the main
+  // page with a search term
+  componentWillMount() {
+    this.setState({
+      resultsComponentData: this.renderResults(
+        Store.getState().searchKeyword,
+        Store.getState().searchData,
+        Store.getState().searchDataLength
+      ),
+    });
+  }
+
+  componentDidMount() {
+    // Listen to any change of the Store
+    Store.listen(this.onChange);
+  }
+
+  componentWillUnmount() {
+    // Stop listening to the Store
+    Store.unlisten(this.onChange);
+  }
+
+  onChange() {
+    // Updates the state with the new search data
+    this.setState({
+      isKeywordValid: true,
+      searchKeyword: Store.getState().searchKeyword,
+      selectedFacet: Store.getState().selectedFacet,
+      resultsComponentData: this.renderResults(
+        Store.getState().searchKeyword,
+        Store.getState().searchData,
+        Store.getState().searchDataLength
+      ),
+    });
   }
 
   /**
@@ -40,20 +120,49 @@ class App extends React.Component {
   }
 
   /**
-   * submitSearchRequest(value)
+   * searchBySelectedFacet(facet)
+   * Set the facet with the value of the clicked facet element.
+   * It then makes an client AJAX call to fetch the results.
+   *
+   * @param {String} facet
+   */
+  searchBySelectedFacet(facet = '') {
+    this.submitSearchRequest(facet);
+  }
+
+  /**
+   * submitSearchRequest(selectedFacet)
    * Submit the search request based on the values of the input fields.
    *
-   * @param {String} value
+   * @param {String} selectedFacet
    */
-  submitSearchRequest() {
-    const requestParameter = this.state.searchKeyword.trim() || '';
+  submitSearchRequest(facet = '') {
+    const currentSearchKeyword = this.state.searchKeyword.trim() || '';
+    const searchFilter = (facet) ? ` more:${facet}` : '';
+    const requestParameter = `${currentSearchKeyword}${searchFilter}`;
 
-    if (!requestParameter) {
-      this.setState({ placeholder: 'Please enter a search term.' });
+    if (!currentSearchKeyword) {
+      this.setState({ isKeywordValid: false });
     } else {
-      const requestUrl = `/search/apachesolr_search/${requestParameter}`;
+      axios
+      .get(`/api/${requestParameter}?start=0`)
+      .then((response) => {
+        const { searchResultsItems, resultLength } = response.data;
 
-      window.location.assign(requestUrl);
+        history.push({
+          pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
+        });
+
+        // The functions of Actions.js update the Store with different feature values
+        Actions.updateSearchKeyword(currentSearchKeyword);
+        Actions.updateSearchData(searchResultsItems);
+        Actions.updateSearchDataLength(resultLength);
+        Actions.updateSelectedFacet(facet);
+        Actions.updateResultsStart(0);
+      })
+      .catch(error => {
+        console.log(`error calling API to search '${requestParameter}': ${error}`);
+      });
     }
   }
 
@@ -66,38 +175,77 @@ class App extends React.Component {
    */
   triggerSubmit(event) {
     if (event && event.charCode === 13) {
-      this.submitSearchRequest();
+      this.submitSearchRequest(this.state.selectedFacet);
     }
+  }
+
+  /**
+   * renderResults()
+   * The function renders the results of the search request.
+   * If no search keyword input, it won't render anything and return null.
+   *
+   * @return {Object} object
+   */
+  renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
+    if (!searchKeyword) {
+      return null;
+    }
+
+    return (
+      <Results
+        amount={searchResultsLength}
+        results={searchResultsArray}
+        id="gs-results"
+        className="gs-results"
+        searchKeyword={searchKeyword}
+        selectedFacet={this.state.selectedFacet}
+        resultsStart={this.state.resultsStart}
+      />
+    );
   }
 
   render() {
     const inputValue = this.state.searchKeyword || '';
-    const keywordHint = inputValue || 'No search keyword found.';
+    const inputPlaceholder = (this.state.isKeywordValid) ?
+      'Enter Search Terms' : 'Please enter a search term';
 
     return (
-      <div className="app-wrapper" onKeyPress={this.triggerSubmit}>
-        <Header skipNav={{ target: 'maincontent' }} />
+      <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp" onKeyPress={this.triggerSubmit}>
+        <Header skipNav={{ target: 'gs-mainContent' }} />
 
-        <div id="maincontent" tabIndex="-1">
-          <h2>NYPL Global Search</h2>
-          <InputField
-            type="text"
-            placeholder={this.state.placeholder}
-            ref="keywords"
-            value={inputValue}
-            onChange={this.inputChange}
-          />
-          <button onClick={this.submitSearchRequest}>
-            SUBMIT
-          </button>
-          <h2>Search Results</h2>
-          <p>The search keyword is: {keywordHint}</p>
-          <p>We got {this.state.searchDataLength} results.</p>
-          <h3>the result item titles</h3>
-          <Results results={this.state.searchData} />
+        <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
+          <h2>NYPL Search <span>BETA</span></h2>
+          <div id="gs-operations" className="gs-operations">
+            <div id="gs-searchField" className="gs-searchField">
+              <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
+                <InputField
+                  id="gs-inputField"
+                  className="gs-inputField"
+                  type="text"
+                  placeholder={inputPlaceholder}
+                  value={inputValue}
+                  onChange={this.inputChange}
+                />
+              </div>
+              <SearchButton
+                id="gs-searchButton"
+                className="gs-searchButton"
+                label="SEARCH"
+                onClick={() => this.submitSearchRequest(this.state.selectedFacet)}
+              />
+            </div>
+            <Filter
+              id="gs-filter"
+              className="gs-filter"
+              facets={this.state.searchFacets}
+              selectedFacet={this.state.selectedFacet}
+              onClickFacet={this.searchBySelectedFacet}
+            />
+          </div>
+          {this.state.resultsComponentData}
         </div>
 
-        <Footer />
+        <Footer id="footer" className="footer" />
       </div>
     );
   }

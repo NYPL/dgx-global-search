@@ -13,6 +13,26 @@ class Actions {
   updateSearchDataLength(data) {
     this.dispatch(data);
   }
+
+  updateIsKeywordValid(data) {
+    this.dispatch(data);
+  }
+
+  updateSearchFacets(data) {
+    this.dispatch(data);
+  }
+
+  updateSelectedFacet(data) {
+    this.dispatch(data);
+  }
+
+  addMoreSearchData(data) {
+    this.dispatch(data);
+  }
+
+  updateResultsStart(data) {
+    this.dispatch(data);
+  }
 }
 
 export default alt.createActions(Actions);
