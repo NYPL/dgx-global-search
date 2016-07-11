@@ -5,7 +5,7 @@ import {
   fetchSearchFacetsList,
 } from './../src/app/utils/SearchModel.js';
 
-const testFiles = {
+const testData = {
   noItem: {
     items: [
       {},
@@ -14,7 +14,7 @@ const testFiles = {
   noItemAttributes: {
     items: [
       {
-        attributes: {},
+        attributes: undefined,
       },
     ],
   },
@@ -39,6 +39,10 @@ const testFiles = {
             {
               name: 'digital_collections',
               displayName: 'Digital Collections',
+            },
+            {
+              name: 'audio_video',
+              displayName: 'Audio/Video',
             },
           ],
         },
@@ -122,49 +126,45 @@ describe('fetchResultItems', () => {
     expect(fetchResultItems()).to.deep.equal([]);
   });
 
-  it('should return an empty array if data is an empty array.', () => {
-    expect(fetchResultItems([])).to.deep.equal([]);
-  });
-
-  it('should return an empty array if data is an array with an empty object.', () => {
-    expect(fetchResultItems([{}])).to.deep.equal([]);
+  it('should return an empty array if data is an empty object.', () => {
+    expect(fetchResultItems({})).to.deep.equal([]);
   });
 
   it('should return an array with a default item if the item is undefined or null.', () => {
-    expect(fetchResultItems(testFiles.noItem)).to.deep.equal(matchedResults.presetItem);
+    expect(fetchResultItems(testData.noItem)).to.deep.equal(matchedResults.presetItem);
   });
 
-  it('should return an array with a default item if the attributes of the item are undefined or '+
+  it('should return an array with a default item if the attributes of the item are undefined or ' +
     'null.',
     () => {
-      expect(fetchResultItems(testFiles.noItemAttributes)).to.deep.equal(matchedResults.presetItem);
-  });
+      expect(fetchResultItems(testData.noItemAttributes)).to.deep.equal(matchedResults.presetItem);
+    });
 
   it('should return an item with preset label if attributes.labels is undefined or null.',
     () => {
-      expect(fetchResultItems(testFiles.noLabels)).to.deep.equal(matchedResults.presetItem);
+      expect(fetchResultItems(testData.noLabels)).to.deep.equal(matchedResults.presetItem);
     }
   );
 
-  it('should return an item with the first label.displayName if searchRequest is ' +
+  it('should return an item with the first label.displayName as its label if searchRequest is ' +
     'undefined or null.',
     () => {
-      expect(fetchResultItems(testFiles.multipleLabels)).to.deep.equal(
+      expect(fetchResultItems(testData.multipleLabels)).to.deep.equal(
         matchedResults.ItemWithExhibitionLabel
       );
     }
   );
 
-  it('should return an item with the matched label.displayName with search facet.',
+  it('should return an item with the matched label with search facet.',
     () => {
-      expect(fetchResultItems(testFiles.multipleLabels, 'apple more:exhibitions')
+      expect(fetchResultItems(testData.multipleLabels, 'apple more:exhibitions')
       ).to.deep.equal(matchedResults.ItemWithExhibitionLabel);
     }
   );
 });
 
 describe('fetchSearchFacetsList', () => {
-  it('should return a preset array if data is undefined or null', () => {
+  it('should return a preset facet array if data is undefined or null', () => {
     expect(fetchSearchFacetsList()).to.deep.equal(presetFacets);
   });
 });
