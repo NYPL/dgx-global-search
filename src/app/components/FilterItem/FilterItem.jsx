@@ -2,7 +2,6 @@ import React from 'react';
 
 // Import libraries
 import { CircleDashIcon } from 'dgx-svg-icons';
-// import { BasicButton } from 'dgx-react-buttons';
 
 const FilterItem = ({
   className,
