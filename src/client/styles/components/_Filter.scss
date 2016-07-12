@@ -172,6 +172,12 @@
           padding: 14px 0 14px 21px;
         }
 
+        &.greyOut {
+          @include min-screen($tablet-landscape) {
+            color: #BFBFBF;
+          }
+        }
+
         &.selected {
           background-color: #44433F;
 

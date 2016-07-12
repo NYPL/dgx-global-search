@@ -39,12 +39,12 @@ class FilterList extends React.Component {
    */
   renderfacets() {
     return _map(this.props.facets, (item, index) => {
-      const isSelected = (item.label === this.props.selectedFacet) ?
-        'selected' : '';
+      const isSelected = (item.label === this.props.selectedFacet) ? 'selected' : '';
+      const greyOut = (this.props.selectedFacet !== '' && !isSelected) ? 'greyOut' : '';
 
       return (
         <FilterItem
-          className={isSelected}
+          className={`${greyOut} ${isSelected}`}
           key={index}
           onClick={() => this.onClickApply(item.label)}
           label={item.anchor}
