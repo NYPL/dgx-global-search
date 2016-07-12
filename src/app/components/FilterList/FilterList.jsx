@@ -18,12 +18,18 @@ class FilterList extends React.Component {
 
   /**
    * onClickApply()
-   * The function applies the facet and makes an AJAX call to fetch new results.
+   * The function applies the newly clicked facet to FilterItem for its click function,
+   * if the applied facet equals to the previous facet, it resets the current facet to null.
    *
    */
   onClickApply(facet) {
     this.props.onClickClose();
-    this.props.onClickFacet(facet);
+
+    if (facet === this.props.selectedFacet) {
+      this.props.onClickFacet('');
+    } else {
+      this.props.onClickFacet(facet);
+    }
   }
 
   /**
@@ -86,7 +92,9 @@ FilterList.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   facets: React.PropTypes.array,
-  clickClose: React.PropTypes.func,
+  selectedFacet: React.PropTypes.string,
+  onClickClose: React.PropTypes.func,
+  onClickFacet: React.PropTypes.func,
 };
 
 FilterList.defaultProps = {
