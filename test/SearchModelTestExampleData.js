@@ -77,10 +77,6 @@ const matchedResults = {
 
 const presetFacets = [
   {
-    anchor: 'All',
-    label: '',
-  },
-  {
     anchor: 'Digital Collections',
     label: 'digital_collections',
   },

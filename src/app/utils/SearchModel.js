@@ -39,10 +39,6 @@ const fetchResultLength = (data) => {
 const fetchSearchFacetsList = () =>
   [
     {
-      anchor: 'All',
-      label: '',
-    },
-    {
       anchor: 'Digital Collections',
       label: 'digital_collections',
     },
