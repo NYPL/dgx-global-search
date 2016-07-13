@@ -53,6 +53,18 @@ const generateWholeRowClass = (src) => {
  */
 const createMarkup = (text) => ({ __html: text });
 
+const renderTitle = (title, className, wholeRowClass) => {
+  const titleMargin = (title) ? '' : 'noMargin';
+
+  return (
+    <h3
+      className={`${className}-title ${wholeRowClass} ${titleMargin}`}
+      dangerouslySetInnerHTML={createMarkup(title)}
+    >
+    </h3>
+  );
+};
+
 const ResultsItem = ({
   className,
   id,
@@ -78,11 +90,7 @@ const ResultsItem = ({
       href={link}
     >
       {renderImage(className, thumbnailSrc, title)}
-      <h3
-        className={`${className}-title ${wholeRowClass}`}
-        dangerouslySetInnerHTML={createMarkup(title)}
-      >
-      </h3>
+      {renderTitle(title, className, wholeRowClass)}
     </a>
     <p
       className={`${className}-linkText ${wholeRowClass}`}

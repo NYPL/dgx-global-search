@@ -65,6 +65,10 @@
       font-size: 18px;
       line-height: 21px;
 
+      &.noMargin {
+        margin: 0;
+      }
+
       @include layout-at(7, $tablet-portrait) {
         @include grid-span(5, 3);
 
