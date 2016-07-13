@@ -164,10 +164,14 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
  * The reason to have the function is to get rid of unwanted HTML tags in
  * the contents and also the default styles come along with them.
  *
+ * Regex explanation: To pick up any text section between "&lt;" and the first "&gt;" it encounters.
+ * Then to remove the possible open HTML tag in the end, such as "</div".
+ *
  * @param {String} string
  * @return {String}
  */
-const stripPossibleHTMLTag = (string) => string.replace(/(&lt;)[^>]+(&gt;)/g, '');
+const stripPossibleHTMLTag = (string) =>
+  string.replace(/&lt;[^(&gt;)]+?&gt;/g, '').replace(/&lt;.*/, '');
 
 /**
  * fetchItemFeature(item, feature)
@@ -212,10 +216,13 @@ const fetchItem = (item, searchRequest) => {
     };
   }
 
+  const modeledTitle = stripPossibleHTMLTag(fetchItemFeature(item, 'title'));
+  const modeledSnippet = stripPossibleHTMLTag(fetchItemFeature(item, 'snippet'));
+
   return {
-    title: stripPossibleHTMLTag(fetchItemFeature(item, 'title')),
+    title: modeledTitle,
     link: fetchItemFeature(item, 'link'),
-    snippet: stripPossibleHTMLTag(fetchItemFeature(item, 'snippet')),
+    snippet: modeledSnippet,
     thumbnailSrc: fetchItemFeature(item, 'thumbnail-url'),
     label: fetchDisplayName(item.attributes.labels, searchRequest),
   };
