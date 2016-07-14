@@ -54,12 +54,12 @@ const generateWholeRowClass = (src) => {
 const createMarkup = (text) => ({ __html: text });
 
 const renderTitle = (title, className, wholeRowClass) => {
-  const titleMargin = (title) ? '' : 'noMargin';
+  const newTitle = title ? title : 'No title for this item';
 
   return (
     <h3
-      className={`${className}-title ${wholeRowClass} ${titleMargin}`}
-      dangerouslySetInnerHTML={createMarkup(title)}
+      className={`${className}-title ${wholeRowClass}`}
+      dangerouslySetInnerHTML={createMarkup(newTitle)}
     >
     </h3>
   );
