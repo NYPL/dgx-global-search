@@ -53,8 +53,8 @@ const generateWholeRowClass = (src) => {
  */
 const createMarkup = (text) => ({ __html: text });
 
-const renderTitle = (title, className, wholeRowClass) => {
-  const newTitle = title ? title : 'No title for this item';
+const renderTitle = (title = 'No title for this item', className, wholeRowClass) => {
+  const newTitle = title ? title : 'No Title for this Item';
 
   return (
     <h3
