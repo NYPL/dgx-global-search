@@ -161,8 +161,8 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
  * It replaces all the sections of texts in the input that start with "<" ("&lt;" in HTML name)
  * and end with ">" ("&gt;" in HTML name) with "".
  * It then returns a new modified string.
- * The reason to have the function is to get rid of unwanted HTML tags in
- * the contents and also the default styles come along with them.
+ * The reason to have the function is to get rid of unwanted HTML tags in the contents
+ * and also the default styles come along with them.
  *
  * Regex explanation: To pick up any text section between "&lt;" and the first "&gt;" it encounters.
  * Then to remove the possible open HTML tag in the end, such as "</div".
