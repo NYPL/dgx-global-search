@@ -2,6 +2,7 @@ import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 
+import { navConfig } from 'dgx-header-component';
 import Model from 'dgx-model-data';
 import {
   fetchResultLength,
@@ -51,7 +52,7 @@ const requestSearchResult = (req, res, next) => {
 
       res.locals.data = {
         HeaderStore: {
-          headerData: headerModelData,
+          headerData: navConfig.current,
         },
         SearchStore: {
           searchKeyword: req.params.searchKeyword,
@@ -74,7 +75,7 @@ const requestSearchResult = (req, res, next) => {
 
       res.locals.data = {
         HeaderStore: {
-          headerData: [],
+          headerData: navConfig.current,
         },
         SearchStore: {
           searchKeyword: '',
@@ -130,7 +131,7 @@ const requestHeaderOnly = (req, res, next) => {
 
       res.locals.data = {
         HeaderStore: {
-          headerData: headerModelData,
+          headerData: navConfig.current,
         },
       };
 
@@ -142,7 +143,7 @@ const requestHeaderOnly = (req, res, next) => {
 
       res.locals.data = {
         HeaderStore: {
-          headerData: [],
+          headerData: navConfig.current,
         },
       };
 
