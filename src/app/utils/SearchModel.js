@@ -74,6 +74,10 @@ const fetchSearchFacetsList = () =>
       anchor: 'Locations',
       label: 'locations',
     },
+    {
+      anchor: 'Help',
+      label: 'help',
+    },
   ];
 
 /**
@@ -152,6 +156,24 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
 };
 
 /**
+ * stripPossibleHTMLTag(string)
+ * The function strips the possible HTML tags in a string.
+ * It replaces all the sections of texts in the input that start with "<" ("&lt;" in HTML name)
+ * and end with ">" ("&gt;" in HTML name) with "".
+ * It then returns a new modified string.
+ * The reason to have the function is to get rid of unwanted HTML tags in the contents
+ * and also the default styles come along with them.
+ *
+ * Regex explanation: To pick up any text section between "&lt;" and the first "&gt;" it encounters.
+ * Then to remove the possible open HTML tag in the end, such as "</div".
+ *
+ * @param {String} string
+ * @return {String}
+ */
+const stripPossibleHTMLTag = (string) =>
+  string.replace(/&lt;[^(&gt;)]+?&gt;/g, '').replace(/&lt;.*/, '');
+
+/**
  * fetchItemFeature(item, feature)
  * The function gets the features, except label, from an result item.
  * The second argument indicates which feature it is going to get.
@@ -194,10 +216,13 @@ const fetchItem = (item, searchRequest) => {
     };
   }
 
+  const modeledTitle = stripPossibleHTMLTag(fetchItemFeature(item, 'title'));
+  const modeledSnippet = stripPossibleHTMLTag(fetchItemFeature(item, 'snippet'));
+
   return {
-    title: fetchItemFeature(item, 'title'),
+    title: modeledTitle,
     link: fetchItemFeature(item, 'link'),
-    snippet: fetchItemFeature(item, 'snippet'),
+    snippet: modeledSnippet,
     thumbnailSrc: fetchItemFeature(item, 'thumbnail-url'),
     label: fetchDisplayName(item.attributes.labels, searchRequest),
   };

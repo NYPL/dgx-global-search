@@ -59,6 +59,10 @@ class SearchStore {
           anchor: 'Locations',
           label: 'locations',
         },
+        {
+          anchor: 'Help',
+          label: 'help',
+        },
       ];
     });
   }

@@ -44,7 +44,7 @@ describe('fetchResultItems', () => {
   it('should return an item with the first label.displayName as its label if searchRequest is ' +
     'undefined or null.',
     () => {
-      expect(fetchResultItems(testData.multipleLabels)).to.deep.equal(
+      expect(fetchResultItems(testData.contentWithHTMLTags)).to.deep.equal(
         matchedResults.ItemWithExhibitionLabel
       );
     }
@@ -52,14 +52,21 @@ describe('fetchResultItems', () => {
 
   it('should return an item with the matched label with search facet.',
     () => {
-      expect(fetchResultItems(testData.multipleLabels, 'apple more:exhibitions')
+      expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')
+      ).to.deep.equal(matchedResults.ItemWithExhibitionLabel);
+    }
+  );
+
+  it('should return an item without HTML tags in its title and snippet.',
+    () => {
+      expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')
       ).to.deep.equal(matchedResults.ItemWithExhibitionLabel);
     }
   );
 
   it('should return an item with correct attributes.',
     () => {
-      expect(fetchResultItems(testData.multipleLabels, 'apple more:exhibitions')
+      expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')
       ).to.deep.equal(matchedResults.ItemWithExhibitionLabel);
     }
   );
