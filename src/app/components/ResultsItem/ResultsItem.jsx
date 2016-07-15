@@ -55,10 +55,11 @@ const createMarkup = (text) => ({ __html: text });
 
 const renderTitle = (title = 'No title for this item', className, wholeRowClass) => {
   const newTitle = title ? title : 'No Title for this Item';
+  const visuallyHiddenClass = title ? '' : 'visuallyHidden';
 
   return (
     <h3
-      className={`${className}-title ${wholeRowClass}`}
+      className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
       dangerouslySetInnerHTML={createMarkup(newTitle)}
     >
     </h3>
