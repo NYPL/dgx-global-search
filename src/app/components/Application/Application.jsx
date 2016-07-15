@@ -4,7 +4,7 @@ import {
  } from 'underscore';
 
 // Import components
-import Header from 'dgx-header-component';
+import { Header } from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
