@@ -55,7 +55,7 @@
     "extract-text-webpack-plugin": "1.0.1",
     "history": "3.0.0",
     "iso": "5.2.0",
-    "jsonapi-parserinator": "0.4.8",
+    "jsonapi-parserinator": "0.5.0",
     "mocha": "2.4.5",
     "node-sass": "3.4.2",
     "radium": "0.13.8",
