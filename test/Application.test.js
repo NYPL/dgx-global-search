@@ -12,13 +12,13 @@ describe('Application', () => {
     component = shallow(<Application />);
   });
 
-  it('is wrapped in a div.app-wrapper', () => {
-    expect(component.find('.app-wrapper')).to.have.length(1);
+  it('is wrapped in a div.nyplGlobalSearchApp', () => {
+    expect(component.find('.nyplGlobalSearchApp')).to.have.length(1);
   });
 
   it('contains an h2.', () => {
     const title = component.find('h2');
     expect(title).to.have.length(1);
-    expect(title.text()).to.equal('NYPL Rocks!');
+    expect(title.text()).to.equal('NYPL Search BETA');
   });
 });

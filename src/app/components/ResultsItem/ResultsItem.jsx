@@ -1,6 +1,40 @@
 import React from 'react';
 
 /**
+ * createMarkup(text)
+ * The function converts the plain texts in to html inner text style.
+ * As a result, it helps encode special characters.
+ *
+ * @param {text} string
+ * @return object
+ */
+const createMarkup = (text) => ({ __html: text });
+
+/**
+ * renderTitle(title, className, wholeRowClass)
+ * The function renders the HTML entity presents title.
+ * If no title found, it renders the default title "No Title for this Item"
+ * for screen reader users and visually hides this title object.
+ *
+ * @param {title} string
+ * @param {className} string
+ * @param {wholeRowClass} string
+ * @return object
+ */
+const renderTitle = (title, className, wholeRowClass) => {
+  const newTitle = title || 'No Title for this Item';
+  const visuallyHiddenClass = title ? '' : 'visuallyHidden';
+
+  return (
+    <h3
+      className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
+      dangerouslySetInnerHTML={createMarkup(newTitle)}
+    >
+    </h3>
+  );
+};
+
+/**
  * renderImage(className, src, title)
  * The function renders <img> if this.props.thumbnailSrc is true.
  *
@@ -43,16 +77,6 @@ const generateWholeRowClass = (src) => {
   return '';
 };
 
-/**
- * createMarkup(text)
- * The function converts the plain texts in to html inner text style.
- * As a result, it helps encode special characters.
- *
- * @param {text} string
- * @return object
- */
-const createMarkup = (text) => ({ __html: text });
-
 const ResultsItem = ({
   className,
   id,
@@ -78,11 +102,7 @@ const ResultsItem = ({
       href={link}
     >
       {renderImage(className, thumbnailSrc, title)}
-      <h3
-        className={`${className}-title ${wholeRowClass}`}
-        dangerouslySetInnerHTML={createMarkup(title)}
-      >
-      </h3>
+      {renderTitle(title, className, wholeRowClass)}
     </a>
     <p
       className={`${className}-linkText ${wholeRowClass}`}

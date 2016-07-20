@@ -136,10 +136,6 @@
       border: none;
       cursor: pointer;
       padding: 0;
-
-      &.greyOut {
-        cursor: default;
-      }
     }
 
     &-closeButton {
@@ -174,6 +170,12 @@
         @include min-screen($tablet-landscape) {
           background-color: transparent;
           padding: 14px 0 14px 21px;
+        }
+
+        &.greyOut {
+          @include min-screen($tablet-landscape) {
+            color: #BFBFBF;
+          }
         }
 
         &.selected {

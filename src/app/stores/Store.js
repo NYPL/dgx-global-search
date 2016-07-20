@@ -24,10 +24,6 @@ class SearchStore {
       this.resultsIncrement = 10;
       this.searchFacets = [
         {
-          anchor: 'All',
-          label: '',
-        },
-        {
           anchor: 'Digital Collections',
           label: 'digital_collections',
         },
@@ -62,6 +58,10 @@ class SearchStore {
         {
           anchor: 'Locations',
           label: 'locations',
+        },
+        {
+          anchor: 'Help',
+          label: 'help',
         },
       ];
     });
