@@ -19,9 +19,9 @@ window.onload = () => {
 
   if (!window.dgxFeatureFlags) {
     window.dgxFeatureFlags = FeatureFlags.utils;
-
-    FeatureFlags.utils.activateFeature('shop-link');
   }
+
+  FeatureFlags.utils.activateFeature('shop-link');
 
   // Render Isomorphically
   Iso.bootstrap((state, container) => {
