@@ -8,6 +8,7 @@ import ReactDOMServer from 'react-dom/server';
 
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
+import FeatureFlags from 'dgx-feature-flags';
 
 import appConfig from './appConfig.js';
 import analytics from './analytics.js';
@@ -49,6 +50,9 @@ app.use('/', (req, res) => {
 
   const iso = new Iso();
   const application = ReactDOMServer.renderToString(<Application />);
+
+  // Fire off the Feature Flag prior to render
+  FeatureFlags.utils.activateFeature('shop-link');
 
   iso.add(application, alt.flush());
 
