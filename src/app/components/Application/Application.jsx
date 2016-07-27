@@ -145,7 +145,7 @@ class App extends React.Component {
 
           // Update and transit to the match URL
           history.push({
-            pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
+            pathname: `/search/beta/${currentSearchKeyword}/${facet}`,
           });
 
           Actions.updateSearchKeyword(currentSearchKeyword);
