@@ -46,13 +46,6 @@ app.use(express.static(DIST_PATH));
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
-// app.use('/', (req, res, next) => {
-//   if (req.path === '/searchbeta') {
-//     return res.redirect('/searchbeta/');
-//   }
-//   next();
-// });
-
 app.use('/', apiRoutes);
 
 app.use('/', (req, res) => {

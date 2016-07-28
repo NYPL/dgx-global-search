@@ -25,7 +25,7 @@
     
 <% if (isProduction) { %>
     <!-- Minified Styles -->
-    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <link rel="stylesheet" type="text/css" href="/searchbeta/styles.css">
 <% } %>
 
     <script>
@@ -42,7 +42,7 @@
   <body>
     <div id="app"><%- application %></div>
     <% if (isProduction) { %>
-      <script async src="/bundle.js"></script>
+      <script async src="/searchbeta/bundle.js"></script>
     <% } else { %>
       <script src="http://localhost:3000/bundle.js"></script>
     <% } %>

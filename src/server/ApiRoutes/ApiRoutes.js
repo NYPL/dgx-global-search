@@ -119,11 +119,6 @@ const requestResultsFromClient = (req, res) => {
 };
 
 const requestHeaderOnly = (req, res, next) => {
-  // if (req.path !== '/searchbeta/') {
-  //   res.redirect('/searchbeta/');
-  //   return;
-  // }
-
   getHeaderData()
     .then((headerData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
@@ -165,14 +160,5 @@ router
 router
   .route('/api/:searchRequest/')
   .get(requestResultsFromClient);
-
-// router
-//   .route('/searchbeta/api/:searchRequest/')
-//   .get(requestResultsFromClient);
-
-// All the other router will show no result
-// router
-//   .route(/^((?!\/searchbeta).)*$/)
-//   .get(requestHeaderOnly);
 
 export default router;
