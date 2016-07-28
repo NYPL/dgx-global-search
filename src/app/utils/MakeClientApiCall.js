@@ -40,7 +40,7 @@ const makeClientApiCall = (
     }
 
     axios
-      .get(`/api/${requestParameter}?start=${start.toString()}`)
+      .get(`searchbeta/api/${requestParameter}?start=${start.toString()}`)
       .then((response) => {
         const { searchResultsItems, resultLength } = response.data;
 
