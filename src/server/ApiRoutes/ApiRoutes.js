@@ -119,10 +119,10 @@ const requestResultsFromClient = (req, res) => {
 };
 
 const requestHeaderOnly = (req, res, next) => {
-  if (req.path !== '/searchbeta/') {
-    res.redirect('/searchbeta/');
-    return;
-  }
+  // if (req.path !== '/searchbeta/') {
+  //   res.redirect('/searchbeta/');
+  //   return;
+  // }
 
   getHeaderData()
     .then((headerData) => {
@@ -153,12 +153,12 @@ const requestHeaderOnly = (req, res, next) => {
 
 // The route with valid pattern but no keyword will show no result
 router
-  .route('/searchbeta')
+  .route('/')
   .get(requestHeaderOnly);
 
 // The route with valid pattern and the keyword will request the search results
 router
-  .route('/searchbeta/:searchKeyword/:searchFilter?')
+  .route('/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
 
 // The route is specific for client side ajax call. It returns a json file
@@ -166,13 +166,13 @@ router
   .route('/api/:searchRequest/')
   .get(requestResultsFromClient);
 
-router
-  .route('/searchbeta/api/:searchRequest/')
-  .get(requestResultsFromClient);
+// router
+//   .route('/searchbeta/api/:searchRequest/')
+//   .get(requestResultsFromClient);
 
 // All the other router will show no result
-router
-  .route(/^((?!\/searchbeta).)*$/)
-  .get(requestHeaderOnly);
+// router
+//   .route(/^((?!\/searchbeta).)*$/)
+//   .get(requestHeaderOnly);
 
 export default router;
