@@ -44,8 +44,8 @@ app.use(express.static(DIST_PATH));
 app.use('*/src/client', express.static(INDEX_PATH));
 
 app.use('/', (req, res, next) => {
-  if (req.path === '/blog/beta') {
-    return res.redirect('/blog/beta/');
+  if (req.path === '/searchbeta') {
+    return res.redirect('/searchbeta/');
    }
    next();
  });
