@@ -40,15 +40,18 @@ app.set('views', VIEWS_PATH);
 app.set('port', process.env.PORT || 3001);
 
 app.use(express.static(DIST_PATH));
+app.use('/searchbeta/', express.static(DIST_PATH));
+
+app.use(express.static(DIST_PATH));
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
 app.use('/', (req, res, next) => {
   if (req.path === '/searchbeta') {
     return res.redirect('/searchbeta/');
-   }
-   next();
- });
+  }
+  next();
+});
 
 app.use('/', apiRoutes);
 

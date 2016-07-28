@@ -166,6 +166,10 @@ router
   .route('/api/:searchRequest/')
   .get(requestResultsFromClient);
 
+router
+  .route('/searchbeta/api/:searchRequest/')
+  .get(requestResultsFromClient);
+
 // All the other router will show no result
 router
   .route(/^((?!\/searchbeta).)*$/)
