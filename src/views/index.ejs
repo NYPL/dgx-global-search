@@ -23,7 +23,7 @@
     <meta name="twitter:image" content="">
 
     
-<% if (isProduction) { %>
+<% if (isProduction || isDev) { %>
     <!-- Minified Styles -->
     <link rel="stylesheet" type="text/css" href="/searchbeta/styles.css">
 <% } %>
@@ -41,7 +41,7 @@
   </head>
   <body>
     <div id="app"><%- application %></div>
-    <% if (isProduction) { %>
+    <% if (isProduction || isDev) { %>
       <script async src="/searchbeta/bundle.js"></script>
     <% } else { %>
       <script src="http://localhost:3000/bundle.js"></script>

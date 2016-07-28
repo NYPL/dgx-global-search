@@ -25,6 +25,7 @@ const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const VIEWS_PATH = path.resolve(ROOT_PATH, 'src/views');
 const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 const isProduction = process.env.NODE_ENV === 'production';
+const isDev = process.env.NODE_ENV === 'development';
 const app = express();
 
 app.use(compress());
@@ -69,6 +70,7 @@ app.use('/', (req, res) => {
     appEnv: process.env.APP_ENV,
     apiUrl: (res.locals.data) ? res.locals.data.completeApiUrl : '',
     isProduction,
+    isDev,
   });
 });
 
