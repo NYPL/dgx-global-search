@@ -39,12 +39,9 @@ const makeClientApiCall = (
       }, error => Promise.reject(error));
     }
 
-    console.log(`/searchbeta/api/${requestParameter}?start=${start.toString()}`);
-
     axios
       .get(`/searchbeta/api/${requestParameter}?start=${start.toString()}`)
       .then((response) => {
-        console.log(response.data);
         const { searchResultsItems, resultLength } = response.data;
 
         callbackFunction(searchResultsItems, resultLength);
