@@ -158,7 +158,7 @@ router
 
 // The route is specific for client side ajax call. It returns a json file
 router
-  .route('searchbeta/api/:searchRequest/')
+  .route('/searchbeta/api/:searchRequest/')
   .get(requestResultsFromClient);
 
 export default router;
