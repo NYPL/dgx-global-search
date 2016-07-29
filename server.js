@@ -69,6 +69,7 @@ app.use('/', (req, res) => {
     appEnv: process.env.APP_ENV,
     apiUrl: (res.locals.data) ? res.locals.data.completeApiUrl : '',
     isProduction,
+    path: req.path,
   });
 });
 
