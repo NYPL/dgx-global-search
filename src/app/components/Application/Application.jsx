@@ -26,8 +26,8 @@ history.listen(location => {
     action,
     pathname,
   } = location;
-  const searchKeyword = (pathname.split('/')[1]) ? pathname.split('/')[1] : '';
-  const searchFacet = (pathname.split('/')[2]) ? pathname.split('/')[2] : '';
+  const searchKeyword = (pathname.split('/')[2]) ? pathname.split('/')[2] : '';
+  const searchFacet = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
   const resultsStart = 0;
 
   if (action === 'POP') {
@@ -145,7 +145,7 @@ class App extends React.Component {
 
           // Update and transit to the match URL
           history.push({
-            pathname: `/${currentSearchKeyword}/${facet}`,
+            pathname: `/searchbeta/${currentSearchKeyword}/${facet}`,
           });
 
           Actions.updateSearchKeyword(currentSearchKeyword);

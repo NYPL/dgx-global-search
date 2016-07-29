@@ -148,12 +148,12 @@ const requestHeaderOnly = (req, res, next) => {
 
 // The route with valid pattern but no keyword will show no result
 router
-  .route('/')
+  .route('/searchbeta')
   .get(requestHeaderOnly);
 
 // The route with valid pattern and the keyword will request the search results
 router
-  .route('/:searchKeyword/:searchFilter?')
+  .route('/searchbeta/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
 
 // The route is specific for client side ajax call. It returns a json file
