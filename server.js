@@ -42,7 +42,6 @@ app.set('port', process.env.PORT || 3001);
 app.use(express.static(DIST_PATH));
 app.use('/searchbeta/', express.static(DIST_PATH));
 
-app.use(express.static(DIST_PATH));
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
