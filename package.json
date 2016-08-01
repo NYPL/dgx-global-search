@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index",
     "dist": "NODE_ENV=production webpack --config webpack.config.js",
-    "test": "node_modules/.bin/mocha --compilers js:babel-core/register"
+    "test": "node_modules/.bin/mocha --compilers js:babel-core/register",
+    "accessibility-check": "loadA11y=true node index"
   },
   "repository": {
     "type": "git",
