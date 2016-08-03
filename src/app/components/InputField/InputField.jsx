@@ -30,7 +30,7 @@ const InputField = ({
     onChange={onChange}
     required={isRequired}
     style={style}
-    aria-labelledby={label}
+    aria-label={label}
   />
 );
 
