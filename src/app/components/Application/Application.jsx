@@ -221,6 +221,7 @@ class App extends React.Component {
                   placeholder={inputPlaceholder}
                   value={inputValue}
                   onChange={this.inputChange}
+                  label="enter search terms"
                 />
               </div>
               <SearchButton
