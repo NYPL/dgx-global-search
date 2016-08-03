@@ -3,19 +3,33 @@ import React from 'react';
 // Import libraries
 import { CircleDashIcon } from 'dgx-svg-icons';
 
-const FilterItem = ({
-  className,
-  onClick,
-  label,
-}) => (
-  <li
-    className={className}
-    onClick={onClick}
-  >
-    {label}
-    <CircleDashIcon className={`circleDashIcon ${className}`} />
-  </li>
-);
+class FilterItem extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.onKeyPress = this.onKeyPress.bind(this);
+  }
+
+  onKeyPress(event) {
+    if (event && event.charCode === 13) {
+      this.props.onClick();
+    }
+  }
+
+  render() {
+    return (
+      <li
+        className={this.props.className}
+        onClick={this.props.onClick}
+        onKeyPress={this.onKeyPress}
+        tabIndex="0"
+      >
+        {this.props.label}
+        <CircleDashIcon className={`circleDashIcon ${this.props.className}`} />
+      </li>
+    );
+  }
+}
 
 FilterItem.propTypes = {
   id: React.PropTypes.string,
