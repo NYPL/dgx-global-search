@@ -14,6 +14,7 @@ const InputField = ({
   onChange,
   isRequired,
   style,
+  label,
 }) => (
   <input
     id={id}
@@ -29,6 +30,7 @@ const InputField = ({
     onChange={onChange}
     required={isRequired}
     style={style}
+    aria-label={label}
   />
 );
 
