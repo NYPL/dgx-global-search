@@ -53,6 +53,7 @@ const renderImage = (className, src) => {
       <img
         className={`${className}-image`}
         src={src}
+        alt=""
       />
     </div>
   );
