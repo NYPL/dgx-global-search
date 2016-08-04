@@ -66,7 +66,7 @@ class FilterList extends React.Component {
             viewBox="0 0 32 32"
             width="32"
           />
-          <h4>Filter by</h4>
+          <h3>Filter by</h3>
           <div className={`${this.props.className}-buttonWrapper`}>
             <CloseButton
               id={`${this.props.id}-closeButton`}
