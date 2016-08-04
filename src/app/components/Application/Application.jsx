@@ -214,6 +214,7 @@ class App extends React.Component {
           <div id="gs-operations" className="gs-operations">
             <div id="gs-searchField" className="gs-searchField">
               <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
+                <label htmlFor="gs-inputField" className="visuallyHidden">Enter Search Terms</label>
                 <InputField
                   id="gs-inputField"
                   className="gs-inputField"
