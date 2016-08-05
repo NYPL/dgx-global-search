@@ -43,7 +43,7 @@ const renderTitle = (title, className, wholeRowClass) => {
  * @param {title} string
  * @return null or object
  */
-const renderImage = (className, src, title) => {
+const renderImage = (className, src) => {
   if (!src) {
     return null;
   }
@@ -53,7 +53,7 @@ const renderImage = (className, src, title) => {
       <img
         className={`${className}-image`}
         src={src}
-        alt={title}
+        alt=""
       />
     </div>
   );
