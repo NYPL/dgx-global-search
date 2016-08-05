@@ -28,7 +28,6 @@ const FilterItem = ({
 };
 
 FilterItem.propTypes = {
-  id: React.PropTypes.string,
   className: React.PropTypes.string,
   onClick: React.PropTypes.func,
   label: React.PropTypes.string,
@@ -36,7 +35,6 @@ FilterItem.propTypes = {
 
 FilterItem.defaultProps = {
   lang: 'en',
-  id: '',
   className: 'filterItem',
   label: '',
 };
