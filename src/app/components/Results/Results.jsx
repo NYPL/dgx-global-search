@@ -101,18 +101,19 @@ class Results extends React.Component {
   render() {
     const results = this.getList(this.state.searchResults);
     const resultsRemainLength = (this.props.amount - results.length).toString();
+    const resultsNumberSuggestion = `We found about ${this.props.amount} results.`;
 
     // Message if no result found
     if (results.length === 0) {
       return (
-        <p className="noResultMessage">No items were found...</p>
+        <p className="noResultMessage" role="alert">No items were found...</p>
       );
     }
 
     return (
       <div className={`${this.props.className}-wrapper`}>
-        <p className={`${this.props.className}-length`}>
-          We found about {this.props.amount} results.
+        <p className={`${this.props.className}-length`} role="alert">
+          {resultsNumberSuggestion}
         </p>
         <DivideLineIcon
           ariaHidden
