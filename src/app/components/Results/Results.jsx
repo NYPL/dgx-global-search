@@ -133,7 +133,7 @@ class Results extends React.Component {
    * renderNoResult()
    * The function renders the result section if there's no results were found.
    *
-   * @return {Object}
+   * @return {object}
    */
   renderNoResult() {
     return (
