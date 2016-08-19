@@ -99,16 +99,16 @@ class Results extends React.Component {
   }
 
   /**
-   * renderSeeMoreButton(remainResults)
+   * renderSeeMoreButton(remainingResults)
    * The function renders a see more button,
    * unless there's no more results, instead of rendering the button,
    * it renders the suggestion text to indicate no more result.
    *
-   * @param {remainResults} Num
+   * @param {Num} remainingResults
    * @return {Object}
    */
-  renderSeeMoreButton(remainResults) {
-    if (remainResults <= 0) {
+  renderSeeMoreButton(remainingResults) {
+    if (remainingResults <= 0) {
       return (
         <div className={`${this.props.id}-paginationButton-wrapper`}>
           <p>No More Results from this Search.</p>
