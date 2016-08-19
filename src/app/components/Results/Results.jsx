@@ -129,16 +129,29 @@ class Results extends React.Component {
     );
   }
 
+  /**
+   * renderNoResult()
+   * The function renders the result section if there's no results were found.
+   *
+   * @return {Object}
+   */
+  renderNoResult() {
+    return (
+      <p className="noResultMessage" aria-live="polite">No items were found...</p>
+    );
+  }
+
   render() {
     const results = this.getList(this.state.searchResults);
     const resultsRemainLength = this.props.amount - results.length;
     const resultsNumberSuggestion = `We found about ${this.props.amount} results.`;
-    const noItemSuggestion = `No items were found...${this.props.amount}`;
 
     // Message if no result found
     if (results.length === 0) {
       return (
-        <p className="noResultMessage" aria-live="polite">{noItemSuggestion}</p>
+        <div>
+          {this.renderNoResult()}
+        </div>
       );
     }
 
