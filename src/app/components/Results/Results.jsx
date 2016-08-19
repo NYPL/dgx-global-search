@@ -137,7 +137,13 @@ class Results extends React.Component {
    */
   renderNoResult() {
     return (
-      <p className="noResultMessage" aria-live="polite">No items were found...</p>
+      <p
+        className="noResultMessage"
+        role="alert"
+        aria-atomic="true"
+      >
+        No items were found...
+      </p>
     );
   }
 
@@ -157,7 +163,11 @@ class Results extends React.Component {
 
     return (
       <div className={`${this.props.className}-wrapper`}>
-        <p className={`${this.props.className}-length`} aria-live="polite">
+        <p
+          className={`${this.props.className}-length`}
+          role="alert"
+          aria-atomic="true"
+        >
           {resultsNumberSuggestion}
         </p>
         <DivideLineIcon
