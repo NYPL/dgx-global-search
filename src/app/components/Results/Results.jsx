@@ -55,8 +55,8 @@ class Results extends React.Component {
    * The function maps the search result array,
    * and returns a new array of composed of <ResultsItem> components.
    *
-   * @param {itemsArray} array
-   * @return array
+   * @param {array} itemsArray
+   * @return {array}
    */
   getList(itemsArray) {
     return _map(itemsArray, (item, index) => (
@@ -104,8 +104,8 @@ class Results extends React.Component {
    * unless there's no more results, instead of rendering the button,
    * it renders the suggestion text to indicate no more result.
    *
-   * @param {Num} remainingResults
-   * @return {Object}
+   * @param {number} remainingResults
+   * @return {object}
    */
   renderSeeMoreButton(remainingResults) {
     if (remainingResults <= 0) {
