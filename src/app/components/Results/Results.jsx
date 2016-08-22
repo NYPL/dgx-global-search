@@ -103,6 +103,9 @@ class Results extends React.Component {
     setTimeout(() => {
       const refResultIndex = `result-${this.state.resultsStart}`;
 
+      console.log(refResultIndex);
+      console.log(ReactDOM.findDOMNode(this.refs[refResultIndex]));
+
       ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
     }, 2000);
   }
@@ -160,6 +163,9 @@ class Results extends React.Component {
     const results = this.getList(this.state.searchResults);
     const resultsRemainLength = this.props.amount - results.length;
     const resultsNumberSuggestion = `We found about ${this.props.amount} results.`;
+
+    console.log('result length', results.length);
+    console.log('total amount', this.props.amount);
 
     // Message if no result found
     if (results.length === 0) {
