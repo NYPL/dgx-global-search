@@ -123,7 +123,7 @@ class Results extends React.Component {
           className={`${this.props.id}-paginationButton`}
           isLoading={this.state.isLoading}
           onClick={this.addMoreResults}
-          label="See More"
+          label="Load More"
         />
       </div>
     );
