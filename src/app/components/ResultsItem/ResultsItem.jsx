@@ -15,8 +15,8 @@ class ResultsItem extends React.Component {
    * The function converts the plain texts in to html inner text style.
    * As a result, it helps encode special characters.
    *
-   * @param {text} string
-   * @return object
+   * @param {string} text
+   * @return {object}
    */
   createMarkup(text) {
     return ({ __html: text });
@@ -29,8 +29,8 @@ class ResultsItem extends React.Component {
    * If no image data, the class name will be 'whole-row' so the html element will be
    * applied to the matched styles.
    *
-   * @param {src} string
-   * @return string
+   * @param {string} src
+   * @return {string}
    */
   generateWholeRowClass(src) {
     if (!src) {
@@ -46,10 +46,10 @@ class ResultsItem extends React.Component {
    * If no title found, it renders the default title "No Title for this Item"
    * for screen reader users and visually hides this title object.
    *
-   * @param {title} string
-   * @param {className} string
-   * @param {wholeRowClass} string
-   * @return object
+   * @param {string} title
+   * @param {string} className
+   * @param {string} wholeRowClass
+   * @return {object}
    */
   renderTitle(title, className, wholeRowClass) {
     const newTitle = title || 'No Title for this Item';
@@ -68,10 +68,10 @@ class ResultsItem extends React.Component {
    * renderImage(className, src, title)
    * The function renders <img> if this.props.thumbnailSrc is true.
    *
-   * @param {className} string
-   * @param {src} string
-   * @param {title} string
-   * @return null or object
+   * @param {string} className
+   * @param {string} src
+   * @param {string} title
+   * @return null or {object}
    */
   renderImage(className, src) {
     if (!src) {
