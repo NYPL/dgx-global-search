@@ -3,6 +3,11 @@ import React from 'react';
 class ResultsItem extends React.Component {
   constructor(props) {
     super(props);
+
+    this.createMarkup = this.createMarkup.bind(this);
+    this.generateWholeRowClass = this.generateWholeRowClass.bind(this);
+    this.renderTitle = this.renderTitle.bind(this);
+    this.renderImage = this. renderImage.bind(this);
   }
 
   /**
