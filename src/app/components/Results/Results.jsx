@@ -103,9 +103,6 @@ class Results extends React.Component {
     setTimeout(() => {
       const refResultIndex = `result-${this.state.resultsStart}`;
 
-      console.log(refResultIndex);
-      console.log(ReactDOM.findDOMNode(this.refs[refResultIndex]));
-
       ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
     }, 2000);
   }

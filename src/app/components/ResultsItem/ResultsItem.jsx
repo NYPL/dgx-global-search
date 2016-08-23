@@ -3,8 +3,6 @@ import React from 'react';
 class ResultsItem extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {};
   }
 
   /**
