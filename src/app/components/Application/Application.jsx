@@ -26,8 +26,8 @@ history.listen(location => {
     action,
     pathname,
   } = location;
-  const searchKeyword = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
-  const searchFacet = (pathname.split('/')[4]) ? pathname.split('/')[4] : '';
+  const searchKeyword = (pathname.split('/')[2]) ? pathname.split('/')[2] : '';
+  const searchFacet = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
   const resultsStart = 0;
 
   if (action === 'POP') {
@@ -145,7 +145,7 @@ class App extends React.Component {
 
           // Update and transit to the match URL
           history.push({
-            pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
+            pathname: `/searchbeta/${currentSearchKeyword}/${facet}`,
           });
 
           Actions.updateSearchKeyword(currentSearchKeyword);
@@ -214,6 +214,7 @@ class App extends React.Component {
           <div id="gs-operations" className="gs-operations">
             <div id="gs-searchField" className="gs-searchField">
               <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
+                <label htmlFor="gs-inputField" className="visuallyHidden">Enter Search Terms</label>
                 <InputField
                   id="gs-inputField"
                   className="gs-inputField"
@@ -221,6 +222,7 @@ class App extends React.Component {
                   placeholder={inputPlaceholder}
                   value={inputValue}
                   onChange={this.inputChange}
+                  label="Enter Search Terms"
                 />
               </div>
               <SearchButton
