@@ -164,9 +164,6 @@ class Results extends React.Component {
     const resultsRemainLength = this.props.amount - results.length;
     const resultsNumberSuggestion = `We found about ${this.props.amount} results.`;
 
-    console.log('result length', results.length);
-    console.log('total amount', this.props.amount);
-
     // Message if no result found
     if (results.length === 0) {
       return (
