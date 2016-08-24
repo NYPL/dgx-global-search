@@ -1,24 +1,37 @@
 import React from 'react';
 
 // Import libraries
-import { CircleDashIcon } from 'dgx-svg-icons';
+import { RadioActiveIcon, RadioInactiveIcon } from 'dgx-svg-icons';
 
 const FilterItem = ({
   className,
   onClick,
   label,
-}) => (
-  <li
-    className={className}
-    onClick={onClick}
-  >
-    {label}
-    <CircleDashIcon className={`circleDashIcon ${className}`} />
-  </li>
-);
+}) => {
+  const onKeyPress = (event) => {
+    if (event && event.charCode === 13) {
+      onClick();
+    }
+  };
+
+  const radioIcon = (className === 'selected') ?
+    <RadioActiveIcon className={`radioIcon ${className}`} ariaHidden /> :
+    <RadioInactiveIcon className={`radioIcon ${className}`} ariaHidden />;
+
+  return (
+    <li
+      className={className}
+      onClick={onClick}
+      onKeyPress={onKeyPress}
+      tabIndex="0"
+    >
+      {label}
+      {radioIcon}
+    </li>
+  );
+};
 
 FilterItem.propTypes = {
-  id: React.PropTypes.string,
   className: React.PropTypes.string,
   onClick: React.PropTypes.func,
   label: React.PropTypes.string,
@@ -26,7 +39,6 @@ FilterItem.propTypes = {
 
 FilterItem.defaultProps = {
   lang: 'en',
-  id: '',
   className: 'filterItem',
   label: '',
 };

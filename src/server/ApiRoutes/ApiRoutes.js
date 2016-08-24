@@ -119,11 +119,6 @@ const requestResultsFromClient = (req, res) => {
 };
 
 const requestHeaderOnly = (req, res, next) => {
-  if (req.path !== '/search/apachesolr_search/') {
-    res.redirect('/search/apachesolr_search/');
-    return;
-  }
-
   getHeaderData()
     .then((headerData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
@@ -153,12 +148,12 @@ const requestHeaderOnly = (req, res, next) => {
 
 // The route with valid pattern but no keyword will show no result
 router
-  .route('/search/apachesolr_search/')
+  .route('/')
   .get(requestHeaderOnly);
 
 // The route with valid pattern and the keyword will request the search results
 router
-  .route('/search/apachesolr_search/:searchKeyword/:searchFilter?')
+  .route('/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
 
 // The route is specific for client side ajax call. It returns a json file
@@ -166,9 +161,17 @@ router
   .route('/api/:searchRequest/')
   .get(requestResultsFromClient);
 
-// All the other router will show no result
+// This section of routes is for reverse proxy
 router
-  .route(/^((?!\/search\/apachesolr_search).)*$/)
+  .route('/searchbeta')
   .get(requestHeaderOnly);
+
+router
+  .route('/searchbeta/:searchKeyword/:searchFilter?')
+  .get(requestSearchResult);
+
+router
+  .route('/searchbeta/api/:searchRequest/')
+  .get(requestResultsFromClient);
 
 export default router;

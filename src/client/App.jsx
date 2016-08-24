@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom';
 
 import alt from 'dgx-alt-center';
 import ga from 'react-ga';
+import a11y from 'react-a11y';
 import FeatureFlags from 'dgx-feature-flags';
 import Iso from 'iso';
 
 import './styles/main.scss';
 
 import App from '../app/components/Application/Application.jsx';
+
+// Accessibility checking. Call react-a11y here if loadA11y is true
+if (loadA11y) {
+  a11y(React, { ReactDOM, includeSrcNode: true });
+}
 
 window.onload = () => {
   if (!window.ga) {

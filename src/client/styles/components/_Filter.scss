@@ -102,7 +102,7 @@
         display: inline-block;
       }
 
-      h4 {
+      h2 {
         display: inline-block;
         font-size: 20px;
         line-height: 26px;
@@ -169,13 +169,8 @@
 
         @include min-screen($tablet-landscape) {
           background-color: transparent;
+          color: #BFBFBF;
           padding: 14px 0 14px 21px;
-        }
-
-        &.greyOut {
-          @include min-screen($tablet-landscape) {
-            color: #BFBFBF;
-          }
         }
 
         &.selected {
@@ -183,12 +178,13 @@
 
           @include min-screen($tablet-landscape) {
             background-color: transparent;
+            color: $SEARCH_BLUE;
             padding: 14px 0 14px 21px;
           }
         }
 
         .svgIcon {
-          display: none;
+          display: block;
           fill: #FFF;
           float: right;
           margin: -4px 14px 0 0;
@@ -198,12 +194,14 @@
           }
 
           @include min-screen($tablet-landscape) {
-            fill: $SEARCH_BLUE;
+            fill: #BFBFBF;
             margin: -6px 0 0 0;
           }
 
           &.selected {
-            display: block;
+            @include min-screen($tablet-landscape) {
+              fill: $SEARCH_BLUE;
+            }
           }
         }
       }

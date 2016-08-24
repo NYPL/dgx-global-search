@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -55,14 +56,15 @@ class Results extends React.Component {
    * The function maps the search result array,
    * and returns a new array of composed of <ResultsItem> components.
    *
-   * @param {itemsArray} array
-   * @return array
+   * @param {array} itemsArray
+   * @return {array}
    */
   getList(itemsArray) {
     return _map(itemsArray, (item, index) => (
       <ResultsItem
         key={index}
         index={index}
+        ref={`result-${index}`}
         title={item.title}
         link={item.link}
         snippet={item.snippet}
@@ -96,23 +98,88 @@ class Results extends React.Component {
         this.setState({ isLoading: value });
       }
     );
+
+    // Automatically focus on the first item of the newly reloaded results
+    setTimeout(() => {
+      const refResultIndex = `result-${this.state.resultsStart}`;
+
+      ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
+    }, 2000);
+  }
+
+  /**
+   * renderSeeMoreButton(remainingResults)
+   * The function renders a see more button,
+   * unless there's no more results, instead of rendering the button,
+   * it renders the suggestion text to indicate no more result.
+   *
+   * @param {number} remainingResults
+   * @return {object}
+   */
+  renderSeeMoreButton(remainingResults) {
+    if (remainingResults <= 0) {
+      return (
+        <div className={`${this.props.id}-paginationButton-wrapper`}>
+          <p>No More Results from this Search.</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className={`${this.props.id}-paginationButton-wrapper`}>
+        <PaginationButton
+          id={`${this.props.id}-paginationButton`}
+          className={`${this.props.id}-paginationButton`}
+          isLoading={this.state.isLoading}
+          onClick={this.addMoreResults}
+          label="Load More"
+        />
+      </div>
+    );
+  }
+
+  /**
+   * renderNoResult()
+   * The function renders the result section if there's no results were found.
+   *
+   * @return {object}
+   */
+  renderNoResult() {
+    return (
+      <p
+        className="noResultMessage"
+        role="alert"
+        aria-atomic="true"
+        aria-live="polite"
+      >
+        No items were found...
+      </p>
+    );
   }
 
   render() {
     const results = this.getList(this.state.searchResults);
-    const resultsRemainLength = (this.props.amount - results.length).toString();
+    const resultsRemainLength = this.props.amount - results.length;
+    const resultsNumberSuggestion = `We found about ${this.props.amount} results.`;
 
     // Message if no result found
     if (results.length === 0) {
       return (
-        <p className="noResultMessage">No items were found...</p>
+        <div>
+          {this.renderNoResult()}
+        </div>
       );
     }
 
     return (
       <div className={`${this.props.className}-wrapper`}>
-        <p className={`${this.props.className}-length`}>
-          We found about {this.props.amount} results.
+        <p
+          className={`${this.props.className}-length`}
+          role="alert"
+          aria-atomic="true"
+          aria-live="polite"
+        >
+          {resultsNumberSuggestion}
         </p>
         <DivideLineIcon
           ariaHidden
@@ -125,18 +192,10 @@ class Results extends React.Component {
           viewBox="0 0 84 4"
           width="84"
         />
-        <ul id={this.props.id} className={this.props.className}>
+        <ul id={this.props.id} className={this.props.className} ref="results">
           {results}
         </ul>
-        <div className={`${this.props.id}-paginationButton-wrapper`}>
-          <PaginationButton
-            id={`${this.props.id}-paginationButton`}
-            className={`${this.props.id}-paginationButton`}
-            isLoading={this.state.isLoading}
-            onClick={this.addMoreResults}
-            label={resultsRemainLength}
-          />
-        </div>
+        {this.renderSeeMoreButton(resultsRemainLength)}
       </div>
     );
   }
