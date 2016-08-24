@@ -14,9 +14,9 @@ const FilterItem = ({
     }
   };
 
-  const radioIcon = (className === ' selected') ?
-    <RadioActiveIcon className={`circleDashIcon ${className}`} /> :
-    <RadioInactiveIcon className={`circleDashIcon ${className}`} />;
+  const radioIcon = (className === 'selected') ?
+    <RadioActiveIcon className={`radioIcon ${className}`} ariaHidden /> :
+    <RadioInactiveIcon className={`radioIcon ${className}`} ariaHidden />;
 
   return (
     <li
