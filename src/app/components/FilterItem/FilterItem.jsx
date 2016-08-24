@@ -17,6 +17,7 @@ const FilterItem = ({
   const radioIcon = (className === 'selected') ?
     <RadioActiveIcon className={`radioIcon ${className}`} ariaHidden /> :
     <RadioInactiveIcon className={`radioIcon ${className}`} ariaHidden />;
+  const ariaPressed = (className === 'selected') ? "true" : "false";
 
   return (
     <li
@@ -24,6 +25,8 @@ const FilterItem = ({
       onClick={onClick}
       onKeyPress={onKeyPress}
       tabIndex="0"
+      role="button"
+      aria-pressed={ariaPressed}
     >
       {label}
       {radioIcon}
