@@ -141,6 +141,7 @@ class Results extends React.Component {
         className="noResultMessage"
         role="alert"
         aria-atomic="true"
+        aria-live="polite"
       >
         No items were found...
       </p>
@@ -167,6 +168,7 @@ class Results extends React.Component {
           className={`${this.props.className}-length`}
           role="alert"
           aria-atomic="true"
+          aria-live="polite"
         >
           {resultsNumberSuggestion}
         </p>
