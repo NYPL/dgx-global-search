@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Import libraries
-import { CircleDashIcon } from 'dgx-svg-icons';
+import { RadioActiveIcon, RadioInactiveIcon } from 'dgx-svg-icons';
 
 const FilterItem = ({
   className,
@@ -14,6 +14,10 @@ const FilterItem = ({
     }
   };
 
+  const radioIcon = (className === ' selected') ?
+    <RadioActiveIcon className={`circleDashIcon ${className}`} /> :
+    <RadioInactiveIcon className={`circleDashIcon ${className}`} />;
+
   return (
     <li
       className={className}
@@ -22,7 +26,7 @@ const FilterItem = ({
       tabIndex="0"
     >
       {label}
-      <CircleDashIcon className={`circleDashIcon ${className}`} />
+      {radioIcon}
     </li>
   );
 };
