@@ -56,11 +56,11 @@ class ResultsItem extends React.Component {
     const visuallyHiddenClass = title ? '' : 'visuallyHidden';
 
     return (
-      <h3
+      <h2
         className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
         dangerouslySetInnerHTML={this.createMarkup(newTitle)}
       >
-      </h3>
+      </h2>
     );
   }
 
