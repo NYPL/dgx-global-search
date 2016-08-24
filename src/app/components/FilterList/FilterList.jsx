@@ -76,6 +76,7 @@ class FilterList extends React.Component {
               title="x.icon.svg"
               viewBox="0 0 32 32"
               width="32"
+              ariaHidden
             />
           </div>
         </div>
