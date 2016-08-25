@@ -1,7 +1,7 @@
 .gs-filter-wrapper {
   @include Kievit-Medium;
 
-  color: #837E77;
+  color: $FILTER_ICON_GREY;
   margin: 0 0 20px 0;
   text-align: right;
 
@@ -57,7 +57,7 @@
   }
 
   .gs-filter-list {
-    background-color: #737069;
+    background-color: $FILTER_ICON_GREY;
     box-sizing: border-box;
     color: #FFF;
     display: none;
@@ -110,7 +110,7 @@
         vertical-align: 12px;
 
         @include min-screen($tablet-landscape) {
-          color: #737069;
+          color: $FILTER_ICON_GREY;
         }
       }
     }
@@ -122,7 +122,7 @@
       transform: scale(1.4, 1.4);
 
       @include min-screen($tablet-landscape) {
-        fill: #737069;
+        fill: $FILTER_ICON_GREY;
       }
     }
 
@@ -174,7 +174,7 @@
         }
 
         &.selected {
-          background-color: #44433F;
+          background-color: $charcoal;
 
           @include min-screen($tablet-landscape) {
             background-color: transparent;
