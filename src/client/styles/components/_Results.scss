@@ -25,7 +25,7 @@
   }
 
   &-length {
-    color: #A3A19E;
+    color: $COOLGRAY_COLOR;
     font-size: 18px;
     line-height: 21px;
     margin: 0 0 21px 0;
@@ -40,7 +40,7 @@
   }
 
   &Item {
-    border-bottom: 2px solid #A3A19E;
+    border-bottom: 2px solid $COOLGRAY_COLOR;
     list-style-type: none;
     margin: 0 0 15px 0;
 
@@ -187,4 +187,3 @@
     @include grid-span(6, 1);
   }
 }
-
