@@ -162,16 +162,16 @@
       padding: 0;
       text-align: left;
 
+      &:focus{
+        outline: 3px auto #3b99fc;
+      }
+
       label {
         cursor: pointer;
         display: block;
         list-style-type: none;
         padding: 14px 0 14px 25px;
         text-transform: uppercase;
-
-        &:focus{
-          outline: 3px auto #3b99fc;
-        }
 
         @include min-screen($tablet-landscape) {
           background-color: transparent;

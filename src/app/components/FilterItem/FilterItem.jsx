@@ -7,6 +7,7 @@ const FilterItem = ({
   className,
   onClick,
   label,
+  name,
 }) => {
   const onKeyPress = (event) => {
     if (event && event.charCode === 13) {
@@ -21,7 +22,7 @@ const FilterItem = ({
   return (
     <div>
       <input
-        id={label}
+        id={`filterItem-${name}`}
         type="radio"
         className="visuallyHidden"
         onClick={onClick}
@@ -30,7 +31,7 @@ const FilterItem = ({
       </input>
       <label
         className={className}
-        htmlFor={label}
+        htmlFor={`filterItem-${name}`}
       >
         {label}
         {radioIcon}

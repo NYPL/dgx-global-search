@@ -39,14 +39,15 @@ class FilterList extends React.Component {
    */
   renderfacets() {
     return _map(this.props.facets, (item, index) => {
-      const isSelected = (item.label === this.props.selectedFacet) ? 'selected' : '';
+      const isSelected = (item.value === this.props.selectedFacet) ? 'selected' : '';
 
       return (
         <FilterItem
           className={isSelected}
           key={index}
-          onClick={() => this.onClickApply(item.label)}
+          onClick={() => this.onClickApply(item.value)}
           label={item.anchor}
+          name={item.label}
         />
       );
     });
