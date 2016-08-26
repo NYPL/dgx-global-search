@@ -16,7 +16,9 @@
     -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
+    border: 2px solid $COOLGRAY_COLOR;
     border-radius: 33px;
+    color: $COOLGRAY_COLOR;
     cursor: pointer;
     display: inline-block;
     font-family: Kievit-Medium;
@@ -25,18 +27,19 @@
     line-height: 16.21px;
     overflow: hidden;
     padding: 5px 20px;
-    &__dot-row {
+    &-dotRow {
       display: block;
       list-style: none;
       margin: 0 auto;
       padding: 0;
-      &__element {
+      &-dot {
+        border: 3px solid $COOLGRAY_COLOR;
         border-radius: 100%;
         display: inline-block;
         margin: 0 4px 0 0;
         vertical-align: 1px;
       }
-      &__number {
+      &-number {
         display: inline-table;
         margin: 0 4px 0 0;
       }
