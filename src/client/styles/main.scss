@@ -42,7 +42,6 @@ Import style rules from App components
 .gs-mainContent {
   @include grid-span(3, 1);
 
-  outline: none;
   position: relative;
 
   @include layout-at(9, $tablet-landscape) {
@@ -121,6 +120,7 @@ Import style rules from App components
 .visuallyHidden {
   position: absolute !important;
   height: 1px;
+  left: -10000px;
   width: 1px;
   overflow: hidden;
   clip: rect(0 0 0 0); /* IE6, IE7 */

@@ -17,20 +17,25 @@ const FilterItem = ({
   const radioIcon = (className === 'selected') ?
     <RadioActiveIcon className={`radioIcon ${className}`} ariaHidden /> :
     <RadioInactiveIcon className={`radioIcon ${className}`} ariaHidden />;
-  const ariaPressed = (className === 'selected') ? "true" : "false";
 
   return (
-    <li
-      className={className}
-      onClick={onClick}
-      onKeyPress={onKeyPress}
-      tabIndex="0"
-      role="button"
-      aria-pressed={ariaPressed}
-    >
-      {label}
-      {radioIcon}
-    </li>
+    <div>
+      <input
+        id={label}
+        type="radio"
+        className="visuallyHidden"
+        onClick={onClick}
+        onKeyPress={onKeyPress}
+      >
+      </input>
+      <label
+        className={className}
+        htmlFor={label}
+      >
+        {label}
+        {radioIcon}
+      </label>
+    </div>
   );
 };
 
