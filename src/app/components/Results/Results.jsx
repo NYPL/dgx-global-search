@@ -108,6 +108,10 @@ class Results extends React.Component {
    * @return {object}
    */
   renderSeeMoreButton(remainingResults) {
+    if (this.props.amount < this.state.incrementResults) {
+      return null;
+    }
+
     if (remainingResults <= 0) {
       return (
         <div className={`${this.props.id}-paginationButton-wrapper`}>
