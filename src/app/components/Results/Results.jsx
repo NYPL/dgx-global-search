@@ -30,7 +30,6 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.renderSeeMoreButton = this.renderSeeMoreButton.bind(this);
   }
 
   componentDidMount() {
