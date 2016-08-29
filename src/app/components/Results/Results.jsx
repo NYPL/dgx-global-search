@@ -55,8 +55,8 @@ class Results extends React.Component {
    * The function maps the search result array,
    * and returns a new array of composed of <ResultsItem> components.
    *
-   * @param {itemsArray} array
-   * @return array
+   * @param {array} itemsArray
+   * @return {array}
    */
   getList(itemsArray) {
     return _map(itemsArray, (item, index) => (
@@ -98,9 +98,44 @@ class Results extends React.Component {
     );
   }
 
+  /**
+   * renderSeeMoreButton(remainingResults)
+   * The function renders a see more button,
+   * unless there's no more results, instead of rendering the button,
+   * it renders the suggestion text to indicate no more result.
+   *
+   * @param {number} remainingResults
+   * @return {object}
+   */
+  renderSeeMoreButton(remainingResults) {
+    if (this.props.amount < this.state.incrementResults) {
+      return null;
+    }
+
+    if (remainingResults <= 0) {
+      return (
+        <div className={`${this.props.id}-paginationButton-wrapper`}>
+          <p>No More Results from this Search.</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className={`${this.props.id}-paginationButton-wrapper`}>
+        <PaginationButton
+          id={`${this.props.id}-paginationButton`}
+          className={`${this.props.id}-paginationButton`}
+          isLoading={this.state.isLoading}
+          onClick={this.addMoreResults}
+          label="Load More"
+        />
+      </div>
+    );
+  }
+
   render() {
     const results = this.getList(this.state.searchResults);
-    const resultsRemainLength = (this.props.amount - results.length).toString();
+    const resultsRemainLength = this.props.amount - results.length;
 
     // Message if no result found
     if (results.length === 0) {
@@ -128,15 +163,7 @@ class Results extends React.Component {
         <ul id={this.props.id} className={this.props.className}>
           {results}
         </ul>
-        <div className={`${this.props.id}-paginationButton-wrapper`}>
-          <PaginationButton
-            id={`${this.props.id}-paginationButton`}
-            className={`${this.props.id}-paginationButton`}
-            isLoading={this.state.isLoading}
-            onClick={this.addMoreResults}
-            label={resultsRemainLength}
-          />
-        </div>
+        {this.renderSeeMoreButton(resultsRemainLength)}
       </div>
     );
   }
