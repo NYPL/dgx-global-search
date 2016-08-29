@@ -47,7 +47,7 @@ Import style rules from App components
 
   @include layout-at(9, $tablet-landscape) {
     box-sizing: border-box;
-    min-height: 660px;
+    min-height: 700px;
     padding: 0 20px;
   }
 
