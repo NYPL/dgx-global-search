@@ -117,6 +117,10 @@ class Results extends React.Component {
    * @return {object}
    */
   renderSeeMoreButton(remainingResults) {
+    if (this.props.amount < this.state.incrementResults) {
+      return null;
+    }
+
     if (remainingResults <= 0) {
       return (
         <div className={`${this.props.id}-paginationButton-wrapper`}>
@@ -138,64 +142,43 @@ class Results extends React.Component {
     );
   }
 
-  /**
-   * renderNoResult()
-   * The function renders the result section if there's no results were found.
-   *
-   * @return {object}
-   */
-  renderNoResult() {
-    return (
-      <p
-        className="noResultMessage"
-        role="alert"
-        aria-atomic="true"
-        aria-live="polite"
-      >
-        No items were found...
-      </p>
-    );
-  }
-
   render() {
     const results = this.getList(this.state.searchResults);
     const resultsRemainLength = this.props.amount - results.length;
-    const resultsNumberSuggestion = `We found about ${this.props.amount} results.`;
-
-    // Message if no result found
-    if (results.length === 0) {
-      return (
-        <div>
-          {this.renderNoResult()}
-        </div>
-      );
-    }
+    const resultsNumberSuggestion = (results.length === 0) ?
+      'No items were found...' : `We found about ${this.props.amount} results.`;
+    const resultMessageClass = (results.length === 0) ?
+      'noResultMessage' : `${this.props.className}-length`;
 
     return (
       <div className={`${this.props.className}-wrapper`}>
         <p
-          className={`${this.props.className}-length`}
+          className={resultMessageClass}
           role="alert"
           aria-atomic="true"
           aria-live="polite"
         >
           {resultsNumberSuggestion}
         </p>
-        <DivideLineIcon
-          ariaHidden
-          className={`${this.props.className}-divideLineIcon`}
-          height="4"
-          length="84"
-          stroke="#2799C5"
-          strokeWidth="4"
-          title="divide.line.icon.svg"
-          viewBox="0 0 84 4"
-          width="84"
-        />
-        <ul id={this.props.id} className={this.props.className} ref="results">
-          {results}
-        </ul>
-        {this.renderSeeMoreButton(resultsRemainLength)}
+        {results.length !== 0 &&
+          <div>
+            <DivideLineIcon
+              ariaHidden
+              className={`${this.props.className}-divideLineIcon`}
+              height="4"
+              length="84"
+              stroke="#2799C5"
+              strokeWidth="4"
+              title="divide.line.icon.svg"
+              viewBox="0 0 84 4"
+              width="84"
+            />
+            <ul id={this.props.id} className={this.props.className} ref="results">
+              {results}
+            </ul>
+            {this.renderSeeMoreButton(resultsRemainLength)}
+          </div>
+        }
       </div>
     );
   }
