@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -63,6 +64,7 @@ class Results extends React.Component {
       <ResultsItem
         key={index}
         index={index}
+        ref={`result-${index}`}
         title={item.title}
         link={item.link}
         snippet={item.snippet}
@@ -96,6 +98,13 @@ class Results extends React.Component {
         this.setState({ isLoading: value });
       }
     );
+
+    // Automatically focus on the first item of the newly reloaded results
+    setTimeout(() => {
+      const refResultIndex = `result-${this.state.resultsStart}`;
+
+      ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
+    }, 2000);
   }
 
   /**
@@ -136,34 +145,40 @@ class Results extends React.Component {
   render() {
     const results = this.getList(this.state.searchResults);
     const resultsRemainLength = this.props.amount - results.length;
-
-    // Message if no result found
-    if (results.length === 0) {
-      return (
-        <p className="noResultMessage">No items were found...</p>
-      );
-    }
+    const resultsNumberSuggestion = (results.length === 0) ?
+      'No items were found...' : `We found about ${this.props.amount} results.`;
+    const resultMessageClass = (results.length === 0) ?
+      'noResultMessage' : `${this.props.className}-length`;
 
     return (
       <div className={`${this.props.className}-wrapper`}>
-        <p className={`${this.props.className}-length`}>
-          We found about {this.props.amount} results.
+        <p
+          className={resultMessageClass}
+          role="alert"
+          aria-atomic="true"
+          aria-live="polite"
+        >
+          {resultsNumberSuggestion}
         </p>
-        <DivideLineIcon
-          ariaHidden
-          className={`${this.props.className}-divideLineIcon`}
-          height="4"
-          length="84"
-          stroke="#2799C5"
-          strokeWidth="4"
-          title="divide.line.icon.svg"
-          viewBox="0 0 84 4"
-          width="84"
-        />
-        <ul id={this.props.id} className={this.props.className}>
-          {results}
-        </ul>
-        {this.renderSeeMoreButton(resultsRemainLength)}
+        {results.length !== 0 &&
+          <div>
+            <DivideLineIcon
+              ariaHidden
+              className={`${this.props.className}-divideLineIcon`}
+              height="4"
+              length="84"
+              stroke="#2799C5"
+              strokeWidth="4"
+              title="divide.line.icon.svg"
+              viewBox="0 0 84 4"
+              width="84"
+            />
+            <ul id={this.props.id} className={this.props.className} ref="results">
+              {results}
+            </ul>
+            {this.renderSeeMoreButton(resultsRemainLength)}
+          </div>
+        }
       </div>
     );
   }

@@ -210,7 +210,7 @@ class App extends React.Component {
         <Header skipNav={{ target: 'gs-mainContent' }} />
 
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
-          <h2>NYPL Search <span>BETA</span></h2>
+          <h1>NYPL.org Search <span>BETA</span></h1>
           <div id="gs-operations" className="gs-operations">
             <div id="gs-searchField" className="gs-searchField">
               <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
