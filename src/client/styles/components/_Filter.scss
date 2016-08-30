@@ -162,8 +162,10 @@
       padding: 0;
       text-align: left;
 
-      &:focus{
-        outline: 3px auto #3b99fc;
+      div {
+        &:focus{
+          outline: 3px auto #3b99fc;
+        }
       }
 
       label {

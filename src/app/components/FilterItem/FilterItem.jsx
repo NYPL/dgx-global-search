@@ -27,9 +27,11 @@ const FilterItem = ({
         className="visuallyHidden"
         onClick={onClick}
         onKeyPress={onKeyPress}
+        aria-labelledby={`filterItem-${name}-label`}
       >
       </input>
       <label
+        id={`filterItem-${name}-label`}
         className={className}
         htmlFor={`filterItem-${name}`}
       >
