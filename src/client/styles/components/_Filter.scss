@@ -162,8 +162,8 @@
       padding: 0;
       text-align: left;
 
-      div {
-        &:focus{
+      input {
+        &:focus + label {
           outline: 3px auto #3b99fc;
         }
       }
