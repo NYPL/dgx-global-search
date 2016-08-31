@@ -21,14 +21,4 @@ export default {
       q: '',
     },
   },
-  headerApi: {
-    endpoint: '/api/nypl/ndo/v0.1/site-data/header-items',
-    includes: [
-      'children',
-      'related-container-slots.current-item.square-image',
-    ],
-    filters: {
-      relationships: { parent: 'null' },
-    },
-  },
 };
