@@ -27,8 +27,6 @@ window.onload = () => {
     window.dgxFeatureFlags = FeatureFlags.utils;
   }
 
-  FeatureFlags.utils.activateFeature('shop-link');
-
   // Render Isomorphically
   Iso.bootstrap((state, container) => {
     let node = document.getElementById('app');

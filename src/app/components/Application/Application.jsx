@@ -4,7 +4,7 @@ import {
  } from 'underscore';
 
 // Import components
-import { Header } from 'dgx-header-component';
+import { Header, navConfig } from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
@@ -207,7 +207,7 @@ class App extends React.Component {
 
     return (
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp" onKeyPress={this.triggerSubmit}>
-        <Header skipNav={{ target: 'gs-mainContent' }} />
+        <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
 
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <h1>NYPL.org Search <span>BETA</span></h1>
