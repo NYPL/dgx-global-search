@@ -7,6 +7,7 @@ const FilterItem = ({
   className,
   onClick,
   label,
+  name,
 }) => {
   const onKeyPress = (event) => {
     if (event && event.charCode === 13) {
@@ -19,15 +20,25 @@ const FilterItem = ({
     <RadioInactiveIcon className={`radioIcon ${className}`} ariaHidden />;
 
   return (
-    <li
-      className={className}
-      onClick={onClick}
-      onKeyPress={onKeyPress}
-      tabIndex="0"
-    >
-      {label}
-      {radioIcon}
-    </li>
+    <div>
+      <input
+        id={`filterItem-${name}`}
+        type="radio"
+        className="visuallyHidden"
+        onClick={onClick}
+        onKeyPress={onKeyPress}
+        aria-labelledby={`filterItem-${name}-label`}
+      >
+      </input>
+      <label
+        id={`filterItem-${name}-label`}
+        className={className}
+        htmlFor={`filterItem-${name}`}
+      >
+        {label}
+        {radioIcon}
+      </label>
+    </div>
   );
 };
 

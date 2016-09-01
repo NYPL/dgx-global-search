@@ -105,10 +105,8 @@ const requestNoResultApp = (req, res, next) => {
   next();
 };
 
-
-// This section of routes is for reverse proxy
 router
-  .route('/searchbeta')
+  .route('/')
   .get(requestNoResultApp);
 
 router
