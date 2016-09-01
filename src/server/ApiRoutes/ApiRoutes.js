@@ -109,15 +109,14 @@ router
   .route('/')
   .get(requestNoResultApp);
 
-// This section of routes is for reverse proxy
-// router
-//   .route('/searchbeta')
-//   .get(requestNoResultApp);
-
 router
   .route('/searchbeta/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
 
+// This section of routes is for reverse proxy
+router
+  .route('/searchbeta')
+  .get(requestNoResultApp);
 
 // The route with valid pattern and the keyword will request the search results
 // router
