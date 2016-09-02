@@ -109,7 +109,6 @@ router
   .route('/')
   .get(requestNoResultApp);
 
-// This section of routes is for reverse proxy
 router
   .route('/searchbeta')
   .get(requestNoResultApp);
@@ -119,6 +118,7 @@ router
   .route('/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
 
+// The route here is for local development
 router
   .route('/searchbeta/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
@@ -131,9 +131,5 @@ router
 router
   .route('/api/:searchRequest/')
   .get(requestResultsFromClient);
-
-// router
-//   .route('/searchbeta/api/:searchRequest/')
-//   .get(requestResultsFromClient);
 
 export default router;
