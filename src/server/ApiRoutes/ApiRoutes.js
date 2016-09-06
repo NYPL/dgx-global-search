@@ -128,4 +128,8 @@ router
   .route('/searchbeta/api/:searchRequest/')
   .get(requestResultsFromClient);
 
+router
+  .route('/api/:searchRequest/')
+  .get(requestResultsFromClient);
+
 export default router;
