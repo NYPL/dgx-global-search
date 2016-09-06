@@ -123,13 +123,9 @@ router
   .route('/searchbeta/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
 
-router
-  .route('/searchbeta/api/:searchRequest/')
-  .get(requestResultsFromClient);
-
 // The route is specific for client side ajax call. It returns a json file
 router
-  .route('/api/:searchRequest/')
+  .route('/searchbeta/api/:searchRequest/')
   .get(requestResultsFromClient);
 
 export default router;
