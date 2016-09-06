@@ -114,7 +114,6 @@ router
   .get(requestNoResultApp);
 
 // The routes are specific for client side ajax call. It returns a json file
-// 
 router
   .route('/api/:searchRequest/')
   .get(requestResultsFromClient);
