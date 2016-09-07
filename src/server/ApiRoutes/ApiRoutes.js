@@ -27,7 +27,6 @@ const searchOptions = createOptions(searchApi);
 const getSearchData = (url) => axios.get(url);
 
 const requestSearchResult = (req, res, next) => {
-  console.log('server!');
   const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
   const searchRequest = `${req.params.searchKeyword}${searchFilter}`;
   searchOptions.filters = {
@@ -74,7 +73,6 @@ const requestSearchResult = (req, res, next) => {
 };
 
 const requestResultsFromClient = (req, res, next) => {
-  console.log('client!');
   searchOptions.filters = {
     q: req.params.searchRequest,
     start: req.query.start || '0',
@@ -108,7 +106,6 @@ const requestResultsFromClient = (req, res, next) => {
 };
 
 const requestNoResultApp = (req, res, next) => {
-  console.log('no result');
   next();
 };
 
