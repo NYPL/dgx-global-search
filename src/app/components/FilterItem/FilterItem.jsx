@@ -9,12 +9,6 @@ const FilterItem = ({
   label,
   name,
 }) => {
-  const onKeyPress = (event) => {
-    if (event && event.charCode === 13) {
-      onClick();
-    }
-  };
-
   const radioIcon = (className === 'selected') ?
     <RadioActiveIcon className={`radioIcon ${className}`} ariaHidden /> :
     <RadioInactiveIcon className={`radioIcon ${className}`} ariaHidden />;
@@ -26,7 +20,6 @@ const FilterItem = ({
         type="radio"
         className="visuallyHidden"
         onClick={onClick}
-        onKeyPress={onKeyPress}
         aria-labelledby={`filterItem-${name}-label`}
       >
       </input>
