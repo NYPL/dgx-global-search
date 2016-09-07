@@ -103,19 +103,16 @@ class Results extends React.Component {
     setTimeout(() => {
       const refResultIndex = `result-${this.state.resultsStart}`;
 
-      console.log(ReactDOM.findDOMNode(refResultIndex));
-
       ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
     }, 2000);
   }
 
   /**
-   * renderSeeMoreButton(remainingResults)
+   * renderSeeMoreButton
    * The function renders a see more button,
    * unless there's no more results, instead of rendering the button,
    * it renders the suggestion text to indicate no more result.
    *
-   * @param {number} remainingResults
    * @return {object}
    */
   renderSeeMoreButton(remainingResults) {
@@ -178,7 +175,7 @@ class Results extends React.Component {
             <ul id={this.props.id} className={this.props.className} ref="results">
               {results}
             </ul>
-            {this.renderSeeMoreButton(resultsRemainLength)}
+            {this.renderSeeMoreButton()}
           </div>
         }
       </div>

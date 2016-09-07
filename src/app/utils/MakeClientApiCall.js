@@ -13,6 +13,7 @@ import axios from 'axios';
  * @param {Number} start
  * @param {Function} callbackFunction
  * @param {Function} callbackFunctionNoKeyword
+ * @param {Function} callbackFunctionLoading
  */
 const makeClientApiCall = (
   keyword = '',

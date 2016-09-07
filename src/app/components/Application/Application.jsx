@@ -141,7 +141,7 @@ class App extends React.Component {
       makeClientApiCall(this.state.searchKeyword, selectedFacet, 0,
         (searchResultsItems, resultLength) => {
           const currentSearchKeyword = this.state.searchKeyword.trim() || '';
-          const facet = selectedFacet;
+          const facet = (selectedFacet) ? selectedFacet : '';
 
           // Update and transit to the match URL
           history.push({
@@ -206,7 +206,7 @@ class App extends React.Component {
       'Enter Search Terms' : 'Please enter a search term';
 
     return (
-      <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp" onKeyPress={this.triggerSubmit}>
+      <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
 
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
@@ -221,6 +221,7 @@ class App extends React.Component {
                   type="text"
                   placeholder={inputPlaceholder}
                   value={inputValue}
+                  onKeyPress={this.triggerSubmit}
                   onChange={this.inputChange}
                   label="Enter Search Terms"
                 />
