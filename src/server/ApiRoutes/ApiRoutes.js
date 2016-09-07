@@ -113,9 +113,9 @@ router
   .route('/searchbeta')
   .get(requestNoResultApp);
 
-// router
-//   .route('/api/:searchRequest/')
-//   .get(requestResultsFromClient);
+router
+  .route('/api/:searchRequest/')
+  .get(requestResultsFromClient);
 
 // The route is specific for client side ajax call. It returns a json file
 router
@@ -123,9 +123,9 @@ router
   .get(requestResultsFromClient);
 
 // The route with valid pattern and the keyword will request the search results
-// router
-//   .route('/:searchKeyword/:searchFilter?')
-//   .get(requestSearchResult);
+router
+  .route('/:searchKeyword/:searchFilter?')
+  .get(requestSearchResult);
 
 // The route here is for local development
 router
