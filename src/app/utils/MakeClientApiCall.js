@@ -8,11 +8,12 @@ import axios from 'axios';
  * Generally, the callback function will serve to update Store.js with the methods of Actions.js.
  * If it is not assigned with a valid keyword, it executes the callback fucntion for no keyword.
  *
- * @param {String} keyword
- * @param {String} facet
- * @param {Number} start
- * @param {Function} callbackFunction
- * @param {Function} callbackFunctionNoKeyword
+ * @param {string} keyword
+ * @param {string} facet
+ * @param {number} start
+ * @param {function} callbackFunction
+ * @param {function} callbackFunctionNoKeyword
+ * @param {function} callbackFunctionLoading
  */
 const makeClientApiCall = (
   keyword = '',
