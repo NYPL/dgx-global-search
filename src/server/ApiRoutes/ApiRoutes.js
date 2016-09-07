@@ -109,14 +109,14 @@ router
   .route('/')
   .get(requestNoResultApp);
 
-router
-  .route('/searchbeta')
-  .get(requestNoResultApp);
+// router
+//   .route('/searchbeta')
+//   .get(requestNoResultApp);
 
 // The routes are specific for client side ajax call. It returns a json file
-router
-  .route('/api/:searchRequest/')
-  .get(requestResultsFromClient);
+// router
+//   .route('/api/:searchRequest/')
+//   .get(requestResultsFromClient);
 
 router
   .route('/searchbeta/api/:searchRequest/')
@@ -128,8 +128,8 @@ router
   .get(requestSearchResult);
 
 // The route here is for local development
-router
-  .route('/searchbeta/:searchKeyword/:searchFilter?')
-  .get(requestSearchResult);
+// router
+//   .route('/searchbeta/:searchKeyword/:searchFilter?')
+//   .get(requestSearchResult);
 
 export default router;
