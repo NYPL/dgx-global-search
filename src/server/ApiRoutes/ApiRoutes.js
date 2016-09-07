@@ -72,7 +72,7 @@ const requestSearchResult = (req, res, next) => {
     });
 };
 
-const requestResultsFromClient = (req, res) => {
+const requestResultsFromClient = (req, res, next) => {
   searchOptions.filters = {
     q: req.params.searchRequest,
     start: req.query.start || '0',
@@ -93,11 +93,15 @@ const requestResultsFromClient = (req, res) => {
       };
 
       res.json(searchModeled);
+
+      // next();
     })
     .catch(error => {
       console.log(`error calling API : ${error}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
       console.log(`search keyword is ${searchOptions.filters.q}`);
+
+      next();
     });
 };
 
@@ -113,16 +117,7 @@ router
   .route('/searchbeta')
   .get(requestNoResultApp);
 
-router
-  .route('/api/:searchRequest/')
-  .get(requestResultsFromClient);
-
-// The route is specific for client side ajax call. It returns a json file
-router
-  .route('/searchbeta/api/:searchRequest/')
-  .get(requestResultsFromClient);
-
-// The route with valid pattern and the keyword will request the search results
+// For reverse proxy URLs
 router
   .route('/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
@@ -131,5 +126,14 @@ router
 router
   .route('/searchbeta/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
+
+// For reverse proxy client side API call
+router
+  .route('/request/api/:searchRequest/')
+  .get(requestResultsFromClient);
+
+router
+  .route('/searchbeta/request/api/:searchRequest/')
+  .get(requestResultsFromClient);
 
 export default router;
