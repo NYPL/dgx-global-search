@@ -113,7 +113,7 @@ router
   .route('/searchbeta')
   .get(requestNoResultApp);
 
-// The route with valid pattern and the keyword will request the search results
+// For reverse proxy URLs
 router
   .route('/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
@@ -123,13 +123,13 @@ router
   .route('/searchbeta/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
 
-// The route is specific for client side ajax call. It returns a json file
+// For reverse proxy client side API call
 router
-  .route('/searchbeta/api/:searchRequest/')
+  .route('/request/api/:searchRequest/')
   .get(requestResultsFromClient);
 
 router
-  .route('/api/:searchRequest/')
+  .route('/searchbeta/request/api/:searchRequest/')
   .get(requestResultsFromClient);
 
 export default router;
