@@ -125,6 +125,7 @@ router
   .route('/searchbeta/:searchKeyword/:searchFilter?')
   .get(requestSearchResult);
 
+// For reverse proxy client side API call
 router
   .route('/request/api/:searchRequest/')
   .get(requestResultsFromClient);
@@ -133,10 +134,10 @@ router
   .route('/searchbeta/request/api/:searchRequest/')
   .get(requestResultsFromClient);
 
-// The route with valid pattern and the keyword will request the search results
-// router
-//   .route('/:searchKeyword/:searchFilter?')
-//   .get(requestSearchResult);
+// For reverse proxy URLs
+router
+  .route('/:searchKeyword/:searchFilter?')
+  .get(requestSearchResult);
 
 
 export default router;
