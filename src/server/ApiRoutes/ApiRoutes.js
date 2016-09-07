@@ -72,7 +72,7 @@ const requestSearchResult = (req, res, next) => {
     });
 };
 
-const requestResultsFromClient = (req, res, next) => {
+const requestResultsFromClient = (req, res) => {
   searchOptions.filters = {
     q: req.params.searchRequest,
     start: req.query.start || '0',
@@ -93,15 +93,11 @@ const requestResultsFromClient = (req, res, next) => {
       };
 
       res.json(searchModeled);
-
-      // next();
     })
     .catch(error => {
       console.log(`error calling API : ${error}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
       console.log(`search keyword is ${searchOptions.filters.q}`);
-
-      next();
     });
 };
 
