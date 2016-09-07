@@ -50,6 +50,7 @@ InputField.propTypes = {
   required: React.PropTypes.bool,
   isRequired: React.PropTypes.bool,
   style: React.PropTypes.object,
+  label: React.PropTypes.string,
 };
 
 InputField.defaultProps = {

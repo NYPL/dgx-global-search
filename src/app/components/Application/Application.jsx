@@ -111,7 +111,7 @@ class App extends React.Component {
    * Passng event as the argument here as FireFox doesn't accept event
    * as a global variable.
    *
-   * @param {Event} event
+   * @param {object} event
    */
   inputChange(event) {
     this.setState({ searchKeyword: event.target.value });
@@ -122,7 +122,7 @@ class App extends React.Component {
    * Set the facet with the value of the clicked facet element.
    * It then makes an client AJAX call to fetch the results.
    *
-   * @param {String} facet
+   * @param {string} facet
    */
   searchBySelectedFacet(facet = '') {
     this.submitSearchRequest(facet);
@@ -132,7 +132,7 @@ class App extends React.Component {
    * submitSearchRequest(selectedFacet)
    * Submit the search request based on the values of the input fields and the facet.
    *
-   * @param {String} selectedFacet
+   * @param {string} selectedFacet
    */
   submitSearchRequest(selectedFacet) {
     if (!this.state.searchKeyword) {
@@ -141,7 +141,7 @@ class App extends React.Component {
       makeClientApiCall(this.state.searchKeyword, selectedFacet, 0,
         (searchResultsItems, resultLength) => {
           const currentSearchKeyword = this.state.searchKeyword.trim() || '';
-          const facet = (selectedFacet) ? selectedFacet : '';
+          const facet = selectedFacet || '';
 
           // Update and transit to the match URL
           history.push({
@@ -167,7 +167,7 @@ class App extends React.Component {
    * The function listens to the event of enter key.
    * Submit search request if enter is pressed.
    *
-   * @param {Event} event
+   * @param {object} event
    */
   triggerSubmit(event) {
     if (event && event.charCode === 13) {
@@ -180,7 +180,7 @@ class App extends React.Component {
    * The function renders the results of the search request.
    * If no search keyword input, it won't render anything and return null.
    *
-   * @return {Object} object
+   * @return {object} object
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
     if (!searchKeyword) {
