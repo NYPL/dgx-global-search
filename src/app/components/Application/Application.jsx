@@ -134,14 +134,14 @@ class App extends React.Component {
    *
    * @param {string} selectedFacet
    */
-  submitSearchRequest(selectedFacet) {
+  submitSearchRequest(selectedFacet = '') {
     if (!this.state.searchKeyword) {
       this.setState({ isKeywordValid: false });
     } else {
       makeClientApiCall(this.state.searchKeyword, selectedFacet, 0,
         (searchResultsItems, resultLength) => {
           const currentSearchKeyword = this.state.searchKeyword.trim() || '';
-          const facet = selectedFacet || '';
+          const facet = selectedFacet;
 
           // Update and transit to the match URL
           history.push({
