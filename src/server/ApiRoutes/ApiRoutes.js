@@ -113,6 +113,10 @@ router
   .route('/searchbeta')
   .get(requestNoResultApp);
 
+router
+  .route('/api/request/:searchRequest/')
+  .get(requestResultsFromClient);
+
 // The route here is for local development
 router
   .route('/searchbeta/:searchKeyword/:searchFilter?')
