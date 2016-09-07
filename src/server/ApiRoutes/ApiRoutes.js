@@ -128,8 +128,8 @@ router
   .get(requestSearchResult);
 
 // The route here is for local development
-// router
-//   .route('/searchbeta/:searchKeyword/:searchFilter?')
-//   .get(requestSearchResult);
+router
+  .route('/searchbeta/:searchKeyword/:searchFilter?')
+  .get(requestSearchResult);
 
 export default router;
