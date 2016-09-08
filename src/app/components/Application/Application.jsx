@@ -176,8 +176,10 @@ class App extends React.Component {
    * @param {object} event
    */
   triggerSubmit(event) {
-    if (event && event.charCode === 13) {
-      this.submitSearchRequest(this.state.selectedFacet);
+    if (event) {
+      if (event.charCode === 13 || event.key === 'Enter') {
+        this.submitSearchRequest(this.state.selectedFacet);
+      }
     }
   }
 
