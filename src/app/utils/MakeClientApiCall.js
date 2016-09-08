@@ -2,7 +2,8 @@
 import axios from 'axios';
 
 /**
- * makeClientApiCall(keyword, facet, start, callbackFunction, callbackFunctionNoKeyword)
+ * makeClientApiCall(keyword, facet, start, callbackFunction, callbackFunctionNoKeyword,
+ * callbackFunctionLoading)
  * The function makes a client side API call to request the data for search results.
  * After it gets the data successfully, it executes the callback function it has passed to.
  * Generally, the callback function will serve to update Store.js with the methods of Actions.js.

@@ -31,6 +31,7 @@ Import style rules from App components
 @import "components/Filter";
 @import "components/Results";
 @import "components/PaginationButton";
+@import "components/_LoadingLayer";
 
 #app {
   margin: 0;
