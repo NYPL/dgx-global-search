@@ -40,6 +40,12 @@ Import style rules from App components
   @include add-grid(3);
 }
 
+header {
+  display: block;
+  position: relative;
+  z-index: 1001;
+}
+
 .gs-mainContent {
   @include grid-span(3, 1);
 
