@@ -108,12 +108,11 @@ class Results extends React.Component {
   }
 
   /**
-   * renderSeeMoreButton(remainingResults)
+   * renderSeeMoreButton
    * The function renders a see more button,
    * unless there's no more results, instead of rendering the button,
    * it renders the suggestion text to indicate no more result.
    *
-   * @param {number} remainingResults
    * @return {object}
    */
   renderSeeMoreButton(remainingResults) {
@@ -144,7 +143,6 @@ class Results extends React.Component {
 
   render() {
     const results = this.getList(this.state.searchResults);
-    const resultsRemainLength = this.props.amount - results.length;
     const resultsNumberSuggestion = (results.length === 0) ?
       'No items were found...' : `We found about ${this.props.amount} results.`;
     const resultMessageClass = (results.length === 0) ?
@@ -176,7 +174,7 @@ class Results extends React.Component {
             <ul id={this.props.id} className={this.props.className} ref="results">
               {results}
             </ul>
-            {this.renderSeeMoreButton(resultsRemainLength)}
+            {this.renderSeeMoreButton()}
           </div>
         }
       </div>

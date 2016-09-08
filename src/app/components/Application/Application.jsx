@@ -111,7 +111,7 @@ class App extends React.Component {
    * Passng event as the argument here as FireFox doesn't accept event
    * as a global variable.
    *
-   * @param {Event} event
+   * @param {object} event
    */
   inputChange(event) {
     this.setState({ searchKeyword: event.target.value });
@@ -122,7 +122,7 @@ class App extends React.Component {
    * Set the facet with the value of the clicked facet element.
    * It then makes an client AJAX call to fetch the results.
    *
-   * @param {String} facet
+   * @param {string} facet
    */
   searchBySelectedFacet(facet = '') {
     this.submitSearchRequest(facet);
@@ -132,9 +132,9 @@ class App extends React.Component {
    * submitSearchRequest(selectedFacet)
    * Submit the search request based on the values of the input fields and the facet.
    *
-   * @param {String} selectedFacet
+   * @param {string} selectedFacet
    */
-  submitSearchRequest(selectedFacet) {
+  submitSearchRequest(selectedFacet = '') {
     if (!this.state.searchKeyword) {
       this.setState({ isKeywordValid: false });
     } else {
@@ -167,11 +167,13 @@ class App extends React.Component {
    * The function listens to the event of enter key.
    * Submit search request if enter is pressed.
    *
-   * @param {Event} event
+   * @param {object} event
    */
   triggerSubmit(event) {
-    if (event && event.charCode === 13) {
-      this.submitSearchRequest(this.state.selectedFacet);
+    if (event) {
+      if (event.charCode === 13 || event.key === 'Enter') {
+        this.submitSearchRequest(this.state.selectedFacet);
+      }
     }
   }
 
@@ -180,7 +182,7 @@ class App extends React.Component {
    * The function renders the results of the search request.
    * If no search keyword input, it won't render anything and return null.
    *
-   * @return {Object} object
+   * @return {object} object
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
     if (!searchKeyword) {
@@ -206,7 +208,7 @@ class App extends React.Component {
       'Enter Search Terms' : 'Please enter a search term';
 
     return (
-      <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp" onKeyPress={this.triggerSubmit}>
+      <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
 
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
@@ -221,6 +223,7 @@ class App extends React.Component {
                   type="text"
                   placeholder={inputPlaceholder}
                   value={inputValue}
+                  onKeyPress={this.triggerSubmit}
                   onChange={this.inputChange}
                   label="Enter Search Terms"
                 />
