@@ -31,12 +31,19 @@ Import style rules from App components
 @import "components/Filter";
 @import "components/Results";
 @import "components/PaginationButton";
+@import "components/_LoadingLayer";
 
 #app {
   margin: 0;
   padding: 0;
 
   @include add-grid(3);
+}
+
+header {
+  display: block;
+  position: relative;
+  z-index: 1001;
 }
 
 .gs-mainContent {
