@@ -13,8 +13,13 @@ class FilterList extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      selectedFacet: this.props.selectedFacet,
+    };
+
     this.renderfacets = this.renderfacets.bind(this);
     this.onClickApply = this.onClickApply.bind(this);
+    this.onClickFacet = this.onClickFacet.bind(this);
   }
 
   /**
@@ -23,13 +28,16 @@ class FilterList extends React.Component {
    * if the applied facet equals to the previous facet, it resets the current facet to null.
    *
    */
-  onClickApply(facet) {
+  onClickApply() {
     this.props.onClickClose();
+    this.props.onClickApply(this.state.selectedFacet);
+  }
 
-    if (facet === this.props.selectedFacet) {
-      this.props.onClickFacet('');
+  onClickFacet(clickedFacet) {
+    if (clickedFacet === this.props.selectedFacet) {
+      this.setState({ selectedFacet: '' });
     } else {
-      this.props.onClickFacet(facet);
+      this.setState({ selectedFacet: clickedFacet });
     }
   }
 
@@ -40,13 +48,14 @@ class FilterList extends React.Component {
    */
   renderfacets() {
     return _map(this.props.facets, (item, index) => {
-      const isSelected = (item.value === this.props.selectedFacet) ? 'selected' : '';
+      console.log(this.props.selectedFacet);
+      const isSelected = (item.value === this.state.selectedFacet) ? 'selected' : '';
 
       return (
         <FilterItem
           className={isSelected}
           key={index}
-          onClick={() => this.onClickApply(item.value)}
+          onClick={() => this.onClickFacet(item.value)}
           label={item.anchor}
           name={item.label}
         />
@@ -72,7 +81,7 @@ class FilterList extends React.Component {
             <ApplyButton
               id={`${this.props.id}-applyButton`}
               className={`customButton ${this.props.className}-applyButton`}
-              onClick={this.props.onClickClose}
+              onClick={() => this.onClickApply()}
               height="32"
               title="checkSolo.icon.svg"
               viewBox="0 0 32 32"

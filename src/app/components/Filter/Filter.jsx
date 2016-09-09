@@ -66,6 +66,7 @@ class Filter extends ClickOut {
         selectedFacet={this.props.selectedFacet}
         onClickClose={this.onClickClose}
         onClickFacet={this.props.onClickFacet}
+        onClickApply={this.props.onClickApply}
         isFilterListExpanded={this.state.isFilterListExpanded}
       />
     );
