@@ -156,6 +156,25 @@
       }
     }
 
+    &-applyButton {
+      margin: 0 14px 0 30px;
+
+      @include min-screen($tablet-portrait) {
+        margin: 0 20px 0 30px;
+      }
+
+      @include min-screen($tablet-landscape) {
+        display: none;
+      }
+
+      &-checkSoloIcon {
+        fill: #FFF;
+        -ms-transform: scale(2, 2);
+        -webkit-transform: scale(2, 2);
+        transform: scale(2, 2);
+      }
+    }
+
     &-items {
       border: none;
       margin: 0;

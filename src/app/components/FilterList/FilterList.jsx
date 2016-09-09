@@ -3,6 +3,7 @@ import React from 'react';
 import { FilterIcon } from 'dgx-svg-icons';
 
 import CloseButton from '../CloseButton/CloseButton.jsx';
+import ApplyButton from '../ApplyButton/ApplyButton.jsx';
 import FilterItem from '../FilterItem/FilterItem.jsx';
 
 // Import libraries
@@ -68,6 +69,16 @@ class FilterList extends React.Component {
           />
           <h2>Filter by</h2>
           <div className={`${this.props.className}-buttonWrapper`}>
+            <ApplyButton
+              id={`${this.props.id}-applyButton`}
+              className={`customButton ${this.props.className}-applyButton`}
+              onClick={this.props.onClickClose}
+              height="32"
+              title="checkSolo.icon.svg"
+              viewBox="0 0 32 32"
+              width="32"
+              ariaHidden
+            />
             <CloseButton
               id={`${this.props.id}-closeButton`}
               className={`customButton ${this.props.className}-closeButton`}
