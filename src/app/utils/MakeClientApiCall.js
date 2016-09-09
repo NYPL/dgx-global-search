@@ -30,15 +30,14 @@ const makeClientApiCall = (
     callbackFunctionNoKeyword();
   } else {
     // If the function calls makeClientApiCall() needs to update loading status
-    // and with a callback for it
+    // and passes a callback for it
     if (callbackFunctionLoading) {
-      // Change the state: isLoading for addMoreResults() in Results.jsx during the api call
+      // Change the state:
+      // isLoadingPagination for addMoreResults() in Results.jsx during the api call
       // to trigger the animation of the pagination button.
-      axios.interceptors.request.use(config => {
-        // Do something before request is sent
-        callbackFunctionLoading(true);
-        return config;
-      }, error => Promise.reject(error));
+      // isLoading for submitSearchRequest() in Application.jsx during the api call
+      // to trigger the loading layer.
+      callbackFunctionLoading(true);
     }
 
     axios
