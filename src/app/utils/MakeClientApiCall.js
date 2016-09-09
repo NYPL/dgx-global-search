@@ -29,7 +29,7 @@ const makeClientApiCall = (
   if (!keyword) {
     callbackFunctionNoKeyword();
   } else {
-    // If the function calls makeClientApiCall() needs to update isLoading state
+    // If the function calls makeClientApiCall() needs to update loading status
     // and with a callback for it
     if (callbackFunctionLoading) {
       // Change the state: isLoading for addMoreResults() in Results.jsx during the api call
