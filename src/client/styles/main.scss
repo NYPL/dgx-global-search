@@ -53,7 +53,7 @@ header {
 
   @include layout-at(9, $tablet-landscape) {
     box-sizing: border-box;
-    min-height: 700px;
+    min-height: 767px;
     padding: 0 20px;
   }
 

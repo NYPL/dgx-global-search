@@ -137,6 +137,9 @@
       svg {
         fill: #FFF;
         padding: 0;
+        @include min-screen($tablet-landscape) {
+          fill: #000;
+        }
       }
     }
 
@@ -154,7 +157,9 @@
 
     &-applyButton {
       @include min-screen($tablet-landscape) {
-        display: none;
+        bottom: 40px;
+        display: block;
+        position: absolute;
       }
     }
 
