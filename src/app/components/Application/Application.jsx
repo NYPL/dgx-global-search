@@ -63,7 +63,6 @@ class App extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
     this.searchBySelectedFacet = this.searchBySelectedFacet.bind(this);
-    this.setSelectedFacet = this.setSelectedFacet.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
@@ -129,10 +128,6 @@ class App extends React.Component {
    */
   searchBySelectedFacet(selectedFacet = '') {
     this.submitSearchRequest(selectedFacet);
-  }
-
-  setSelectedFacet(facet = '') {
-    Actions.updateSelectedFacet(facet);
   }
 
   /**
@@ -253,7 +248,6 @@ class App extends React.Component {
               className="gs-filter"
               facets={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
-              onClickFacet={this.setSelectedFacet}
               onClickApply={this.searchBySelectedFacet}
             />
           </div>

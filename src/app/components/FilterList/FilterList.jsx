@@ -34,7 +34,7 @@ class FilterList extends React.Component {
   }
 
   onClickFacet(clickedFacet) {
-    if (clickedFacet === this.props.selectedFacet) {
+    if (clickedFacet === this.state.selectedFacet) {
       this.setState({ selectedFacet: '' });
     } else {
       this.setState({ selectedFacet: clickedFacet });
@@ -48,7 +48,6 @@ class FilterList extends React.Component {
    */
   renderfacets() {
     return _map(this.props.facets, (item, index) => {
-      console.log(this.props.selectedFacet);
       const isSelected = (item.value === this.state.selectedFacet) ? 'selected' : '';
 
       return (
