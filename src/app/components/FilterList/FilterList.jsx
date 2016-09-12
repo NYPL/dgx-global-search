@@ -77,7 +77,6 @@ class FilterList extends React.Component {
             className={`${this.props.className}-filterIcon`}
             fill="#FFF"
             height="32"
-            title="filter.icon.svg"
             viewBox="0 0 32 32"
             width="32"
           />
@@ -93,7 +92,6 @@ class FilterList extends React.Component {
                 className={`customButton ${this.props.className}-applyButton`}
                 onClick={() => this.onClickApply()}
                 height="32"
-                title="checkSolo.icon.svg"
                 viewBox="0 0 32 32"
                 width="32"
                 ariaHidden
@@ -105,7 +103,6 @@ class FilterList extends React.Component {
               onClick={this.props.onClickClose}
               fill="#FFF"
               height="32"
-              title="x.icon.svg"
               viewBox="0 0 32 32"
               width="32"
               ariaHidden
