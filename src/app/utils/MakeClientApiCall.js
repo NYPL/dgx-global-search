@@ -32,11 +32,8 @@ const makeClientApiCall = (
     // If the function calls makeClientApiCall() needs to update loading status
     // and passes a callback for it
     if (callbackFunctionLoading) {
-      // Change the state:
-      // isLoadingPagination for addMoreResults() in Results.jsx during the api call
-      // to trigger the animation of the pagination button.
-      // isLoading for submitSearchRequest() in Application.jsx during the api call
-      // to trigger the loading layer.
+      // Change the state to trigger the animation of the pagination button or
+      // the loading layer.
       callbackFunctionLoading(true);
     }
 
