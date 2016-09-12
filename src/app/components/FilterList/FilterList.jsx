@@ -20,7 +20,6 @@ class FilterList extends React.Component {
     this.renderfacets = this.renderfacets.bind(this);
     this.onClickApply = this.onClickApply.bind(this);
     this.onClickFacet = this.onClickFacet.bind(this);
-    this.triggerClose = this.triggerClose.bind(this);
   }
 
   /**
@@ -49,23 +48,6 @@ class FilterList extends React.Component {
   }
 
   /**
-   * triggerClose(event)
-   * The function listens to the event of esc key.
-   * Close the filter modal request if esc is pressed.
-   *
-   * @param {object} event
-   */
-  triggerClose(event) {
-    console.log('trigger');
-     if (event) {
-      if (event.charCode === 27 || event.key === 'Escape') {
-        this.props.onClickClose();
-        console.log('trigger ESC');
-      }
-    }
-  }
-
-  /**
    * renderfacets()
    * The function renders FilterItem Component with different values of the facets.
    *
@@ -88,7 +70,7 @@ class FilterList extends React.Component {
 
   render() {
     return (
-      <div className={this.props.className} onKeyPress={this.triggerClose}>
+      <div className={this.props.className}>
         <div className={`${this.props.className}-navigation`}>
           <FilterIcon
             ariaHidden

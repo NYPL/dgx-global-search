@@ -176,7 +176,7 @@ class App extends React.Component {
    */
   triggerSubmit(event) {
     if (event) {
-      if (event.charCode === 13 || event.key === 'Enter') {
+      if (event.keyCode === 13 || event.key === 'Enter') {
         this.submitSearchRequest(this.state.selectedFacet);
       }
     }
