@@ -94,6 +94,8 @@ class Results extends React.Component {
         Actions.updateSearchKeyword('');
         Actions.updateIsKeywordValid(false);
       },
+      // The callback function for changing the value of isLoadingPagination
+      // to trigger the animation of the pagination button.
       (value) => {
         this.setState({ isLoadingPagination: value });
       }
