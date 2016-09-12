@@ -3,10 +3,6 @@ import React from 'react';
 import LoadingDots from '../LoadingDots/LoadingDots.jsx';
 
 class LoadingLayer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     if (this.props.status === false) {
       return null;
