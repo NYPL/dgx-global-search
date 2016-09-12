@@ -138,13 +138,13 @@
         fill: #FFF;
         padding: 0;
         @include min-screen($tablet-landscape) {
-          fill: #000;
+          fill: $SEARCH_BLUE;
         }
       }
     }
 
     &-closeButton {
-      margin: 0 14px 0 0;
+      margin: 0 4px 0 0;
 
       @include min-screen($tablet-portrait) {
         margin: 0 9px 0 0;
@@ -156,10 +156,43 @@
     }
 
     &-applyButton {
-      @include min-screen($tablet-landscape) {
-        bottom: 40px;
-        display: block;
-        position: absolute;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      background-color: transparent;
+      border: 2px solid $SEARCH_BLUE;
+      border-radius: 33px;
+      color: $SEARCH_BLUE;
+      cursor: pointer;
+      font-family: Kievit-Medium;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      line-height: 16.21px;
+      overflow: hidden;
+      &-wrapper {
+        display: inline-block;
+        @include min-screen($tablet-landscape) {
+          border: 3px solid $SEARCH_BLUE;
+          border-radius: 33px;
+          padding: 0 37px 0 19px;
+          bottom: 20px;
+          position: absolute;
+          margin-left: -100px;
+          left: 65%;
+        }
+      }
+      span {
+        vertical-align: 10px;
+        margin: 0 0 0 16px;
+        @include min-screen($tablet-landscape) {
+          position: relative !important;
+          height: auto;
+          left: 0;
+          width: auto;
+          overflow: hidden;
+          clip: auto; /* IE6, IE7 */
+          clip: auto;
+        }
       }
     }
 

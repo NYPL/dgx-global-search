@@ -77,16 +77,18 @@ class FilterList extends React.Component {
           />
           <h2>Filter by</h2>
           <div className={`${this.props.className}-buttonWrapper`}>
-            <ApplyButton
-              id={`${this.props.id}-applyButton`}
-              className={`customButton ${this.props.className}-applyButton`}
-              onClick={() => this.onClickApply()}
-              height="32"
-              title="checkSolo.icon.svg"
-              viewBox="0 0 32 32"
-              width="32"
-              ariaHidden
-            />
+            <div className={`${this.props.className}-applyButton-wrapper`}>
+              <ApplyButton
+                id={`${this.props.id}-applyButton`}
+                className={`customButton ${this.props.className}-applyButton`}
+                onClick={() => this.onClickApply()}
+                height="32"
+                title="checkSolo.icon.svg"
+                viewBox="0 0 32 32"
+                width="32"
+                ariaHidden
+              />
+            </div>
             <CloseButton
               id={`${this.props.id}-closeButton`}
               className={`customButton ${this.props.className}-closeButton`}

@@ -28,7 +28,7 @@ const ApplyButton = ({
         width={width}
       />
     }
-    label="Apply Button"
+    label="APPLY"
     labelAccessible
   />
 );
