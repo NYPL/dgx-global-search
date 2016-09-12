@@ -27,8 +27,13 @@ class LoadingLayer extends React.Component {
   }
 }
 
+LoadingLayer.propTypes = {
+  status: React.PropTypes.bool,
+  title: React.PropTypes.string,
+};
+
 LoadingLayer.defaultProps = {
   status: false,
-}
+};
 
 export default LoadingLayer;
