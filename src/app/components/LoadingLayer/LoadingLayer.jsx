@@ -3,10 +3,6 @@ import React from 'react';
 import LoadingDots from '../LoadingDots/LoadingDots.jsx';
 
 class LoadingLayer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     if (this.props.status === false) {
       return null;
@@ -27,8 +23,13 @@ class LoadingLayer extends React.Component {
   }
 }
 
+LoadingLayer.propTypes = {
+  status: React.PropTypes.bool,
+  title: React.PropTypes.string,
+};
+
 LoadingLayer.defaultProps = {
   status: false,
-}
+};
 
 export default LoadingLayer;

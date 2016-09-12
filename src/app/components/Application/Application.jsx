@@ -160,6 +160,8 @@ class App extends React.Component {
           Actions.updateSearchKeyword('');
           Actions.updateIsKeywordValid(false);
         },
+        // The callback function for changing the value of isLoading
+        // to trigger the loading layer.
         (value) => {
           this.setState({ isLoading: value });
         }
