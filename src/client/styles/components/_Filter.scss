@@ -156,29 +156,31 @@
     }
 
     &-applyButton {
+      &.customButton {
+        @include min-screen($tablet-landscape) {
+          border: 2px solid $SEARCH_BLUE;
+          border-radius: 33px;
+          padding: 0 37px 0 19px;
+        }
+      }
       -moz-appearance: none;
       -webkit-appearance: none;
       appearance: none;
       background-color: transparent;
-      border: 2px solid $SEARCH_BLUE;
-      border-radius: 33px;
       color: $SEARCH_BLUE;
-      cursor: pointer;
       font-family: Kievit-Medium;
       font-size: 13px;
       letter-spacing: 0.04em;
       line-height: 16.21px;
       overflow: hidden;
+
       &-wrapper {
         display: inline-block;
         @include min-screen($tablet-landscape) {
-          border: 3px solid $SEARCH_BLUE;
-          border-radius: 33px;
-          padding: 0 37px 0 19px;
           bottom: 20px;
           position: absolute;
           margin-left: -100px;
-          left: 65%;
+          left: 62%;
         }
       }
       span {

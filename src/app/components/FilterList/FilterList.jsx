@@ -102,7 +102,7 @@ class FilterList extends React.Component {
             />
           </div>
         </div>
-        <fieldset className={`${this.props.className}-items`} tabIndex="0">
+        <fieldset className={`${this.props.className}-items`}>
           <legend className="visuallyHidden">Choose a filter from the filter list</legend>
           {this.renderfacets()}
         </fieldset>

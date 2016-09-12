@@ -29,7 +29,7 @@ const CloseButton = ({
         width={width}
       />
     }
-    label="Close Button"
+    label="Close"
     labelAccessible
   />
 );
