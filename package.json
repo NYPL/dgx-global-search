@@ -44,7 +44,7 @@
     "dgx-model-data": "git+ssh://git@bitbucket.org/NYPL/dgx-model-data.git#master",
     "dgx-react-buttons": "git+ssh://git@bitbucket.org/NYPL/dgx-react-buttons.git#master",
     "dgx-react-footer": "git+ssh://git@bitbucket.org/NYPL/dgx-react-footer.git#master",
-    "dgx-react-ga": "git+ssh://git@bitbucket.org/NYPL/dgx-react-ga.git#WEb-3415-improved-ga",
+    "dgx-react-ga": "git+ssh://git@bitbucket.org/NYPL/dgx-react-ga.git#master",
     "dgx-svg-icons": "git+ssh://git@bitbucket.org/NYPL/dgx-svg-icons.git#master",
     "ejs": "2.4.2",
     "enzyme": "2.2.0",
