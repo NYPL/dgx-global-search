@@ -76,6 +76,10 @@ class FilterList extends React.Component {
             width="32"
           />
           <h2>Filter by</h2>
+          <fieldset className={`${this.props.className}-items`}>
+            <legend className="visuallyHidden">Choose a filter from the filter list</legend>
+            {this.renderfacets()}
+          </fieldset>
           <div className={`${this.props.className}-buttonWrapper`}>
             <div className={`${this.props.className}-applyButton-wrapper`}>
               <ApplyButton
@@ -102,10 +106,6 @@ class FilterList extends React.Component {
             />
           </div>
         </div>
-        <fieldset className={`${this.props.className}-items`}>
-          <legend className="visuallyHidden">Choose a filter from the filter list</legend>
-          {this.renderfacets()}
-        </fieldset>
       </div>
     );
   }

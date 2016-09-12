@@ -89,7 +89,6 @@
     }
 
     &-navigation {
-      border-bottom: 2px solid #FFF;
       padding: 30px 0 20px 0;
       text-align: left;
 
@@ -125,7 +124,15 @@
 
     &-buttonWrapper {
       display: inline-block;
-      float: right;
+      position: absolute;
+      top: 32px;
+      right: 0;
+      @include min-screen($tablet-landscape) {
+        bottom: 20px;
+        left: 24%;
+        right: auto;
+        top: auto;
+      }
     }
 
     .customButton {
@@ -176,12 +183,6 @@
 
       &-wrapper {
         display: inline-block;
-        @include min-screen($tablet-landscape) {
-          bottom: 20px;
-          position: absolute;
-          margin-left: -100px;
-          left: 62%;
-        }
       }
       span {
         vertical-align: 10px;
@@ -200,7 +201,8 @@
 
     &-items {
       border: none;
-      margin: 0;
+      border-top: 2px solid #FFF;
+      margin: 25px 0 0 0;
       padding: 0;
       text-align: left;
 
