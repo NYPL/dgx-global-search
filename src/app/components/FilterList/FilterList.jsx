@@ -20,12 +20,12 @@ class FilterList extends React.Component {
     this.renderfacets = this.renderfacets.bind(this);
     this.onClickApply = this.onClickApply.bind(this);
     this.onClickFacet = this.onClickFacet.bind(this);
+    this.triggerClose = this.triggerClose.bind(this);
   }
 
   /**
    * onClickApply()
-   * The function applies the newly clicked facet to FilterItem for its click function,
-   * if the applied facet equals to the previous facet, it resets the current facet to null.
+   * The function makes the search with selected facet.
    *
    */
   onClickApply() {
@@ -33,11 +33,35 @@ class FilterList extends React.Component {
     this.props.onClickApply(this.state.selectedFacet);
   }
 
+  /**
+   * onClickFacet(clickedFacet)
+   * The function applies the newly clicked facet to FilterItem for its click function,
+   * if the applied facet equals to the previous facet, it resets the current facet to null.
+   *
+   * @param {string} clickedFacet
+   */
   onClickFacet(clickedFacet) {
     if (clickedFacet === this.state.selectedFacet) {
       this.setState({ selectedFacet: '' });
     } else {
       this.setState({ selectedFacet: clickedFacet });
+    }
+  }
+
+  /**
+   * triggerClose(event)
+   * The function listens to the event of esc key.
+   * Close the filter modal request if esc is pressed.
+   *
+   * @param {object} event
+   */
+  triggerClose(event) {
+    console.log('trigger');
+     if (event) {
+      if (event.charCode === 27 || event.key === 'Escape') {
+        this.props.onClickClose();
+        console.log('trigger ESC');
+      }
     }
   }
 
@@ -64,7 +88,7 @@ class FilterList extends React.Component {
 
   render() {
     return (
-      <div className={this.props.className}>
+      <div className={this.props.className} onKeyPress={this.triggerClose}>
         <div className={`${this.props.className}-navigation`}>
           <FilterIcon
             ariaHidden
