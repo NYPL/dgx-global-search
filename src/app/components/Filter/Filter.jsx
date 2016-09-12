@@ -41,7 +41,7 @@ class Filter extends ClickOut {
    *
    */
   onClickClose() {
-    this.setState({ isFilterListExpanded: false});
+    this.setState({ isFilterListExpanded: false });
   }
 
   /**
@@ -61,9 +61,9 @@ class Filter extends ClickOut {
    * @param {object} event
    */
   triggerClose(event) {
-     if (event) {
+    if (event) {
       if (event.key === 'Escape' || event.key === 'Esc' || event.keyCode === 27) {
-        this.setState({ isFilterListExpanded: false});
+        this.setState({ isFilterListExpanded: false });
       }
     }
   }

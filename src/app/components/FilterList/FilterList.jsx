@@ -123,6 +123,7 @@ FilterList.propTypes = {
   facets: React.PropTypes.array,
   selectedFacet: React.PropTypes.string,
   onClickClose: React.PropTypes.func,
+  onClickApply: React.PropTypes.func,
   onClickFacet: React.PropTypes.func,
 };
 

@@ -20,7 +20,7 @@ const CloseButton = ({
     onClick={onClick}
     icon={
       <XIcon
-        ariaHidden
+        ariaHidden={ariaHidden}
         className={`${className}-xIcon`}
         fill={fill}
         height={height}

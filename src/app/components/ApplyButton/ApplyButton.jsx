@@ -6,7 +6,6 @@ import { CheckSoloIcon } from 'dgx-svg-icons';
 const ApplyButton = ({
   ariaHidden,
   className,
-  fill,
   height,
   id,
   onClick,
@@ -20,7 +19,7 @@ const ApplyButton = ({
     onClick={onClick}
     icon={
       <CheckSoloIcon
-        ariaHidden
+        ariaHidden={ariaHidden}
         className={`${className}-checkSoloIcon`}
         height={height}
         title={title}
