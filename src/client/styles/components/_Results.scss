@@ -57,13 +57,13 @@
     }
 
     a {
-      color: #000;
+      color: $SEARCH_BLUE;
       text-decoration: none;
     }
 
     &-title {
-      font-size: 18px;
-      line-height: 21px;
+      font-size: 22px;
+      line-height: 23px;
 
       @include layout-at(7, $tablet-portrait) {
         @include grid-span(5, 3);
@@ -73,6 +73,12 @@
 
       @include layout-at(6, $tablet-landscape) {
         @include grid-span(4, 3);
+
+        &:hover {
+          text-decoration: underline;
+          //border-bottom: 2px solid $SEARCH_BLUE;
+        }
+
       }
     }
 
