@@ -10,6 +10,7 @@ import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
+import LoadingLayer from '../LoadingLayer/LoadingLayer.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -54,6 +55,7 @@ class App extends React.Component {
     this.state = _extend(
       {
         resultsComponentData: null,
+        isLoading: false,
       },
       Store.getState()
     );
@@ -93,6 +95,7 @@ class App extends React.Component {
     // Updates the state with the new search data
     this.setState({
       isKeywordValid: true,
+      isLoading: false,
       searchKeyword: Store.getState().searchKeyword,
       selectedFacet: Store.getState().selectedFacet,
       resultsComponentData: this.renderResults(
@@ -118,14 +121,13 @@ class App extends React.Component {
   }
 
   /**
-   * searchBySelectedFacet(facet)
+   * searchBySelectedFacet()
    * Set the facet with the value of the clicked facet element.
    * It then makes an client AJAX call to fetch the results.
    *
-   * @param {string} facet
    */
-  searchBySelectedFacet(facet = '') {
-    this.submitSearchRequest(facet);
+  searchBySelectedFacet(selectedFacet = '') {
+    this.submitSearchRequest(selectedFacet);
   }
 
   /**
@@ -157,6 +159,11 @@ class App extends React.Component {
         () => {
           Actions.updateSearchKeyword('');
           Actions.updateIsKeywordValid(false);
+        },
+        // The callback function for changing the value of isLoading
+        // to trigger the loading layer.
+        (value) => {
+          this.setState({ isLoading: value });
         }
       );
     }
@@ -171,7 +178,7 @@ class App extends React.Component {
    */
   triggerSubmit(event) {
     if (event) {
-      if (event.charCode === 13 || event.key === 'Enter') {
+      if (event.keyCode === 13 || event.key === 'Enter') {
         this.submitSearchRequest(this.state.selectedFacet);
       }
     }
@@ -210,7 +217,10 @@ class App extends React.Component {
     return (
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
-
+        <LoadingLayer
+          status={this.state.isLoading}
+          title="Search Results"
+        />
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <h1>NYPL.org Search <span>BETA</span></h1>
           <div id="gs-operations" className="gs-operations">
@@ -240,7 +250,7 @@ class App extends React.Component {
               className="gs-filter"
               facets={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
-              onClickFacet={this.searchBySelectedFacet}
+              onClickApply={this.searchBySelectedFacet}
             />
           </div>
           {this.state.resultsComponentData}

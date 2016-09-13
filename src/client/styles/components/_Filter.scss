@@ -89,7 +89,6 @@
     }
 
     &-navigation {
-      border-bottom: 2px solid #FFF;
       padding: 30px 0 20px 0;
       text-align: left;
 
@@ -104,10 +103,10 @@
 
       h2 {
         display: inline-block;
-        font-size: 20px;
+        font-size: 24px;
         line-height: 26px;
         margin: 0;
-        vertical-align: 12px;
+        vertical-align: super;
 
         @include min-screen($tablet-landscape) {
           color: $FILTER_ICON_GREY;
@@ -116,10 +115,7 @@
     }
 
     &-filterIcon {
-      -ms-transform: scale(1.4, 1.4);
-      -webkit-transform: scale(1.4, 1.4);
-      margin: 0 18px 0 20px;
-      transform: scale(1.4, 1.4);
+      margin: 0 0 0 20px;
 
       @include min-screen($tablet-landscape) {
         fill: $FILTER_ICON_GREY;
@@ -128,37 +124,85 @@
 
     &-buttonWrapper {
       display: inline-block;
-      float: right;
+      position: absolute;
+      top: 32px;
+      right: 0;
+      @include min-screen($tablet-landscape) {
+        bottom: 20px;
+        left: 24%;
+        right: auto;
+        top: auto;
+      }
     }
 
     .customButton {
       background-color: transparent;
       border: none;
       cursor: pointer;
-      padding: 0;
+      padding: 0 3px;
+
+      svg {
+        fill: #FFF;
+        padding: 0;
+        @include min-screen($tablet-landscape) {
+          fill: $SEARCH_BLUE;
+        }
+      }
     }
 
     &-closeButton {
-      margin: 0 14px 0 30px;
+      margin: 0 4px 0 0;
 
       @include min-screen($tablet-portrait) {
-        margin: 0 20px 0 30px;
+        margin: 0 9px 0 0;
       }
 
       @include min-screen($tablet-landscape) {
         display: none;
       }
+    }
 
-      &-xIcon {
-        -ms-transform: scale(2, 2);
-        -webkit-transform: scale(2, 2);
-        transform: scale(2, 2);
+    &-applyButton {
+      &.customButton {
+        @include min-screen($tablet-landscape) {
+          border: 2px solid $SEARCH_BLUE;
+          border-radius: 33px;
+          padding: 0 37px 0 19px;
+        }
+      }
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      background-color: transparent;
+      color: $SEARCH_BLUE;
+      font-family: Kievit-Medium;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      line-height: 16.21px;
+      overflow: hidden;
+
+      &-wrapper {
+        display: inline-block;
+      }
+      span {
+        vertical-align: 10px;
+        margin: 0 0 0 16px;
+        @include min-screen($tablet-landscape) {
+          position: relative !important;
+          height: auto;
+          left: 0;
+          width: auto;
+          overflow: hidden;
+          clip: auto; /* IE6, IE7 */
+          clip: auto;
+        }
       }
     }
 
     &-items {
       border: none;
-      margin: 0;
+      border-top: 2px solid #FFF;
+      margin: 25px 0 0 0;
       padding: 0;
       text-align: left;
 

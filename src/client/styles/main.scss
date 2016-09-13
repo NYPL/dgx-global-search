@@ -31,12 +31,19 @@ Import style rules from App components
 @import "components/Filter";
 @import "components/Results";
 @import "components/PaginationButton";
+@import "components/_LoadingLayer";
 
 #app {
   margin: 0;
   padding: 0;
 
   @include add-grid(3);
+}
+
+header {
+  display: block;
+  position: relative;
+  z-index: 1001;
 }
 
 .gs-mainContent {
@@ -46,7 +53,7 @@ Import style rules from App components
 
   @include layout-at(9, $tablet-landscape) {
     box-sizing: border-box;
-    min-height: 700px;
+    min-height: 800px;
     padding: 0 20px;
   }
 
