@@ -22,7 +22,7 @@ class Results extends React.Component {
 
     this.state = {
       resultsStart: this.props.resultsStart,
-      isLoading: false,
+      isLoadingPagination: false,
       incrementResults: 10,
       searchResults: this.props.results,
     };
@@ -46,7 +46,7 @@ class Results extends React.Component {
     // Update the Store with new fetched data
     this.setState({
       resultsStart: Store.getState().resultsStart,
-      isLoading: false,
+      isLoadingPagination: false,
       searchResults: Store.getState().searchData,
     });
   }
@@ -94,8 +94,10 @@ class Results extends React.Component {
         Actions.updateSearchKeyword('');
         Actions.updateIsKeywordValid(false);
       },
+      // The callback function for changing the value of isLoadingPagination
+      // to trigger the animation of the pagination button.
       (value) => {
-        this.setState({ isLoading: value });
+        this.setState({ isLoadingPagination: value });
       }
     );
 
@@ -133,9 +135,9 @@ class Results extends React.Component {
         <PaginationButton
           id={`${this.props.id}-paginationButton`}
           className={`${this.props.id}-paginationButton`}
-          isLoading={this.state.isLoading}
+          isLoading={this.state.isLoadingPagination}
           onClick={this.addMoreResults}
-          label="Load More"
+          label="LOAD MORE"
         />
       </div>
     );
