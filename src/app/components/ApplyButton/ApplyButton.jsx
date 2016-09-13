@@ -15,6 +15,7 @@ const ApplyButton = ({
     onClick={onClick}
     icon={
       <CheckSoloIcon
+        ariaHidden
         className={`${className}-checkSoloIcon`}
         title={title}
       />

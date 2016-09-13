@@ -73,12 +73,8 @@ class FilterList extends React.Component {
       <div className={this.props.className}>
         <div className={`${this.props.className}-navigation`}>
           <FilterIcon
-            ariaHidden
             className={`${this.props.className}-filterIcon`}
             fill="#FFF"
-            height="32"
-            viewBox="0 0 32 32"
-            width="32"
           />
           <h2>Filter by</h2>
           <fieldset className={`${this.props.className}-items`}>
@@ -91,10 +87,6 @@ class FilterList extends React.Component {
                 id={`${this.props.id}-applyButton`}
                 className={`customButton ${this.props.className}-applyButton`}
                 onClick={() => this.onClickApply()}
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                ariaHidden
               />
             </div>
             <CloseButton
@@ -102,10 +94,6 @@ class FilterList extends React.Component {
               className={`customButton ${this.props.className}-closeButton`}
               onClick={this.props.onClickClose}
               fill="#FFF"
-              height="32"
-              viewBox="0 0 32 32"
-              width="32"
-              ariaHidden
             />
           </div>
         </div>
