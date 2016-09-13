@@ -65,7 +65,6 @@
     "react-addons-test-utils": "0.14.7",
     "react-doc-meta": "0.2.0",
     "react-dom": "0.14.8",
-    "react-ga": "1.4.1",
     "react-hot-loader": "1.2.8",
     "react-onclickout": "2.0.4",
     "react-tappable": "0.8.1",
