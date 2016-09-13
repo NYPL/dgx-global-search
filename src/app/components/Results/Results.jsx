@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -55,14 +56,15 @@ class Results extends React.Component {
    * The function maps the search result array,
    * and returns a new array of composed of <ResultsItem> components.
    *
-   * @param {itemsArray} array
-   * @return array
+   * @param {array} itemsArray
+   * @return {array}
    */
   getList(itemsArray) {
     return _map(itemsArray, (item, index) => (
       <ResultsItem
         key={index}
         index={index}
+        ref={`result-${index}`}
         title={item.title}
         link={item.link}
         snippet={item.snippet}
@@ -96,47 +98,85 @@ class Results extends React.Component {
         this.setState({ isLoading: value });
       }
     );
+
+    // Automatically focus on the first item of the newly reloaded results
+    setTimeout(() => {
+      const refResultIndex = `result-${this.state.resultsStart}`;
+
+      ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
+    }, 2000);
   }
 
-  render() {
-    const results = this.getList(this.state.searchResults);
-    const resultsRemainLength = (this.props.amount - results.length).toString();
+  /**
+   * renderSeeMoreButton
+   * The function renders a see more button,
+   * unless there's no more results, instead of rendering the button,
+   * it renders the suggestion text to indicate no more result.
+   *
+   * @return {object}
+   */
+  renderSeeMoreButton(remainingResults) {
+    if (this.props.amount < this.state.incrementResults) {
+      return null;
+    }
 
-    // Message if no result found
-    if (results.length === 0) {
+    if (remainingResults <= 0) {
       return (
-        <p className="noResultMessage">No items were found...</p>
+        <div className={`${this.props.id}-paginationButton-wrapper`}>
+          <p>No More Results from this Search.</p>
+        </div>
       );
     }
 
     return (
-      <div className={`${this.props.className}-wrapper`}>
-        <p className={`${this.props.className}-length`}>
-          We found about {this.props.amount} results.
-        </p>
-        <DivideLineIcon
-          ariaHidden
-          className={`${this.props.className}-divideLineIcon`}
-          height="4"
-          length="84"
-          stroke="#2799C5"
-          strokeWidth="4"
-          title="divide.line.icon.svg"
-          viewBox="0 0 84 4"
-          width="84"
+      <div className={`${this.props.id}-paginationButton-wrapper`}>
+        <PaginationButton
+          id={`${this.props.id}-paginationButton`}
+          className={`${this.props.id}-paginationButton`}
+          isLoading={this.state.isLoading}
+          onClick={this.addMoreResults}
+          label="Load More"
         />
-        <ul id={this.props.id} className={this.props.className}>
-          {results}
-        </ul>
-        <div className={`${this.props.id}-paginationButton-wrapper`}>
-          <PaginationButton
-            id={`${this.props.id}-paginationButton`}
-            className={`${this.props.id}-paginationButton`}
-            isLoading={this.state.isLoading}
-            onClick={this.addMoreResults}
-            label={resultsRemainLength}
-          />
-        </div>
+      </div>
+    );
+  }
+
+  render() {
+    const results = this.getList(this.state.searchResults);
+    const resultsNumberSuggestion = (results.length === 0) ?
+      'No items were found...' : `We found about ${this.props.amount} results.`;
+    const resultMessageClass = (results.length === 0) ?
+      'noResultMessage' : `${this.props.className}-length`;
+
+    return (
+      <div className={`${this.props.className}-wrapper`}>
+        <p
+          className={resultMessageClass}
+          role="alert"
+          aria-atomic="true"
+          aria-live="polite"
+        >
+          {resultsNumberSuggestion}
+        </p>
+        {results.length !== 0 &&
+          <div>
+            <DivideLineIcon
+              ariaHidden
+              className={`${this.props.className}-divideLineIcon`}
+              height="4"
+              length="84"
+              stroke="#2799C5"
+              strokeWidth="4"
+              title="divide.line.icon.svg"
+              viewBox="0 0 84 4"
+              width="84"
+            />
+            <ul id={this.props.id} className={this.props.className} ref="results">
+              {results}
+            </ul>
+            {this.renderSeeMoreButton()}
+          </div>
+        }
       </div>
     );
   }

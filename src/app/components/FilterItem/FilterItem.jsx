@@ -1,29 +1,37 @@
 import React from 'react';
 
 // Import libraries
-import { CircleDashIcon } from 'dgx-svg-icons';
+import { RadioActiveIcon, RadioInactiveIcon } from 'dgx-svg-icons';
 
 const FilterItem = ({
   className,
   onClick,
   label,
+  name,
 }) => {
-  const onKeyPress = (event) => {
-    if (event && event.charCode === 13) {
-      onClick();
-    }
-  };
+  const radioIcon = (className === 'selected') ?
+    <RadioActiveIcon className={`radioIcon ${className}`} ariaHidden /> :
+    <RadioInactiveIcon className={`radioIcon ${className}`} ariaHidden />;
 
   return (
-    <li
-      className={className}
-      onClick={onClick}
-      onKeyPress={onKeyPress}
-      tabIndex="0"
-    >
-      {label}
-      <CircleDashIcon className={`circleDashIcon ${className}`} />
-    </li>
+    <div>
+      <input
+        id={`filterItem-${name}`}
+        type="radio"
+        className="visuallyHidden"
+        onClick={onClick}
+        aria-labelledby={`filterItem-${name}-label`}
+      >
+      </input>
+      <label
+        id={`filterItem-${name}-label`}
+        className={className}
+        htmlFor={`filterItem-${name}`}
+      >
+        {label}
+        {radioIcon}
+      </label>
+    </div>
   );
 };
 

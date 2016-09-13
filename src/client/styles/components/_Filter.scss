@@ -1,7 +1,7 @@
 .gs-filter-wrapper {
   @include Kievit-Medium;
 
-  color: #837E77;
+  color: $FILTER_ICON_GREY;
   margin: 0 0 20px 0;
   text-align: right;
 
@@ -57,7 +57,7 @@
   }
 
   .gs-filter-list {
-    background-color: #737069;
+    background-color: $FILTER_ICON_GREY;
     box-sizing: border-box;
     color: #FFF;
     display: none;
@@ -102,7 +102,7 @@
         display: inline-block;
       }
 
-      h3 {
+      h2 {
         display: inline-block;
         font-size: 20px;
         line-height: 26px;
@@ -110,7 +110,7 @@
         vertical-align: 12px;
 
         @include min-screen($tablet-landscape) {
-          color: #737069;
+          color: $FILTER_ICON_GREY;
         }
       }
     }
@@ -122,7 +122,7 @@
       transform: scale(1.4, 1.4);
 
       @include min-screen($tablet-landscape) {
-        fill: #737069;
+        fill: $FILTER_ICON_GREY;
       }
     }
 
@@ -157,38 +157,42 @@
     }
 
     &-items {
+      border: none;
       margin: 0;
       padding: 0;
       text-align: left;
 
-      li {
+      input {
+        &:focus + label {
+          outline: 3px auto #3b99fc;
+        }
+      }
+
+      label {
         cursor: pointer;
+        display: block;
         list-style-type: none;
         padding: 14px 0 14px 25px;
         text-transform: uppercase;
 
         @include min-screen($tablet-landscape) {
           background-color: transparent;
+          color: #BFBFBF;
           padding: 14px 0 14px 21px;
         }
 
-        &.greyOut {
-          @include min-screen($tablet-landscape) {
-            color: #BFBFBF;
-          }
-        }
-
         &.selected {
-          background-color: #44433F;
+          background-color: $charcoal;
 
           @include min-screen($tablet-landscape) {
             background-color: transparent;
+            color: $SEARCH_BLUE;
             padding: 14px 0 14px 21px;
           }
         }
 
         .svgIcon {
-          display: none;
+          display: block;
           fill: #FFF;
           float: right;
           margin: -4px 14px 0 0;
@@ -198,12 +202,14 @@
           }
 
           @include min-screen($tablet-landscape) {
-            fill: $SEARCH_BLUE;
+            fill: #BFBFBF;
             margin: -6px 0 0 0;
           }
 
           &.selected {
-            display: block;
+            @include min-screen($tablet-landscape) {
+              fill: $SEARCH_BLUE;
+            }
           }
         }
       }
