@@ -121,14 +121,13 @@ class App extends React.Component {
   }
 
   /**
-   * searchBySelectedFacet(facet)
+   * searchBySelectedFacet()
    * Set the facet with the value of the clicked facet element.
    * It then makes an client AJAX call to fetch the results.
    *
-   * @param {string} facet
    */
-  searchBySelectedFacet(facet = '') {
-    this.submitSearchRequest(facet);
+  searchBySelectedFacet(selectedFacet = '') {
+    this.submitSearchRequest(selectedFacet);
   }
 
   /**
@@ -179,7 +178,7 @@ class App extends React.Component {
    */
   triggerSubmit(event) {
     if (event) {
-      if (event.charCode === 13 || event.key === 'Enter') {
+      if (event.keyCode === 13 || event.key === 'Enter') {
         this.submitSearchRequest(this.state.selectedFacet);
       }
     }
@@ -251,7 +250,7 @@ class App extends React.Component {
               className="gs-filter"
               facets={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
-              onClickFacet={this.searchBySelectedFacet}
+              onClickApply={this.searchBySelectedFacet}
             />
           </div>
           {this.state.resultsComponentData}
