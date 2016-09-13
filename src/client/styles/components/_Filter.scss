@@ -177,7 +177,7 @@
 
         @include min-screen($tablet-landscape) {
           background-color: transparent;
-          color: #BFBFBF;
+          color: $COOLGRAY_COLOR;
           padding: 14px 0 14px 21px;
         }
 
@@ -202,7 +202,7 @@
           }
 
           @include min-screen($tablet-landscape) {
-            fill: #BFBFBF;
+            fill: $COOLGRAY_COLOR;
             margin: -6px 0 0 0;
           }
 
