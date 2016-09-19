@@ -253,6 +253,10 @@ class App extends React.Component {
               onClickApply={this.searchBySelectedFacet}
             />
           </div>
+          <a className="returnLink" href={`https://www.nypl.org/search/apachesolr_search/${inputValue}`}
+          >
+            Return to the current version of NYPL.org Search
+          </a>
           {this.state.resultsComponentData}
         </div>
 
