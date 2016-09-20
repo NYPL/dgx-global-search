@@ -17,8 +17,8 @@ describe('Application', () => {
   });
 
   it('contains an h2.', () => {
-    const title = component.find('h2');
+    const title = component.find('h1');
     expect(title).to.have.length(1);
-    expect(title.text()).to.equal('NYPL Search BETA');
+    expect(title.text()).to.equal('NYPL.org Search BETA');
   });
 });
