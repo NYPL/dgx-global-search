@@ -11,6 +11,7 @@ import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
 import LoadingLayer from '../LoadingLayer/LoadingLayer.jsx';
+import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -253,12 +254,7 @@ class App extends React.Component {
               onClickApply={this.searchBySelectedFacet}
             />
           </div>
-          <div className="returnLink">
-          <a href={`/search/apachesolr_search/${inputValue}`}
-          >
-            Return to the current version of NYPL.org Search
-          </a>
-          </div>
+          <ReturnLink inputValue={inputValue} />
           {this.state.resultsComponentData}
         </div>
 
