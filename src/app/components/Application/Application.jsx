@@ -254,7 +254,7 @@ class App extends React.Component {
             />
           </div>
           <div className="returnLink">
-          <a href={`https://www.nypl.org/search/apachesolr_search/${inputValue}`}
+          <a href={`/search/apachesolr_search/${inputValue}`}
           >
             Return to the current version of NYPL.org Search
           </a>
