@@ -10,10 +10,11 @@ const InputField = ({
   maxLength,
   placeholder,
   className,
-  onClick,
+  onKeyPress,
   onChange,
   isRequired,
   style,
+  label,
 }) => (
   <input
     id={id}
@@ -25,10 +26,12 @@ const InputField = ({
     maxLength={maxLength}
     placeholder={placeholder}
     className={className}
-    onClick={onClick}
+    onKeyPress={onKeyPress}
     onChange={onChange}
     required={isRequired}
     style={style}
+    aria-label={label}
+    aria-required="true"
   />
 );
 
@@ -42,11 +45,12 @@ InputField.propTypes = {
   maxLength: React.PropTypes.string,
   placeholder: React.PropTypes.string,
   className: React.PropTypes.string,
-  onClick: React.PropTypes.func,
+  onKeyPress: React.PropTypes.func,
   onChange: React.PropTypes.func,
   required: React.PropTypes.bool,
   isRequired: React.PropTypes.bool,
   style: React.PropTypes.object,
+  label: React.PropTypes.string,
 };
 
 InputField.defaultProps = {

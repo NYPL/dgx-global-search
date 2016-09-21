@@ -8,7 +8,6 @@ import ReactDOMServer from 'react-dom/server';
 
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
-import FeatureFlags from 'dgx-feature-flags';
 
 import appConfig from './appConfig.js';
 import analytics from './analytics.js';
@@ -40,6 +39,8 @@ app.set('views', VIEWS_PATH);
 app.set('port', process.env.PORT || 3001);
 
 app.use(express.static(DIST_PATH));
+app.use('/searchbeta/', express.static(DIST_PATH));
+
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
@@ -50,9 +51,6 @@ app.use('/', (req, res) => {
 
   const iso = new Iso();
   const application = ReactDOMServer.renderToString(<Application />);
-
-  // Fire off the Feature Flag prior to render
-  FeatureFlags.utils.activateFeature('shop-link');
 
   iso.add(application, alt.flush());
 

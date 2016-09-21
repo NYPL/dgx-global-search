@@ -4,12 +4,14 @@ import {
  } from 'underscore';
 
 // Import components
-import { Header } from 'dgx-header-component';
+import { Header, navConfig } from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
+import LoadingLayer from '../LoadingLayer/LoadingLayer.jsx';
+import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -26,8 +28,8 @@ history.listen(location => {
     action,
     pathname,
   } = location;
-  const searchKeyword = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
-  const searchFacet = (pathname.split('/')[4]) ? pathname.split('/')[4] : '';
+  const searchKeyword = (pathname.split('/')[2]) ? pathname.split('/')[2] : '';
+  const searchFacet = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
   const resultsStart = 0;
 
   if (action === 'POP') {
@@ -54,6 +56,7 @@ class App extends React.Component {
     this.state = _extend(
       {
         resultsComponentData: null,
+        isLoading: false,
       },
       Store.getState()
     );
@@ -93,6 +96,7 @@ class App extends React.Component {
     // Updates the state with the new search data
     this.setState({
       isKeywordValid: true,
+      isLoading: false,
       searchKeyword: Store.getState().searchKeyword,
       selectedFacet: Store.getState().selectedFacet,
       resultsComponentData: this.renderResults(
@@ -111,30 +115,29 @@ class App extends React.Component {
    * Passng event as the argument here as FireFox doesn't accept event
    * as a global variable.
    *
-   * @param {Event} event
+   * @param {object} event
    */
   inputChange(event) {
     this.setState({ searchKeyword: event.target.value });
   }
 
   /**
-   * searchBySelectedFacet(facet)
+   * searchBySelectedFacet()
    * Set the facet with the value of the clicked facet element.
    * It then makes an client AJAX call to fetch the results.
    *
-   * @param {String} facet
    */
-  searchBySelectedFacet(facet = '') {
-    this.submitSearchRequest(facet);
+  searchBySelectedFacet(selectedFacet = '') {
+    this.submitSearchRequest(selectedFacet);
   }
 
   /**
    * submitSearchRequest(selectedFacet)
    * Submit the search request based on the values of the input fields and the facet.
    *
-   * @param {String} selectedFacet
+   * @param {string} selectedFacet
    */
-  submitSearchRequest(selectedFacet) {
+  submitSearchRequest(selectedFacet = '') {
     if (!this.state.searchKeyword) {
       this.setState({ isKeywordValid: false });
     } else {
@@ -145,7 +148,7 @@ class App extends React.Component {
 
           // Update and transit to the match URL
           history.push({
-            pathname: `/search/apachesolr_search/${currentSearchKeyword}/${facet}`,
+            pathname: `/searchbeta/${currentSearchKeyword}/${facet}`,
           });
 
           Actions.updateSearchKeyword(currentSearchKeyword);
@@ -157,6 +160,11 @@ class App extends React.Component {
         () => {
           Actions.updateSearchKeyword('');
           Actions.updateIsKeywordValid(false);
+        },
+        // The callback function for changing the value of isLoading
+        // to trigger the loading layer.
+        (value) => {
+          this.setState({ isLoading: value });
         }
       );
     }
@@ -167,11 +175,13 @@ class App extends React.Component {
    * The function listens to the event of enter key.
    * Submit search request if enter is pressed.
    *
-   * @param {Event} event
+   * @param {object} event
    */
   triggerSubmit(event) {
-    if (event && event.charCode === 13) {
-      this.submitSearchRequest(this.state.selectedFacet);
+    if (event) {
+      if (event.keyCode === 13 || event.key === 'Enter') {
+        this.submitSearchRequest(this.state.selectedFacet);
+      }
     }
   }
 
@@ -180,7 +190,7 @@ class App extends React.Component {
    * The function renders the results of the search request.
    * If no search keyword input, it won't render anything and return null.
    *
-   * @return {Object} object
+   * @return {object} object
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
     if (!searchKeyword) {
@@ -203,24 +213,30 @@ class App extends React.Component {
   render() {
     const inputValue = this.state.searchKeyword || '';
     const inputPlaceholder = (this.state.isKeywordValid) ?
-      'Enter Search Terms' : 'Please enter a search term';
+      'What would you like to find?' : 'Please enter a keyword';
 
     return (
-      <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp" onKeyPress={this.triggerSubmit}>
-        <Header skipNav={{ target: 'gs-mainContent' }} />
-
+      <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
+        <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
+        <LoadingLayer
+          status={this.state.isLoading}
+          title="Search Results"
+        />
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
-          <h2>NYPL Search <span>BETA</span></h2>
+          <h1>NYPL.org Search <span>BETA</span></h1>
           <div id="gs-operations" className="gs-operations">
             <div id="gs-searchField" className="gs-searchField">
               <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
+                <label htmlFor="gs-inputField" className="visuallyHidden">Enter Search Terms</label>
                 <InputField
                   id="gs-inputField"
                   className="gs-inputField"
                   type="text"
                   placeholder={inputPlaceholder}
                   value={inputValue}
+                  onKeyPress={this.triggerSubmit}
                   onChange={this.inputChange}
+                  label="Enter Search Terms"
                 />
               </div>
               <SearchButton
@@ -235,9 +251,10 @@ class App extends React.Component {
               className="gs-filter"
               facets={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
-              onClickFacet={this.searchBySelectedFacet}
+              onClickApply={this.searchBySelectedFacet}
             />
           </div>
+          <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           {this.state.resultsComponentData}
         </div>
 

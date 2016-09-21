@@ -39,43 +39,58 @@ const fetchResultLength = (data) => {
 const fetchSearchFacetsList = () =>
   [
     {
+      anchor: 'All Results',
+      value: '',
+      label: 'all_results',
+    },
+    {
       anchor: 'Digital Collections',
+      value: 'digital_collections',
       label: 'digital_collections',
     },
     {
       anchor: 'Exhibitions',
+      value: 'exhibitions',
       label: 'exhibitions',
     },
     {
       anchor: 'Archives',
+      value: 'archives',
       label: 'archives',
     },
     {
       anchor: 'Audio / Visual',
+      value: 'audio_video',
       label: 'audio_video',
     },
     {
       anchor: 'Blog',
+      value: 'blog',
       label: 'blog',
     },
     {
       anchor: 'Projects',
+      value: 'projects',
       label: 'projects',
     },
     {
       anchor: 'Events / Classes',
+      value: 'events_classes',
       label: 'events_classes',
     },
     {
       anchor: 'Recommendations',
+      value: 'recommendations',
       label: 'recommendations',
     },
     {
       anchor: 'Locations',
+      value: 'locations',
       label: 'locations',
     },
     {
       anchor: 'Help',
+      value: 'help',
       label: 'help',
     },
   ];

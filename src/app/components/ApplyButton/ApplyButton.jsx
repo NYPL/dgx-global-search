@@ -1,11 +1,10 @@
 import React from 'react';
 
 import { BasicButton } from 'dgx-react-buttons';
-import { XIcon } from 'dgx-svg-icons';
+import { CheckSoloIcon } from 'dgx-svg-icons';
 
-const CloseButton = ({
+const ApplyButton = ({
   className,
-  fill,
   id,
   onClick,
   title,
@@ -15,18 +14,18 @@ const CloseButton = ({
     className={className}
     onClick={onClick}
     icon={
-      <XIcon
-        className={`${className}-xIcon`}
-        fill={fill}
+      <CheckSoloIcon
+        ariaHidden
+        className={`${className}-checkSoloIcon`}
         title={title}
       />
     }
-    label="Close"
+    label="APPLY"
     labelAccessible
   />
 );
 
-CloseButton.propTypes = {
+ApplyButton.propTypes = {
   id: React.PropTypes.string,
   className: React.PropTypes.string,
   title: React.PropTypes.string,
@@ -34,10 +33,10 @@ CloseButton.propTypes = {
   onClick: React.PropTypes.func,
 };
 
-CloseButton.defaultProps = {
+ApplyButton.defaultProps = {
   lang: 'en',
-  id: 'closeButton',
-  className: 'closeButton',
+  id: 'applyButton',
+  className: 'applyButton',
 };
 
-export default CloseButton;
+export default ApplyButton;

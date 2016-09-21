@@ -18,6 +18,11 @@ class Filter extends ClickOut {
     this.onClickClose = this.onClickClose.bind(this);
     this.onClickOpen = this.onClickOpen.bind(this);
     this.onClickOut = this.onClickOut.bind(this);
+    this.triggerClose = this.triggerClose.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.triggerClose, false);
   }
 
   /**
@@ -36,7 +41,7 @@ class Filter extends ClickOut {
    *
    */
   onClickClose() {
-    this.setState({ isFilterListExpanded: false});
+    this.setState({ isFilterListExpanded: false });
   }
 
   /**
@@ -46,6 +51,21 @@ class Filter extends ClickOut {
    */
   onClickOpen() {
     this.setState({ isFilterListExpanded: true });
+  }
+
+  /**
+   * triggerClose(event)
+   * The function listens to the event of esc key.
+   * Close the filter modal request if esc is pressed.
+   *
+   * @param {object} event
+   */
+  triggerClose(event) {
+    if (event) {
+      if (event.key === 'Escape' || event.key === 'Esc' || event.keyCode === 27) {
+        this.setState({ isFilterListExpanded: false });
+      }
+    }
   }
 
   /**
@@ -65,7 +85,7 @@ class Filter extends ClickOut {
         facets={this.props.facets}
         selectedFacet={this.props.selectedFacet}
         onClickClose={this.onClickClose}
-        onClickFacet={this.props.onClickFacet}
+        onClickApply={this.props.onClickApply}
         isFilterListExpanded={this.state.isFilterListExpanded}
       />
     );

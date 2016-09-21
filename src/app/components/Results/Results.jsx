@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -21,7 +22,7 @@ class Results extends React.Component {
 
     this.state = {
       resultsStart: this.props.resultsStart,
-      isLoading: false,
+      isLoadingPagination: false,
       incrementResults: 10,
       searchResults: this.props.results,
     };
@@ -45,7 +46,7 @@ class Results extends React.Component {
     // Update the Store with new fetched data
     this.setState({
       resultsStart: Store.getState().resultsStart,
-      isLoading: false,
+      isLoadingPagination: false,
       searchResults: Store.getState().searchData,
     });
   }
@@ -55,14 +56,15 @@ class Results extends React.Component {
    * The function maps the search result array,
    * and returns a new array of composed of <ResultsItem> components.
    *
-   * @param {itemsArray} array
-   * @return array
+   * @param {array} itemsArray
+   * @return {array}
    */
   getList(itemsArray) {
     return _map(itemsArray, (item, index) => (
       <ResultsItem
         key={index}
         index={index}
+        ref={`result-${index}`}
         title={item.title}
         link={item.link}
         snippet={item.snippet}
@@ -92,51 +94,91 @@ class Results extends React.Component {
         Actions.updateSearchKeyword('');
         Actions.updateIsKeywordValid(false);
       },
+      // The callback function for changing the value of isLoadingPagination
+      // to trigger the animation of the pagination button.
       (value) => {
-        this.setState({ isLoading: value });
+        this.setState({ isLoadingPagination: value });
       }
+    );
+
+    // Automatically focus on the first item of the newly reloaded results
+    setTimeout(() => {
+      const refResultIndex = `result-${this.state.resultsStart}`;
+
+      ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
+    }, 2000);
+  }
+
+  /**
+   * renderSeeMoreButton
+   * The function renders a see more button,
+   * unless there's no more results, instead of rendering the button,
+   * it renders the suggestion text to indicate no more result.
+   *
+   * @return {object}
+   */
+  renderSeeMoreButton(remainingResults) {
+    if (this.props.amount < this.state.incrementResults) {
+      return null;
+    }
+
+    if (remainingResults <= 0) {
+      return (
+        <div className={`${this.props.id}-paginationButton-wrapper`}>
+          <p>No More Results from this Search.</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className={`${this.props.id}-paginationButton-wrapper`}>
+        <PaginationButton
+          id={`${this.props.id}-paginationButton`}
+          className={`${this.props.id}-paginationButton`}
+          isLoading={this.state.isLoadingPagination}
+          onClick={this.addMoreResults}
+          label="LOAD MORE"
+        />
+      </div>
     );
   }
 
   render() {
     const results = this.getList(this.state.searchResults);
-    const resultsRemainLength = (this.props.amount - results.length).toString();
-
-    // Message if no result found
-    if (results.length === 0) {
-      return (
-        <p className="noResultMessage">No items were found...</p>
-      );
-    }
+    const resultsNumberSuggestion = (results.length === 0) ?
+      'No items were found' : `We found about ${this.props.amount} results.`;
+    const resultMessageClass = (results.length === 0) ?
+      'noResultMessage' : `${this.props.className}-length`;
 
     return (
       <div className={`${this.props.className}-wrapper`}>
-        <p className={`${this.props.className}-length`}>
-          We found about {this.props.amount} results.
+        <p
+          className={resultMessageClass}
+          role="alert"
+          aria-atomic="true"
+          aria-live="polite"
+        >
+          {resultsNumberSuggestion}
         </p>
-        <DivideLineIcon
-          ariaHidden
-          className={`${this.props.className}-divideLineIcon`}
-          height="4"
-          length="84"
-          stroke="#2799C5"
-          strokeWidth="4"
-          title="divide.line.icon.svg"
-          viewBox="0 0 84 4"
-          width="84"
-        />
-        <ul id={this.props.id} className={this.props.className}>
-          {results}
-        </ul>
-        <div className={`${this.props.id}-paginationButton-wrapper`}>
-          <PaginationButton
-            id={`${this.props.id}-paginationButton`}
-            className={`${this.props.id}-paginationButton`}
-            isLoading={this.state.isLoading}
-            onClick={this.addMoreResults}
-            label={resultsRemainLength}
-          />
-        </div>
+        {results.length !== 0 &&
+          <div>
+            <DivideLineIcon
+              ariaHidden
+              className={`${this.props.className}-divideLineIcon`}
+              height="4"
+              length="84"
+              stroke="#2799C5"
+              strokeWidth="4"
+              title="divide.line.icon.svg"
+              viewBox="0 0 84 4"
+              width="84"
+            />
+            <ul id={this.props.id} className={this.props.className} ref="results">
+              {results}
+            </ul>
+            {this.renderSeeMoreButton()}
+          </div>
+        }
       </div>
     );
   }

@@ -3,6 +3,7 @@ import React from 'react';
 import { FilterIcon } from 'dgx-svg-icons';
 
 import CloseButton from '../CloseButton/CloseButton.jsx';
+import ApplyButton from '../ApplyButton/ApplyButton.jsx';
 import FilterItem from '../FilterItem/FilterItem.jsx';
 
 // Import libraries
@@ -12,23 +13,37 @@ class FilterList extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      selectedFacet: this.props.selectedFacet,
+    };
+
     this.renderfacets = this.renderfacets.bind(this);
     this.onClickApply = this.onClickApply.bind(this);
+    this.onClickFacet = this.onClickFacet.bind(this);
   }
 
   /**
    * onClickApply()
+   * The function makes the search with selected facet.
+   *
+   */
+  onClickApply() {
+    this.props.onClickClose();
+    this.props.onClickApply(this.state.selectedFacet);
+  }
+
+  /**
+   * onClickFacet(clickedFacet)
    * The function applies the newly clicked facet to FilterItem for its click function,
    * if the applied facet equals to the previous facet, it resets the current facet to null.
    *
+   * @param {string} clickedFacet
    */
-  onClickApply(facet) {
-    this.props.onClickClose();
-
-    if (facet === this.props.selectedFacet) {
-      this.props.onClickFacet('');
+  onClickFacet(clickedFacet) {
+    if (clickedFacet === this.state.selectedFacet) {
+      this.setState({ selectedFacet: '' });
     } else {
-      this.props.onClickFacet(facet);
+      this.setState({ selectedFacet: clickedFacet });
     }
   }
 
@@ -39,15 +54,15 @@ class FilterList extends React.Component {
    */
   renderfacets() {
     return _map(this.props.facets, (item, index) => {
-      const isSelected = (item.label === this.props.selectedFacet) ? 'selected' : '';
-      const greyOut = (this.props.selectedFacet !== '' && !isSelected) ? 'greyOut' : '';
+      const isSelected = (item.value === this.state.selectedFacet) ? 'selected' : '';
 
       return (
         <FilterItem
-          className={`${greyOut} ${isSelected}`}
+          className={isSelected}
           key={index}
-          onClick={() => this.onClickApply(item.label)}
+          onClick={() => this.onClickFacet(item.value)}
           label={item.anchor}
+          name={item.label}
         />
       );
     });
@@ -58,31 +73,30 @@ class FilterList extends React.Component {
       <div className={this.props.className}>
         <div className={`${this.props.className}-navigation`}>
           <FilterIcon
-            ariaHidden
             className={`${this.props.className}-filterIcon`}
             fill="#FFF"
-            height="32"
-            title="filter.icon.svg"
-            viewBox="0 0 32 32"
-            width="32"
           />
-          <h4>Filter by</h4>
+          <h2>Filter by</h2>
+          <fieldset className={`${this.props.className}-items`}>
+            <legend className="visuallyHidden">Choose a filter from the filter list</legend>
+            {this.renderfacets()}
+          </fieldset>
           <div className={`${this.props.className}-buttonWrapper`}>
+            <div className={`${this.props.className}-applyButton-wrapper`}>
+              <ApplyButton
+                id={`${this.props.id}-applyButton`}
+                className={`customButton ${this.props.className}-applyButton`}
+                onClick={() => this.onClickApply()}
+              />
+            </div>
             <CloseButton
               id={`${this.props.id}-closeButton`}
               className={`customButton ${this.props.className}-closeButton`}
               onClick={this.props.onClickClose}
               fill="#FFF"
-              height="32"
-              title="x.icon.svg"
-              viewBox="0 0 32 32"
-              width="32"
             />
           </div>
         </div>
-        <ul className={`${this.props.className}-items`}>
-          {this.renderfacets()}
-        </ul>
       </div>
     );
   }
@@ -94,6 +108,7 @@ FilterList.propTypes = {
   facets: React.PropTypes.array,
   selectedFacet: React.PropTypes.string,
   onClickClose: React.PropTypes.func,
+  onClickApply: React.PropTypes.func,
   onClickFacet: React.PropTypes.func,
 };
 

@@ -1,5 +1,5 @@
 export default {
-  appTitle: 'NYPL | Global Search',
+  appTitle: 'NYPL.org Search Beta',
   appName: 'NYPL Global Search',
   favIconPath: '//d2znry4lg8s0tq.cloudfront.net/images/favicon.ico',
   port: 3001,
@@ -19,16 +19,6 @@ export default {
     ],
     filters: {
       q: '',
-    },
-  },
-  headerApi: {
-    endpoint: '/api/nypl/ndo/v0.1/site-data/header-items',
-    includes: [
-      'children',
-      'related-container-slots.current-item.square-image',
-    ],
-    filters: {
-      relationships: { parent: 'null' },
     },
   },
 };
