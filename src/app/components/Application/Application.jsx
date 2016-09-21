@@ -254,7 +254,7 @@ class App extends React.Component {
               onClickApply={this.searchBySelectedFacet}
             />
           </div>
-          <ReturnLink inputValue={inputValue} />
+          <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           {this.state.resultsComponentData}
         </div>
 

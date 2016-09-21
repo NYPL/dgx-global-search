@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ReturnLink = ({
+  linkRoot,
   inputValue,
 }) => (
   <div className="returnLink">
@@ -15,7 +16,7 @@ const ReturnLink = ({
         &nbsp;or&nbsp;
       </span>
       <a
-        href={`/search/apachesolr_search/${inputValue}`}
+        href={`${linkRoot}${inputValue}`}
       >
         return to the current version
       </a>
