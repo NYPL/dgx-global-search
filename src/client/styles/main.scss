@@ -32,6 +32,7 @@ Import style rules from App components
 @import "components/Results";
 @import "components/PaginationButton";
 @import "components/_LoadingLayer";
+@import "components/_ReturnLink";
 
 #app {
   margin: 0;
@@ -53,7 +54,7 @@ header {
 
   @include layout-at(9, $tablet-landscape) {
     box-sizing: border-box;
-    min-height: 800px;
+    min-height: 860px;
     padding: 0 20px;
   }
 
@@ -101,19 +102,19 @@ header {
     display: block;
 
     @include layout-at(7, $tablet-portrait) {
-        @include grid-span(7, 1);
+      @include grid-span(7, 1);
 
-        box-sizing: border-box;
-        display: inline-block;
-        margin: 0 0 27px 0;
-        padding: 0 36px;
+      box-sizing: border-box;
+      display: inline-block;
+      margin: 0 0 27px 0;
+      padding: 0 36px;
     }
 
     @include layout-at(9, $tablet-landscape) {
-        @include grid-span(8, 2);
+      @include grid-span(8, 2);
 
-        margin: 30px 0 27px 0;
-        padding: 0 20px 0 0;
+      margin: 30px 0 27px 0;
+      padding: 0 20px 0 0;
     }
   }
 

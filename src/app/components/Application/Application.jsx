@@ -11,6 +11,7 @@ import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
 import LoadingLayer from '../LoadingLayer/LoadingLayer.jsx';
+import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -212,7 +213,7 @@ class App extends React.Component {
   render() {
     const inputValue = this.state.searchKeyword || '';
     const inputPlaceholder = (this.state.isKeywordValid) ?
-      'Enter Search Terms' : 'Please enter a search term';
+      'What would you like to find?' : 'Please enter a keyword';
 
     return (
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
@@ -253,6 +254,7 @@ class App extends React.Component {
               onClickApply={this.searchBySelectedFacet}
             />
           </div>
+          <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           {this.state.resultsComponentData}
         </div>
 
