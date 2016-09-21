@@ -213,7 +213,7 @@ class App extends React.Component {
   render() {
     const inputValue = this.state.searchKeyword || '';
     const inputPlaceholder = (this.state.isKeywordValid) ?
-      'Enter Search Terms' : 'Please enter a search term';
+      'What would you like to find?' : 'Please enter a keyword';
 
     return (
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">

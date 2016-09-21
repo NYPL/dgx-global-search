@@ -32,6 +32,7 @@ Import style rules from App components
 @import "components/Results";
 @import "components/PaginationButton";
 @import "components/_LoadingLayer";
+@import "components/_ReturnLink";
 
 #app {
   margin: 0;
@@ -124,53 +125,6 @@ header {
 
     @include layout-at(8, $desktop) {
       @include grid-span(6, 1);
-    }
-  }
-
-  .returnLink {
-    @include Kievit-Medium;
-
-    display: block;
-    margin: 15px 0;
-    padding: 0 14px;
-
-    a {
-      color: $COOLGRAY_COLOR;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-
-    svg {
-      fill: $COOLGRAY_COLOR;
-      margin: 0 -6px 0 -10px;
-      -ms-transform: scale(0.4, 0.4); /* IE 9 */
-      -webkit-transform: scale(0.4, 0.4); /* Safari */
-      transform: scale(0.4, 0.4);
-      vertical-align: -12px;
-    }
-
-    @include layout-at(7, $tablet-portrait) {
-      padding: 0 36px;
-    }
-
-    @include layout-at(8, $tablet-landscape) {
-      @include grid-span(7, 1);;
-
-      margin: 0;
-      padding: 0;
-      a {
-        float: right;
-        margin: 0 27px -24px 0;
-      }
-    }
-
-     @include layout-at(8, $desktop) {
-      a {
-        margin: 0;
-        position: absolute;
-        right: 313px;
-        top: 150px;
-      }
     }
   }
 }

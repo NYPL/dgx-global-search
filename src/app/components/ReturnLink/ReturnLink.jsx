@@ -1,17 +1,26 @@
 import React from 'react';
 
-import { LeftWedgeIcon } from 'dgx-svg-icons';
-
 const ReturnLink = ({
   inputValue,
 }) => (
   <div className="returnLink">
-    <a
-      href={`/search/apachesolr_search/${inputValue}`}
-    >
-      <LeftWedgeIcon />
-      Return to the current version of NYPL.org Search
-    </a>
+    <div>
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSeVDEHXML7u86Lm_0rWitS17JrbJjNDWPuK2fhA9URyaXEpNA/viewform"
+        target="_blank"
+      >
+        Take a survey about our new search tool
+      </a>
+      <span>
+        &nbsp;or&nbsp;
+      </span>
+      <a
+        href={`/search/apachesolr_search/${inputValue}`}
+      >
+        return to the current version
+      </a>
+      .
+    </div>
   </div>
 );
 
