@@ -167,7 +167,7 @@
         @include min-screen($tablet-landscape) {
           border: 2px solid $SEARCH_BLUE;
           border-radius: 33px;
-          padding: 0 37px 0 19px;
+          padding: 4px 39px 2px 26px;
         }
       }
       -moz-appearance: none;
@@ -176,7 +176,7 @@
       background-color: transparent;
       color: $SEARCH_BLUE;
       font-family: Kievit-Medium;
-      font-size: 13px;
+      font-size: 16px;
       letter-spacing: 0.04em;
       line-height: 16.21px;
       overflow: hidden;
