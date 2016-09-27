@@ -26,6 +26,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "@nypl/dgx-header-component": "^1.4.1",
     "axios": "0.9.1",
     "babel-core": "6.9.1",
     "babel-loader": "6.2.4",
@@ -40,10 +41,8 @@
     "css-loader": "0.23.1",
     "dgx-alt-center": "git+ssh://git@bitbucket.org/NYPL/dgx-alt-center.git#master",
     "dgx-feature-flags": "git+ssh://git@bitbucket.org/NYPL/dgx-feature-flags.git#master",
-    "dgx-header-component": "git+ssh://git@bitbucket.org/NYPL/dgx-header-component.git#master",
     "dgx-model-data": "git+ssh://git@bitbucket.org/NYPL/dgx-model-data.git#master",
     "dgx-react-buttons": "git+ssh://git@bitbucket.org/NYPL/dgx-react-buttons.git#master",
-    "dgx-react-footer": "git+ssh://git@bitbucket.org/NYPL/dgx-react-footer.git#master",
     "dgx-react-ga": "git+ssh://git@bitbucket.org/NYPL/dgx-react-ga.git#master",
     "dgx-svg-icons": "git+ssh://git@bitbucket.org/NYPL/dgx-svg-icons.git#master",
     "ejs": "2.4.2",
