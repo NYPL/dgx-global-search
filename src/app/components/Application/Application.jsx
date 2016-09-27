@@ -4,8 +4,8 @@ import {
  } from 'underscore';
 
 // Import components
-import { Header, navConfig } from 'dgx-header-component';
-import Footer from 'dgx-react-footer';
+import { Header, navConfig } from '@nypl/dgx-header-component';
+import Footer from '@nypl/dgx-react-footer';
 import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
