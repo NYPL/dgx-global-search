@@ -1,5 +1,5 @@
 .loadingLayer {
-  @include Kievit-Medium;
+  @include Kievit-Book;
 
   position: fixed;
   width: 100%;
@@ -11,7 +11,7 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background: #ddd;
+    background: #eee;
     opacity: .95;
   }
 
@@ -29,11 +29,12 @@
       display: block;
       margin: 15px;
       margin-bottom: 35px;
-      font-weight: bold;
+      font-weight: normal;
     }
 
     &-title {
       font-size: 24px;
+
     }
   }
 }
@@ -51,23 +52,23 @@
     margin: 0px 5px;
     background: $PRIMARY_COLOR;
     border-radius: 50px;
-    -webkit-animation: loadingDots 1.2s infinite alternate;
-    -moz-animation: loadingDots 1.2s infinite alternate;
+    -webkit-animation: loadingDots 0.8s infinite alternate;
+    -moz-animation: loadingDots 0.8s infinite alternate;
   }
-  
+
   & span:nth-of-type(2) {
-    -webkit-animation-delay: 0.3s;
-    -moz-animation-delay: 0.3s;
+    -webkit-animation-delay: 0.2s;
+    -moz-animation-delay: 0.2s;
   }
 
   & span:nth-of-type(3) {
-    -webkit-animation-delay: 0.6s;
-    -moz-animation-delay: 0.6s;
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
   }
 
   & span:nth-of-type(4) {
-    -webkit-animation-delay: 0.9s;
-    -moz-animation-delay: 0.9s;
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
   }
 }
 
