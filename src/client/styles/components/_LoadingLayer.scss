@@ -1,5 +1,5 @@
 .loadingLayer {
-  @include Kievit-Medium;
+  @include Kievit-Book;
 
   position: fixed;
   width: 100%;
@@ -52,8 +52,8 @@
     margin: 0px 5px;
     background: $PRIMARY_COLOR;
     border-radius: 50px;
-    -webkit-animation: loadingDots 1.2s infinite alternate;
-    -moz-animation: loadingDots 1.2s infinite alternate;
+    -webkit-animation: loadingDots 0.8s infinite alternate;
+    -moz-animation: loadingDots 0.8s infinite alternate;
   }
 
   & span:nth-of-type(2) {
