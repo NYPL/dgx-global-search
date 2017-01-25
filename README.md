@@ -3,7 +3,7 @@
 This repository is the global search application for nypl.org
 
 ### Version
-0.0.0
+> v0.1.5
 
 ### Installation
 Install all dependencies listed under package.json
@@ -30,6 +30,12 @@ We use Webpack to fire off a hot-reloading development server. This allows for c
 $ npm run dist // Builds dist path & files
 $ APP_ENV=production NODE_ENV=production npm start // Starts localhost:3001 with set APP_ENV
 ```
+
+## Changelog
+
+### v0.1.5
+#### Added
+- Enabled Feature Flags plugin on the client-side and added Optimizely script in the index.ejs file.
 
 Contributors
 ----

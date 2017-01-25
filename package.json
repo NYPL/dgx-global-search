@@ -1,6 +1,6 @@
 {
   "name": "dgx-global-search",
-  "version": "0.0.1",
+  "version": "0.1.5",
   "description": "DGX Global Search Repository",
   "main": "index.js",
   "scripts": {
@@ -42,7 +42,6 @@
     "compression": "1.6.2",
     "css-loader": "0.23.1",
     "dgx-alt-center": "git+ssh://git@bitbucket.org/NYPL/dgx-alt-center.git#master",
-    "dgx-feature-flags": "git+ssh://git@bitbucket.org/NYPL/dgx-feature-flags.git#master",
     "dgx-model-data": "git+ssh://git@bitbucket.org/NYPL/dgx-model-data.git#master",
     "dgx-react-buttons": "git+ssh://git@bitbucket.org/NYPL/dgx-react-buttons.git#master",
     "dgx-react-ga": "git+ssh://git@bitbucket.org/NYPL/dgx-react-ga.git#master",
