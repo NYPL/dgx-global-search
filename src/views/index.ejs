@@ -22,7 +22,7 @@
     <meta name="twitter:creator" content="@nypl">
     <meta name="twitter:image" content="">
 
-    
+
 <% if (isProduction) { %>
     <!-- Minified Styles -->
     <link rel="stylesheet" type="text/css" href="/searchbeta/styles.css">
@@ -41,11 +41,16 @@
   </head>
   <body>
     <div id="app"><%- application %></div>
-    <% if (isProduction) { %>
-      <script async src="/searchbeta/bundle.js"></script>
-    <% } else { %>
-      <script src="http://localhost:3000/bundle.js"></script>
-    <% } %>
+
+  <% if (isProduction) { %>
+    <script async src="/searchbeta/bundle.js"></script>
+  <% } else { %>
+    <script src="http://localhost:3000/bundle.js"></script>
+  <% } %>
+
+    <!-- Optimizely -->
+    <script src="https://cdn.optimizely.com/js/284748925.js"></script>
+    <!-- Optimizely -->
   </body>
 
 </html>
