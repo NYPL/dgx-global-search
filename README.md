@@ -34,8 +34,8 @@ $ APP_ENV=production NODE_ENV=production npm start // Starts localhost:3001 with
 ## Changelog
 
 ### v0.1.6
-#### Added
-- Added HTTPS fix and the JavaScript fallback for the log in button on the Header Component.
+#### Updated
+- Updated the Header Component to v1.5.1. The update includes HTTPS fix and the JavaScript fallback for the log in button on the Header Component.
 
 ### v0.1.5
 #### Added
