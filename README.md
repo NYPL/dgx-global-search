@@ -3,7 +3,7 @@
 This repository is the global search application for nypl.org
 
 ### Version
-> v0.1.5
+> v0.1.6
 
 ### Installation
 Install all dependencies listed under package.json
@@ -32,6 +32,10 @@ $ APP_ENV=production NODE_ENV=production npm start // Starts localhost:3001 with
 ```
 
 ## Changelog
+
+### v0.1.6
+#### Updated
+- Updated the Header Component to v1.5.1. The update includes HTTPS fix and the JavaScript fallback for the log in button on the Header Component.
 
 ### v0.1.5
 #### Added
