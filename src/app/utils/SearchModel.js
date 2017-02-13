@@ -188,6 +188,17 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
 const stripPossibleHTMLTag = (string) =>
   string.replace(/&lt;[^(&gt;)]+?&gt;/g, '').replace(/&lt;.*/, '');
 
+
+/**
+ * secureHttpsProtocol(url)
+ * The function gets the urls that begin with http and converts them to begin with https.
+ *
+ * @param {String} string
+ * @return {String}
+ */
+const secureHttpsProtocol = (url) =>
+  url.replace(/^http:\/\//i, 'https://');
+
 /**
  * fetchItemFeature(item, feature)
  * The function gets the features, except label, from an result item.
@@ -236,7 +247,7 @@ const fetchItem = (item, searchRequest) => {
 
   return {
     title: modeledTitle,
-    link: fetchItemFeature(item, 'link'),
+    link: secureHttpsProtocol(fetchItemFeature(item, 'link')),
     snippet: modeledSnippet,
     thumbnailSrc: fetchItemFeature(item, 'thumbnail-url'),
     label: fetchDisplayName(item.attributes.labels, searchRequest),
