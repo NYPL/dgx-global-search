@@ -3,7 +3,7 @@
 This repository is the global search application for nypl.org
 
 ### Version
-> v0.1.6
+> v0.1.7
 
 ### Installation
 Install all dependencies listed under package.json
@@ -32,6 +32,10 @@ $ APP_ENV=production NODE_ENV=production npm start // Starts localhost:3001 with
 ```
 
 ## Changelog
+
+### v0.1.7
+#### Updated
+- Updated the Header Component to v1.5.2. The update is to turn off the feature flag of OAuth Login and set it as default.
 
 ### v0.1.6
 #### Updated
