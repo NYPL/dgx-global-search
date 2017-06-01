@@ -1,6 +1,6 @@
 {
   "name": "dgx-global-search",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "DGX Global Search Repository",
   "main": "index.js",
   "scripts": {
