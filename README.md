@@ -3,7 +3,7 @@
 This repository is the global search application for nypl.org
 
 ### Version
-> v0.1.7
+> v0.1.8
 
 ### Installation
 Install all dependencies listed under package.json
@@ -32,6 +32,10 @@ $ APP_ENV=production NODE_ENV=production npm start // Starts localhost:3001 with
 ```
 
 ## Changelog
+
+### v0.1.8
+#### Updated
+- Updated the entry file `App.jsx` to remove unnecessay import of `babel-polyfill`.
 
 ### v0.1.7
 #### Updated
