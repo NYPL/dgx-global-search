@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ResultsItem extends React.Component {
   constructor(props) {
@@ -126,15 +127,15 @@ class ResultsItem extends React.Component {
 }
 
 ResultsItem.propTypes = {
-  id: React.PropTypes.string,
-  className: React.PropTypes.string,
-  index: React.PropTypes.number,
-  title: React.PropTypes.string,
-  link: React.PropTypes.string,
-  snippet: React.PropTypes.string,
-  thumbnailSrc: React.PropTypes.string,
-  label: React.PropTypes.string,
-  wholeRowClass: React.PropTypes.string,
+  id: PropTypes.string,
+  className: PropTypes.string,
+  index: PropTypes.number,
+  title: PropTypes.string,
+  link: PropTypes.string,
+  snippet: PropTypes.string,
+  thumbnailSrc: PropTypes.string,
+  label: PropTypes.string,
+  wholeRowClass: PropTypes.string,
 };
 
 ResultsItem.defaultProps = {

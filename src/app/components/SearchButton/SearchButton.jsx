@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { BasicButton } from 'dgx-react-buttons';
 import { SearchIcon } from 'dgx-svg-icons';
@@ -32,10 +33,10 @@ const SearchButton = ({
 );
 
 SearchButton.propTypes = {
-  onClick: React.PropTypes.func,
-  label: React.PropTypes.string,
-  id: React.PropTypes.string,
-  className: React.PropTypes.string,
+  onClick: PropTypes.func,
+  label: PropTypes.string,
+  id: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default SearchButton;

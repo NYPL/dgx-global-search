@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import FilterButton from '../FilterButton/FilterButton.jsx';
 import FilterList from '../FilterList/FilterList.jsx';
@@ -111,12 +112,12 @@ class Filter extends ClickOut {
 }
 
 Filter.propTypes = {
-  id: React.PropTypes.string,
-  className: React.PropTypes.string,
-  facets: React.PropTypes.array,
-  selectedFacet: React.PropTypes.string,
-  onClickFacet: React.PropTypes.func,
-  onClickApply: React.PropTypes.func,
+  id: PropTypes.string,
+  className: PropTypes.string,
+  facets: PropTypes.array,
+  selectedFacet: PropTypes.string,
+  onClickFacet: PropTypes.func,
+  onClickApply: PropTypes.func,
 };
 
 Filter.defaultProps = {
