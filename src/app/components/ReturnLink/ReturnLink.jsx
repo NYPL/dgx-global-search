@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ReturnLink = ({
   linkRoot,
@@ -26,7 +27,7 @@ const ReturnLink = ({
 );
 
 ReturnLink.propTypes = {
-  inputValue: React.PropTypes.string,
+  inputValue: PropTypes.string,
 };
 
 export default ReturnLink;

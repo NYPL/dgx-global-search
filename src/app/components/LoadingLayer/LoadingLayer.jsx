@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import LoadingDots from '../LoadingDots/LoadingDots.jsx';
 
@@ -24,8 +25,8 @@ class LoadingLayer extends React.Component {
 }
 
 LoadingLayer.propTypes = {
-  status: React.PropTypes.bool,
-  title: React.PropTypes.string,
+  status: PropTypes.bool,
+  title: PropTypes.string,
 };
 
 LoadingLayer.defaultProps = {

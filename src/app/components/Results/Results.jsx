@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -185,13 +186,13 @@ class Results extends React.Component {
 }
 
 Results.propTypes = {
-  id: React.PropTypes.string,
-  className: React.PropTypes.string,
-  results: React.PropTypes.array,
-  amount: React.PropTypes.number,
-  searchKeyword: React.PropTypes.string,
-  resultsStart: React.PropTypes.number,
-  selectedFacet: React.PropTypes.string,
+  id: PropTypes.string,
+  className: PropTypes.string,
+  results: PropTypes.array,
+  amount: PropTypes.number,
+  searchKeyword: PropTypes.string,
+  resultsStart: PropTypes.number,
+  selectedFacet: PropTypes.string,
 };
 
 Results.defaultProps = {
