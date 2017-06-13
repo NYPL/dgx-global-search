@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { FilterIcon } from 'dgx-svg-icons';
 
@@ -103,13 +104,13 @@ class FilterList extends React.Component {
 }
 
 FilterList.propTypes = {
-  id: React.PropTypes.string,
-  className: React.PropTypes.string,
-  facets: React.PropTypes.array,
-  selectedFacet: React.PropTypes.string,
-  onClickClose: React.PropTypes.func,
-  onClickApply: React.PropTypes.func,
-  onClickFacet: React.PropTypes.func,
+  id: PropTypes.string,
+  className: PropTypes.string,
+  facets: PropTypes.array,
+  selectedFacet: PropTypes.string,
+  onClickClose: PropTypes.func,
+  onClickApply: PropTypes.func,
+  onClickFacet: PropTypes.func,
 };
 
 FilterList.defaultProps = {

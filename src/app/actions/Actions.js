@@ -3,35 +3,35 @@ import alt from 'dgx-alt-center';
 
 class Actions {
   updateSearchKeyword(data) {
-    this.dispatch(data);
+    return data;
   }
 
   updateSearchData(data) {
-    this.dispatch(data);
+    return data;
   }
 
   updateSearchDataLength(data) {
-    this.dispatch(data);
+    return data;
   }
 
   updateIsKeywordValid(data) {
-    this.dispatch(data);
+    return data;
   }
 
   updateSearchFacets(data) {
-    this.dispatch(data);
+    return data;
   }
 
   updateSelectedFacet(data) {
-    this.dispatch(data);
+    return data;
   }
 
   addMoreSearchData(data) {
-    this.dispatch(data);
+    return data;
   }
 
   updateResultsStart(data) {
-    this.dispatch(data);
+    return data;
   }
 }
 
