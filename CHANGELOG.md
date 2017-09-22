@@ -1,5 +1,9 @@
 ## Changelog
 
+### v0.2.1
+#### Updated
+- Updated the Header version to 2.1.0
+
 ### v0.2.0
 #### Updated
 - Updated React to v15 and related npm modules to support the update. Replaced React.PropTypes to PropTypes in components for React v15 conventions.
