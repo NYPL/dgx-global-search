@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Import libraries
 import { RadioActiveIcon, RadioInactiveIcon } from 'dgx-svg-icons';
@@ -36,9 +37,9 @@ const FilterItem = ({
 };
 
 FilterItem.propTypes = {
-  className: React.PropTypes.string,
-  onClick: React.PropTypes.func,
-  label: React.PropTypes.string,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+  label: PropTypes.string,
 };
 
 FilterItem.defaultProps = {

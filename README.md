@@ -3,7 +3,7 @@
 This repository is the global search application for nypl.org
 
 ### Version
-> v0.1.8
+> v0.2.2
 
 ### Installation
 Install all dependencies listed under package.json
@@ -30,24 +30,6 @@ We use Webpack to fire off a hot-reloading development server. This allows for c
 $ npm run dist // Builds dist path & files
 $ APP_ENV=production NODE_ENV=production npm start // Starts localhost:3001 with set APP_ENV
 ```
-
-## Changelog
-
-### v0.1.8
-#### Updated
-- Updated the entry file `App.jsx` to remove unnecessay import of `babel-polyfill`.
-
-### v0.1.7
-#### Updated
-- Updated the Header Component to v1.5.5. The updates include integrating the log in related functions with login server, removing console loggings for patron token expiration, and turning off the feature flag of OAuth Login and set it as default.
-
-### v0.1.6
-#### Updated
-- Updated the Header Component to v1.5.1. The update includes HTTPS fix and the JavaScript fallback for the log in button on the Header Component.
-
-### v0.1.5
-#### Added
-- Enabled Feature Flags plugin on the client-side and added Optimizely script in the index.ejs file.
 
 Contributors
 ----

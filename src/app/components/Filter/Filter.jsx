@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import FilterButton from '../FilterButton/FilterButton.jsx';
 import FilterList from '../FilterList/FilterList.jsx';
 
 // Import libraries
-import ClickOut from 'react-onclickout';
+import ClickOutHandler from 'react-onclickout';
 
-class Filter extends ClickOut {
+class Filter extends React.Component {
   constructor(props) {
     super(props);
 
@@ -17,22 +18,11 @@ class Filter extends ClickOut {
     this.generateFilterList = this.generateFilterList.bind(this);
     this.onClickClose = this.onClickClose.bind(this);
     this.onClickOpen = this.onClickOpen.bind(this);
-    this.onClickOut = this.onClickOut.bind(this);
     this.triggerClose = this.triggerClose.bind(this);
   }
 
   componentDidMount() {
     window.addEventListener('keydown', this.triggerClose, false);
-  }
-
-  /**
-   * onClickOut()
-   * The function integrates with the parent component, ClickOut, to define the function to close
-   * this component if the user clicks outside of the element.
-   *
-   */
-  onClickOut() {
-    this.onClickClose();
   }
 
   /**
@@ -93,30 +83,31 @@ class Filter extends ClickOut {
 
   render() {
     return (
-      <div
-        id={`${this.props.id}-wrapper`}
-        className={`${this.props.className}-wrapper`}
-        onClickOut={this.onClickClose}
-      >
-        <p>Filter your search:</p>
-        <FilterButton
-          id={`${this.props.id}-button`}
-          className={`${this.props.className}-button`}
-          onClick={this.onClickOpen}
-        />
-        {this.generateFilterList()}
-      </div>
+      <ClickOutHandler onClickOut={this.onClickClose}>
+        <div
+          id={`${this.props.id}-wrapper`}
+          className={`${this.props.className}-wrapper`}
+        >
+          <p>Filter your search:</p>
+          <FilterButton
+            id={`${this.props.id}-button`}
+            className={`${this.props.className}-button`}
+            onClick={this.onClickOpen}
+          />
+          {this.generateFilterList()}
+        </div>
+      </ClickOutHandler>
     );
   }
 }
 
 Filter.propTypes = {
-  id: React.PropTypes.string,
-  className: React.PropTypes.string,
-  facets: React.PropTypes.array,
-  selectedFacet: React.PropTypes.string,
-  onClickFacet: React.PropTypes.func,
-  onClickApply: React.PropTypes.func,
+  id: PropTypes.string,
+  className: PropTypes.string,
+  facets: PropTypes.array,
+  selectedFacet: PropTypes.string,
+  onClickFacet: PropTypes.func,
+  onClickApply: PropTypes.func,
 };
 
 Filter.defaultProps = {

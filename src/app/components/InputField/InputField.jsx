@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const InputField = ({
   id,
@@ -36,21 +37,21 @@ const InputField = ({
 );
 
 InputField.propTypes = {
-  type: React.PropTypes.string,
-  lang: React.PropTypes.string,
-  id: React.PropTypes.string,
-  name: React.PropTypes.string,
-  value: React.PropTypes.string,
-  checked: React.PropTypes.bool,
-  maxLength: React.PropTypes.string,
-  placeholder: React.PropTypes.string,
-  className: React.PropTypes.string,
-  onKeyPress: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  required: React.PropTypes.bool,
-  isRequired: React.PropTypes.bool,
-  style: React.PropTypes.object,
-  label: React.PropTypes.string,
+  type: PropTypes.string,
+  lang: PropTypes.string,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.string,
+  checked: PropTypes.bool,
+  maxLength: PropTypes.string,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
+  onKeyPress: PropTypes.func,
+  onChange: PropTypes.func,
+  required: PropTypes.bool,
+  isRequired: PropTypes.bool,
+  style: PropTypes.object,
+  label: PropTypes.string,
 };
 
 InputField.defaultProps = {
