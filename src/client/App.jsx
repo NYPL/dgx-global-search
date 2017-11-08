@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import alt from 'dgx-alt-center';
-import { ga } from 'dgx-react-ga';
+import { gaUtils } from 'dgx-react-ga';
 import a11y from 'react-a11y';
 import FeatureFlags from 'dgx-feature-flags';
 import Iso from 'iso';
@@ -18,9 +18,9 @@ if (loadA11y) {
 
 window.onload = () => {
   if (!window.ga) {
-    console.log('Analytics not available - loading through React.');
-    const gaOpts = { debug: true, titleCase: false };
-    ga.initialize('UA-1420324-3', gaOpts);
+    const gaOpts = { debug: false, titleCase: false };
+
+    gaUtils.initialize('UA-1420324-3', gaOpts);
   }
 
   if (!window.dgxFeatureFlags) {
