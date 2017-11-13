@@ -37,4 +37,6 @@ window.onload = () => {
     alt.bootstrap(state);
     ReactDOM.render(<App />, container);
   });
+
+  gaUtils.trackPageview('send', 'pageview', window.location.pathname);
 };
