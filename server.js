@@ -10,7 +10,6 @@ import Iso from 'iso';
 import alt from 'dgx-alt-center';
 
 import appConfig from './appConfig.js';
-import analytics from './analytics.js';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config.js';
@@ -59,7 +58,6 @@ app.use('/', (req, res) => {
     application: iso.render(),
     appTitle: appConfig.appTitle,
     favicon: appConfig.favIconPath,
-    gaCode: analytics.google.code(isProduction),
     webpackPort: WEBPACK_DEV_PORT,
     appEnv: process.env.APP_ENV,
     apiUrl: (res.locals.data) ? res.locals.data.completeApiUrl : '',
