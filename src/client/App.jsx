@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import alt from 'dgx-alt-center';
-import { ga } from 'dgx-react-ga';
+import { config, gaUtils } from 'dgx-react-ga';
 import a11y from 'react-a11y';
 import FeatureFlags from 'dgx-feature-flags';
 import Iso from 'iso';
@@ -18,9 +18,10 @@ if (loadA11y) {
 
 window.onload = () => {
   if (!window.ga) {
-    console.log('Analytics not available - loading through React.');
-    const gaOpts = { debug: true, titleCase: false };
-    ga.initialize('UA-1420324-3', gaOpts);
+    const isProd = process.env.NODE_ENV === 'production';
+    const gaOpts = { debug: !isProd, titleCase: false };
+
+    gaUtils.initialize(config.google.code(isProd), gaOpts);
   }
 
   if (!window.dgxFeatureFlags) {
@@ -36,4 +37,6 @@ window.onload = () => {
     alt.bootstrap(state);
     ReactDOM.render(<App />, container);
   });
+
+  gaUtils.trackPageview('send', 'pageview', window.location.pathname);
 };
