@@ -68,7 +68,6 @@ class Results extends React.Component {
    * @return {array}
    */
   getList(itemsArray) {
-    // console.log("this.state.isGAClickThroughClicked: " + this.state.isGAClickThroughClicked);
     return _map(itemsArray, (item, index) => (
       <ResultsItem
         key={index}
