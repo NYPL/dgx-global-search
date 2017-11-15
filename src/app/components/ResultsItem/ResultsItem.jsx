@@ -92,7 +92,8 @@ class ResultsItem extends React.Component {
       <h2
         className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
         dangerouslySetInnerHTML={this.createMarkup(newTitle)}
-      />
+      >
+      </h2>
     );
   }
 
@@ -153,7 +154,8 @@ class ResultsItem extends React.Component {
         <p
           className={`${this.props.className}-snippet ${wholeRowClass}`}
           dangerouslySetInnerHTML={this.createMarkup(this.props.snippet)}
-        />
+        >
+        </p>
       </li>
     );
   }
