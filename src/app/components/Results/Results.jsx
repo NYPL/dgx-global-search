@@ -26,6 +26,7 @@ class Results extends React.Component {
       isLoadingPagination: false,
       incrementResults: 10,
       searchResults: this.props.results,
+      isGAClickThroughClicked: false,
     };
 
     this.getList = this.getList.bind(this);
@@ -52,6 +53,12 @@ class Results extends React.Component {
     });
   }
 
+  updateGAClickThroughClicked(newState) {
+    this.setState({
+      isGAClickThroughClicked: newState
+    });
+  }
+
   /**
    * getList(itemsArray)
    * The function maps the search result array,
@@ -61,6 +68,7 @@ class Results extends React.Component {
    * @return {array}
    */
   getList(itemsArray) {
+    // console.log("this.state.isGAClickThroughClicked: " + this.state.isGAClickThroughClicked);
     return _map(itemsArray, (item, index) => (
       <ResultsItem
         key={index}
@@ -72,6 +80,12 @@ class Results extends React.Component {
         thumbnailSrc={item.thumbnailSrc}
         label={item.label}
         className={`${this.props.className}Item`}
+        isGAClickThroughClicked={this.state.isGAClickThroughClicked}
+        updateGAClickThroughClicked={
+          (newState) => {
+            this.updateGAClickThroughClicked(newState);
+          }
+        }
       />
     ));
   }
@@ -146,10 +160,10 @@ class Results extends React.Component {
 
   render() {
     const results = this.getList(this.state.searchResults);
-    const resultsNumberSuggestion = (results.length === 0) ?
-      'No items were found' : `We found about ${this.props.amount} results.`;
-    const resultMessageClass = (results.length === 0) ?
-      'noResultMessage' : `${this.props.className}-length`;
+    const resultsNumberSuggestion = (results.length === 0)
+      ? 'No items were found' : `We found about ${this.props.amount} results.`;
+    const resultMessageClass = (results.length === 0)
+      ? 'noResultMessage' : `${this.props.className}-length`;
 
     return (
       <div className={`${this.props.className}-wrapper`}>
