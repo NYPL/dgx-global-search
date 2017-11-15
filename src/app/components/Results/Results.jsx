@@ -53,12 +53,6 @@ class Results extends React.Component {
     });
   }
 
-  updateGAClickThroughClicked(newState) {
-    this.setState({
-      isGAClickThroughClicked: newState
-    });
-  }
-
   /**
    * getList(itemsArray)
    * The function maps the search result array,
@@ -81,12 +75,19 @@ class Results extends React.Component {
         className={`${this.props.className}Item`}
         isGAClickThroughClicked={this.state.isGAClickThroughClicked}
         updateGAClickThroughClicked={
-          (newState) => {
-            this.updateGAClickThroughClicked(newState);
-          }
+          (newState) => { this.updateGAClickThroughClicked(newState); }
         }
       />
     ));
+  }
+
+  /**
+   * updateGAClickThroughClicked(newState)
+   * Updates isGAClickThroughClicked to true when ResultsItems are clicked once.
+   * @param newState
+   */
+  updateGAClickThroughClicked(newState) {
+    this.setState({ isGAClickThroughClicked: newState });
   }
 
   /**
@@ -112,7 +113,7 @@ class Results extends React.Component {
       // to trigger the animation of the pagination button.
       (value) => {
         this.setState({ isLoadingPagination: value });
-      }
+      },
     );
 
     // Automatically focus on the first item of the newly reloaded results
