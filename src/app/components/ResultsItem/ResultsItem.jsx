@@ -51,29 +51,14 @@ class ResultsItem extends React.Component {
       // Set the dimensions for the following hit
       const customDimensions = [
         // SearchedFrom
-        {
-          index: 'dimension1',
-          value: '[Unknown]'
-        },
+        { index: 'dimension1', value: '[Unknown]' },
         // SearchedRepo
-        {
-          index: 'dimension2',
-          value: 'BetaSearch'
-        },
+        { index: 'dimension2', value: 'BetaSearch' },
         // ClickTarget
-        {
-          index: 'dimension3',
-          value: 'Link'
-        },
+        { index: 'dimension3', value: 'Link' },
         // Reserved custom dimensions for the future use
-        {
-          index: 'dimension4',
-          value: 'NotSet'
-        },
-        {
-          index: 'dimension5',
-          value: 'NotSet'
-        },
+        { index: 'dimension4', value: 'NotSet' },
+        { index: 'dimension5', value: 'NotSet' },
       ];
 
       gaUtils.setDimensions(customDimensions);

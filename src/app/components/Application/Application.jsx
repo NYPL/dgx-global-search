@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   extend as _extend,
- } from 'underscore';
+} from 'underscore';
 
 // Import components
 import { Header, navConfig } from '@nypl/dgx-header-component';
@@ -44,7 +44,7 @@ history.listen(location => {
       () => {
         Actions.updateSearchKeyword('');
         Actions.updateIsKeywordValid(false);
-      }
+      },
     );
   }
 });
@@ -58,7 +58,7 @@ class App extends React.Component {
         resultsComponentData: null,
         isLoading: false,
       },
-      Store.getState()
+      Store.getState(),
     );
 
     this.onChange = this.onChange.bind(this);
@@ -77,7 +77,7 @@ class App extends React.Component {
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
-        Store.getState().searchDataLength
+        Store.getState().searchDataLength,
       ),
     });
   }
@@ -102,7 +102,7 @@ class App extends React.Component {
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
-        Store.getState().searchDataLength
+        Store.getState().searchDataLength,
       ),
     });
   }
@@ -165,7 +165,7 @@ class App extends React.Component {
         // to trigger the loading layer.
         (value) => {
           this.setState({ isLoading: value });
-        }
+        },
       );
     }
   }
