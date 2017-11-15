@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {gaUtils} from 'dgx-react-ga';
 
 class ResultsItem extends React.Component {
   constructor(props) {
@@ -39,6 +40,28 @@ class ResultsItem extends React.Component {
     }
 
     return '';
+  }
+
+  /**
+   *
+   */
+  handleClick(ordinality) {
+    // TODO: Fill in proper values for SearchedFrom and ClickTarget
+    // Set the dimensions for the following hit
+    const customDimensions = [
+      // SearchedFrom
+      { index: 'dimension1', value: '[Unknown]' },
+      // SearchedRepo
+      { index: 'dimension2', value: 'BetaSearch' },
+      // ClickTarget
+      { index: 'dimension3', value: 'Link'},
+      // Reserved custom dimensions for the future use
+      { index: 'dimension4', value: 'NotSet' },
+      { index: 'dimension5', value: 'NotSet' },
+    ];
+
+    gaUtils.setDimensions(customDimensions);
+    gaUtils.trackGeneralEvent('Beta Search', 'Clickthrough', '[BetaSearch Term]', ordinality);
   }
 
   /**
@@ -107,6 +130,7 @@ class ResultsItem extends React.Component {
           className={`${this.props.className}-link ${wholeRowClass}`}
           href={this.props.link}
           ref={`result-${this.props.index}-item`}
+          onClick={this.handleClick(this.props.index+1)}
         >
           {this.renderImage(this.props.className, this.props.thumbnailSrc, this.props.title)}
           {this.renderTitle(this.props.title, this.props.className, wholeRowClass)}
