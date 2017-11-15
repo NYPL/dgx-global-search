@@ -84,7 +84,7 @@ class Results extends React.Component {
   /**
    * updateGAClickThroughClicked(newState)
    * Updates isGAClickThroughClicked to true when ResultsItems are clicked once.
-   * @param newState
+   * @param {Boolean} newState
    */
   updateGAClickThroughClicked(newState) {
     this.setState({ isGAClickThroughClicked: newState });
@@ -113,7 +113,7 @@ class Results extends React.Component {
       // to trigger the animation of the pagination button.
       (value) => {
         this.setState({ isLoadingPagination: value });
-      },
+      }
     );
 
     // Automatically focus on the first item of the newly reloaded results
