@@ -43,10 +43,15 @@ class ResultsItem extends React.Component {
   }
 
   /**
-   *
+   * handleClick(index)
+   * Sending event to Google Analytics along with ordinality of link
+   * @param {int} index
    */
-  handleClick(ordinality) {
-     if (!this.props.isGAClickThroughClicked) {
+  handleClick(index) {
+    // Index is 0-based, we need ordinality to start at 1.
+    let ordinality = index + 1;
+    console.log('ordinality: ' + ordinality);
+    if (!this.props.isGAClickThroughClicked) {
       // TODO: Fill in proper values for SearchedFrom and ClickTarget
       // Set the dimensions for the following hit
       const customDimensions = [
@@ -87,8 +92,7 @@ class ResultsItem extends React.Component {
       <h2
         className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
         dangerouslySetInnerHTML={this.createMarkup(newTitle)}
-      >
-      </h2>
+      />
     );
   }
 
@@ -135,7 +139,7 @@ class ResultsItem extends React.Component {
           href={this.props.link}
           ref={`result-${this.props.index}-item`}
           onClick={() => {
-            this.handleClick(this.props.index + 1);
+            this.handleClick(this.props.index);
           }}
         >
           {this.renderImage(this.props.className, this.props.thumbnailSrc, this.props.title)}
@@ -149,8 +153,7 @@ class ResultsItem extends React.Component {
         <p
           className={`${this.props.className}-snippet ${wholeRowClass}`}
           dangerouslySetInnerHTML={this.createMarkup(this.props.snippet)}
-        >
-        </p>
+        />
       </li>
     );
   }
