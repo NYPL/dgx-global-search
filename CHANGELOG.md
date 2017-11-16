@@ -1,5 +1,9 @@
 ## Changelog
 
+### v0.2.4
+#### Added
+- Added the function for tracking click through events for GA on the result page.
+
 ### v0.2.3
 #### Updated
 - Updated the Header version to 2.2.0.
