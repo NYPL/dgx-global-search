@@ -67,7 +67,7 @@ class ResultsItem extends React.Component {
       ];
 
       gaUtils.setDimensions(customDimensions);
-      gaUtils.trackGeneralEvent('Beta Search', 'Clickthrough', '[BetaSearch Term]', ordinality);
+      gaUtils.trackGeneralEvent('Search', 'Clickthrough', '[BetaSearch Term]', ordinality);
 
       this.props.updateGAClickThroughClicked(true);
     }
