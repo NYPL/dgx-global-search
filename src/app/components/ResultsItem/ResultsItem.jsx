@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { gaUtils } from 'dgx-react-ga';
+import { sendGAEvent } from '../../utils/GAUtils.js';
 
 class ResultsItem extends React.Component {
   constructor(props) {
@@ -43,33 +43,21 @@ class ResultsItem extends React.Component {
   }
 
   /**
-   * sendGAEvent(index, target)
-   * Sending event to Google Analytics along with ordinality of link
+   * sendGAClickthroughEvent(index, target)
+   * Sending click through event to Google Analytics along with ordinality of link
+   * and other dimension values
    *
    * @param {int} index - The value for GA event value
    * @param {string} target - The value for GA event dimension3/ClickTarget
    */
-  sendGAEvent(index, target = 'Unknown') {
+  sendGAClickthroughEvent(index, target) {
     // Index is 0-based, we need ordinality to start at 1.
     const ordinality = (index) ? index + 1 : 0;
+    const searchedFrom = 'Unknown';
 
     if (!this.props.isGAClickThroughClicked) {
-      // Set the dimensions for the following hit
-      const customDimensions = [
-        // SearchedFrom
-        { index: 'dimension1', value: '[Unknown]' },
-        // SearchedRepo
-        { index: 'dimension2', value: 'BetaSearch' },
-        // ClickTarget
-        { index: 'dimension3', value: target },
-        // Reserved custom dimensions for the future use
-        { index: 'dimension4', value: 'NotSet' },
-        { index: 'dimension5', value: 'NotSet' },
-      ];
-
-      gaUtils.setDimensions(customDimensions);
-      gaUtils.trackGeneralEvent('Search', 'Clickthrough', this.props.searchKeyword, ordinality);
-
+      // target is the HTML element that the click through happened on
+      sendGAEvent('Clickthrough', this.props.searchKeyword, ordinality, searchedFrom, target);
       this.props.updateGAClickThroughClicked(true);
     }
   }
@@ -94,7 +82,7 @@ class ResultsItem extends React.Component {
         className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
         dangerouslySetInnerHTML={this.createMarkup(newTitle)}
         onClick={() => {
-          this.sendGAEvent(this.props.index, 'ResultTitle');
+          this.sendGAClickthroughEvent(this.props.index, 'ResultTitle');
         }}
       >
       </h2>
@@ -119,7 +107,7 @@ class ResultsItem extends React.Component {
       <div
         className={`${className}-imageWrapper`}
         onClick={() => {
-          this.sendGAEvent(this.props.index, 'ResultPicture');
+          this.sendGAClickthroughEvent(this.props.index, 'ResultPicture');
         }}
       >
         <img
@@ -179,6 +167,7 @@ ResultsItem.propTypes = {
   wholeRowClass: PropTypes.string,
   isGAClickThroughClicked: PropTypes.bool,
   updateGAClickThroughClicked: PropTypes.func,
+  searchKeyword: PropTypes.string,
 };
 
 ResultsItem.defaultProps = {
