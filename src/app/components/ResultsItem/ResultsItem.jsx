@@ -49,10 +49,8 @@ class ResultsItem extends React.Component {
    */
   handleClick(index) {
     // Index is 0-based, we need ordinality to start at 1.
-    let ordinality = index + 1;
-    console.log('ordinality: ' + ordinality);
+    const ordinality = index + 1;
     if (!this.props.isGAClickThroughClicked) {
-      // TODO: Fill in proper values for SearchedFrom and ClickTarget
       // Set the dimensions for the following hit
       const customDimensions = [
         // SearchedFrom
@@ -67,7 +65,7 @@ class ResultsItem extends React.Component {
       ];
 
       gaUtils.setDimensions(customDimensions);
-      gaUtils.trackGeneralEvent('Search', 'Clickthrough', '[BetaSearch Term]', ordinality);
+      gaUtils.trackGeneralEvent('Search', 'Clickthrough', this.props.searchKeyword, ordinality);
 
       this.props.updateGAClickThroughClicked(true);
     }
@@ -124,7 +122,7 @@ class ResultsItem extends React.Component {
 
   render() {
     const wholeRowClass = this.generateWholeRowClass(this.props.thumbnailSrc);
-
+    // TODO: renderImage() and renderTitle() needs separate ClickTargets
     return (
       <li
         id={`${this.props.id}-${this.props.index}`}

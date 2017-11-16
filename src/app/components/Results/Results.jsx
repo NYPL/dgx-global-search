@@ -77,6 +77,7 @@ class Results extends React.Component {
         updateGAClickThroughClicked={
           (newState) => { this.updateGAClickThroughClicked(newState); }
         }
+        searchKeyword={this.props.searchKeyword}
       />
     ));
   }
