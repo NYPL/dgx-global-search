@@ -54,7 +54,6 @@ class ResultsItem extends React.Component {
     const ordinality = (index) ? index + 1 : 0;
 
     if (!this.props.isGAClickThroughClicked) {
-      // TODO: Fill in proper values for SearchedFrom and ClickTarget
       // Set the dimensions for the following hit
       const customDimensions = [
         // SearchedFrom
@@ -69,7 +68,7 @@ class ResultsItem extends React.Component {
       ];
 
       gaUtils.setDimensions(customDimensions);
-      gaUtils.trackGeneralEvent('Search', 'Clickthrough', '[BetaSearch Term]', ordinality);
+      gaUtils.trackGeneralEvent('Search', 'Clickthrough', this.props.searchKeyword, ordinality);
 
       this.props.updateGAClickThroughClicked(true);
     }
