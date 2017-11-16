@@ -101,6 +101,53 @@ const requestResultsFromClient = (req, res) => {
     });
 };
 
+// for test
+const requestResultsFromClientTest = (req, res) => {
+  searchOptions.filters = {
+    q: req.params.searchRequest,
+    start: req.query.start || '0',
+  };
+  const searchApiUrl = parser.getCompleteApi(searchOptions);
+
+  if (!req.query.start) {
+    res.json({});
+    return;
+  }
+
+  const searchModeled = {
+    searchResultsItems:
+      [
+        {
+          title: 'test banana',
+          link: 'https://www.nypl.org',
+          snippet: 'this is a test banana',
+          thumbnailSrc: 'http://images5.fanpop.com/image/photos/31100000/so-cute-puppy-the-puppy-club-31132519-1600-1200.jpg',
+          label: 'puppy',
+        },
+      ],
+    resultLength: 1,
+  };
+
+  res.json(searchModeled);
+
+  // getSearchData(searchApiUrl)
+  //   .then((searchData) => {
+  //     const searchParsed = parser.parse(searchData.data, searchOptions);
+  //     const searchModeled = {
+  //       searchResultsItems: fetchResultItems(searchParsed, req.params.searchRequest),
+  //       resultLength: fetchResultLength(searchParsed),
+  //     };
+
+  //     res.json(searchModeled);
+  //   })
+  //   .catch(error => {
+  //     console.log(`error calling API : ${error}`);
+  //     console.log(`from the endpoint: ${searchApiUrl}`);
+  //     console.log(`search keyword is ${searchOptions.filters.q}`);
+  //   });
+};
+// for test
+
 const requestNoResultApp = (req, res, next) => {
   next();
 };
@@ -128,8 +175,12 @@ router
   .route('/request/api/:searchRequest/')
   .get(requestResultsFromClient);
 
+// router
+//   .route('/searchbeta/request/api/:searchRequest/')
+//   .get(requestResultsFromClient);
+
 router
   .route('/searchbeta/request/api/:searchRequest/')
-  .get(requestResultsFromClient);
+  .get(requestResultsFromClientTest);
 
 export default router;

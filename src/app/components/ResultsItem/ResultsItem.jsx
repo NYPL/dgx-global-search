@@ -43,14 +43,16 @@ class ResultsItem extends React.Component {
   }
 
   /**
-   * handleClick(index)
+   * sendGAEvent(index, target)
    * Sending event to Google Analytics along with ordinality of link
-   * @param {int} index
+   *
+   * @param {int} index - The value for GA event value
+   * @param {string} target - The value for GA event dimension3/ClickTarget
    */
-  handleClick(index) {
+  sendGAEvent(index, target = 'Unknown') {
     // Index is 0-based, we need ordinality to start at 1.
-    let ordinality = index + 1;
-    console.log('ordinality: ' + ordinality);
+    const ordinality = (index) ? index + 1 : 0;
+
     if (!this.props.isGAClickThroughClicked) {
       // TODO: Fill in proper values for SearchedFrom and ClickTarget
       // Set the dimensions for the following hit
@@ -60,7 +62,7 @@ class ResultsItem extends React.Component {
         // SearchedRepo
         { index: 'dimension2', value: 'BetaSearch' },
         // ClickTarget
-        { index: 'dimension3', value: 'Link' },
+        { index: 'dimension3', value: target },
         // Reserved custom dimensions for the future use
         { index: 'dimension4', value: 'NotSet' },
         { index: 'dimension5', value: 'NotSet' },
@@ -92,6 +94,9 @@ class ResultsItem extends React.Component {
       <h2
         className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
         dangerouslySetInnerHTML={this.createMarkup(newTitle)}
+        onClick={() => {
+          this.sendGAEvent(this.props.index, 'ResultTitle');
+        }}
       >
       </h2>
     );
@@ -112,7 +117,12 @@ class ResultsItem extends React.Component {
     }
 
     return (
-      <div className={`${className}-imageWrapper`}>
+      <div
+        className={`${className}-imageWrapper`}
+        onClick={() => {
+          this.sendGAEvent(this.props.index, 'ResultPicture');
+        }}
+      >
         <img
           className={`${className}-image`}
           src={src}
@@ -139,9 +149,6 @@ class ResultsItem extends React.Component {
           className={`${this.props.className}-link ${wholeRowClass}`}
           href={this.props.link}
           ref={`result-${this.props.index}-item`}
-          onClick={() => {
-            this.handleClick(this.props.index);
-          }}
         >
           {this.renderImage(this.props.className, this.props.thumbnailSrc, this.props.title)}
           {this.renderTitle(this.props.title, this.props.className, wholeRowClass)}
