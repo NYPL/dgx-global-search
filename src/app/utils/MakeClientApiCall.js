@@ -1,6 +1,8 @@
 // Import library
 import axios from 'axios';
 
+import Actions from '../actions/Actions.js';
+
 /**
  * makeClientApiCall(keyword, facet, start, callbackFunction, callbackFunctionNoKeyword,
  * callbackFunctionLoading)
