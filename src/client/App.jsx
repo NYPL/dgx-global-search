@@ -38,5 +38,5 @@ window.onload = () => {
     ReactDOM.render(<App />, container);
   });
 
-  gaUtils.trackPageview('send', 'pageview', window.location.pathname);
+  gaUtils.trackPageview(window.location.pathname);
 };
