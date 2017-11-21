@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { gaUtils } from 'dgx-react-ga';
+import { sendGAEvent } from '../../utils/GAUtils.js';
 
 class ResultsItem extends React.Component {
   constructor(props) {
@@ -43,33 +43,65 @@ class ResultsItem extends React.Component {
   }
 
   /**
-   * sendGAEvent(index, target)
-   * Sending event to Google Analytics along with ordinality of link
+   * generateSearchedFrom
+   * Decide which value a GA click through event's dimension1/SearchedFrom should be.
+   *
+   * @return {string} searchedFrom - The value for dimension1/SearchedFrom
+   */
+  generateSearchedFrom() {
+    const resultsLoadedTime = (this.props.resultsLoadedTime) ?
+      parseInt(this.props.resultsLoadedTime) : undefined;
+    const querySentTime = (this.props.queriesForGA.timestamp) ?
+     parseInt(this.props.queriesForGA.timestamp) : undefined;
+    const querySentFrom = (this.props.queriesForGA.searchedFrom) ?
+      this.props.queriesForGA.searchedFrom : '';
+    let searchedFrom = 'Unknown';
+
+    // TODO: before all logic, we should refer the history to see if the request is from BetaSearch
+    // App itself, if so, even no queries we should still consider searchedFrom is 'BetaSearchForm'
+
+    if (!querySentTime || !querySentFrom) {
+      return searchedFrom;
+    }
+
+    if ((resultsLoadedTime - querySentTime) > 60000) {
+      searchedFrom = 'Bookmark';
+    } else {
+      if (querySentFrom === 'header_search') {
+        searchedFrom = 'HeaderSearch';
+      } else if (querySentFrom === 'betasearch_link') {
+        searchedFrom = 'BetaSearchLink';
+      } else if (querySentFrom === 'betasearch') {
+        searchedFrom = 'BetaSearchForm';
+      } else {
+        return searchedFrom;
+      }
+    }
+
+    return searchedFrom;
+  }
+
+  /**
+   * sendGAClickthroughEvent(index, target)
+   * Sending click through event to Google Analytics along with ordinality of link
+   * and other dimension values
    *
    * @param {int} index - The value for GA event value
    * @param {string} target - The value for GA event dimension3/ClickTarget
    */
-  sendGAEvent(index, target = 'Unknown') {
+  sendGAClickthroughEvent(index, target) {
     // Index is 0-based, we need ordinality to start at 1.
     const ordinality = (index) ? index + 1 : 0;
-
+    // Check if a click through has already happened once. We only send the first click through
     if (!this.props.isGAClickThroughClicked) {
-      // Set the dimensions for the following hit
-      const customDimensions = [
-        // SearchedFrom
-        { index: 'dimension1', value: '[Unknown]' },
-        // SearchedRepo
-        { index: 'dimension2', value: 'BetaSearch' },
-        // ClickTarget
-        { index: 'dimension3', value: target },
-        // Reserved custom dimensions for the future use
-        { index: 'dimension4', value: 'NotSet' },
-        { index: 'dimension5', value: 'NotSet' },
-      ];
-
-      gaUtils.setDimensions(customDimensions);
-      gaUtils.trackGeneralEvent('Search', 'Clickthrough', this.props.searchKeyword, ordinality);
-
+      // target is the HTML element that the click through happened on
+      sendGAEvent(
+        'Clickthrough',
+        this.props.searchKeyword,
+        ordinality,
+        this.generateSearchedFrom(),
+        target
+      );
       this.props.updateGAClickThroughClicked(true);
     }
   }
@@ -94,7 +126,7 @@ class ResultsItem extends React.Component {
         className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
         dangerouslySetInnerHTML={this.createMarkup(newTitle)}
         onClick={() => {
-          this.sendGAEvent(this.props.index, 'ResultTitle');
+          this.sendGAClickthroughEvent(this.props.index, 'ResultTitle');
         }}
       >
       </h2>
@@ -102,12 +134,11 @@ class ResultsItem extends React.Component {
   }
 
   /**
-   * renderImage(className, src, title)
+   * renderImage(className, src)
    * The function renders <img> if this.props.thumbnailSrc is true.
    *
    * @param {string} className
    * @param {string} src
-   * @param {string} title
    * @return null or {object}
    */
   renderImage(className, src) {
@@ -119,7 +150,7 @@ class ResultsItem extends React.Component {
       <div
         className={`${className}-imageWrapper`}
         onClick={() => {
-          this.sendGAEvent(this.props.index, 'ResultPicture');
+          this.sendGAClickthroughEvent(this.props.index, 'ResultPicture');
         }}
       >
         <img
@@ -179,6 +210,7 @@ ResultsItem.propTypes = {
   wholeRowClass: PropTypes.string,
   isGAClickThroughClicked: PropTypes.bool,
   updateGAClickThroughClicked: PropTypes.func,
+  searchKeyword: PropTypes.string,
 };
 
 ResultsItem.defaultProps = {

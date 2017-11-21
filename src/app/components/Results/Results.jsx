@@ -27,6 +27,7 @@ class Results extends React.Component {
       incrementResults: 10,
       searchResults: this.props.results,
       isGAClickThroughClicked: false,
+      loadCompeletedTime: '',
     };
 
     this.getList = this.getList.bind(this);
@@ -37,6 +38,9 @@ class Results extends React.Component {
   componentDidMount() {
     // Listen to any change of the Store
     Store.listen(this.onChange);
+    this.setState({
+      loadCompeletedTime: new Date().getTime(),
+    });
   }
 
   componentWillUnmount() {
@@ -78,6 +82,8 @@ class Results extends React.Component {
           (newState) => { this.updateGAClickThroughClicked(newState); }
         }
         searchKeyword={this.props.searchKeyword}
+        queriesForGA={this.props.queriesForGA}
+        resultsLoadedTime={this.state.loadCompeletedTime}
       />
     ));
   }

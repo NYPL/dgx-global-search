@@ -104,6 +104,7 @@ class App extends React.Component {
         Store.getState().searchData,
         Store.getState().searchDataLength
       ),
+      queriesForGA: Store.getState().queriesForGA,
     });
   }
 
@@ -206,6 +207,7 @@ class App extends React.Component {
         searchKeyword={searchKeyword}
         selectedFacet={this.state.selectedFacet}
         resultsStart={this.state.resultsStart}
+        queriesForGA={this.state.queriesForGA}
       />
     );
   }
