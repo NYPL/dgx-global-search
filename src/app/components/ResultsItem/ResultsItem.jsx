@@ -134,12 +134,11 @@ class ResultsItem extends React.Component {
   }
 
   /**
-   * renderImage(className, src, title)
+   * renderImage(className, src)
    * The function renders <img> if this.props.thumbnailSrc is true.
    *
    * @param {string} className
    * @param {string} src
-   * @param {string} title
    * @return null or {object}
    */
   renderImage(className, src) {
