@@ -57,6 +57,8 @@ class ResultsItem extends React.Component {
       this.props.queriesForGA.searchedFrom : '';
     let searchedFrom = 'Unknown';
 
+        console.log(resultsLoadedTime - querySentTime);
+
     // TODO: before all logic, we should refer the history to see if the request is from BetaSearch
     // App itself, if so, even no queries we should still consider searchedFrom is 'BetaSearchForm'
 

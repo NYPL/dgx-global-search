@@ -41,6 +41,7 @@ class Results extends React.Component {
     this.setState({
       loadCompeletedTime: new Date().getTime(),
     });
+    console.log('load time set');
   }
 
   componentWillUnmount() {

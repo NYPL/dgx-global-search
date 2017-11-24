@@ -139,6 +139,11 @@ class App extends React.Component {
    * @param {string} selectedFacet
    */
   submitSearchRequest(selectedFacet = '') {
+    Actions.updateQueriesForGA({
+      searchedFrom: 'BetaSearchForm',
+      timestamp: new Date().getTime(),
+    });
+
     if (!this.state.searchKeyword) {
       this.setState({ isKeywordValid: false });
     } else {
