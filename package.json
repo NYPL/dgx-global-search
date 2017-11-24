@@ -26,7 +26,7 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@nypl/dgx-header-component": "2.2.0",
+    "@nypl/dgx-header-component": "git+https://git@bitbucket.org/NYPL/dgx-header-component.git#update-dimensison-set-function",
     "@nypl/dgx-react-footer": "0.4.0",
     "axios": "0.9.1",
     "babel-core": "6.24.0",
@@ -43,7 +43,7 @@
     "css-loader": "0.25.0",
     "dgx-alt-center": "git+https://git@bitbucket.org/NYPL/dgx-alt-center.git#master",
     "dgx-react-buttons": "git+ssh://git@bitbucket.org/NYPL/dgx-react-buttons.git#master",
-    "dgx-react-ga": "git+https://git@bitbucket.org/NYPL/dgx-react-ga.git#master",
+    "dgx-react-ga": "git+https://git@bitbucket.org/NYPL/dgx-react-ga.git#update-version",
     "dgx-svg-icons": "git+https://git@bitbucket.org/NYPL/dgx-svg-icons.git#master",
     "ejs": "2.4.2",
     "enzyme": "2.2.0",

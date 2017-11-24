@@ -1,8 +1,8 @@
 // Import libraries
-import { gaUtils } from 'dgx-react-ga';
+import { ga } from 'dgx-react-ga';
 import gaConfig from '../../../gaConfig.js';
 import {
-  mapObject as _mapObject,
+  extend as _extend,
 } from 'underscore';
 
 /**
@@ -13,24 +13,18 @@ import {
  *
  * @param {String} searchedFrom - The value of dimension1/SearchedFrom of the GA event
  * @param {String} target - The value of dimension3/ClickTarget of the GA event
- * @return {Array}
+ * @return {object}
  */
 const generateCustomDimensions = (searchedFrom = 'Unknown', target = 'Unknown') => {
-  const dimensionArray = [];
-
   gaConfig.dimensions.dimension1 = searchedFrom;
   gaConfig.dimensions.dimension3 = target;
 
-  _mapObject(gaConfig.dimensions, (value, key) => {
-    dimensionArray.push({ index: key, value });
-  });
-
-  return dimensionArray;
+  return gaConfig.dimensions;
 };
 
 /**
  * sendGAEvent(action, label, value, searchedFrom, target)
- * The function to send a GA event along with its dimensions.
+ * The function for sending a GA event along with its dimensions.
  * Dimension2/SearchedRepo is always 'BetaSearch'
  *
  * @param {String} action - The Action of the GA event
@@ -40,14 +34,14 @@ const generateCustomDimensions = (searchedFrom = 'Unknown', target = 'Unknown') 
  * @param {String} target - The value of dimension3/ClickTarget of the GA event
  */
 const sendGAEvent = (action, label, value, searchedFrom, target) => {
-  // The array for gaUtils.setDimensions should be
-  // [
-  //  {index: dimension1, value: 'dimension1 value'},
-  //  {index: dimension2, value: 'dimension2 value'},
-  //  etc....
-  // ]
-  gaUtils.setDimensions(generateCustomDimensions(searchedFrom, target));
-  gaUtils.trackGeneralEvent('Search', action, label, value);
+  const eventObj = _extend({
+    category: 'Search',
+    action,
+    label,
+    value,
+  }, generateCustomDimensions(searchedFrom, target));
+
+  ga.event(eventObj);
 };
 
 export { sendGAEvent };
