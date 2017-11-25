@@ -39,9 +39,6 @@ class Results extends React.Component {
   componentDidMount() {
     // Listen to any change of the Store
     Store.listen(this.onChange);
-    // this.setState({
-    //   loadCompeletedTime: new Date().getTime(),
-    // });
   }
 
   componentWillUnmount() {
