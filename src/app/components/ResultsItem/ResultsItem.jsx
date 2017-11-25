@@ -49,19 +49,25 @@ class ResultsItem extends React.Component {
    * @return {string} searchedFrom - The value for dimension1/SearchedFrom
    */
   generateSearchedFrom() {
-    const resultsLoadedTime = (this.props.resultsLoadedTime) ?
-      parseInt(this.props.resultsLoadedTime, 10) : undefined;
+    const timeToLoadResults = (this.props.timeToLoadResults) ?
+      parseInt(this.props.timeToLoadResults, 10) : undefined;
     const querySentTime = (this.props.queriesForGA.timestamp) ?
      parseInt(this.props.queriesForGA.timestamp, 10) : undefined;
     const querySentFrom = (this.props.queriesForGA.searchedFrom) ?
       this.props.queriesForGA.searchedFrom : '';
     let searchedFrom = 'Unknown';
 
+    if (!querySentTime && !querySentFrom) {
+      searchedFrom = 'Bookmark';
+
+      return searchedFrom;
+    }
+
     if (!querySentTime || !querySentFrom) {
       return searchedFrom;
     }
 
-    if ((resultsLoadedTime - querySentTime) > 60000) {
+    if ((timeToLoadResults - querySentTime) > 60000) {
       searchedFrom = 'Bookmark';
     } else {
       if (querySentFrom === 'header_search') {
@@ -208,7 +214,7 @@ ResultsItem.propTypes = {
   isGAClickThroughClicked: PropTypes.bool,
   updateGAClickThroughClicked: PropTypes.func,
   searchKeyword: PropTypes.string,
-  resultsLoadedTime: PropTypes.number,
+  timeToLoadResults: PropTypes.number,
   queriesForGA: PropTypes.object,
 };
 
@@ -217,7 +223,7 @@ ResultsItem.defaultProps = {
   id: 'resultsItem',
   className: 'resultsItem',
   index: 0,
-  resultsLoadedTime: '',
+  timeToLoadResults: '',
   queriesForGA: {},
 };
 

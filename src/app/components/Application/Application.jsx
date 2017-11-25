@@ -78,8 +78,8 @@ class App extends React.Component {
   }
 
   // Setting state in componentWillMount() helps us render the results for the first time before
-  // the component making any client call. This is for the situation of the user get to the main
-  // page with a search term
+  // the component making any client call. This is for the situation of the user who gets to the
+  // main page with a search term
   componentWillMount() {
     this.setState({
       resultsComponentData: this.renderResults(

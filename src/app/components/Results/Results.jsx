@@ -26,8 +26,7 @@ class Results extends React.Component {
       isLoadingPagination: false,
       incrementResults: 10,
       searchResults: this.props.results,
-      isGAClickThroughClicked: false,
-      loadCompeletedTime: new Date().getTime(),
+      timeToLoadResults: new Date().getTime(),
       queriesForGA: this.props.queriesForGA,
     };
 
@@ -52,7 +51,7 @@ class Results extends React.Component {
       resultsStart: Store.getState().resultsStart,
       isLoadingPagination: false,
       searchResults: Store.getState().searchData,
-      loadCompeletedTime: new Date().getTime(),
+      timeToLoadResults: new Date().getTime(),
       queriesForGA: Store.getState().queriesForGA,
     });
   }
@@ -83,7 +82,7 @@ class Results extends React.Component {
         }
         searchKeyword={this.props.searchKeyword}
         queriesForGA={this.state.queriesForGA}
-        resultsLoadedTime={this.state.loadCompeletedTime}
+        timeToLoadResults={this.state.timeToLoadResults}
       />
     ));
   }
