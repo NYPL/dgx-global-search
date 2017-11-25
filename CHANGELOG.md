@@ -3,6 +3,7 @@
 ### v0.2.4
 #### Added
 - Added the function for tracking click through events for GA on the result page.
+- Added the function for tracking search request (QuerySent) events for GA on the result page.
 
 ### v0.2.3
 #### Updated
