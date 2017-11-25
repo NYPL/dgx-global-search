@@ -40,10 +40,18 @@ history.listen(location => {
         Actions.updateSearchDataLength(resultLength);
         Actions.updateSelectedFacet(searchFacet);
         Actions.updateResultsStart(resultsStart);
+        Actions.updateQueriesForGA({
+          searchedFrom: 'betasearch',
+          timestamp: new Date().getTime(),
+        });
       },
       () => {
         Actions.updateSearchKeyword('');
         Actions.updateIsKeywordValid(false);
+        Actions.updateQueriesForGA({
+          searchedFrom: 'betasearch',
+          timestamp: new Date().getTime(),
+        });
       }
     );
   }
