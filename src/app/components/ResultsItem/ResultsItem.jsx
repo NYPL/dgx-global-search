@@ -208,7 +208,7 @@ ResultsItem.propTypes = {
   isGAClickThroughClicked: PropTypes.bool,
   updateGAClickThroughClicked: PropTypes.func,
   searchKeyword: PropTypes.string,
-  resultsLoadedTime: PropTypes.string,
+  resultsLoadedTime: PropTypes.number,
   queriesForGA: PropTypes.object,
 };
 
