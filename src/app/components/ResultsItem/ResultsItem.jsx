@@ -50,17 +50,12 @@ class ResultsItem extends React.Component {
    */
   generateSearchedFrom() {
     const resultsLoadedTime = (this.props.resultsLoadedTime) ?
-      parseInt(this.props.resultsLoadedTime) : undefined;
+      parseInt(this.props.resultsLoadedTime, 10) : undefined;
     const querySentTime = (this.props.queriesForGA.timestamp) ?
-     parseInt(this.props.queriesForGA.timestamp) : undefined;
+     parseInt(this.props.queriesForGA.timestamp, 10) : undefined;
     const querySentFrom = (this.props.queriesForGA.searchedFrom) ?
       this.props.queriesForGA.searchedFrom : '';
     let searchedFrom = 'Unknown';
-
-        console.log(resultsLoadedTime - querySentTime);
-
-    // TODO: before all logic, we should refer the history to see if the request is from BetaSearch
-    // App itself, if so, even no queries we should still consider searchedFrom is 'BetaSearchForm'
 
     if (!querySentTime || !querySentFrom) {
       return searchedFrom;
@@ -213,6 +208,8 @@ ResultsItem.propTypes = {
   isGAClickThroughClicked: PropTypes.bool,
   updateGAClickThroughClicked: PropTypes.func,
   searchKeyword: PropTypes.string,
+  resultsLoadedTime: PropTypes.string,
+  queriesForGA: PropTypes.object,
 };
 
 ResultsItem.defaultProps = {
@@ -220,6 +217,8 @@ ResultsItem.defaultProps = {
   id: 'resultsItem',
   className: 'resultsItem',
   index: 0,
+  resultsLoadedTime: '',
+  queriesForGA: {},
 };
 
 export default ResultsItem;

@@ -77,7 +77,7 @@ class App extends React.Component {
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
-        Store.getState().searchDataLength,
+        Store.getState().searchDataLength
       ),
     });
   }
@@ -139,11 +139,6 @@ class App extends React.Component {
    * @param {string} selectedFacet
    */
   submitSearchRequest(selectedFacet = '') {
-    Actions.updateQueriesForGA({
-      searchedFrom: 'BetaSearchForm',
-      timestamp: new Date().getTime(),
-    });
-
     if (!this.state.searchKeyword) {
       this.setState({ isKeywordValid: false });
     } else {
@@ -162,10 +157,18 @@ class App extends React.Component {
           Actions.updateSearchDataLength(resultLength);
           Actions.updateSelectedFacet(facet);
           Actions.updateResultsStart(0);
+          Actions.updateQueriesForGA({
+            searchedFrom: 'betasearch',
+            timestamp: new Date().getTime(),
+          });
         },
         () => {
           Actions.updateSearchKeyword('');
           Actions.updateIsKeywordValid(false);
+          Actions.updateQueriesForGA({
+            searchedFrom: 'betasearch',
+            timestamp: new Date().getTime(),
+          });
         },
         // The callback function for changing the value of isLoading
         // to trigger the loading layer.

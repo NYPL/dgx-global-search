@@ -27,7 +27,8 @@ class Results extends React.Component {
       incrementResults: 10,
       searchResults: this.props.results,
       isGAClickThroughClicked: false,
-      loadCompeletedTime: '',
+      loadCompeletedTime: new Date().getTime(),
+      queriesForGA: this.props.queriesForGA,
     };
 
     this.getList = this.getList.bind(this);
@@ -38,10 +39,9 @@ class Results extends React.Component {
   componentDidMount() {
     // Listen to any change of the Store
     Store.listen(this.onChange);
-    this.setState({
-      loadCompeletedTime: new Date().getTime(),
-    });
-    console.log('load time set');
+    // this.setState({
+    //   loadCompeletedTime: new Date().getTime(),
+    // });
   }
 
   componentWillUnmount() {
@@ -55,6 +55,8 @@ class Results extends React.Component {
       resultsStart: Store.getState().resultsStart,
       isLoadingPagination: false,
       searchResults: Store.getState().searchData,
+      loadCompeletedTime: new Date().getTime(),
+      queriesForGA: Store.getState().queriesForGA,
     });
   }
 
@@ -83,7 +85,7 @@ class Results extends React.Component {
           (newState) => { this.updateGAClickThroughClicked(newState); }
         }
         searchKeyword={this.props.searchKeyword}
-        queriesForGA={this.props.queriesForGA}
+        queriesForGA={this.state.queriesForGA}
         resultsLoadedTime={this.state.loadCompeletedTime}
       />
     ));
@@ -215,6 +217,7 @@ Results.propTypes = {
   searchKeyword: PropTypes.string,
   resultsStart: PropTypes.number,
   selectedFacet: PropTypes.string,
+  queriesForGA: PropTypes.object,
 };
 
 Results.defaultProps = {
@@ -226,6 +229,7 @@ Results.defaultProps = {
   searchKeyword: '',
   resultsStart: 0,
   selectedFacet: '',
+  queriesForGA: {},
 };
 
 export default Results;
