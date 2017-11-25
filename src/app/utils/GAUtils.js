@@ -6,6 +6,53 @@ import {
 } from 'underscore';
 
 /**
+ * generateSearchedFrom(time, queriesForGA)
+ * Decide which value a GA click through event's dimension1/SearchedFrom should be.
+ *
+ * @param {String} time - The time when the result page starts to load
+ * @param {object} queriesForGA - The object contains queries for GA click through events
+ * @return {String} searchedFrom - The value for dimension1/SearchedFrom
+ */
+const generateSearchedFrom = (time, queriesForGA) => {
+  const timeToLoadResults = (time) ? parseInt(time, 10) : undefined;
+  const querySentTime = (queriesForGA.timestamp) ? parseInt(queriesForGA.timestamp, 10) : undefined;
+  const querySentFrom = (queriesForGA.searchedFrom) ? queriesForGA.searchedFrom : '';
+  let searchedFrom = 'Unknown';
+
+  // If no queries are indicated, the search should come from directly being typed in the URL
+  if (!querySentTime && !querySentFrom) {
+    searchedFrom = 'Bookmark';
+
+    return searchedFrom;
+  }
+
+  if (!querySentTime || !querySentFrom) {
+    return searchedFrom;
+  }
+
+  // If querySentFrom is 'betasearch', the search should always come from Beta Search form
+  if (querySentFrom === 'betasearch') {
+    searchedFrom = 'BetaSearchForm';
+
+    return searchedFrom;
+  }
+
+  if ((timeToLoadResults - querySentTime) > 60000) {
+    searchedFrom = 'Bookmark';
+  } else {
+    if (querySentFrom === 'header_search') {
+      searchedFrom = 'HeaderSearch';
+    } else if (querySentFrom === 'betasearch_link') {
+      searchedFrom = 'BetaSearchLink';
+    } else {
+      return searchedFrom;
+    }
+  }
+
+  return searchedFrom;
+};
+
+/**
  * generateCustomDimensions(searchedFrom = 'Unknown', target = 'Unknown')
  * The function is to return the dimensions for GA events.
  * Dimension2/SearchedRepo is always 'BetaSearch'.
@@ -44,4 +91,4 @@ const sendGAEvent = (action, label, value, searchedFrom, target) => {
   ga.event(eventObj);
 };
 
-export { sendGAEvent };
+export { sendGAEvent, generateSearchedFrom };
