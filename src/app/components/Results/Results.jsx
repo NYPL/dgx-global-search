@@ -111,10 +111,18 @@ class Results extends React.Component {
       (searchResultsItems) => {
         Actions.addMoreSearchData(searchResultsItems);
         Actions.updateResultsStart(nextResultCount);
+        Actions.updateQueriesForGA({
+          searchedFrom: this.state.queriesForGA.searchedFrom,
+          timestamp: new Date().getTime(),
+        });
       },
       () => {
         Actions.updateSearchKeyword('');
         Actions.updateIsKeywordValid(false);
+        Actions.updateQueriesForGA({
+          searchedFrom: this.state.queriesForGA.searchedFrom,
+          timestamp: new Date().getTime(),
+        });
       },
       // The callback function for changing the value of isLoadingPagination
       // to trigger the animation of the pagination button.
