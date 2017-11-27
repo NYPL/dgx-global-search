@@ -14,7 +14,7 @@ import {
  * @return {String} searchedFrom - The value for dimension1/SearchedFrom
  */
 const generateSearchedFrom = (time, queriesForGA) => {
-  const timeToLoadResults = (time) ? parseInt(time, 10) : undefined;
+  const timeToLoadResults = (time) ? parseInt(time, 10) : parseInt(new Date().getTime(), 10);
   const querySentTime = (queriesForGA.timestamp) ? parseInt(queriesForGA.timestamp, 10) : undefined;
   const querySentFrom = (queriesForGA.searchedFrom) ? queriesForGA.searchedFrom : '';
   let searchedFrom = 'Unknown';
@@ -70,7 +70,7 @@ const generateCustomDimensions = (searchedFrom = 'Unknown', target = 'Unknown') 
   gaConfig.dimensions.dimension1 = searchedFrom;
 
   // Delete dimension3/ClickTarget if target is not set
-  if(target == null) {
+  if (target == null) {
     delete gaConfig.dimensions.dimension3;
   // Update dimension3/ClickTarget value if there's a valid one
   } else {
