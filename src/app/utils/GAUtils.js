@@ -21,31 +21,34 @@ const generateSearchedFrom = (time, queriesForGA) => {
 
   // If no queries are indicated, the search should come from directly being typed in the URL
   if (!querySentTime && !querySentFrom) {
-    searchedFrom = 'Bookmark';
+    searchedFrom = 'DirectLink';
 
     return searchedFrom;
   }
 
-  if (!querySentTime || !querySentFrom) {
+  if (!querySentTime) {
+    searchedFrom = 'MissingTimestamp';
+
     return searchedFrom;
   }
 
-  // If querySentFrom is 'betasearch', the search should always come from Beta Search form
-  if (querySentFrom === 'betasearch') {
-    searchedFrom = 'BetaSearchForm';
+  if (!querySentFrom) {
+    searchedFrom = 'MissingSearchedFrom';
 
     return searchedFrom;
   }
 
   if ((timeToLoadResults - querySentTime) > 60000) {
-    searchedFrom = 'Bookmark';
+    searchedFrom = 'DirectLink';
   } else {
     if (querySentFrom === 'header_search') {
       searchedFrom = 'HeaderSearch';
     } else if (querySentFrom === 'betasearch_link') {
       searchedFrom = 'BetaSearchLink';
+    } else if (querySentFrom === 'betasearch') {
+      searchedFrom = 'BetaSearchForm';
     } else {
-      return searchedFrom;
+      searchedFrom = 'Unknown';
     }
   }
 
