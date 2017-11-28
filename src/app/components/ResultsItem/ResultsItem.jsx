@@ -42,7 +42,6 @@ class ResultsItem extends React.Component {
     return '';
   }
 
-
   /**
    * triggerGASend(index, target, event)
    * The function listens to the event of enter key.
