@@ -1,9 +1,56 @@
 // Import libraries
-import { gaUtils } from 'dgx-react-ga';
+import { ga } from 'dgx-react-ga';
 import gaConfig from '../../../gaConfig.js';
 import {
-  mapObject as _mapObject,
+  extend as _extend,
 } from 'underscore';
+
+/**
+ * generateSearchedFrom(time, queriesForGA)
+ * Decide which value a GA click through event's dimension1/SearchedFrom should be.
+ *
+ * @param {String} time - The time when the result page starts to load
+ * @param {object} queriesForGA - The object contains queries for GA click through events
+ * @return {String} searchedFrom - The value for dimension1/SearchedFrom
+ */
+const generateSearchedFrom = (time, queriesForGA) => {
+  const timeToLoadResults = (time) ? parseInt(time, 10) : undefined;
+  const querySentTime = (queriesForGA.timestamp) ? parseInt(queriesForGA.timestamp, 10) : undefined;
+  const querySentFrom = (queriesForGA.searchedFrom) ? queriesForGA.searchedFrom : '';
+  let searchedFrom = 'Unknown';
+
+  // If no queries are indicated, the search should come from directly being typed in the URL
+  if (!querySentTime && !querySentFrom) {
+    searchedFrom = 'Bookmark';
+
+    return searchedFrom;
+  }
+
+  if (!querySentTime || !querySentFrom) {
+    return searchedFrom;
+  }
+
+  // If querySentFrom is 'betasearch', the search should always come from Beta Search form
+  if (querySentFrom === 'betasearch') {
+    searchedFrom = 'BetaSearchForm';
+
+    return searchedFrom;
+  }
+
+  if ((timeToLoadResults - querySentTime) > 60000) {
+    searchedFrom = 'Bookmark';
+  } else {
+    if (querySentFrom === 'header_search') {
+      searchedFrom = 'HeaderSearch';
+    } else if (querySentFrom === 'betasearch_link') {
+      searchedFrom = 'BetaSearchLink';
+    } else {
+      return searchedFrom;
+    }
+  }
+
+  return searchedFrom;
+};
 
 /**
  * generateCustomDimensions(searchedFrom = 'Unknown', target = 'Unknown')
@@ -13,24 +60,18 @@ import {
  *
  * @param {String} searchedFrom - The value of dimension1/SearchedFrom of the GA event
  * @param {String} target - The value of dimension3/ClickTarget of the GA event
- * @return {Array}
+ * @return {object}
  */
 const generateCustomDimensions = (searchedFrom = 'Unknown', target = 'Unknown') => {
-  const dimensionArray = [];
-
   gaConfig.dimensions.dimension1 = searchedFrom;
   gaConfig.dimensions.dimension3 = target;
 
-  _mapObject(gaConfig.dimensions, (value, key) => {
-    dimensionArray.push({ index: key, value });
-  });
-
-  return dimensionArray;
+  return gaConfig.dimensions;
 };
 
 /**
  * sendGAEvent(action, label, value, searchedFrom, target)
- * The function to send a GA event along with its dimensions.
+ * The function for sending a GA event along with its dimensions.
  * Dimension2/SearchedRepo is always 'BetaSearch'
  *
  * @param {String} action - The Action of the GA event
@@ -40,14 +81,14 @@ const generateCustomDimensions = (searchedFrom = 'Unknown', target = 'Unknown') 
  * @param {String} target - The value of dimension3/ClickTarget of the GA event
  */
 const sendGAEvent = (action, label, value, searchedFrom, target) => {
-  // The array for gaUtils.setDimensions should be
-  // [
-  //  {index: dimension1, value: 'dimension1 value'},
-  //  {index: dimension2, value: 'dimension2 value'},
-  //  etc....
-  // ]
-  gaUtils.setDimensions(generateCustomDimensions(searchedFrom, target));
-  gaUtils.trackGeneralEvent('Search', action, label, value);
+  const eventObj = _extend({
+    category: 'Search',
+    action,
+    label,
+    value,
+  }, generateCustomDimensions(searchedFrom, target));
+
+  ga.event(eventObj);
 };
 
-export { sendGAEvent };
+export { sendGAEvent, generateSearchedFrom };

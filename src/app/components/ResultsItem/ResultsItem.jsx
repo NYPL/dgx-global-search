@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sendGAEvent } from '../../utils/GAUtils.js';
+import { generateSearchedFrom, sendGAEvent } from '../../utils/GAUtils.js';
 
 class ResultsItem extends React.Component {
   constructor(props) {
@@ -43,45 +43,6 @@ class ResultsItem extends React.Component {
   }
 
   /**
-   * generateSearchedFrom
-   * Decide which value a GA click through event's dimension1/SearchedFrom should be.
-   *
-   * @return {string} searchedFrom - The value for dimension1/SearchedFrom
-   */
-  generateSearchedFrom() {
-    const resultsLoadedTime = (this.props.resultsLoadedTime) ?
-      parseInt(this.props.resultsLoadedTime) : undefined;
-    const querySentTime = (this.props.queriesForGA.timestamp) ?
-     parseInt(this.props.queriesForGA.timestamp) : undefined;
-    const querySentFrom = (this.props.queriesForGA.searchedFrom) ?
-      this.props.queriesForGA.searchedFrom : '';
-    let searchedFrom = 'Unknown';
-
-    // TODO: before all logic, we should refer the history to see if the request is from BetaSearch
-    // App itself, if so, even no queries we should still consider searchedFrom is 'BetaSearchForm'
-
-    if (!querySentTime || !querySentFrom) {
-      return searchedFrom;
-    }
-
-    if ((resultsLoadedTime - querySentTime) > 60000) {
-      searchedFrom = 'Bookmark';
-    } else {
-      if (querySentFrom === 'header_search') {
-        searchedFrom = 'HeaderSearch';
-      } else if (querySentFrom === 'betasearch_link') {
-        searchedFrom = 'BetaSearchLink';
-      } else if (querySentFrom === 'betasearch') {
-        searchedFrom = 'BetaSearchForm';
-      } else {
-        return searchedFrom;
-      }
-    }
-
-    return searchedFrom;
-  }
-
-  /**
    * sendGAClickthroughEvent(index, target)
    * Sending click through event to Google Analytics along with ordinality of link
    * and other dimension values
@@ -99,7 +60,7 @@ class ResultsItem extends React.Component {
         'Clickthrough',
         this.props.searchKeyword,
         ordinality,
-        this.generateSearchedFrom(),
+        generateSearchedFrom(this.props.timeToLoadResults, this.props.queriesForGA),
         target
       );
       this.props.updateGAClickThroughClicked(true);
@@ -211,6 +172,8 @@ ResultsItem.propTypes = {
   isGAClickThroughClicked: PropTypes.bool,
   updateGAClickThroughClicked: PropTypes.func,
   searchKeyword: PropTypes.string,
+  timeToLoadResults: PropTypes.number,
+  queriesForGA: PropTypes.object,
 };
 
 ResultsItem.defaultProps = {
@@ -218,6 +181,8 @@ ResultsItem.defaultProps = {
   id: 'resultsItem',
   className: 'resultsItem',
   index: 0,
+  timeToLoadResults: '',
+  queriesForGA: {},
 };
 
 export default ResultsItem;

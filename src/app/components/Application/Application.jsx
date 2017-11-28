@@ -40,10 +40,18 @@ history.listen(location => {
         Actions.updateSearchDataLength(resultLength);
         Actions.updateSelectedFacet(searchFacet);
         Actions.updateResultsStart(resultsStart);
+        Actions.updateQueriesForGA({
+          searchedFrom: 'betasearch',
+          timestamp: new Date().getTime(),
+        });
       },
       () => {
         Actions.updateSearchKeyword('');
         Actions.updateIsKeywordValid(false);
+        Actions.updateQueriesForGA({
+          searchedFrom: 'betasearch',
+          timestamp: new Date().getTime(),
+        });
       }
     );
   }
@@ -70,14 +78,14 @@ class App extends React.Component {
   }
 
   // Setting state in componentWillMount() helps us render the results for the first time before
-  // the component making any client call. This is for the situation of the user get to the main
-  // page with a search term
+  // the component making any client call. This is for the situation of the user who gets to the
+  // main page with a search term
   componentWillMount() {
     this.setState({
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
-        Store.getState().searchDataLength,
+        Store.getState().searchDataLength
       ),
     });
   }
@@ -157,10 +165,18 @@ class App extends React.Component {
           Actions.updateSearchDataLength(resultLength);
           Actions.updateSelectedFacet(facet);
           Actions.updateResultsStart(0);
+          Actions.updateQueriesForGA({
+            searchedFrom: 'betasearch',
+            timestamp: new Date().getTime(),
+          });
         },
         () => {
           Actions.updateSearchKeyword('');
           Actions.updateIsKeywordValid(false);
+          Actions.updateQueriesForGA({
+            searchedFrom: 'betasearch',
+            timestamp: new Date().getTime(),
+          });
         },
         // The callback function for changing the value of isLoading
         // to trigger the loading layer.

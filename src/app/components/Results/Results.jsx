@@ -26,8 +26,8 @@ class Results extends React.Component {
       isLoadingPagination: false,
       incrementResults: 10,
       searchResults: this.props.results,
-      isGAClickThroughClicked: false,
-      loadCompeletedTime: '',
+      timeToLoadResults: new Date().getTime(),
+      queriesForGA: this.props.queriesForGA,
     };
 
     this.getList = this.getList.bind(this);
@@ -38,9 +38,6 @@ class Results extends React.Component {
   componentDidMount() {
     // Listen to any change of the Store
     Store.listen(this.onChange);
-    this.setState({
-      loadCompeletedTime: new Date().getTime(),
-    });
   }
 
   componentWillUnmount() {
@@ -54,6 +51,8 @@ class Results extends React.Component {
       resultsStart: Store.getState().resultsStart,
       isLoadingPagination: false,
       searchResults: Store.getState().searchData,
+      timeToLoadResults: new Date().getTime(),
+      queriesForGA: Store.getState().queriesForGA,
     });
   }
 
@@ -82,8 +81,8 @@ class Results extends React.Component {
           (newState) => { this.updateGAClickThroughClicked(newState); }
         }
         searchKeyword={this.props.searchKeyword}
-        queriesForGA={this.props.queriesForGA}
-        resultsLoadedTime={this.state.loadCompeletedTime}
+        queriesForGA={this.state.queriesForGA}
+        timeToLoadResults={this.state.timeToLoadResults}
       />
     ));
   }
@@ -111,10 +110,18 @@ class Results extends React.Component {
       (searchResultsItems) => {
         Actions.addMoreSearchData(searchResultsItems);
         Actions.updateResultsStart(nextResultCount);
+        Actions.updateQueriesForGA({
+          searchedFrom: this.state.queriesForGA.searchedFrom,
+          timestamp: new Date().getTime(),
+        });
       },
       () => {
         Actions.updateSearchKeyword('');
         Actions.updateIsKeywordValid(false);
+        Actions.updateQueriesForGA({
+          searchedFrom: this.state.queriesForGA.searchedFrom,
+          timestamp: new Date().getTime(),
+        });
       },
       // The callback function for changing the value of isLoadingPagination
       // to trigger the animation of the pagination button.
@@ -167,10 +174,10 @@ class Results extends React.Component {
 
   render() {
     const results = this.getList(this.state.searchResults);
-    const resultsNumberSuggestion = (results.length === 0)
-      ? 'No items were found' : `We found about ${this.props.amount} results.`;
-    const resultMessageClass = (results.length === 0)
-      ? 'noResultMessage' : `${this.props.className}-length`;
+    const resultsNumberSuggestion = (results.length === 0) ?
+      'No items were found' : `We found about ${this.props.amount} results.`;
+    const resultMessageClass = (results.length === 0) ?
+      'noResultMessage' : `${this.props.className}-length`;
 
     return (
       <div className={`${this.props.className}-wrapper`}>
@@ -214,6 +221,7 @@ Results.propTypes = {
   searchKeyword: PropTypes.string,
   resultsStart: PropTypes.number,
   selectedFacet: PropTypes.string,
+  queriesForGA: PropTypes.object,
 };
 
 Results.defaultProps = {
@@ -225,6 +233,7 @@ Results.defaultProps = {
   searchKeyword: '',
   resultsStart: 0,
   selectedFacet: '',
+  queriesForGA: {},
 };
 
 export default Results;
