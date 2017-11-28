@@ -1,12 +1,15 @@
 ## Changelog
 
 ### v0.2.5
+#### Added
+- Added the function for tracking click through events for GA on the result page.
+- Added the function for tracking search request (QuerySent) events for GA.
 #### Updated
-- Updated the Header component to v2.3.0 -- Integrating Fundraising Banner.
+- Updated the parameters for gaUtils.trackPageview() in App.jsx. It removed unnecessary parameters.
 
 ### v0.2.4
 #### Updated
-- Updated the parameters for gaUtils.trackPageview() in App.jsx. It removed unnecessary parameters.
+- Updated the Header component to v2.3.0 -- Integrating Fundraising Banner.
 
 ### v0.2.3
 #### Updated

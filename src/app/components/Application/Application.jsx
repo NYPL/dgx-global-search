@@ -20,6 +20,7 @@ import Actions from '../../actions/Actions.js';
 // Import utilities
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
 import { createAppHistory } from '../../utils/SearchHistory.js';
+import { sendGAEvent } from '../../utils/GAUtils.js';
 
 const history = createAppHistory();
 
@@ -184,6 +185,8 @@ class App extends React.Component {
           this.setState({ isLoading: value });
         }
       );
+
+      sendGAEvent('QuerySent', this.state.searchKeyword, 0, 'BetaSearchForm', null);
     }
   }
 
