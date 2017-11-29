@@ -43,6 +43,24 @@ class ResultsItem extends React.Component {
   }
 
   /**
+   * triggerGASend(index, target, event)
+   * The function listens to the event of enter key.
+   * It then submits the GA event if the event is triggered.
+   *
+   * @param {int} index - The value for GA event value
+   * @param {string} target - The value for GA event dimension3/ClickTarget
+   * @param {object} event
+   */
+  triggerGASend(index, target, event) {
+    if (event) {
+      if (event.keyCode === 13 || event.key === 'Enter') {
+        this.sendGAClickthroughEvent(index, target);
+        window.location = this.props.link;
+      }
+    }
+  }
+
+  /**
    * sendGAClickthroughEvent(index, target)
    * Sending click through event to Google Analytics along with ordinality of link
    * and other dimension values
@@ -140,6 +158,7 @@ class ResultsItem extends React.Component {
           className={`${this.props.className}-link ${wholeRowClass}`}
           href={this.props.link}
           ref={`result-${this.props.index}-item`}
+          onKeyDown={(e) => { this.triggerGASend(this.props.index, 'ResultTitle', e); }}
         >
           {this.renderImage(this.props.className, this.props.thumbnailSrc, this.props.title)}
           {this.renderTitle(this.props.title, this.props.className, wholeRowClass)}
