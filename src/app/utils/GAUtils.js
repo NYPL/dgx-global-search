@@ -14,38 +14,41 @@ import {
  * @return {String} searchedFrom - The value for dimension1/SearchedFrom
  */
 const generateSearchedFrom = (time, queriesForGA) => {
-  const timeToLoadResults = (time) ? parseInt(time, 10) : undefined;
+  const timeToLoadResults = (time) ? parseInt(time, 10) : parseInt(new Date().getTime(), 10);
   const querySentTime = (queriesForGA.timestamp) ? parseInt(queriesForGA.timestamp, 10) : undefined;
   const querySentFrom = (queriesForGA.searchedFrom) ? queriesForGA.searchedFrom : '';
   let searchedFrom = 'Unknown';
 
   // If no queries are indicated, the search should come from directly being typed in the URL
   if (!querySentTime && !querySentFrom) {
-    searchedFrom = 'Bookmark';
+    searchedFrom = 'DirectLink';
 
     return searchedFrom;
   }
 
-  if (!querySentTime || !querySentFrom) {
+  if (!querySentTime) {
+    searchedFrom = 'MissingTimestamp';
+
     return searchedFrom;
   }
 
-  // If querySentFrom is 'betasearch', the search should always come from Beta Search form
-  if (querySentFrom === 'betasearch') {
-    searchedFrom = 'BetaSearchForm';
+  if (!querySentFrom) {
+    searchedFrom = 'MissingSearchedFrom';
 
     return searchedFrom;
   }
 
   if ((timeToLoadResults - querySentTime) > 60000) {
-    searchedFrom = 'Bookmark';
+    searchedFrom = 'DirectLink';
   } else {
     if (querySentFrom === 'header_search') {
       searchedFrom = 'HeaderSearch';
     } else if (querySentFrom === 'betasearch_link') {
       searchedFrom = 'BetaSearchLink';
+    } else if (querySentFrom === 'betasearch') {
+      searchedFrom = 'BetaSearchForm';
     } else {
-      return searchedFrom;
+      searchedFrom = 'Unknown';
     }
   }
 
@@ -67,7 +70,7 @@ const generateCustomDimensions = (searchedFrom = 'Unknown', target = 'Unknown') 
   gaConfig.dimensions.dimension1 = searchedFrom;
 
   // Delete dimension3/ClickTarget if target is not set
-  if(target == null) {
+  if (target == null) {
     delete gaConfig.dimensions.dimension3;
   // Update dimension3/ClickTarget value if there's a valid one
   } else {

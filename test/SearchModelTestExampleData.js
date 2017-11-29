@@ -25,7 +25,7 @@ const testData = {
       {
         attributes: {
           title: 'Get Started with SimplyE for Apple &lt;span&gt;iOS&lt;/span&gt;',
-          link: 'http://gethelp.nypl.org/customer/portal/articles/2214923',
+          link: 'https://gethelp.nypl.org/customer/portal/articles/2214923',
           snippet: 'Jun 23, 2016 ... &lt;i&gt;SimplyE requires an Apple ID&lt;/i&gt; and a device with iOS8 or' +
             'higher in order to download &lt;br&gt;the SimplyE app. iPad, iPad 2, iPad Air, iPad mini' +
             'iOS 8+ ...&lt;/div',
@@ -48,7 +48,7 @@ const testData = {
         },
       },
     ],
-  }
+  },
 };
 
 const matchedResults = {
@@ -64,7 +64,7 @@ const matchedResults = {
   ItemWithExhibitionLabel: [
     {
       title: 'Get Started with SimplyE for Apple iOS',
-      link: 'http://gethelp.nypl.org/customer/portal/articles/2214923',
+      link: 'https://gethelp.nypl.org/customer/portal/articles/2214923',
       snippet: 'Jun 23, 2016 ... SimplyE requires an Apple ID and a device with iOS8 or' +
         'higher in order to download the SimplyE app. iPad, iPad 2, iPad Air, iPad mini' +
         'iOS 8+ ...',
