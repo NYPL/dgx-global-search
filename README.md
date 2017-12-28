@@ -3,7 +3,7 @@
 This repository is the global search application for nypl.org
 
 ### Version
-> v0.2.6
+> v0.3.0
 
 ### Installation
 Install all dependencies listed under package.json
