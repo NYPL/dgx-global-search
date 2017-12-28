@@ -1,7 +1,5 @@
 @mixin visuallyHidden {
   position: absolute;
-  left: -10000px;
-  top: auto;
   width: 1px;
   height: 1px;
   overflow: hidden;
@@ -57,7 +55,7 @@
   }
 }
 
-/* min-and-max-screen($min, $max, $orientation) 
+/* min-and-max-screen($min, $max, $orientation)
  * $min - required
  * $max - required
  * $orientation - optional
@@ -69,7 +67,7 @@
   }
 }
 
-/* max-screen($max, $orientation) 
+/* max-screen($max, $orientation)
  * $max - required
  * $orientation - optional
  * Ex #1: @include max-screen(768px, landscape) { ... }
@@ -81,7 +79,7 @@
   }
 }
 
-/* min-screen($min, $orientation) 
+/* min-screen($min, $orientation)
  * $min - required
  * $orientation - optional
  * Ex #1: @include min-screen(768px, landscape) { ... }
@@ -98,7 +96,7 @@
  * Usage: @include font-face('Kievit-Regular', 'http://...');
  * Desc: Do not include the font file extension, this mixin
  * will generate the proper extensions.
-*/ 
+*/
 @mixin font-face($font-family, $file-path) {
   @font-face {
     font-family: $font-family;
@@ -113,7 +111,7 @@
  * -------------------
  * Usage: @include border-radius(5px);
  * Desc: Creates a border radius
-*/ 
+*/
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
   border-radius: $radius;
@@ -151,7 +149,7 @@
     border-top-color: transparent;
     border-left-color: transparent;
     border-right-color: transparent;
-    border-bottom-color: $color;    
+    border-bottom-color: $color;
     left: $left;
 
     @if ($bottom-or-top == 'top') {
