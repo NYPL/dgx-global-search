@@ -1,5 +1,9 @@
 ## Changelog
 
+### v0.2.6
+#### Updated
+- Updated the Header component to v2.4.0.
+
 ### v0.2.5
 #### Added
 - Added the function for tracking click through events for GA on the result page.
