@@ -73,14 +73,18 @@ class ResultsItem extends React.Component {
     const ordinality = (index) ? index + 1 : 0;
     // Check if a click through has already happened once. We only send the first click through
     if (!this.props.isGAClickThroughClicked) {
-      // target is the HTML element that the click through happened on
-      sendGAEvent(
-        'Clickthrough',
-        this.props.searchKeyword,
-        ordinality,
-        generateSearchedFrom(this.props.timeToLoadResults, this.props.queriesForGA),
-        target
-      );
+      // Only on the first 10 results we want to track the CTR event
+      if (ordinality < 11) {
+        // target is the HTML element that the click through happened on
+        sendGAEvent(
+          'Clickthrough',
+          this.props.searchKeyword,
+          ordinality,
+          generateSearchedFrom(this.props.timeToLoadResults, this.props.queriesForGA),
+          target
+        );
+      }
+
       this.props.updateGAClickThroughClicked(true);
     }
   }
