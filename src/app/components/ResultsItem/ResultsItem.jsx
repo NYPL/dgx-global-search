@@ -10,6 +10,7 @@ class ResultsItem extends React.Component {
     this.generateWholeRowClass = this.generateWholeRowClass.bind(this);
     this.renderTitle = this.renderTitle.bind(this);
     this.renderImage = this.renderImage.bind(this);
+    this.sendGAClickthroughEvent = this.sendGAClickthroughEvent.bind(this);
   }
 
   /**
@@ -68,7 +69,13 @@ class ResultsItem extends React.Component {
    * @param {int} index - The value for GA event value
    * @param {string} target - The value for GA event dimension3/ClickTarget
    */
-  sendGAClickthroughEvent(index, target) {
+  sendGAClickthroughEvent(index, target, event) {
+    // Detect the key click combo and add the result to Dimension3/ClickTarget
+    if (event) {
+      if (event.ctrlKey || event.metaKey) {
+        target += 'Keyed';
+      }
+    }
     // Index is 0-based, we need ordinality to start at 1.
     const ordinality = (index) ? index + 1 : 0;
     // Check if a click through has already happened once. We only send the first click through
@@ -108,8 +115,8 @@ class ResultsItem extends React.Component {
       <h2
         className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
         dangerouslySetInnerHTML={this.createMarkup(newTitle)}
-        onClick={() => {
-          this.sendGAClickthroughEvent(this.props.index, 'ResultTitle');
+        onClick={(e) => {
+          this.sendGAClickthroughEvent(this.props.index, 'ResultTitle', e);
         }}
         // Add the event listener to right click
         onContextMenu={() => {
@@ -136,8 +143,8 @@ class ResultsItem extends React.Component {
     return (
       <div
         className={`${className}-imageWrapper`}
-        onClick={() => {
-          this.sendGAClickthroughEvent(this.props.index, 'ResultPicture');
+        onClick={(e) => {
+          this.sendGAClickthroughEvent(this.props.index, 'ResultPicture', e);
         }}
         // Add the event listener to right click
         onContextMenu={() => {
