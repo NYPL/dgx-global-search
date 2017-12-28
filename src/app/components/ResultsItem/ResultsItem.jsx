@@ -111,6 +111,10 @@ class ResultsItem extends React.Component {
         onClick={() => {
           this.sendGAClickthroughEvent(this.props.index, 'ResultTitle');
         }}
+        // Add the event listener to right click
+        onContextMenu={() => {
+          this.sendGAClickthroughEvent(this.props.index, 'ResultTitleContextmenu');
+        }}
       >
       </h2>
     );
@@ -134,6 +138,10 @@ class ResultsItem extends React.Component {
         className={`${className}-imageWrapper`}
         onClick={() => {
           this.sendGAClickthroughEvent(this.props.index, 'ResultPicture');
+        }}
+        // Add the event listener to right click
+        onContextMenu={() => {
+          this.sendGAClickthroughEvent(this.props.index, 'ResultPictureContextmenu');
         }}
       >
         <img
