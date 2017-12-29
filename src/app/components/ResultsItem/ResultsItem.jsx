@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { generateSearchedFrom, sendGAEvent } from '../../utils/GAUtils.js';
+import { ga } from 'dgx-react-ga';
+import { generateSearchedFrom, sendGAEvent, nativeGA } from '../../utils/GAUtils.js';
 
 class ResultsItem extends React.Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class ResultsItem extends React.Component {
   triggerGASend(index, target, event) {
     if (event) {
       if (event.keyCode === 13 || event.key === 'Enter') {
-        this.sendGAClickthroughEvent(index, target);
+        this.sendGAClickthroughEvent(index, target, event);
         window.location = this.props.link;
       }
     }
@@ -77,22 +78,26 @@ class ResultsItem extends React.Component {
       }
     }
     // Index is 0-based, we need ordinality to start at 1.
-    const ordinality = (index) ? index + 1 : 0;
+    const ordinality = (Number.isInteger(index)) ? index + 1 : 0;
     // Check if a click through has already happened once. We only send the first click through
     if (!this.props.isGAClickThroughClicked) {
       // Only on the first 10 results we want to track the CTR event
       if (ordinality < 11) {
+        event.preventDefault();
         // target is the HTML element that the click through happened on
-        sendGAEvent(
+        nativeGA(
           'Clickthrough',
           this.props.searchKeyword,
           ordinality,
           generateSearchedFrom(this.props.timeToLoadResults, this.props.queriesForGA),
-          target
+          target,
+          () => {
+            this.props.updateGAClickThroughClicked(true);
+            // this function won't catch right click and combo click, we need to update it
+            window.location = this.props.link;
+          }
         );
       }
-
-      this.props.updateGAClickThroughClicked(true);
     }
   }
 
@@ -119,8 +124,12 @@ class ResultsItem extends React.Component {
           this.sendGAClickthroughEvent(this.props.index, 'ResultTitle', e);
         }}
         // Add the event listener to right click
-        onContextMenu={() => {
-          this.sendGAClickthroughEvent(this.props.index, 'ResultTitleContextmenu');
+        onContextMenu={(e) => {
+          this.sendGAClickthroughEvent(
+            this.props.index,
+            'ResultTitleContextmenu',
+            e
+          );
         }}
       >
       </h2>
@@ -147,8 +156,12 @@ class ResultsItem extends React.Component {
           this.sendGAClickthroughEvent(this.props.index, 'ResultPicture', e);
         }}
         // Add the event listener to right click
-        onContextMenu={() => {
-          this.sendGAClickthroughEvent(this.props.index, 'ResultPictureContextmenu');
+        onContextMenu={(e) => {
+          this.sendGAClickthroughEvent(
+            this.props.index,
+            'ResultPictureContextmenu',
+            e
+          );
         }}
       >
         <img

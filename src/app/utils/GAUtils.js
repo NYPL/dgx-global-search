@@ -96,10 +96,48 @@ const sendGAEvent = (action, label, value, searchedFrom, target) => {
     category: 'Search',
     action,
     label,
-    value,
+    value
   }, generateCustomDimensions(searchedFrom, target));
 
   ga.event(eventObj);
 };
 
-export { sendGAEvent, generateSearchedFrom };
+/**
+ * nativeGA(action, label, value, searchedFrom, target, hitCallback)
+ * The function for sending a GA event along with its dimensions.
+ * Dimension2/SearchedRepo is always 'BetaSearch'
+ *
+ * @param {String} action - The Action of the GA event
+ * @param {String} label - The Label of the GA event
+ * @param {Int} value - The Value of the GA event
+ * @param {String} searchedFrom - The value of dimension1/SearchedFrom of the GA event
+ * @param {String} target - The value of dimension3/ClickTarget of the GA event
+ * @param {Object} hitCallback - The object of the callback function we execute after GA is made
+ * The format of it should be { hitCallback: () => {} }
+ */
+const nativeGA = (action, label, value, searchedFrom, target, hitCallback) => {
+  const createFunctionWithTimeout = (callback, opt_timeout) => {
+    var called = false;
+    function fn() {
+      if (!called) {
+        called = true;
+        callback();
+      }
+    }
+    setTimeout(fn, opt_timeout || 500);
+    return fn;
+  };
+
+  ga.ga(
+    'send',
+    'event',
+    'Search',
+    action,
+    label,
+    value,
+    generateCustomDimensions(searchedFrom, target),
+    createFunctionWithTimeout(hitCallback)
+  );
+};
+
+export { sendGAEvent, generateSearchedFrom, nativeGA };
