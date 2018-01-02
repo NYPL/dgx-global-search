@@ -83,7 +83,12 @@ class ResultsItem extends React.Component {
     if (!this.props.isGAClickThroughClicked) {
       // Only on the first 10 results we want to track the CTR event
       if (ordinality < 11) {
-        event.preventDefault();
+        // We can only simulate click events, so we only stop the default click events
+        if (event.type === 'click') {
+          // For passing ReactJS SyntheticEvents
+          event.persist();
+          event.preventDefault();
+        }
         // target is the HTML element that the click through happened on
         nativeGA(
           'Clickthrough',
@@ -93,8 +98,9 @@ class ResultsItem extends React.Component {
           target,
           () => {
             this.props.updateGAClickThroughClicked(true);
-            // this function won't catch right click and combo click, we need to update it
-            window.location = this.props.link;
+            if (event.isDefaultPrevented) {
+              event.target.click();
+            }
           }
         );
       }
