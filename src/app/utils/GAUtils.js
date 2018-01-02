@@ -96,7 +96,7 @@ const sendGAEvent = (action, label, value, searchedFrom, target) => {
     category: 'Search',
     action,
     label,
-    value
+    value,
   }, generateCustomDimensions(searchedFrom, target));
 
   ga.event(eventObj);
@@ -116,15 +116,18 @@ const sendGAEvent = (action, label, value, searchedFrom, target) => {
  * The format of it should be { hitCallback: () => {} }
  */
 const nativeGA = (action, label, value, searchedFrom, target, hitCallback) => {
-  const createFunctionWithTimeout = (callback, opt_timeout) => {
-    var called = false;
-    function fn() {
+  const createFunctionWithTimeout = (callback, optTimeout) => {
+    let called = false;
+
+    const fn = () => {
       if (!called) {
         called = true;
         callback();
       }
-    }
-    setTimeout(fn, opt_timeout || 500);
+    };
+
+    setTimeout(fn, optTimeout || 500);
+
     return fn;
   };
 

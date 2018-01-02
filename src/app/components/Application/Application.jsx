@@ -205,35 +205,6 @@ class App extends React.Component {
   }
 
   /**
-   * renderResults(searchKeyword, searchResultsArray, searchResultsLength)
-   * The function renders the results of the search request.
-   * If no search keyword input, it won't render anything and return null.
-   *
-   * @param {string} searchKeyword
-   * @param {array} searchResultsArray
-   * @param {number} searchResultsLength
-   * @return {object} object
-   */
-  renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
-    if (!searchKeyword) {
-      return null;
-    }
-
-    return (
-      <Results
-        amount={searchResultsLength}
-        results={searchResultsArray}
-        id="gs-results"
-        className="gs-results"
-        searchKeyword={searchKeyword}
-        selectedFacet={this.state.selectedFacet}
-        resultsStart={this.state.resultsStart}
-        queriesForGA={this.state.queriesForGA}
-      />
-    );
-  }
-
-  /**
    * triggerGAThenSubmit(selectedFacet = '')
    * The function sends a GA QuerySent event if a patron clicks the search button or the filter
    * apply button. Then in its callback function, it triggers the function to submit the search
@@ -260,6 +231,35 @@ class App extends React.Component {
         }
       );
     }
+  }
+
+  /**
+   * renderResults(searchKeyword, searchResultsArray, searchResultsLength)
+   * The function renders the results of the search request.
+   * If no search keyword input, it won't render anything and return null.
+   *
+   * @param {string} searchKeyword
+   * @param {array} searchResultsArray
+   * @param {number} searchResultsLength
+   * @return {object} object
+   */
+  renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
+    if (!searchKeyword) {
+      return null;
+    }
+
+    return (
+      <Results
+        amount={searchResultsLength}
+        results={searchResultsArray}
+        id="gs-results"
+        className="gs-results"
+        searchKeyword={searchKeyword}
+        selectedFacet={this.state.selectedFacet}
+        resultsStart={this.state.resultsStart}
+        queriesForGA={this.state.queriesForGA}
+      />
+    );
   }
 
   render() {

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ga } from 'dgx-react-ga';
-import { generateSearchedFrom, sendGAEvent, nativeGA } from '../../utils/GAUtils.js';
+import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils.js';
 
 class ResultsItem extends React.Component {
   constructor(props) {
@@ -63,18 +62,20 @@ class ResultsItem extends React.Component {
   }
 
   /**
-   * sendGAClickthroughEvent(index, target)
+   * sendGAClickthroughEvent(index, target, event)
    * Sending click through event to Google Analytics along with ordinality of link
    * and other dimension values
    *
    * @param {int} index - The value for GA event value
    * @param {string} target - The value for GA event dimension3/ClickTarget
+   * @param {object} event - The event happened to the element
    */
   sendGAClickthroughEvent(index, target, event) {
+    let clickTarget = target;
     // Detect the key click combo and add the result to Dimension3/ClickTarget
     if (event) {
       if (event.ctrlKey || event.metaKey) {
-        target += 'Keyed';
+        clickTarget += 'Keyed';
       }
     }
     // Index is 0-based, we need ordinality to start at 1.
@@ -89,13 +90,12 @@ class ResultsItem extends React.Component {
           event.persist();
           event.preventDefault();
         }
-        // target is the HTML element that the click through happened on
         nativeGA(
           'Clickthrough',
           this.props.searchKeyword,
           ordinality,
           generateSearchedFrom(this.props.timeToLoadResults, this.props.queriesForGA),
-          target,
+          clickTarget,
           () => {
             this.props.updateGAClickThroughClicked(true);
             if (event.isDefaultPrevented) {
