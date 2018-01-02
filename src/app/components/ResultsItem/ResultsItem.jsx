@@ -71,21 +71,23 @@ class ResultsItem extends React.Component {
    * @param {object} event - The event happened to the element
    */
   sendGAClickthroughEvent(index, target, event) {
-    let clickTarget = target;
-    // Detect the key click combo and add the result to Dimension3/ClickTarget
-    if (event) {
-      if (event.ctrlKey || event.metaKey) {
-        clickTarget += 'Keyed';
-      }
-    }
-    // Index is 0-based, we need ordinality to start at 1.
-    const ordinality = (Number.isInteger(index)) ? index + 1 : 0;
     // Check if a click through has already happened once. We only send the first click through
     if (!this.props.isGAClickThroughClicked) {
+      // Index is 0-based, we need ordinality to start at 1.
+      const ordinality = (Number.isInteger(index)) ? index + 1 : 0;
+      let clickTarget = target;
+
       // Only on the first 10 results we want to track the CTR event
       if (ordinality < 11) {
-        // We can only simulate click events, so we only stop the default click events
-        if (event.type === 'click') {
+              // Detect the key click combo and add the result to Dimension3/ClickTarget
+        if (event) {
+          if (event.ctrlKey || event.metaKey) {
+            clickTarget += 'Keyed';
+          }
+        }
+        // We can only simulate click events with no key combo,
+        // so we only stop the default behaviors of simple click events
+        if (event.type === 'click' && !event.ctrlKey && !event.metaKey) {
           // For passing ReactJS SyntheticEvents
           event.persist();
           event.preventDefault();
