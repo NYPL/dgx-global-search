@@ -20,7 +20,7 @@ import Actions from '../../actions/Actions.js';
 // Import utilities
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
 import { createAppHistory } from '../../utils/SearchHistory.js';
-import { sendGAEvent } from '../../utils/GAUtils.js';
+import { nativeGA } from '../../utils/GAUtils.js';
 
 const history = createAppHistory();
 
@@ -66,6 +66,7 @@ class App extends React.Component {
       {
         resultsComponentData: null,
         isLoading: false,
+        isGAQuerySent: false,
       },
       Store.getState()
     );
@@ -138,7 +139,7 @@ class App extends React.Component {
    *
    */
   searchBySelectedFacet(selectedFacet = '') {
-    this.submitSearchRequest(selectedFacet);
+    this.triggerGAThenSubmit(selectedFacet);
   }
 
   /**
@@ -185,8 +186,6 @@ class App extends React.Component {
           this.setState({ isLoading: value });
         }
       );
-
-      sendGAEvent('QuerySent', this.state.searchKeyword, 0, 'BetaSearchForm', null);
     }
   }
 
@@ -200,16 +199,19 @@ class App extends React.Component {
   triggerSubmit(event) {
     if (event) {
       if (event.keyCode === 13 || event.key === 'Enter') {
-        this.submitSearchRequest(this.state.selectedFacet);
+        this.triggerGAThenSubmit(this.state.selectedFacet);
       }
     }
   }
 
   /**
-   * renderResults()
+   * renderResults(searchKeyword, searchResultsArray, searchResultsLength)
    * The function renders the results of the search request.
    * If no search keyword input, it won't render anything and return null.
    *
+   * @param {string} searchKeyword
+   * @param {array} searchResultsArray
+   * @param {number} searchResultsLength
    * @return {object} object
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
@@ -229,6 +231,35 @@ class App extends React.Component {
         queriesForGA={this.state.queriesForGA}
       />
     );
+  }
+
+  /**
+   * triggerGAThenSubmit(selectedFacet = '')
+   * The function sends a GA QuerySent event if a patron clicks the search button or the filter
+   * apply button. Then in its callback function, it triggers the function to submit the search
+   * request.
+   *
+   * @param {string} selectedFacet
+   */
+  triggerGAThenSubmit(selectedFacet = '') {
+    // Only trigger search and GA QuerySent event one time if double or tripple clicks happen
+    if (!this.state.isGAQuerySent) {
+      // Set isGAQuerySent to be true to avoid another event being sent in a short period of time
+      this.setState({ isGAQuerySent: true });
+      nativeGA(
+        'QuerySent',
+        this.state.searchKeyword,
+        0,
+        'BetaSearchForm',
+        null,
+        () => {
+          // Set isGAQuerySent back to default to accept another event
+          // as we don't reload the page after a search request
+          setTimeout(() => { this.setState({ isGAQuerySent: false }); }, 200);
+          this.submitSearchRequest(selectedFacet);
+        }
+      );
+    }
   }
 
   render() {
@@ -264,7 +295,7 @@ class App extends React.Component {
                 id="gs-searchButton"
                 className="gs-searchButton"
                 label="SEARCH"
-                onClick={() => this.submitSearchRequest(this.state.selectedFacet)}
+                onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
               />
             </div>
             <Filter
