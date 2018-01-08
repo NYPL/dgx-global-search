@@ -12,10 +12,11 @@ import { DivideLineIcon } from 'dgx-svg-icons';
 import { PaginationButton } from 'dgx-react-buttons';
 
 // Import libraries
-import { map as _map } from 'underscore';
+import { contains as _contains, map as _map } from 'underscore';
 
 // Import utilities
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
+import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils.js';
 
 class Results extends React.Component {
   constructor(props) {
@@ -38,6 +39,24 @@ class Results extends React.Component {
   componentDidMount() {
     // Listen to any change of the Store
     Store.listen(this.onChange);
+
+    const searchFrom = generateSearchedFrom(this.state.timeToLoadResults, this.state.queriesForGA);
+
+    // Sent QuerySent event  when the result page is loaded if the search request is from
+    // 'DirectLink', 'MissingTimestamp', 'MissingSearchedFrom', or 'Unknown' resource to
+    // match the QuerySent and CTR event counts
+    if (
+      _contains(['DirectLink', 'MissingTimestamp', 'MissingSearchedFrom', 'Unknown'], searchFrom)
+    ) {
+      nativeGA(
+        'QuerySent',
+        this.props.searchKeyword,
+        0,
+        searchFrom,
+        null,
+        () => {}
+      );
+    }
   }
 
   componentWillUnmount() {

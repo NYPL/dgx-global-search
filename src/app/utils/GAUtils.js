@@ -102,4 +102,54 @@ const sendGAEvent = (action, label, value, searchedFrom, target) => {
   ga.event(eventObj);
 };
 
-export { sendGAEvent, generateSearchedFrom };
+/**
+ * createFunctionWithTimeout(callback, optTimeout)
+ * The function serves as a pipe to return the function that is passed to it.
+ * It also searves as a timer to execute that function after a certain amount of time.
+ *
+ * @param {Function} callback - The function to be executed after the time of optTimeout
+ * @param {Number} optTimeout
+ * @return {Function}
+ */
+const createFunctionWithTimeout = (callback, optTimeout) => {
+  let called = false;
+
+  const fn = () => {
+    if (!called) {
+      called = true;
+      callback();
+    }
+  };
+
+  setTimeout(fn, optTimeout || 500);
+
+  return fn;
+};
+
+/**
+ * nativeGA(action, label, value, searchedFrom, target, hitCallback)
+ * The function for sending a GA event along with its dimensions.
+ * Dimension2/SearchedRepo is always 'BetaSearch'
+ *
+ * @param {String} action - The Action of the GA event
+ * @param {String} label - The Label of the GA event
+ * @param {Int} value - The Value of the GA event
+ * @param {String} searchedFrom - The value of dimension1/SearchedFrom of the GA event
+ * @param {String} target - The value of dimension3/ClickTarget of the GA event
+ * @param {Object} hitCallback - The object of the callback function we execute after GA is made
+ * The format of it should be { hitCallback: () => {} }
+ */
+const nativeGA = (action, label, value, searchedFrom, target, hitCallback) => {
+  ga.ga(
+    'send',
+    'event',
+    'Search',
+    action,
+    label,
+    value,
+    generateCustomDimensions(searchedFrom, target),
+    { hitCallback: createFunctionWithTimeout(hitCallback) }
+  );
+};
+
+export { sendGAEvent, generateSearchedFrom, nativeGA };
