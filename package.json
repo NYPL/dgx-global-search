@@ -28,8 +28,8 @@
     "react-addons-test-utils": "15.6.2"
   },
   "dependencies": {
-    "@nypl/dgx-header-component": "2.4.0",
-    "@nypl/dgx-react-footer": "0.4.0",
+    "@nypl/dgx-header-component": "2.4.2",
+    "@nypl/dgx-react-footer": "0.4.1",
     "axios": "0.9.1",
     "babel-core": "6.24.0",
     "babel-loader": "6.4.1",
@@ -47,7 +47,7 @@
     "dgx-react-buttons": "git+ssh://git@bitbucket.org/NYPL/dgx-react-buttons.git#master",
     "dgx-react-ga": "git+https://git@bitbucket.org/NYPL/dgx-react-ga.git#master",
     "dgx-svg-icons": "git+https://git@bitbucket.org/NYPL/dgx-svg-icons.git#master",
-    "ejs": "2.4.2",
+    "ejs": "2.5.5",
     "enzyme": "2.2.0",
     "esdoc": "0.4.7",
     "eslint": "2.11.1",
