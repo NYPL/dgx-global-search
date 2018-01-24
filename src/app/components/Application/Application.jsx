@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   extend as _extend,
- } from 'underscore';
+} from 'underscore';
 
 // Import components
 import { Header, navConfig } from '@nypl/dgx-header-component';
@@ -20,6 +20,7 @@ import Actions from '../../actions/Actions.js';
 // Import utilities
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
 import { createAppHistory } from '../../utils/SearchHistory.js';
+import { nativeGA } from '../../utils/GAUtils.js';
 
 const history = createAppHistory();
 
@@ -40,10 +41,18 @@ history.listen(location => {
         Actions.updateSearchDataLength(resultLength);
         Actions.updateSelectedFacet(searchFacet);
         Actions.updateResultsStart(resultsStart);
+        Actions.updateQueriesForGA({
+          searchedFrom: 'betasearch',
+          timestamp: new Date().getTime(),
+        });
       },
       () => {
         Actions.updateSearchKeyword('');
         Actions.updateIsKeywordValid(false);
+        Actions.updateQueriesForGA({
+          searchedFrom: 'betasearch',
+          timestamp: new Date().getTime(),
+        });
       }
     );
   }
@@ -57,6 +66,7 @@ class App extends React.Component {
       {
         resultsComponentData: null,
         isLoading: false,
+        isGAQuerySent: false,
       },
       Store.getState()
     );
@@ -70,8 +80,8 @@ class App extends React.Component {
   }
 
   // Setting state in componentWillMount() helps us render the results for the first time before
-  // the component making any client call. This is for the situation of the user get to the main
-  // page with a search term
+  // the component making any client call. This is for the situation of the user who gets to the
+  // main page with a search term
   componentWillMount() {
     this.setState({
       resultsComponentData: this.renderResults(
@@ -104,6 +114,7 @@ class App extends React.Component {
         Store.getState().searchData,
         Store.getState().searchDataLength
       ),
+      queriesForGA: Store.getState().queriesForGA,
     });
   }
 
@@ -128,7 +139,7 @@ class App extends React.Component {
    *
    */
   searchBySelectedFacet(selectedFacet = '') {
-    this.submitSearchRequest(selectedFacet);
+    this.triggerGAThenSubmit(selectedFacet);
   }
 
   /**
@@ -156,10 +167,18 @@ class App extends React.Component {
           Actions.updateSearchDataLength(resultLength);
           Actions.updateSelectedFacet(facet);
           Actions.updateResultsStart(0);
+          Actions.updateQueriesForGA({
+            searchedFrom: 'betasearch',
+            timestamp: new Date().getTime(),
+          });
         },
         () => {
           Actions.updateSearchKeyword('');
           Actions.updateIsKeywordValid(false);
+          Actions.updateQueriesForGA({
+            searchedFrom: 'betasearch',
+            timestamp: new Date().getTime(),
+          });
         },
         // The callback function for changing the value of isLoading
         // to trigger the loading layer.
@@ -180,16 +199,48 @@ class App extends React.Component {
   triggerSubmit(event) {
     if (event) {
       if (event.keyCode === 13 || event.key === 'Enter') {
-        this.submitSearchRequest(this.state.selectedFacet);
+        this.triggerGAThenSubmit(this.state.selectedFacet);
       }
     }
   }
 
   /**
-   * renderResults()
+   * triggerGAThenSubmit(selectedFacet = '')
+   * The function sends a GA QuerySent event if a patron clicks the search button or the filter
+   * apply button. Then in its callback function, it triggers the function to submit the search
+   * request.
+   *
+   * @param {string} selectedFacet
+   */
+  triggerGAThenSubmit(selectedFacet = '') {
+    // Only trigger search and GA QuerySent event one time if double or tripple clicks happen
+    if (!this.state.isGAQuerySent) {
+      // Set isGAQuerySent to be true to avoid another event being sent in a short period of time
+      this.setState({ isGAQuerySent: true });
+      nativeGA(
+        'QuerySent',
+        this.state.searchKeyword,
+        0,
+        'BetaSearchForm',
+        null,
+        () => {
+          // Set isGAQuerySent back to default to accept another event
+          // as we don't reload the page after a search request
+          setTimeout(() => { this.setState({ isGAQuerySent: false }); }, 200);
+          this.submitSearchRequest(selectedFacet);
+        }
+      );
+    }
+  }
+
+  /**
+   * renderResults(searchKeyword, searchResultsArray, searchResultsLength)
    * The function renders the results of the search request.
    * If no search keyword input, it won't render anything and return null.
    *
+   * @param {string} searchKeyword
+   * @param {array} searchResultsArray
+   * @param {number} searchResultsLength
    * @return {object} object
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
@@ -206,6 +257,7 @@ class App extends React.Component {
         searchKeyword={searchKeyword}
         selectedFacet={this.state.selectedFacet}
         resultsStart={this.state.resultsStart}
+        queriesForGA={this.state.queriesForGA}
       />
     );
   }
@@ -243,7 +295,7 @@ class App extends React.Component {
                 id="gs-searchButton"
                 className="gs-searchButton"
                 label="SEARCH"
-                onClick={() => this.submitSearchRequest(this.state.selectedFacet)}
+                onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
               />
             </div>
             <Filter

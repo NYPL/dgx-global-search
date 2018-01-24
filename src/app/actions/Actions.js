@@ -33,6 +33,10 @@ class Actions {
   updateResultsStart(data) {
     return data;
   }
+
+  updateQueriesForGA(data) {
+    return data;
+  }
 }
 
 export default alt.createActions(Actions);
