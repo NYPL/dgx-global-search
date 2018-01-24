@@ -34,6 +34,10 @@ const requestSearchResult = (req, res, next) => {
     start: 0,
   };
   const searchApiUrl = parser.getCompleteApi(searchOptions);
+  const queriesForGA = {
+    searchedFrom: req.query.searched_from || '',
+    timestamp: req.query.timestamp || '',
+  };
 
   getSearchData(searchApiUrl)
     .then((searchData) => {
@@ -48,6 +52,7 @@ const requestSearchResult = (req, res, next) => {
           selectedFacet: req.params.searchFilter,
           resultsStart: 0,
           searchFacets: fetchSearchFacetsList(),
+          queriesForGA,
         },
         completeApiUrl: searchApiUrl,
       };
@@ -65,6 +70,7 @@ const requestSearchResult = (req, res, next) => {
           searchData: [],
           searchDataLength: 0,
           searchFacets: fetchSearchFacetsList(),
+          queriesForGA,
         },
       };
 
