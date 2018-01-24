@@ -12,6 +12,7 @@ class SearchStore {
       updateSelectedFacet: Actions.UPDATE_SELECTED_FACET,
       addMoreSearchData: Actions.ADD_MORE_SEARCH_DATA,
       updateResultsStart: Actions.UPDATE_RESULTS_START,
+      updateQueriesForGA: Actions.UPDATE_QUERIES_FOR_GA,
     });
 
     this.on('init', () => {
@@ -79,6 +80,10 @@ class SearchStore {
           label: 'help',
         },
       ];
+      this.queriesForGA = {
+        searchedFrom: '',
+        timestamp: '',
+      };
     });
   }
 
@@ -112,6 +117,10 @@ class SearchStore {
 
   updateResultsStart(data) {
     this.resultsStart = data;
+  }
+
+  updateQueriesForGA(data) {
+    this.queriesForGA = data;
   }
 }
 
