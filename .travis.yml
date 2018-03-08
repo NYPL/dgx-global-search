@@ -1,0 +1,52 @@
+language: node_js
+node_js:
+- '6'
+cache:
+  directories:
+  - node_modules
+install: npm install
+before_script: npm run dist
+script: npm test
+before_deploy: echo 'All unit tests passed; Successfully built distribution assets;
+  Preparing to deploy Staff Picks to AWS'
+deploy:
+- provider: elasticbeanstalk
+  skip_cleanup: true
+  access_key_id: "$aws_access_key_id_production"
+  secret_access_key: "$aws_secret_access_key_production"
+  region: us-east-1
+  app: "$aws_app_name"
+  env: "$aws_environment_name_production"
+  bucket_name: elasticbeanstalk-us-east-1-946183545209
+  bucket_path: "$aws_app_name"
+  on:
+    repo: NYPL/dgx-global-search
+    branch: master
+- provider: elasticbeanstalk
+  skip_cleanup: true
+  access_key_id: "$aws_access_key_id_production"
+  secret_access_key: "$aws_secret_access_key_production"
+  region: us-east-1
+  app: "$aws_app_name"
+  env: "$aws_environment_name_qa"
+  bucket_name: elasticbeanstalk-us-east-1-946183545209
+  bucket_path: "$aws_app_name"
+  on:
+    repo: NYPL/dgx-global-search
+    branch: qa
+- provider: elasticbeanstalk
+  skip_cleanup: true
+  access_key_id: "$aws_access_key_id_development"
+  secret_access_key: "$aws_secret_access_key_development"
+  region: us-east-1
+  app: "$aws_app_name"
+  env: "$aws_environment_name_development"
+  bucket_name: elasticbeanstalk-us-east-1-224280085904
+  bucket_path: "$aws_app_name"
+  on:
+    repo: NYPL/dgx-global-search
+    branch: development
+after_deploy: echo 'Successfully executed deploy trigger for Staff Picks on AWS'
+env:
+  global:
+    secure: UVBXfd2gL3ImsFe5OfKPDFPDwCFJ7IvPmZ7vxAaL8TudHha5co34KuKeEIjkvRe1tbth7bO8tWU9w8a3ZzHxeHvpo1Y1xo51+mHFMKqQYm/RdYIZfbdfRtNAhgQUZej1XrkYVCY5avucKMALv7S4ZCcsincLxuDZYYnzpd3amntAHgzMMiEoGRquHlTJIyoFmMZYsGTjcaqIX4CYRwEDGY+1mh95p8+8k3HjoK27tuA9HeR/y9VUydp/moXBKE45tuJvZQkZZEEzSWcnS61Eho4WSQNC+H2MLZZiWF/uBAYS2uh6VMsqb2j144oUd3U+ICS+Nhqh+xesfyatdXtCQvX2XacnaCfwsQ6aWogPfzby3JT2FqWiaKxRTN6DScBUOSte4eHRo8rj9SOEPgcWYyWntLM+tnG+fW8JkRVuXRg94ZCR0te/7lOqUuNMqvNAASMDlDvn+j4WX+obVDYPXv/c7VL5QuTw5q1YZDyC5U6uTaOAWBJUHjDoamIqTJDeyGA0qU4evI7gvos2fiYsRvm+dbgiJ+JUxSYI4pg7uOX4K/TLnBoHWaekWgO55LjXsLJ8rQHVyr+jOvgPzbb5zoXUge1RXgZv1PNYPmkYzESURnFmuz5rGPsvL7xM4XuuQ8MgwETBa+10N3eRUynCBTJt/w/0km62CtOeVx3la5s=
