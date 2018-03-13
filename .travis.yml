@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+- '6'
+cache:
+  directories:
+  - node_modules
+install: npm install
+before_script: npm run dist
+script: npm test
+before_deploy: echo 'All unit tests passed; Successfully built distribution assets;
+  Preparing to deploy NYPL Global Search to AWS'
+deploy:
+- provider: elasticbeanstalk
+  skip_cleanup: true
+  access_key_id: $AWS_ACCESS_KEY_ID_DEVELOPMENT
+  secret_access_key: $AWS_SECRET_ACCESS_KEY_DEVELOPMENT
+  region: us-east-1
+  app: nypl-global-search
+  env: nypl-global-search-development
+  bucket_name: elasticbeanstalk-us-east-1-224280085904
+  bucket_path: nypl-global-search-development
+  on:
+    repo: NYPL/dgx-global-search
+    branch: development
+after_deploy: echo 'Successfully executed deploy trigger for NYPL Global Search on AWS'
+env:
+  global:
+    secure: UI/bk9JSUtS2eDkM6ajQHXUqI7PTfmpf6d6kjMq3Z8WEzwhhDK7QzOSM22IEl0JYt+3ViNSW3H2qwx2egGC1IiPkHbXZOMOKtlqy1GwK7tkCmIlx8W1t+Fxu4pz3eH9gtHyandXO6ND7n7di1B3vfkE8FGUYMqOexjJtEn90f1Z3Uil6DAq/5nJuZNB6Jx5bz00OzE7SW2X6/z7OSPI6yLfqNtQ2nbA5FQYjGpHTBFyr76+yd5yzC+ohTn7O+7zDXSzPhGbBN6wYCaqCM6XzVczLX3BLxwt2kaRLJkkJ6FPl6CWq+FjcLUGaKD0S5m88bLBkFRDW3dkWJic3GQUuDPFwIxDQ6eVu+4Bjp3A+1ykcdksLbgghQQuB08adhkSSdzZ1i5BTbDYTOAqw0mPdcIrbclhr2T1eV2rktSvOfMdItGNo46wa5soOmekyxBCyO8sMQssfHjZ2ENewGWwAYse+pR/8otpDcAPXdNIQto2NJqFX6Vz8EWJqaUOtRnjzN1KCqKpPQ+9uWpSq6s8TGbLxSoWa8C3sSwep3gdkAIUfUX1hy4Q0QX/qiltc+760a/vXWDnNgThQiq/fYzBvuQpxbnZimuWxrSmXU/L/GXSWJdnf8bBwXyU50iHklPEA8r3J3cLB9BQeDI2nbMCdXXINWMS8lWYOy7PamGW2JMU=
