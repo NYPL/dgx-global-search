@@ -39,4 +39,5 @@ window.onload = () => {
   });
 
   gaUtils.trackPageview(window.location.pathname);
+
 };
