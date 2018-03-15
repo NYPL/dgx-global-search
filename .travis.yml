@@ -26,7 +26,7 @@ deploy:
   bucket_path: nypl-global-search-production
   on:
     repo: NYPL/dgx-global-search
-    branch: production-test
+    branch: master
 - provider: elasticbeanstalk
   skip_cleanup: true
   access_key_id: $AWS_ACCESS_KEY_ID_PRODUCTION
