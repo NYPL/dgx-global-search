@@ -1,5 +1,11 @@
 ## Changelog
 
+### v0.3.2
+#### Updated
+- Updated the Header component to v2.4.7.
+#### Added
+- Added OptinMonster for advocacy 2018.
+
 ### v0.3.1
 #### Updated
 - Updated the Header component to v2.4.5.
