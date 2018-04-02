@@ -20,7 +20,7 @@ window.onload = () => {
   if (!window.ga) {
     const isProd = process.env.NODE_ENV === 'production';
     const gaOpts = {
-      debug: true,
+      debug: false,
       titleCase: false,
       gaOptions: {
         allowLinker: true,
