@@ -31,7 +31,7 @@ window.onload = () => {
     // The settings related to linker is for convio, that allows convio to get the client ID from NYPL
     // So convio's tracker will know the patrons came from NYPL's domain
     ga.ga('require', 'linker');
-    ga.ga('linker:autoLink', ['nypl.org']);
+    ga.ga('linker:autoLink', ['convio.net']);
     ga.ga('set', 'anonymizeIp', true);
   }
 
