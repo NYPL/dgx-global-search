@@ -1,5 +1,11 @@
 ## Changelog
 
+### v0.3.3
+#### Updated
+- Updated the new method for deployment with Travis. And switched the platform for deployment to AWS.
+#### Added
+- Added GA scripts for cross domain tracking with convio.net.
+
 ### v0.3.2
 #### Updated
 - Updated the Header component to v2.4.7.
