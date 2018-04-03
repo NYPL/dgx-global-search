@@ -20,7 +20,7 @@ window.onload = () => {
   if (!window.ga) {
     const isProd = process.env.NODE_ENV === 'production';
     const gaOpts = {
-      debug: false,
+      debug: !isProd,
       titleCase: false,
       gaOptions: {
         allowLinker: true,
@@ -28,8 +28,8 @@ window.onload = () => {
     };
 
     gaUtils.initialize(config.google.code(isProd), gaOpts);
-    // The settings related to linker is for convio, that allows convio to get the client ID from NYPL
-    // So convio's tracker will know the patrons came from NYPL's domain
+    // The settings related to linker is for convio.net, that allows convio.net to get the client ID from NYPL
+    // So its tracker will know that the patrons came from NYPL's domain
     ga.ga('require', 'linker');
     ga.ga('linker:autoLink', ['convio.net']);
     ga.ga('set', 'anonymizeIp', true);
