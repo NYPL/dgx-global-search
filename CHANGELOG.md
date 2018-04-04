@@ -1,5 +1,9 @@
 ## Changelog
 
+### v0.3.3
+#### Updated
+- Updated the styles of filter apply button.
+
 ### v0.3.2
 #### Updated
 - Updated the Header component to v2.4.7.
