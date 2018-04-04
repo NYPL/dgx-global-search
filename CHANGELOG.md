@@ -1,5 +1,9 @@
 ## Changelog
 
+### v0.3.4
+#### Updated
+- Updated README.md for the new strategy of deployment.
+
 ### v0.3.3
 #### Updated
 - Updated the styles of filter apply button.
