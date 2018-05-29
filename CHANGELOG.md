@@ -1,8 +1,16 @@
 ## Changelog
 
-### v0.3.3
+### v0.3.5
 #### Updated
 - Updating @nypl/dgx-react-footer version to 0.5.0 and @nypl/dgx-header-component to 2.4.8.
+
+### v0.3.4
+#### Updated
+- Updated README.md for the new strategy of deployment.
+
+### v0.3.3
+#### Updated
+- Updated the styles of filter apply button.
 
 ### v0.3.2
 #### Updated

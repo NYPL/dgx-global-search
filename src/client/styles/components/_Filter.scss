@@ -144,6 +144,7 @@
       svg {
         fill: #FFF;
         padding: 0;
+        width: 1.5rem;
         @include min-screen($tablet-landscape) {
           fill: $SEARCH_BLUE;
         }
