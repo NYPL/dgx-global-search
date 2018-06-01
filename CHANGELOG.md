@@ -1,5 +1,36 @@
 ## Changelog
 
+### v0.3.5
+#### Updated
+- Updating @nypl/dgx-react-footer version to 0.5.0 and @nypl/dgx-header-component to 2.4.8.
+
+### v0.3.4
+#### Updated
+- Updated README.md for the new strategy of deployment.
+
+### v0.3.3
+#### Updated
+- Updated the styles of filter apply button.
+
+### v0.3.2
+#### Updated
+- Updated the Header component to v2.4.7.
+#### Added
+- Added OptinMonster for advocacy 2018.
+
+### v0.3.1
+#### Updated
+- Updated the Header component to v2.4.5.
+
+### v0.3.0
+#### Added
+- Added the function for tracking click through events for GA on the result page.
+- Added the function for tracking search request (QuerySent) events for GA.
+
+### v0.2.7
+#### Updated
+- Updated the Header component to v2.4.2 and Footer component to v0.4.1.
+
 ### v0.2.6
 #### Updated
 - Updated the Header component to v2.4.0.

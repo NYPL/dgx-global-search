@@ -1,13 +1,14 @@
 {
   "name": "dgx-global-search",
-  "version": "0.2.6",
+  "version": "0.3.5",
   "description": "DGX Global Search Repository",
   "main": "index.js",
   "scripts": {
     "start": "node index",
     "dist": "NODE_ENV=production webpack --config webpack.config.js",
     "test": "node_modules/.bin/mocha --compilers js:babel-core/register",
-    "accessibility-check": "loadA11y=true node index"
+    "accessibility-check": "loadA11y=true node index",
+    "eb-start": "npm run dist && npm run start"
   },
   "repository": {
     "type": "git",
@@ -22,12 +23,14 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://bitbucket.org/NYPL/dgx-global-search"
+    "url": "https://github.com/NYPL/dgx-global-search"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "react-addons-test-utils": "15.6.2"
+  },
   "dependencies": {
-    "@nypl/dgx-header-component": "2.4.0",
-    "@nypl/dgx-react-footer": "0.4.0",
+    "@nypl/dgx-header-component": "2.4.8",
+    "@nypl/dgx-react-footer": "0.5.0",
     "axios": "0.9.1",
     "babel-core": "6.24.0",
     "babel-loader": "6.4.1",
@@ -42,10 +45,10 @@
     "compression": "1.6.2",
     "css-loader": "0.25.0",
     "dgx-alt-center": "git+https://git@bitbucket.org/NYPL/dgx-alt-center.git#master",
-    "dgx-react-buttons": "git+ssh://git@bitbucket.org/NYPL/dgx-react-buttons.git#master",
+    "dgx-react-buttons": "git+https://git@bitbucket.org/NYPL/dgx-react-buttons.git#master",
     "dgx-react-ga": "git+https://git@bitbucket.org/NYPL/dgx-react-ga.git#master",
     "dgx-svg-icons": "git+https://git@bitbucket.org/NYPL/dgx-svg-icons.git#master",
-    "ejs": "2.4.2",
+    "ejs": "2.5.5",
     "enzyme": "2.2.0",
     "esdoc": "0.4.7",
     "eslint": "2.11.1",
@@ -69,6 +72,7 @@
     "rootpath": "0.1.2",
     "sass-loader": "4.0.2",
     "singularitygs": "1.7.0",
+    "sinon": "4.1.2",
     "style-loader": "0.13.1",
     "underscore": "1.8.3",
     "webpack": "1.13.2",

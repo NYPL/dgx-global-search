@@ -12,10 +12,11 @@ import { DivideLineIcon } from 'dgx-svg-icons';
 import { PaginationButton } from 'dgx-react-buttons';
 
 // Import libraries
-import { map as _map } from 'underscore';
+import { contains as _contains, map as _map } from 'underscore';
 
 // Import utilities
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
+import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils.js';
 
 class Results extends React.Component {
   constructor(props) {
@@ -26,6 +27,8 @@ class Results extends React.Component {
       isLoadingPagination: false,
       incrementResults: 10,
       searchResults: this.props.results,
+      timeToLoadResults: new Date().getTime(),
+      queriesForGA: this.props.queriesForGA,
     };
 
     this.getList = this.getList.bind(this);
@@ -36,6 +39,24 @@ class Results extends React.Component {
   componentDidMount() {
     // Listen to any change of the Store
     Store.listen(this.onChange);
+
+    const searchFrom = generateSearchedFrom(this.state.timeToLoadResults, this.state.queriesForGA);
+
+    // Sent QuerySent event  when the result page is loaded if the search request is from
+    // 'DirectLink', 'MissingTimestamp', 'MissingSearchedFrom', or 'Unknown' resource to
+    // match the QuerySent and CTR event counts
+    if (
+      _contains(['DirectLink', 'MissingTimestamp', 'MissingSearchedFrom', 'Unknown'], searchFrom)
+    ) {
+      nativeGA(
+        'QuerySent',
+        this.props.searchKeyword,
+        0,
+        searchFrom,
+        null,
+        () => {}
+      );
+    }
   }
 
   componentWillUnmount() {
@@ -49,6 +70,8 @@ class Results extends React.Component {
       resultsStart: Store.getState().resultsStart,
       isLoadingPagination: false,
       searchResults: Store.getState().searchData,
+      timeToLoadResults: new Date().getTime(),
+      queriesForGA: Store.getState().queriesForGA,
     });
   }
 
@@ -72,8 +95,24 @@ class Results extends React.Component {
         thumbnailSrc={item.thumbnailSrc}
         label={item.label}
         className={`${this.props.className}Item`}
+        isGAClickThroughClicked={this.state.isGAClickThroughClicked}
+        updateGAClickThroughClicked={
+          (newState) => { this.updateGAClickThroughClicked(newState); }
+        }
+        searchKeyword={this.props.searchKeyword}
+        queriesForGA={this.state.queriesForGA}
+        timeToLoadResults={this.state.timeToLoadResults}
       />
     ));
+  }
+
+  /**
+   * updateGAClickThroughClicked(newState)
+   * Updates isGAClickThroughClicked to true when ResultsItems are clicked once.
+   * @param {Boolean} newState
+   */
+  updateGAClickThroughClicked(newState) {
+    this.setState({ isGAClickThroughClicked: newState });
   }
 
   /**
@@ -90,10 +129,18 @@ class Results extends React.Component {
       (searchResultsItems) => {
         Actions.addMoreSearchData(searchResultsItems);
         Actions.updateResultsStart(nextResultCount);
+        Actions.updateQueriesForGA({
+          searchedFrom: this.state.queriesForGA.searchedFrom,
+          timestamp: new Date().getTime(),
+        });
       },
       () => {
         Actions.updateSearchKeyword('');
         Actions.updateIsKeywordValid(false);
+        Actions.updateQueriesForGA({
+          searchedFrom: this.state.queriesForGA.searchedFrom,
+          timestamp: new Date().getTime(),
+        });
       },
       // The callback function for changing the value of isLoadingPagination
       // to trigger the animation of the pagination button.
@@ -193,6 +240,7 @@ Results.propTypes = {
   searchKeyword: PropTypes.string,
   resultsStart: PropTypes.number,
   selectedFacet: PropTypes.string,
+  queriesForGA: PropTypes.object,
 };
 
 Results.defaultProps = {
@@ -204,6 +252,7 @@ Results.defaultProps = {
   searchKeyword: '',
   resultsStart: 0,
   selectedFacet: '',
+  queriesForGA: {},
 };
 
 export default Results;
