@@ -1,6 +1,6 @@
 # NYPL Global Search
 
-This repository is the global search application for nypl.org. 
+This repository is the global search application for nypl.org.
 
 ### URL
 https://www.nypl.org/searchbeta
