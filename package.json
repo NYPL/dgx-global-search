@@ -29,7 +29,7 @@
     "react-addons-test-utils": "15.6.2"
   },
   "dependencies": {
-    "@nypl/dgx-header-component": "2.4.10",
+    "@nypl/dgx-header-component": "2.4.11",
     "@nypl/dgx-react-footer": "0.5.1",
     "axios": "0.9.1",
     "babel-core": "6.24.0",
