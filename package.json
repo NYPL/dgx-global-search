@@ -1,6 +1,6 @@
 {
   "name": "dgx-global-search",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "DGX Global Search Repository",
   "main": "index.js",
   "scripts": {
@@ -29,8 +29,8 @@
     "react-addons-test-utils": "15.6.2"
   },
   "dependencies": {
-    "@nypl/dgx-header-component": "2.4.8",
-    "@nypl/dgx-react-footer": "0.5.0",
+    "@nypl/dgx-header-component": "2.4.11",
+    "@nypl/dgx-react-footer": "0.5.1",
     "axios": "0.9.1",
     "babel-core": "6.24.0",
     "babel-loader": "6.4.1",
