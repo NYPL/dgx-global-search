@@ -3,7 +3,7 @@
 This repository is the global search application for nypl.org.
 
 ### URL
-https://www.nypl.org/searchbeta
+https://www.nypl.org/search
 
 ### Version
 > v0.3.6
