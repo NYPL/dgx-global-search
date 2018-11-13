@@ -33,6 +33,8 @@ class Results extends React.Component {
 
     this.getList = this.getList.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
+    this.parseSnippet = this.parseSnippet.bind(this);
+
     this.onChange = this.onChange.bind(this);
   }
 
@@ -75,6 +77,17 @@ class Results extends React.Component {
     });
   }
 
+
+  parseSnippet(snippetText){
+    var faultyJsonArray = snippetText.split('}}]]')
+    if(faultyJsonArray[1]){
+      return faultyJsonArray[1];
+    } else {
+      return snippetText; 
+    } 
+  }
+
+
   /**
    * getList(itemsArray)
    * The function maps the search result array,
@@ -91,7 +104,7 @@ class Results extends React.Component {
         ref={`result-${index}`}
         title={item.title}
         link={item.link}
-        snippet={item.snippet}
+        snippet={this.parseSnippet(item.snippet)}
         thumbnailSrc={item.thumbnailSrc}
         label={item.label}
         className={`${this.props.className}Item`}
