@@ -33,7 +33,6 @@ class Results extends React.Component {
 
     this.getList = this.getList.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
-
     this.onChange = this.onChange.bind(this);
   }
 
@@ -79,10 +78,10 @@ class Results extends React.Component {
   /** 
    * parseSnippet(snippetText)
    * The function converts a string to an array
-     if the separator pattern is found in the string.
-     If a value is found in index 1 of the array, 
-     return that value else the original snippetText
-     passed.
+   * if the separator pattern is found in the string.
+   * If a value is found in index 1 of the array, 
+   * return that value else the original snippetText
+   * passed.
    */
   parseSnippet(snippetText){
     const faultyJsonArray = snippetText.split('}}]]')
