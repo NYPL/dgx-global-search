@@ -247,7 +247,6 @@ class App extends React.Component {
     if (!searchKeyword) {
       return null;
     }
-
     return (
       <Results
         amount={searchResultsLength}

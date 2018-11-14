@@ -193,8 +193,11 @@ class Results extends React.Component {
 
   render() {
     const results = this.getList(this.state.searchResults);
-    const resultsNumberSuggestion = (results.length === 0) ?
-      'No items were found' : `We found about ${this.props.amount} results.`;
+    let resultsNumberSuggestion = (results.length === 0) ?
+      'No items were found' : `About ${this.props.amount} results for ${this.props.searchKeyword}`;
+    if (this.props.selectedFacet !== undefined && this.props.selectedFacet !== ''){
+      resultsNumberSuggestion += ` in ${this.props.selectedFacet.replace('_', ' ')}`;
+    }
     const resultMessageClass = (results.length === 0) ?
       'noResultMessage' : `${this.props.className}-length`;
 
