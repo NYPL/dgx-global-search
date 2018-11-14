@@ -3,10 +3,10 @@
 This repository is the global search application for nypl.org.
 
 ### URL
-https://www.nypl.org/searchbeta
+https://www.nypl.org/search
 
 ### Version
-> v0.3.6
+> v0.3.9
 
 ### Installation
 Install all dependencies listed under package.json

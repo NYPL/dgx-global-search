@@ -1,4 +1,15 @@
 ## Changelog
+### v0.3.9
+#### Updated
+- Updating @nypl/dgx-header-component to 2.4.14 and set APP_ENV.
+
+### v0.3.8
+#### Updated
+- Updating @nypl/dgx-header-component to 2.4.13.
+
+### v0.3.7
+#### Updated
+- Updating @nypl/dgx-header-component to 2.4.12.
 
 ### v0.3.6
 #### Updated
