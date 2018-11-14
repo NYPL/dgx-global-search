@@ -19,7 +19,7 @@ const ReturnLink = ({
       <a
         href={`${linkRoot}${inputValue}`}
       >
-        return to the current version
+        return to the previous version
       </a>
       .
     </div>
