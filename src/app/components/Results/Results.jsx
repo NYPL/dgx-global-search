@@ -84,8 +84,8 @@ class Results extends React.Component {
    * passed.
    */
   parseSnippet(snippetText){
-    const faultyJsonArray = snippetText.split('}}]]')
-    if(faultyJsonArray[1]){
+    const faultyJsonArray = snippetText.trim().split('}}]]')
+    if(faultyJsonArray.length > 1){
       return faultyJsonArray[1];
     } else {
       return snippetText; 
