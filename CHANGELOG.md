@@ -1,4 +1,8 @@
 ## Changelog
+### v0.3.10
+#### Updated
+- Updating @nypl/dgx-header-component to 2.4.15 and checking for QA in APP_ENV.
+
 ### v0.3.9
 #### Updated
 - Updating @nypl/dgx-header-component to 2.4.14 and set APP_ENV.
