@@ -29,14 +29,6 @@ const makeClientApiCall = (
   if (!keyword) {
     callbackFunctionNoKeyword();
   } else {
-    // If the function calls makeClientApiCall() needs to update loading status
-    // and passes a callback for it
-    if (callbackFunctionLoading) {
-      // Change the state to trigger the animation of the pagination button or
-      // the loading layer.
-      callbackFunctionLoading(true);
-    }
-
     axios
       .get(`/search/request/api/${requestParameter}?start=${start.toString()}`)
       .then((response) => {

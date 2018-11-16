@@ -10,7 +10,6 @@ import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
-import LoadingLayer from '../LoadingLayer/LoadingLayer.jsx';
 import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 
 // Import alt components
@@ -179,11 +178,6 @@ class App extends React.Component {
             searchedFrom: 'betasearch',
             timestamp: new Date().getTime(),
           });
-        },
-        // The callback function for changing the value of isLoading
-        // to trigger the loading layer.
-        (value) => {
-          this.setState({ isLoading: value });
         }
       );
     }
@@ -269,10 +263,6 @@ class App extends React.Component {
     return (
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
-        <LoadingLayer
-          status={this.state.isLoading}
-          title="Search Results"
-        />
         <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <h1>NYPL.org Search <span>BETA</span></h1>
           <div id="gs-operations" className="gs-operations">
