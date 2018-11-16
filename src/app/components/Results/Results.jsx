@@ -205,8 +205,6 @@ class Results extends React.Component {
       <div className={`${this.props.className}-wrapper`}>
         <p
           className={resultMessageClass}
-          role="alert"
-          aria-atomic="true"
           aria-live="polite"
         >
           {resultsNumberSuggestion}
