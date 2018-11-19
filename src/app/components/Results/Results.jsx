@@ -193,8 +193,13 @@ class Results extends React.Component {
 
   render() {
     const results = this.getList(this.state.searchResults);
-    let resultsNumberSuggestion = (results.length === 0) ?
-      'No items were found' : `Found about ${this.props.amount.toLocaleString()} results for "${this.props.searchKeyword}"`;
+    let resultsNumberSuggestion = '';
+    if (this.props.searchKeyword === '') {
+      resultsNumberSuggestion = '';
+    } else {
+      resultsNumberSuggestion = (results.length === 0) ?
+        'No items were found' : `Found about ${this.props.amount.toLocaleString()} results for "${this.props.searchKeyword}"`;
+    }
     if (this.props.selectedFacet !== undefined && this.props.selectedFacet !== ''){
       resultsNumberSuggestion += ` in ${this.props.selectedFacet.replace('_', ' ')}`;
     }
