@@ -1,11 +1,26 @@
 ## Changelog
+### v0.3.11
+#### Updated
+- Note: we'll add all changes for Sprint 24 in this section and will delete this line on Nov 29, 2018.
+- Removing role and aria-atomic from area that announces the search results
+- Changing the aria-label for the search field
+- Remove loading screen
+
+### v0.3.10
+#### Updated
+- Updating @nypl/dgx-header-component to 2.4.15 and checking for QA in APP_ENV.
+
+### v0.3.9
+#### Updated
+- Updating @nypl/dgx-header-component to 2.4.14 and set APP_ENV.
+
 ### v0.3.8
 #### Updated
 - Updating @nypl/dgx-header-component to 2.4.13.
 
 ### v0.3.7
 #### Updated
-- Updating @nypl/dgx-header-component to 2.4.12.
+- Updating @nypl/dgx-header-component to 2.4.12 and changing "searchbeta" to "search".
 
 ### v0.3.6
 #### Updated
