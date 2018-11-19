@@ -5,6 +5,7 @@
 - Removing role and aria-atomic from area that announces the search results
 - Changing the aria-label for the search field
 - Remove loading screen
+- Fix JSON display bug
 
 ### v0.3.10
 #### Updated
