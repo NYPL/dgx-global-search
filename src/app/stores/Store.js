@@ -30,19 +30,14 @@ class SearchStore {
           label: 'all_results',
         },
         {
-          anchor: 'Digital Collections',
-          value: 'digital_collections',
-          label: 'digital_collections',
+          anchor: 'Research Guides',
+          value: 'research_guides',
+          label: 'research_guides',
         },
         {
           anchor: 'Exhibitions',
           value: 'exhibitions',
           label: 'exhibitions',
-        },
-        {
-          anchor: 'Archives',
-          value: 'archives',
-          label: 'archives',
         },
         {
           anchor: 'Audio / Visual',
@@ -51,13 +46,8 @@ class SearchStore {
         },
         {
           anchor: 'Blog',
-          value: 'blog',
-          label: 'blog',
-        },
-        {
-          anchor: 'Projects',
-          value: 'projects',
-          label: 'projects',
+          value: 'blog_posts',
+          label: 'blog_posts',
         },
         {
           anchor: 'Events / Classes',
@@ -65,19 +55,14 @@ class SearchStore {
           label: 'events_classes',
         },
         {
-          anchor: 'Recommendations',
-          value: 'recommendations',
-          label: 'recommendations',
-        },
-        {
-          anchor: 'Locations',
-          value: 'locations',
-          label: 'locations',
-        },
-        {
           anchor: 'Help',
-          value: 'help',
-          label: 'help',
+          value: 'help_articles',
+          label: 'help_articles',
+        },
+        {
+          anchor: 'Articles',
+          value: 'articles_databases',
+          label: 'articles_databases',
         },
       ];
       this.queriesForGA = {

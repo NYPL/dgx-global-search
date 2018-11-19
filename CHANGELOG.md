@@ -1,11 +1,12 @@
 ## Changelog
-### v0.3.11
+### v0.3.12
 #### Updated
 - Note: we'll add all changes for Sprint 24 in this section and will delete this line on Nov 29, 2018.
 - Removing role and aria-atomic from area that announces the search results
 - Changing the aria-label for the search field
 - Remove loading screen
 - Fix JSON display bug
+- Change filter values
 
 ### v0.3.10
 #### Updated
