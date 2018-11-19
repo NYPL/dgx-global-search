@@ -4,9 +4,10 @@
 - Note: we'll add all changes for Sprint 24 in this section and will delete this line on Nov 29, 2018.
 - Removing role and aria-atomic from area that announces the search results
 - Changing the aria-label for the search field
-- Remove loading screen
-- Fix JSON display bug
-- Change filter values
+- Removing loading screen
+- Fixing JSON display bug
+- Changing filter values
+- Showing ARIA-live region on initial load of search page
 
 ### v0.3.10
 #### Updated
