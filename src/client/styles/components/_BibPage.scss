@@ -1,0 +1,141 @@
+
+.view-all-items-container {
+  margin-top: 1.5rem;
+}
+
+
+@media (min-width:0px) and (max-width:500px) {
+
+  div .tabbed #tab0 a{
+  color:red;
+  }
+
+  div .tabbed ul[role="tablist"] {
+  width:175px;
+  }
+
+  div .tabbed ul[role="tablist"] > li > a[aria-selected='true'] {
+  width:175px;
+  }
+
+  div .tabbed ul[role="tablist"] > li > a[aria-selected='true']:hover{
+  color:red;
+
+
+  }
+
+  div .tabbed ul[role="tablist"] > li {
+   display:list-item  ;
+  }
+
+  
+}
+
+ .tabbed {
+  padding-top: 120px;
+  *:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 4px lightBlue;
+  }
+  ul[role="tablist"] {
+    margin: 0;
+    margin-bottom: 20px;
+    padding-left: 0px;
+    display: block;
+    list-style-type: none;
+  }
+  ul[role="tablist"]>li {
+    border: solid black 1px;
+    border-left: none;
+    display: table-cell;
+    margin-bottom: 0;
+    white-space: nowrap;
+  }
+  ul[role="tablist"]>li.activeTab {
+    border: 1px solid black;
+    border-left: none;
+    display: table-cell;
+    margin-bottom: 0;
+    background-color: #176E91;
+  }
+  ul[role="tablist"]>li[class="activeTab"]>a {
+    color: white;
+  }
+  li>a[aria-selected='true']:hover {
+    background-color: darken(#176E91, 10%);
+  }
+  ul[role="tablist"]>li>a {
+    padding: 14px;
+    padding-left: 16px;
+    padding-right: 16px;
+    display: table-cell;
+    font-weight: 500;
+    text-decoration: none;
+    font-family: Kievit-book;
+    font-size: 18px;
+    color: black;
+  }
+  ul[role="tablist"]>li:target>a {
+    color: white;
+  }
+  ul[role="tablist"]>li>a[aria-selected='true'] {
+    padding: 14px;
+    padding-left: 16px;
+    padding-right: 16px;
+    display: table-cell;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  #tab0 {
+    border-left: solid black 1px;
+    background-color: #EFEDEB;
+    color: #76777B;
+  }
+  #tab0 a {
+    color: #76777B;
+  }
+}
+
+
+
+.default {
+  display: block;
+}
+
+div .tabbed {
+  ul[role="tablist"] {
+    li:target~.default {
+      display: none;
+    }
+    li:target {
+      background-color: #176E91;
+      border: 1px solid black;
+      border-left: none;
+    }
+    li:hover {
+      background-color: #EFF2F5;
+    }
+  }
+}
+
+.non-default {
+  display: none;
+}
+
+@for $i from 1 through 11 {
+  #tab#{$i}:target~#section#{$i} {
+    display: block;
+  }
+}
+
+@media (max-width: 1120px) {
+  .additionalDetails {
+    dt {
+      float: none;
+    }
+  }
+}
+
+
+
+

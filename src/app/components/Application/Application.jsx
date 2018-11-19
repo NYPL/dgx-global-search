@@ -12,6 +12,7 @@ import SearchButton from '../SearchButton/SearchButton.jsx';
 import Filter from '../Filter/Filter.jsx';
 import LoadingLayer from '../LoadingLayer/LoadingLayer.jsx';
 import ReturnLink from '../ReturnLink/ReturnLink.jsx';
+import TabItem from '../TabItem/TabItem.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -298,6 +299,14 @@ class App extends React.Component {
                 onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
               />
             </div>
+            <h1></h1>
+            <TabItem 
+              id='gs-tabs' 
+              hash={window.location.hash} 
+              tabs={this.state.searchFacets}
+              selectedFacet={this.state.selectedFacet}
+              onClickApply={this.searchBySelectedFacet}
+              />
             <Filter
               id="gs-filter"
               className="gs-filter"
