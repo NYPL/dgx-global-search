@@ -9,7 +9,6 @@ import Footer from '@nypl/dgx-react-footer';
 import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
-import Filter from '../Filter/Filter.jsx';
 import LoadingLayer from '../LoadingLayer/LoadingLayer.jsx';
 import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 import TabItem from '../TabItem/TabItem.jsx';
