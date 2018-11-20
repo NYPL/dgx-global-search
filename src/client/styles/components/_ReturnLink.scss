@@ -32,9 +32,9 @@
   @include layout-at(8, $desktop) {
     div {
       margin: 0;
-      position: absolute;
-      right: 313px;
-      top: 158px;
+      float: right;
+      position: relative;
+      top: -4px;
     }
   }
 }

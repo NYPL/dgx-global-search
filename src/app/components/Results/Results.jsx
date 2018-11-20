@@ -75,6 +75,24 @@ class Results extends React.Component {
     });
   }
 
+  /** 
+   * parseSnippet(snippetText)
+   * The function converts a string to an array
+   * if the separator pattern is found in the string.
+   * If a value is found in index 1 of the array, 
+   * return that value else the original snippetText
+   * passed.
+   */
+  parseSnippet(snippetText){
+    const faultyJsonArray = snippetText.trim().split('}}]]')
+    if(faultyJsonArray.length > 1){
+      return faultyJsonArray[1];
+    } else {
+      return snippetText; 
+    } 
+  }
+
+
   /**
    * getList(itemsArray)
    * The function maps the search result array,
@@ -91,7 +109,7 @@ class Results extends React.Component {
         ref={`result-${index}`}
         title={item.title}
         link={item.link}
-        snippet={item.snippet}
+        snippet={this.parseSnippet(item.snippet)}
         thumbnailSrc={item.thumbnailSrc}
         label={item.label}
         className={`${this.props.className}Item`}
@@ -193,8 +211,16 @@ class Results extends React.Component {
 
   render() {
     const results = this.getList(this.state.searchResults);
-    const resultsNumberSuggestion = (results.length === 0) ?
-      'No items were found' : `We found about ${this.props.amount} results.`;
+    let resultsNumberSuggestion = '';
+    if (this.props.searchKeyword === '') {
+      resultsNumberSuggestion = '';
+    } else {
+      resultsNumberSuggestion = (results.length === 0) ?
+        'No items were found' : `Found about ${this.props.amount.toLocaleString()} results for "${this.props.searchKeyword}"`;
+    }
+    if (this.props.selectedFacet !== undefined && this.props.selectedFacet !== ''){
+      resultsNumberSuggestion += ` in ${this.props.selectedFacet.replace('_', ' ')}`;
+    }
     const resultMessageClass = (results.length === 0) ?
       'noResultMessage' : `${this.props.className}-length`;
 
@@ -202,8 +228,6 @@ class Results extends React.Component {
       <div className={`${this.props.className}-wrapper`}>
         <p
           className={resultMessageClass}
-          role="alert"
-          aria-atomic="true"
           aria-live="polite"
         >
           {resultsNumberSuggestion}

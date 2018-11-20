@@ -90,7 +90,7 @@
 
       &Wrapper {
         display: none;
-        height: 140px;
+        max-height: 400px;
         overflow: hidden;
 
         @include layout-at(7, $tablet-portrait) {
