@@ -85,10 +85,6 @@ div .tabbed .wrapper-dropdown .dropdown li:last-of-type a {
 
 /* Hover state */
 
-div .tabbed .wrapper-dropdown .dropdown li:hover a {
-    background: #f3f8f8;
-}
-
 div .tabbed .wrapper-dropdown.active .dropdown {
     opacity: 1;
     pointer-events: auto;
