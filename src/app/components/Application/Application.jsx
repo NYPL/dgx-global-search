@@ -274,7 +274,6 @@ class App extends React.Component {
                   value={inputValue}
                   onKeyPress={this.triggerSubmit}
                   onChange={this.inputChange}
-                  label="Search NYPL.org"
                 />
               </div>
               <SearchButton
