@@ -293,13 +293,6 @@ class App extends React.Component {
               selectedFacet={this.state.selectedFacet}
               onClickApply={this.searchBySelectedFacet}
               />
-            <Filter
-              id="gs-filter"
-              className="gs-filter"
-              facets={this.state.searchFacets}
-              selectedFacet={this.state.selectedFacet}
-              onClickApply={this.searchBySelectedFacet}
-            />
           </div>
           <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           {this.state.resultsComponentData}

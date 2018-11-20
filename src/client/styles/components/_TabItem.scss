@@ -3,32 +3,114 @@
   margin-top: 1.5rem;
 }
 
+#categoryTextDiv{
+  display:none;
+}
+
+#mobile-dropdown {
+  display:none;
+}
+
 
 @media (min-width:0px) and (max-width:500px) {
 
-  div .tabbed #tab0 a{
-  color:red;
+  div .tabbed ul[role="tablist"]{
+  display:none;
   }
 
-  div .tabbed ul[role="tablist"] {
-  width:175px;
+  #categoryTextDiv{
+  display:inline;
   }
 
-  div .tabbed ul[role="tablist"] > li > a[aria-selected='true'] {
-  width:175px;
+  #mobile-dropdown {
+  display:inline;
+  z-index:1;
   }
 
-  div .tabbed ul[role="tablist"] > li > a[aria-selected='true']:hover{
-  color:red;
+div .tabbed .wrapper-dropdown {
+    /* Size and position */
+    position: relative;
+    min-width: 250px;
+    margin: 0 auto;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    float:left;
 
 
+    /* Styles */
+    background: #fff;
+    border: 1px solid #176E91;
+    box-shadow: 0 1px 1px rgba(50,50,50,0.1);
+    cursor: pointer;
+    outline: none;
+
+    /* Font settings */
+    font-size:18px;
+    color: #176E91;
+    font-family:Kievit-book;
+    text-align:center;
+}
+
+div .tabbed .wrapper-dropdown .dropdown {
+  /* Size & position */
+    position: absolute;
+    top: 66%;
+    
+    /* Styles */
+    background: white;
+    border:solid black 1px;
+    list-style: none;
+
+    /* Hiding */
+    opacity: 0;
+    pointer-events: none;
+}
+
+div .tabbed .wrapper-dropdown .dropdown li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+
+div .tabbed .wrapper-dropdown .dropdown li:first-of-type a {
+    border-radius: 7px 7px 0 0;
+}
+
+div .tabbed .wrapper-dropdown .dropdown li:last-of-type a {
+    border-radius: 0 0 7px 7px;
+    border: none;
+}
+
+/* Hover state */
+
+div .tabbed .wrapper-dropdown .dropdown li:hover a {
+    background: #f3f8f8;
+}
+
+div .tabbed .wrapper-dropdown.active .dropdown {
+    opacity: 1;
+    pointer-events: auto;
+    text-align:left;
+    text-indent: -30px;
+    padding-right:80px;
+
+}
+
+div .tabbed .wrapper-dropdown ul li[class="activeTab"] a {
+    font-weight: bolder;
   }
 
-  div .tabbed ul[role="tablist"] > li {
-   display:list-item  ;
-  }
+div .tabbed #categoryTextDiv{
+float:left;
+font-size: 18px;
+font-family: Kievit-book;
+padding-left:16px;
+padding-right:18px;
+padding-top:16px;
+}
 
-  
 }
 
  .tabbed {
