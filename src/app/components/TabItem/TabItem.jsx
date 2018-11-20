@@ -107,11 +107,6 @@ class TabItem extends React.Component {
 
 
     <ul role='tablist'>
-    <li key='0' id='tab0'>
-    <a id='link0'
-    >Category
-    </a>
-    </li>
     { this.props.tabs.map((tab, i) => {
       let j = i + 1;
       return (
