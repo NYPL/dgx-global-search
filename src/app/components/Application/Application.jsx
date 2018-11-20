@@ -65,7 +65,7 @@ class App extends React.Component {
       {
         resultsComponentData: null,
         isLoading: false,
-        isGAQuerySent: false,
+        isGAQuerySent: false
       },
       Store.getState()
     );
@@ -286,8 +286,7 @@ class App extends React.Component {
             </div>
             <h1></h1>
             <TabItem 
-              id='gs-tabs' 
-              hash={window.location.hash} 
+              id='gs-tabs'  
               tabs={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
               onClickApply={this.searchBySelectedFacet}
