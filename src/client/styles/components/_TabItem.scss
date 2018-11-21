@@ -139,6 +139,11 @@ padding-top:16px;
     margin-bottom: 0;
     background-color: #176E91;
   }
+
+   ul[role="tablist"]>li.activeTab:hover {
+    background-color:#176E91;
+  }
+
   ul[role="tablist"]>li[class="activeTab"]>a {
     color: white;
   }
