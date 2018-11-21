@@ -284,7 +284,6 @@ class App extends React.Component {
                 onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
               />
             </div>
-            <h1></h1>
             <TabItem 
               id='gs-tabs'  
               tabs={this.state.searchFacets}

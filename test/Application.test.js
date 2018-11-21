@@ -5,20 +5,20 @@ import { shallow } from 'enzyme';
 import Application from './../src/app/components/Application/Application.jsx';
 
 
-// describe('Application', () => {
-//   let component;
+describe('Application', () => {
+  let component;
 
-//   before(() => {
-//     component = shallow(<Application />);
-//   });
+  before(() => {
+    component = shallow(<Application />);
+  });
 
-//   it('is wrapped in a div.nyplGlobalSearchApp', () => {
-//     expect(component.find('.nyplGlobalSearchApp')).to.have.length(1);
-//   });
+  it('is wrapped in a div.nyplGlobalSearchApp', () => {
+    expect(component.find('.nyplGlobalSearchApp')).to.have.length(1);
+  });
 
-//   it('contains an h2.', () => {
-//     const title = component.find('h1');
-//     expect(title).to.have.length(2);
-//     expect(title.text()).to.equal('NYPL.org Search BETA');
-//   });
-// });
+  it('contains an h2.', () => {
+    const title = component.find('h1');
+    expect(title).to.have.length(2);
+    expect(title.text()).to.equal('NYPL.org Search BETA');
+  });
+});
