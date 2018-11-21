@@ -75,11 +75,11 @@ class Results extends React.Component {
     });
   }
 
-  /** 
+  /**
    * parseSnippet(snippetText)
    * The function converts a string to an array
    * if the separator pattern is found in the string.
-   * If a value is found in index 1 of the array, 
+   * If a value is found in index 1 of the array,
    * return that value else the original snippetText
    * passed.
    */
@@ -88,8 +88,8 @@ class Results extends React.Component {
     if(faultyJsonArray.length > 1){
       return faultyJsonArray[1];
     } else {
-      return snippetText; 
-    } 
+      return snippetText;
+    }
   }
 
 
@@ -195,7 +195,7 @@ class Results extends React.Component {
         </div>
       );
     }
-
+    const label = `View ${remainingResults} More Results`;
     return (
       <div className={`${this.props.id}-paginationButton-wrapper`}>
         <PaginationButton
@@ -203,7 +203,7 @@ class Results extends React.Component {
           className={`${this.props.id}-paginationButton`}
           isLoading={this.state.isLoadingPagination}
           onClick={this.addMoreResults}
-          label="LOAD MORE"
+          label={label}
         />
       </div>
     );
@@ -232,7 +232,7 @@ class Results extends React.Component {
         >
           {resultsNumberSuggestion}
         </p>
-        {results.length !== 0 &&
+        {(typeof results.length !== 'undefined') && results.length !== 0 &&
           <div>
             <DivideLineIcon
               ariaHidden
@@ -248,7 +248,7 @@ class Results extends React.Component {
             <ul id={this.props.id} className={this.props.className} ref="results">
               {results}
             </ul>
-            {this.renderSeeMoreButton()}
+            {results.length % 10 == 0 && this.renderSeeMoreButton(Math.min(this.props.amount - results.length, 10))}
           </div>
         }
       </div>
