@@ -9,8 +9,8 @@ import Footer from '@nypl/dgx-react-footer';
 import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
-import Filter from '../Filter/Filter.jsx';
 import ReturnLink from '../ReturnLink/ReturnLink.jsx';
+import TabItem from '../TabItem/TabItem.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -65,7 +65,7 @@ class App extends React.Component {
       {
         resultsComponentData: null,
         isLoading: false,
-        isGAQuerySent: false,
+        isGAQuerySent: false
       },
       Store.getState()
     );
@@ -283,13 +283,12 @@ class App extends React.Component {
                 onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
               />
             </div>
-            <Filter
-              id="gs-filter"
-              className="gs-filter"
-              facets={this.state.searchFacets}
+            <TabItem 
+              id='gs-tabs'  
+              tabs={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
               onClickApply={this.searchBySelectedFacet}
-            />
+              />
           </div>
           <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           {this.state.resultsComponentData}
