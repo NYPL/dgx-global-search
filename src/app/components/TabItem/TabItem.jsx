@@ -87,17 +87,17 @@ class TabItem extends React.Component {
         let j = i + 1;
         return (
           <li key={`${j}`} className={(parseInt(this.state.tabNumber) === j ? 'activeTab' : null) } >
-          <a href={`#tab${j}`}
-          id={`link${j}`}
-          tabIndex={!this.state.tabNumber ?  '0' : parseInt(this.state.tabNumber) === j ? null : -1}
-          aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
-          role='tab'
-          data={`${j}`}
-          onClick={e => this.clickHandler(e,tab.value,tab.anchor)}
-          onKeyDown={this.keyDownHandler}
-          ref={(input) => {this.links[`${j}`] = input;}}
-          >{tab.anchor}
-          </a>
+           <a href={`#tab${j}`}
+            id={`link${j}`}
+            tabIndex={!this.state.tabNumber ?  '0' : parseInt(this.state.tabNumber) === j ? null : -1}
+            aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
+            role='tab'
+            data={`${j}`}
+            onClick={e => this.clickHandler(e,tab.value,tab.anchor)}
+            onKeyDown={this.keyDownHandler}
+            ref={(input) => {this.links[`${j}`] = input;}}
+            >{tab.anchor}
+           </a>
           </li>
           )
       })
@@ -111,17 +111,17 @@ class TabItem extends React.Component {
       let j = i + 1;
       return (
         <li key={`${j}`} value={tab.value} id={`tab${j}`} className={(this.state.selectedFacet === tab.value ? 'activeTab' : null) } role='presentation'>
-        <a href={`#tab${j}`}
-        id={`link${j}`}
-        tabIndex={!this.state.tabNumber ?  '0' : parseInt(this.state.tabNumber) === j ? null : -1}
-        aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
-        role='tab'
-        data={`${j}`}
-        onClick={e => this.clickHandler(e,tab.value,tab.anchor)}
-        onKeyDown={this.keyDownHandler}
-        ref={(input) => {this.links[`${j}`] = input;}}
-        >{tab.anchor}
-        </a>
+         <a href={`#tab${j}`}
+          id={`link${j}`}
+          tabIndex={!this.state.tabNumber ?  '0' : parseInt(this.state.tabNumber) === j ? null : -1}
+          aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
+          role='tab'
+          data={`${j}`}
+          onClick={e => this.clickHandler(e,tab.value,tab.anchor)}
+          onKeyDown={this.keyDownHandler}
+          ref={(input) => {this.links[`${j}`] = input;}}
+          >{tab.anchor}
+         </a>
         </li>
         )
     })
