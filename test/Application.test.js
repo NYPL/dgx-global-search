@@ -16,9 +16,9 @@ describe('Application', () => {
     expect(component.find('.nyplGlobalSearchApp')).to.have.length(1);
   });
 
-  it('contains an h2.', () => {
+  it('contains an h1.', () => {
     const title = component.find('h1');
-    expect(title).to.have.length(2);
+    expect(title).to.have.length(1);
     expect(title.text()).to.equal('NYPL.org Search BETA');
   });
 });
