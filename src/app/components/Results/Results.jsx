@@ -225,7 +225,7 @@ class Results extends React.Component {
       'noResultMessage' : `${this.props.className}-length`;
 
     return (
-      <div className={`${this.props.className}-wrapper`}>
+      <div aria-labelledby={`link${this.props.selectedTab}`} className={`${this.props.className}-wrapper`}>
         <p
           className={resultMessageClass}
           aria-live="polite"

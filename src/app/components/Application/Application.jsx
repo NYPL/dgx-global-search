@@ -76,6 +76,7 @@ class App extends React.Component {
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
+    this.selectedTab = this.selectedTab.bind(this);
   }
 
   // Setting state in componentWillMount() helps us render the results for the first time before
@@ -227,6 +228,12 @@ class App extends React.Component {
     }
   }
 
+  selectedTab(tabIdValue){
+    console.log(tabIdValue)
+    this.setState({tabIdValue: tabIdValue})
+  }
+
+
   /**
    * renderResults(searchKeyword, searchResultsArray, searchResultsLength)
    * The function renders the results of the search request.
@@ -240,6 +247,7 @@ class App extends React.Component {
   renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
     return (
       <Results
+        selectedTab={this.state.tabIdValue}
         amount={searchResultsLength}
         results={searchResultsArray}
         id="gs-results"
@@ -253,6 +261,7 @@ class App extends React.Component {
   }
 
   render() {
+    {console.log(this.state.selectedTabId)}
     const inputValue = this.state.searchKeyword || '';
     const inputPlaceholder = (this.state.isKeywordValid) ?
       'What would you like to find?' : 'Please enter a keyword';
@@ -288,6 +297,7 @@ class App extends React.Component {
               tabs={this.state.searchFacets}
               selectedFacet={this.state.selectedFacet}
               onClickApply={this.searchBySelectedFacet}
+              selectedTab={this.selectedTab}
               />
           </div>
           <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />

@@ -32,7 +32,8 @@ class TabItem extends React.Component {
   }
 
   //switches tabs by updating state and href
-  switchTab(newTabIndex,selectedTab,tabAnchor) {
+  switchTab(newTabIndex,selectedTab,tabAnchor,tab_id) {
+    this.props.selectedTab(tab_id)
     this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: selectedTab, tabValue: selectedTab, selectedFacetAnchor: tabAnchor});
     this.props.onClickApply(selectedTab);
     let newTab = this.links[newTabIndex];
@@ -40,11 +41,11 @@ class TabItem extends React.Component {
     newTab.focus();
   }
 
-  clickHandler(e,tabValue,tabAnchor) {
+  clickHandler(e,tabValue,tabAnchor,tab_id) {
     e.preventDefault();
     let clickedTab = e.currentTarget;
     let index = clickedTab.getAttribute('data');
-    this.switchTab(index,tabValue,tabAnchor);
+    this.switchTab(index,tabValue,tabAnchor,tab_id);
   }
 
   //enables navigation with arrow keys
@@ -115,7 +116,7 @@ class TabItem extends React.Component {
           aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
           role='tab'
           data={`${j}`}
-          onClick={e => this.clickHandler(e,tab.value,tab.anchor)}
+          onClick={e => this.clickHandler(e,tab.value,tab.anchor,j)}
           onKeyDown={this.keyDownHandler}
           ref={(input) => {this.links[`${j}`] = input;}}
           >{tab.anchor}
