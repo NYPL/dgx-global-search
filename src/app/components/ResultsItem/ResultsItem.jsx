@@ -150,14 +150,15 @@ class ResultsItem extends React.Component {
   }
 
   /**
-   * renderImage(className, src)
+   * renderImage(className, src, title)
    * The function renders <img> if this.props.thumbnailSrc is true.
    *
    * @param {string} className
    * @param {string} src
+   * @param {string} title
    * @return null or {object}
    */
-  renderImage(className, src) {
+  renderImage(className, src, title) {
     if (!src) {
       return null;
     }
@@ -168,6 +169,7 @@ class ResultsItem extends React.Component {
         onClick={(e) => {
           this.sendGAClickthroughEvent(this.props.index, 'ResultPicture', e);
         }}
+
         // Add the event listener to right click
         onContextMenu={(e) => {
           this.sendGAClickthroughEvent(
@@ -180,7 +182,7 @@ class ResultsItem extends React.Component {
         <img
           className={`${className}-image`}
           src={src}
-          alt=""
+          alt={title}
         />
       </div>
     );
