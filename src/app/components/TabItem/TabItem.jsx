@@ -57,7 +57,7 @@ class TabItem extends React.Component {
     }
     if (dir !== null) {
        e.preventDefault();
-       dir === 'down' ? alert('test') : dir <= this.state.numberOfTabs && 0 <= dir ? this.focusTab(dir) : void 0;
+       dir === 'down' ? null : dir <= this.state.numberOfTabs && 0 <= dir ? this.focusTab(dir) : void 0;
     }
   }
 
