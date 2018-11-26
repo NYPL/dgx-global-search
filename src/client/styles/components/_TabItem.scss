@@ -13,21 +13,24 @@
 
 
 @media (min-width:0px) and (max-width:1020px) {
+  .gs-results-divideLineIcon {
+    margin-top:30px;
+  }
 
   div .tabbed ul[role="tablist"]{
-  display:none;
+    display:none;
   }
 
   #categoryTextDiv{
-  display:inline;
+    display:inline;
   }
 
   #mobile-dropdown {
-  display:inline;
-  z-index:1;
+    display:inline;
+    z-index:1;
   }
 
-div .tabbed .wrapper-dropdown {
+  div .tabbed .wrapper-dropdown {
     /* Size and position */
     position: relative;
     min-width: 250px;
@@ -35,7 +38,6 @@ div .tabbed .wrapper-dropdown {
     padding-top: 16px;
     padding-bottom: 16px;
     float:left;
-
 
     /* Styles */
     background: #fff;
@@ -49,15 +51,15 @@ div .tabbed .wrapper-dropdown {
     color: #176E91;
     font-family:Kievit-book;
     text-align:center;
-}
+  }
 
-div .tabbed .wrapper-dropdown .dropdown {
-  /* Size & position */
+  div .tabbed .wrapper-dropdown .dropdown {
+    /* Size & position */
     position: absolute;
     width: 210px;
     top: 66%;
     padding:0px;
-    
+
     /* Styles */
     background: white;
     border:solid black 1px;
@@ -66,54 +68,51 @@ div .tabbed .wrapper-dropdown .dropdown {
     /* Hiding */
     opacity: 0;
     pointer-events: none;
-}
+  }
 
-div .tabbed .wrapper-dropdown .dropdown li a {
+  div .tabbed .wrapper-dropdown .dropdown li a {
     display: block;
     padding: 10px;
     text-decoration: none;
     color: black;
     margin-left:40px;
-}
+  }
 
 
-div .tabbed .wrapper-dropdown .dropdown li:first-of-type a {
+  div .tabbed .wrapper-dropdown .dropdown li:first-of-type a {
     border-radius: 7px 7px 0 0;
-}
+  }
 
-div .tabbed .wrapper-dropdown .dropdown li:last-of-type a {
+  div .tabbed .wrapper-dropdown .dropdown li:last-of-type a {
     border-radius: 0 0 7px 7px;
     border: none;
-}
+  }
 
-/* Hover state */
+  /* Hover state */
 
-div .tabbed .wrapper-dropdown.active .dropdown {
+  div .tabbed .wrapper-dropdown.active .dropdown {
     opacity: 1;
     pointer-events: auto;
     text-align:left;
     text-indent: -30px;
     width:248px;
+  }
 
-}
-
-div .tabbed .wrapper-dropdown ul li[class="activeTab"] a {
+  div .tabbed .wrapper-dropdown ul li[class="activeTab"] a {
     font-weight: bolder;
   }
 
-div .tabbed #categoryTextDiv{
-float:left;
-font-size: 18px;
-font-family: Kievit-book;
-padding-left:16px;
-padding-right:18px;
-padding-top:16px;
-}
-
+  div .tabbed #categoryTextDiv{
+    float:left;
+    font-size: 18px;
+    font-family: Kievit-book;
+    padding-left:16px;
+    padding-right:18px;
+    padding-top:16px;
+  }
 }
 
  .tabbed {
-  padding-top: 120px;
   *:focus {
     outline: none;
     box-shadow: inset 0 0 0 4px lightBlue;
@@ -175,10 +174,7 @@ padding-top:16px;
   #tab1 {
     border-left: solid black 1px;
   }
- 
 }
-
-
 
 .default {
   display: block;
@@ -218,6 +214,6 @@ div .tabbed {
   }
 }
 
-
-
-
+.clear-float {
+  clear: both;
+}

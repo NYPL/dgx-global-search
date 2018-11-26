@@ -35,10 +35,11 @@ class TabItem extends React.Component {
   switchTab(newTabIndex,selectedTab,tabAnchor,tab_id) {
     this.props.selectedTab(tab_id)
     this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: selectedTab, tabValue: selectedTab, selectedFacetAnchor: tabAnchor});
-    this.props.onClickApply(selectedTab);
+    // this.props.onClickApply(selectedTab);
     let newTab = this.links[newTabIndex];
     window.location.replace('#tab' + newTabIndex.toString());
     newTab.focus();
+    this.props.searchBySelectedFacetFunction(selectedTab);
   }
 
   clickHandler(e,tabValue,tabAnchor,tab_id) {

@@ -1,12 +1,14 @@
 .returnLink {
   @include Kievit-Medium;
 
+  font-size: 0.8em;
+  text-align: center;
   display: block;
-  margin: 15px 0;
+  margin: -45px 0 45px;
   padding: 0 14px;
 
   a {
-    color: $COOLGRAY_COLOR;
+    color: $SEARCH_BLUE;
   }
 
   span {
@@ -20,7 +22,7 @@
   @include layout-at(8, $tablet-landscape) {
     @include grid-span(7, 1);;
 
-    margin: 0;
+    margin: -45px 0 45px;
     padding: 0;
 
     div {
