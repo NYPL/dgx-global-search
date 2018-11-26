@@ -10,6 +10,7 @@ import Actions from '../../actions/Actions.js';
 import ResultsItem from '../ResultsItem/ResultsItem.jsx';
 import { DivideLineIcon } from 'dgx-svg-icons';
 import { PaginationButton } from 'dgx-react-buttons';
+import TabItem from '../TabItem/TabItem.jsx';
 
 // Import libraries
 import { contains as _contains, map as _map } from 'underscore';
@@ -232,8 +233,15 @@ class Results extends React.Component {
         >
           {resultsNumberSuggestion}
         </p>
+        <TabItem
+          id='gs-tabs'
+          tabs={this.props.tabs}
+          selectedFacet={this.props.selectedFacet}
+          searchBySelectedFacetFunction={this.props.searchBySelectedFacetFunction}
+          />
         {(typeof results.length !== 'undefined') && results.length !== 0 &&
           <div>
+            <div className="clear-float"></div>
             <DivideLineIcon
               ariaHidden
               className={`${this.props.className}-divideLineIcon`}
@@ -245,9 +253,9 @@ class Results extends React.Component {
               viewBox="0 0 84 4"
               width="84"
             />
-            <ul id={this.props.id} className={this.props.className} ref="results">
+            <ol id={this.props.id} className={this.props.className} ref="results">
               {results}
-            </ul>
+            </ol>
             {results.length % 10 == 0 && this.renderSeeMoreButton(Math.min(this.props.amount - results.length, 10))}
           </div>
         }

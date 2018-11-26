@@ -10,7 +10,6 @@ import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
 import ReturnLink from '../ReturnLink/ReturnLink.jsx';
-import TabItem from '../TabItem/TabItem.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -72,7 +71,6 @@ class App extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
-    this.searchBySelectedFacet = this.searchBySelectedFacet.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
@@ -245,9 +243,11 @@ class App extends React.Component {
         id="gs-results"
         className="gs-results"
         searchKeyword={searchKeyword}
+        tabs={this.state.searchFacets}
         selectedFacet={this.state.selectedFacet}
         resultsStart={this.state.resultsStart}
         queriesForGA={this.state.queriesForGA}
+        searchBySelectedFacetFunction={this.searchBySelectedFacet.bind(this)}
       />
     );
   }
@@ -283,15 +283,9 @@ class App extends React.Component {
                 onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
               />
             </div>
-            <TabItem 
-              id='gs-tabs'  
-              tabs={this.state.searchFacets}
-              selectedFacet={this.state.selectedFacet}
-              onClickApply={this.searchBySelectedFacet}
-              />
           </div>
-          <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           {this.state.resultsComponentData}
+          <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
         </div>
 
         <Footer id="footer" className="footer" />
