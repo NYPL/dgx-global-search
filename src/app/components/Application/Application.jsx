@@ -261,7 +261,6 @@ class App extends React.Component {
   }
 
   render() {
-    {console.log(this.state.selectedTabId)}
     const inputValue = this.state.searchKeyword || '';
     const inputPlaceholder = (this.state.isKeywordValid) ?
       'What would you like to find?' : 'Please enter a keyword';
