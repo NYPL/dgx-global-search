@@ -3,20 +3,19 @@ import React from 'react';
 class TabItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      numberOfTabs: this.props.tabs.length,
-    };
     this.clickHandler = this.clickHandler.bind(this);
     this.links = [];
     this.sections = [];
 
     this.state = {
+      numberOfTabs: this.props.tabs.length,
       selectedFacet: this.props.selectedFacet,
       selectedFacetAnchor: 'All Results',
       mobileFilterExpanded: false
     };
 
       this.mobileHandler = this.mobileHandler.bind(this);
+      this.keyDownHandler = this.keyDownHandler.bind(this);
 
   }
 
@@ -33,25 +32,25 @@ class TabItem extends React.Component {
   }
 
   //switches tabs by updating state and href
-  switchTab(newTabIndex,selectedTab,tabAnchor) {
+  switchTab(newTabIndex,selectedTab,tabAnchor,tab_id) {
+    this.props.selectedTab(tab_id)
     this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: selectedTab, tabValue: selectedTab, selectedFacetAnchor: tabAnchor});
     // this.props.onClickApply(selectedTab);
     let newTab = this.links[newTabIndex];
-    window.location.replace(window.location.href.split('#')[0] + `#tab${newTabIndex}`);
+    window.location.replace('#tab' + newTabIndex.toString());
     newTab.focus();
     this.props.searchBySelectedFacetFunction(selectedTab);
   }
 
-  clickHandler(e,tabValue,tabAnchor) {
+  clickHandler(e,tabValue,tabAnchor,tab_id) {
     e.preventDefault();
     let clickedTab = e.currentTarget;
     let index = clickedTab.getAttribute('data');
-    this.switchTab(index,tabValue,tabAnchor);
+    this.switchTab(index,tabValue,tabAnchor,tab_id);
   }
 
   //enables navigation with arrow keys
   keyDownHandler(e) {
-    let panel = window.location.href.split("#")[1] ? this.sections[this.state.tabNumber] : this.default;
     const index = parseInt(e.currentTarget.getAttribute('data'));
     let dir = e.which === 37 ? index - 1 : e.which === 39 ? index + 1 : e.which === 40 ? 'down' : null;
     if (e.which === 32) {
@@ -59,8 +58,8 @@ class TabItem extends React.Component {
       this.clickHandler(e);
     }
     if (dir !== null) {
-      e.preventDefault();
-      dir === 'down' ? panel.focus() : dir <= this.state.numberOfTabs && 0 <= dir ? this.focusTab(dir) : void 0;
+       e.preventDefault();
+       dir === 'down' ? null : dir <= this.state.numberOfTabs && 0 <= dir ? this.focusTab(dir) : void 0;
     }
   }
 
@@ -114,11 +113,11 @@ class TabItem extends React.Component {
         <li key={`${j}`} value={tab.value} id={`tab${j}`} className={(this.state.selectedFacet === tab.value ? 'activeTab' : null) } role='presentation'>
          <a href={`#tab${j}`}
           id={`link${j}`}
-          tabIndex={!this.state.tabNumber ?  '0' : parseInt(this.state.tabNumber) === j ? null : -1}
+          tabIndex={this.state.selectedFacet === tab.value ? null : -1}
           aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
           role='tab'
           data={`${j}`}
-          onClick={e => this.clickHandler(e,tab.value,tab.anchor)}
+          onClick={e => this.clickHandler(e,tab.value,tab.anchor,j)}
           onKeyDown={this.keyDownHandler}
           ref={(input) => {this.links[`${j}`] = input;}}
           >{tab.anchor}
