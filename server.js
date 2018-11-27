@@ -48,7 +48,7 @@ app.use('/', apiRoutes);
 app.use('/', (req, res) => {
 
 // Change the page title based on having results or not. For accessibility purposes.
-const pageTitle = req.originalUrl == '/' ? 'Search NYPL.org' : "Search Results | NYPL.org";
+const pageTitle = req.originalUrl ==='/' ? 'Search NYPL.org' : "Search Results | NYPL.org";
 
 
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
