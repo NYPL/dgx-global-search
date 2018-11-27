@@ -214,7 +214,6 @@ class Results extends React.Component {
 
 
   selectedTab(tabIdValue){
-    console.log(tabIdValue)
     this.setState({tabIdValue: tabIdValue})
   }
 
