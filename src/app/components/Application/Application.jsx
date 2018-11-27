@@ -73,7 +73,6 @@ class App extends React.Component {
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
-    this.selectedTab = this.selectedTab.bind(this);
   }
 
   // Setting state in componentWillMount() helps us render the results for the first time before
@@ -223,11 +222,6 @@ class App extends React.Component {
         }
       );
     }
-  }
-
-  selectedTab(tabIdValue){
-    console.log(tabIdValue)
-    this.setState({tabIdValue: tabIdValue})
   }
 
 
