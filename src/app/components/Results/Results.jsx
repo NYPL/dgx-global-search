@@ -11,6 +11,7 @@ import ResultsItem from '../ResultsItem/ResultsItem.jsx';
 import { DivideLineIcon } from 'dgx-svg-icons';
 import { PaginationButton } from 'dgx-react-buttons';
 import TabItem from '../TabItem/TabItem.jsx';
+import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 
 // Import libraries
 import { contains as _contains, map as _map } from 'underscore';
@@ -222,6 +223,7 @@ class Results extends React.Component {
   render() {
     const results = this.getList(this.state.searchResults);
     let resultsNumberSuggestion = '';
+    const inputValue = this.props.searchKeyword || '';
     if (this.props.searchKeyword === '') {
       resultsNumberSuggestion = '';
     } else {
@@ -267,6 +269,7 @@ class Results extends React.Component {
               {results}
             </ol>
             {results.length % 10 == 0 && this.renderSeeMoreButton(Math.min(this.props.amount - results.length, 10))}
+            <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           </div>
         }
       </div>
