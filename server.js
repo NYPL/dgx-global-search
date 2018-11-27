@@ -46,6 +46,11 @@ app.use('*/src/client', express.static(INDEX_PATH));
 app.use('/', apiRoutes);
 
 app.use('/', (req, res) => {
+
+// Change the page title based on having results or not. For accessibility purposes.
+const pageTitle = req.originalUrl == '/' ? 'Search NYPL.org' : "Search Results | NYPL.org";
+
+
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
   const iso = new Iso();
@@ -56,7 +61,7 @@ app.use('/', (req, res) => {
   // First parameter references the ejs filename
   res.render('index', {
     application: iso.render(),
-    appTitle: appConfig.appTitle,
+    appTitle: pageTitle,
     favicon: appConfig.favIconPath,
     webpackPort: WEBPACK_DEV_PORT,
     appEnv: process.env.APP_ENV,
