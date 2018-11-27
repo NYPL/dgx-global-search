@@ -9,7 +9,6 @@ import Footer from '@nypl/dgx-react-footer';
 import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
-import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -74,6 +73,7 @@ class App extends React.Component {
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
+    this.selectedTab = this.selectedTab.bind(this);
   }
 
   // Setting state in componentWillMount() helps us render the results for the first time before
@@ -225,6 +225,12 @@ class App extends React.Component {
     }
   }
 
+  selectedTab(tabIdValue){
+    console.log(tabIdValue)
+    this.setState({tabIdValue: tabIdValue})
+  }
+
+
   /**
    * renderResults(searchKeyword, searchResultsArray, searchResultsLength)
    * The function renders the results of the search request.
@@ -238,6 +244,7 @@ class App extends React.Component {
   renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
     return (
       <Results
+        selectedTab={this.state.tabIdValue}
         amount={searchResultsLength}
         results={searchResultsArray}
         id="gs-results"
@@ -285,7 +292,6 @@ class App extends React.Component {
             </div>
           </div>
           {this.state.resultsComponentData}
-          <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
         </div>
 
         <Footer id="footer" className="footer" />

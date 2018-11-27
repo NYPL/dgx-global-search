@@ -11,6 +11,7 @@ import ResultsItem from '../ResultsItem/ResultsItem.jsx';
 import { DivideLineIcon } from 'dgx-svg-icons';
 import { PaginationButton } from 'dgx-react-buttons';
 import TabItem from '../TabItem/TabItem.jsx';
+import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 
 // Import libraries
 import { contains as _contains, map as _map } from 'underscore';
@@ -35,6 +36,8 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
+        this.selectedTab = this.selectedTab.bind(this);
+
   }
 
   componentDidMount() {
@@ -210,9 +213,16 @@ class Results extends React.Component {
     );
   }
 
+
+  selectedTab(tabIdValue){
+    this.setState({tabIdValue: tabIdValue})
+  }
+
+
   render() {
     const results = this.getList(this.state.searchResults);
     let resultsNumberSuggestion = '';
+    const inputValue = this.props.searchKeyword || '';
     if (this.props.searchKeyword === '') {
       resultsNumberSuggestion = '';
     } else {
@@ -226,7 +236,7 @@ class Results extends React.Component {
       'noResultMessage' : `${this.props.className}-length`;
 
     return (
-      <div className={`${this.props.className}-wrapper`}>
+      <div aria-labelledby={`link${this.props.selectedTab}`} className={`${this.props.className}-wrapper`}>
         <p
           className={resultMessageClass}
           aria-live="polite"
@@ -238,6 +248,7 @@ class Results extends React.Component {
           tabs={this.props.tabs}
           selectedFacet={this.props.selectedFacet}
           searchBySelectedFacetFunction={this.props.searchBySelectedFacetFunction}
+          selectedTab={this.selectedTab}
           />
         {(typeof results.length !== 'undefined') && results.length !== 0 &&
           <div>
@@ -257,6 +268,7 @@ class Results extends React.Component {
               {results}
             </ol>
             {results.length % 10 == 0 && this.renderSeeMoreButton(Math.min(this.props.amount - results.length, 10))}
+            <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           </div>
         }
       </div>
