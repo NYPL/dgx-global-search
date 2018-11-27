@@ -5,7 +5,7 @@ const ReturnLink = ({
   linkRoot,
   inputValue,
 }) => (
-  <div className="returnLink">
+  <div className="returnLink gs-results-paginationButton-wrapper">
     <a
       href={`${linkRoot}${inputValue}`}
     >

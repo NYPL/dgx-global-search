@@ -4,8 +4,8 @@
   font-size: 0.8em;
   text-align: center;
   display: block;
-  margin: -45px 0 45px;
-  padding: 0 14px;
+  position:relative;
+  top:-65px;
 
   a {
     color: $SEARCH_BLUE;
@@ -13,30 +13,5 @@
 
   span {
     color: $COOLGRAY_COLOR;
-  }
-
-  @include layout-at(7, $tablet-portrait) {
-    padding: 0 36px;
-  }
-
-  @include layout-at(8, $tablet-landscape) {
-    @include grid-span(7, 1);;
-
-    margin: -45px 0 45px;
-    padding: 0;
-
-    div {
-      float: right;
-      margin: 0 27px -27px 0;
-    }
-  }
-
-  @include layout-at(8, $desktop) {
-    div {
-      margin: 0;
-      float: right;
-      position: relative;
-      top: -4px;
-    }
   }
 }

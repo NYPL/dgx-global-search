@@ -9,7 +9,6 @@ import Footer from '@nypl/dgx-react-footer';
 import Results from '../Results/Results.jsx';
 import InputField from '../InputField/InputField.jsx';
 import SearchButton from '../SearchButton/SearchButton.jsx';
-import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -293,7 +292,6 @@ class App extends React.Component {
             </div>
           </div>
           {this.state.resultsComponentData}
-          <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
         </div>
 
         <Footer id="footer" className="footer" />
