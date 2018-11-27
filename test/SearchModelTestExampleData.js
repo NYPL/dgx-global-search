@@ -82,9 +82,19 @@ const presetFacets = [
           label: 'all_results',
         },
         {
+          anchor: 'Articles',
+          value: 'articles_databases',
+          label: 'articles_databases',
+        },
+        {
           anchor: 'Research Guides',
           value: 'research_guides',
           label: 'research_guides',
+        },
+        {
+          anchor: 'Events & Classes',
+          value: 'events_classes',
+          label: 'events_classes',
         },
         {
           anchor: 'Exhibitions',
@@ -92,30 +102,24 @@ const presetFacets = [
           label: 'exhibitions',
         },
         {
-          anchor: 'Audio / Visual',
-          value: 'audio_video',
-          label: 'audio_video',
-        },
-        {
-          anchor: 'Blog',
+          anchor: 'Blog Posts',
           value: 'blog_posts',
           label: 'blog_posts',
         },
         {
-          anchor: 'Events / Classes',
-          value: 'events_classes',
-          label: 'events_classes',
+          anchor: 'Audio & Visual',
+          value: 'audio_video',
+          label: 'audio_video',
         },
         {
-          anchor: 'Help',
+          anchor: 'Help Articles',
           value: 'help_articles',
           label: 'help_articles',
         },
         {
-          anchor: 'Articles',
-          value: 'articles_databases',
-          label: 'articles_databases',
-        },
-      ];
-
+          anchor: 'Locations',
+          value: 'locations',
+          label: 'locations',
+        }
+        ]
 export { testData, matchedResults, presetFacets };

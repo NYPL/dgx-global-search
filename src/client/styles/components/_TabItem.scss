@@ -140,7 +140,7 @@
   }
 
    ul[role="tablist"]>li.activeTab:hover {
-    background-color:#176E91;
+   background-color: darken(#176E91, 10% ) ;
   }
 
   ul[role="tablist"]>li[class="activeTab"]>a {
