@@ -33,6 +33,7 @@ const InputField = ({
     style={style}
     aria-label={label}
     aria-required="true"
+    role="search"
   />
 );
 

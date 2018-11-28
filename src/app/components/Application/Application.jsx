@@ -266,7 +266,7 @@ class App extends React.Component {
     return (
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
-        <div id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
+        <main id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <h1>NYPL.org Search <span>BETA</span></h1>
           <div id="gs-operations" className="gs-operations">
             <div id="gs-searchField" className="gs-searchField">
@@ -280,6 +280,7 @@ class App extends React.Component {
                   value={inputValue}
                   onKeyPress={this.triggerSubmit}
                   onChange={this.inputChange}
+                  label="NYPL Site Search"
                 />
               </div>
               <SearchButton
@@ -291,8 +292,7 @@ class App extends React.Component {
             </div>
           </div>
           {this.state.resultsComponentData}
-        </div>
-
+        </main>
         <Footer id="footer" className="footer" />
       </div>
     );
