@@ -26,7 +26,11 @@ history.listen(location => {
     action,
     pathname,
   } = location;
-  const searchKeyword = (pathname.split('/')[2]) ? pathname.split('/')[2] : '';
+
+  const keywordFromSearchBox = document.getElementById('gs-inputField').value;
+  const keywordFromPath = (pathname.split('/')[2]) ? pathname.split('/')[2] : '';
+  const searchKeyword = keywordFromSearchBox !== '' ? keywordFromSearchBox : keywordFromPath;
+
   const searchFacet = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
   const resultsStart = 0;
 
