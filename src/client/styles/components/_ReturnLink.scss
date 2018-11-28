@@ -1,11 +1,11 @@
 .returnLink {
-  @include Kievit-Medium;
+  @include Kievit-Book;
 
-  font-size: 0.8em;
+  font-size: 1em;
   text-align: center;
   display: block;
-  position:relative;
-  top:-65px;
+  position: relative;
+  top: -65px;
 
   a {
     color: $SEARCH_BLUE;
