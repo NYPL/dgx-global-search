@@ -76,12 +76,11 @@ class TabItem extends React.Component {
       <div className="tabbed">
 
       <div id='categoryTextDiv'>
-      <span id='categoryTextSpan'>Category</span>
+      <label htmlFor='category' id='categoryTextLabel'>Category</label>
       </div>
-
       <div onClick={this.mobileHandler} id="mobile-dropdown" className={this.state.mobileFilterExpanded ? "wrapper-dropdown active": "wrapper-dropdown"}  tabIndex="1">
-      <span>{this.state.selectedFacetAnchor}</span>
-      <ul className="dropdown">
+      <button aria-labelledby="categoryTextLabel category" id='category'>{this.state.selectedFacetAnchor}</button>
+      <ul role="listbox" className="dropdown">
 
       { this.props.tabs.map((tab, i) => {
         let j = i + 1;
@@ -91,7 +90,7 @@ class TabItem extends React.Component {
             id={`link${j}`}
             tabIndex={!this.state.tabNumber ?  '0' : parseInt(this.state.tabNumber) === j ? null : -1}
             aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
-            role='tab'
+            role='option'
             data={`${j}`}
             onClick={e => this.clickHandler(e,tab.value,tab.anchor)}
             onKeyDown={this.keyDownHandler}
