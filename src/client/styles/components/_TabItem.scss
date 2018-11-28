@@ -59,6 +59,34 @@
     text-align:center;
   }
 
+  div .tabbed select {
+   /* Size and position */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    min-width: 250px;
+    margin: 0 auto;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    float:left;
+    text-indent:70px;
+
+    /* Styles */
+    background: #fff;
+    border: 1px solid #176E91;
+    box-shadow: 0 1px 1px rgba(50,50,50,0.1);
+    cursor: pointer;
+    outline: none;
+
+    /* Font settings */
+    font-size:18px;
+    color: #176E91;
+    font-family:Kievit-book;
+    text-align:center;
+
+  }
+
   div .tabbed .wrapper-dropdown .dropdown {
     /* Size & position */
     position: absolute;

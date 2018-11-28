@@ -76,17 +76,17 @@ class TabItem extends React.Component {
       <div className="tabbed">
 
       <div id='categoryTextDiv'>
-      <label htmlFor='category' id='categoryTextLabel'>Category</label>
+      <label htmlFor='category' id='categoryTextSpan'>Category</label>
       </div>
-      <div onClick={this.mobileHandler} id="mobile-dropdown" className={this.state.mobileFilterExpanded ? "wrapper-dropdown active": "wrapper-dropdown"}  tabIndex="1">
-      <button aria-labelledby="categoryTextLabel category" id='category'>{this.state.selectedFacetAnchor}</button>
-      <ul role="listbox" className="dropdown">
-
+      <select aria-labelledby="categoryTextSpan category" id='category'>{this.state.selectedFacetAnchor}
       { this.props.tabs.map((tab, i) => {
         let j = i + 1;
         return (
-          <li key={`${j}`} className={(parseInt(this.state.tabNumber) === j ? 'activeTab' : null) } >
-           <a href={`#tab${j}`}
+           <option 
+            key={`${j}`}
+            value={tab.value}
+            className={(this.state.selectedFacet === tab.value ? 'activeTab' : null) }
+            href={`#tab${j}`}
             id={`link${j}`}
             tabIndex={!this.state.tabNumber ?  '0' : parseInt(this.state.tabNumber) === j ? null : -1}
             aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
@@ -96,13 +96,11 @@ class TabItem extends React.Component {
             onKeyDown={this.keyDownHandler}
             ref={(input) => {this.links[`${j}`] = input;}}
             >{tab.anchor}
-           </a>
-          </li>
+           </option>
           )
       })
     }
-    </ul>
-    </div>
+    </select>
 
 
     <ul role='tablist'>
