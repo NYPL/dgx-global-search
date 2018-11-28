@@ -238,6 +238,7 @@ class Results extends React.Component {
     return (
       <div aria-labelledby={`link${this.props.selectedTab}`} className={`${this.props.className}-wrapper`}>
         <p
+          id="search-results-summary"
           className={resultMessageClass}
           aria-live="polite"
         >
