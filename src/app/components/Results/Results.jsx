@@ -102,7 +102,12 @@ class Results extends React.Component {
    * to prevent an error when that site does not have SSL enabled.
    */
   transformHttpsToHttp(link){
-    const transformationRequired = (link.includes('//menus.nypl') || link.includes('//exhibitions.nypl'));
+    const transformationRequired = (
+      link.includes('//menus.nypl.org')
+      || link.includes('//exhibitions.nypl.org')
+      || link.includes('//static.nypl.org')
+      || link.includes('//web-static.nypl.org')
+    );
     if (link && transformationRequired) {
       return link.replace('https:', 'http:')
     } else {
