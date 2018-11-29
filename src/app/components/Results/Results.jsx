@@ -103,7 +103,7 @@ class Results extends React.Component {
    */
   transformHttpsToHttp(link){
     const transformationRequired = (link.includes('//menus.nypl') || link.includes('//exhibitions.nypl'));
-    if (link != '' && transformationRequired) {
+    if (link && transformationRequired) {
       return link.replace('https:', 'http:')
     } else {
       return link
