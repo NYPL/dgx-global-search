@@ -1,3 +1,5 @@
+import { filterNames } from '../src/app/utils/FilterNames.js';
+
 const testData = {
   noItem: {
     items: [
@@ -75,51 +77,5 @@ const matchedResults = {
   ],
 };
 
-const presetFacets = [
-        {
-          anchor: 'All Results',
-          value: '',
-          label: 'all_results',
-        },
-        {
-          anchor: 'Articles',
-          value: 'articles_databases',
-          label: 'articles_databases',
-        },
-        {
-          anchor: 'Research Guides',
-          value: 'research_guides',
-          label: 'research_guides',
-        },
-        {
-          anchor: 'Events & Classes',
-          value: 'events_classes',
-          label: 'events_classes',
-        },
-        {
-          anchor: 'Exhibitions',
-          value: 'exhibitions',
-          label: 'exhibitions',
-        },
-        {
-          anchor: 'Blog Posts',
-          value: 'blog_posts',
-          label: 'blog_posts',
-        },
-        {
-          anchor: 'Audio & Visual',
-          value: 'audio_video',
-          label: 'audio_video',
-        },
-        {
-          anchor: 'Help Articles',
-          value: 'help_articles',
-          label: 'help_articles',
-        },
-        {
-          anchor: 'Locations',
-          value: 'locations',
-          label: 'locations',
-        }
-        ]
+const presetFacets = filterNames;
 export { testData, matchedResults, presetFacets };
