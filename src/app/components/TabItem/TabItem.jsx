@@ -35,9 +35,9 @@ class TabItem extends React.Component {
   switchTab(newTabIndex,selectedTab,tabAnchor,tab_id) {
     this.props.selectedTab(tab_id)
     this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: selectedTab, tabValue: selectedTab, selectedFacetAnchor: tabAnchor});
-    // this.props.onClickApply(selectedTab);
     let newTab = this.links[newTabIndex];
-    window.location.replace('#tab' + newTabIndex.toString());
+    // if you use '#tab' without the underscore then the page will jump, because a div exists with that ID
+    window.location.replace('#_tab' + newTabIndex.toString());
     newTab.focus();
     this.props.searchBySelectedFacetFunction(selectedTab);
   }
@@ -87,8 +87,7 @@ class TabItem extends React.Component {
         let j = i + 1;
         return (
           <li key={`${j}`} className={(parseInt(this.state.tabNumber) === j ? 'activeTab' : null) } >
-           <a href={`#tab${j}`}
-            id={`link${j}`}
+           <a href={`#_tab${j}`}
             tabIndex={!this.state.tabNumber ?  '0' : parseInt(this.state.tabNumber) === j ? null : -1}
             aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
             role='tab'
@@ -111,8 +110,7 @@ class TabItem extends React.Component {
       let j = i + 1;
       return (
         <li key={`${j}`} value={tab.value} id={`tab${j}`} className={(this.state.selectedFacet === tab.value ? 'activeTab' : null) } role='presentation'>
-         <a href={`#tab${j}`}
-          id={`link${j}`}
+         <a href={`#_tab${j}`}
           tabIndex={this.state.selectedFacet === tab.value ? null : -1}
           aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
           role='tab'
