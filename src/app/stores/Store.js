@@ -1,4 +1,5 @@
 import Actions from '../actions/Actions.js';
+import { filterNames } from '../utils/FilterNames.js';
 import alt from 'dgx-alt-center';
 
 class SearchStore {
@@ -23,54 +24,7 @@ class SearchStore {
       this.selectedFacet = '';
       this.resultsStart = 0;
       this.resultsIncrement = 10;
-      this.searchFacets = [
-        {
-          anchor: 'All Results',
-          value: '',
-          label: 'all_results',
-        },
-        {
-          anchor: 'Articles',
-          value: 'articles_databases',
-          label: 'articles_databases',
-        },
-        {
-          anchor: 'Research Guides',
-          value: 'research_guides',
-          label: 'research_guides',
-        },
-        {
-          anchor: 'Events & Classes',
-          value: 'events_classes',
-          label: 'events_classes',
-        },
-        {
-          anchor: 'Exhibitions',
-          value: 'exhibitions',
-          label: 'exhibitions',
-        },
-        {
-          anchor: 'Blog Posts',
-          value: 'blog_posts',
-          label: 'blog_posts',
-        },
-        {
-          anchor: 'Audio & Visual',
-          value: 'audio_video',
-          label: 'audio_video',
-        },
-        {
-          anchor: 'Help Articles',
-          value: 'help_articles',
-          label: 'help_articles',
-        },
-        {
-          anchor: 'Locations',
-          value: 'locations',
-          label: 'locations',
-        }
-       
-      ];
+      this.searchFacets = filterNames;
       this.queriesForGA = {
         searchedFrom: '',
         timestamp: '',
