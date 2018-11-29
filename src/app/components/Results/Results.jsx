@@ -231,10 +231,9 @@ class Results extends React.Component {
     }
     if (this.props.selectedFacet !== undefined && this.props.selectedFacet !== ''){
       const tabArray = this.props.tabs;
-      const selectedFacet = this.props.selectedFacet
       var selectedTabName = '';
-      tabArray.forEach(function(tab) {
-        if (tab['label'] === selectedFacet){
+      tabArray.forEach((tab) => {
+        if (tab['label'] === this.props.selectedFacet){
           selectedTabName = tab['resultSummarydisplayName'];
         }
       });
