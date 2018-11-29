@@ -96,6 +96,20 @@ class Results extends React.Component {
     }
   }
 
+  /**
+   * transformHttpsToHttp(link)
+   * The function converts certain NYPL subdomains to http
+   * to prevent an error when that site does not have SSL enabled.
+   */
+  transformHttpsToHttp(link){
+    const transformationRequired = (link.includes('//menus.nypl') || link.includes('//exhibitions.nypl'));
+    if (link && transformationRequired) {
+      return link.replace('https:', 'http:')
+    } else {
+      return link
+    }
+  }
+
 
   /**
    * getList(itemsArray)
@@ -112,7 +126,7 @@ class Results extends React.Component {
         index={index}
         ref={`result-${index}`}
         title={item.title}
-        link={item.link}
+        link={this.transformHttpsToHttp(item.link)}
         snippet={this.parseSnippet(item.snippet)}
         thumbnailSrc={item.thumbnailSrc}
         label={item.label}
