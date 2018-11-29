@@ -1,3 +1,5 @@
+import { filterNames } from './FilterNames.js';
+
 // Import libraries
 import {
   map as _map,
@@ -36,54 +38,10 @@ const fetchResultLength = (data) => {
  *
  * @return {Array}
  */
-const fetchSearchFacetsList = () =>
-      [
-        {
-          anchor: 'All Results',
-          value: '',
-          label: 'all_results',
-        },
-        {
-          anchor: 'Articles',
-          value: 'articles_databases',
-          label: 'articles_databases',
-        },
-        {
-          anchor: 'Research Guides',
-          value: 'research_guides',
-          label: 'research_guides',
-        },
-        {
-          anchor: 'Events & Classes',
-          value: 'events_classes',
-          label: 'events_classes',
-        },
-        {
-          anchor: 'Exhibitions',
-          value: 'exhibitions',
-          label: 'exhibitions',
-        },
-        {
-          anchor: 'Blog Posts',
-          value: 'blog_posts',
-          label: 'blog_posts',
-        },
-        {
-          anchor: 'Audio & Visual',
-          value: 'audio_video',
-          label: 'audio_video',
-        },
-        {
-          anchor: 'Help Articles',
-          value: 'help_articles',
-          label: 'help_articles',
-        },
-        {
-          anchor: 'Locations',
-          value: 'locations',
-          label: 'locations',
-        }
-      ]
+const fetchSearchFacetsList = () => {
+  return filterNames;
+}
+
 /**
  * extractSearchElements(requestCombo)
  * The function extracts the two searchElements from a searchRequest.

@@ -230,7 +230,15 @@ class Results extends React.Component {
         'No items were found' : `Found about ${this.props.amount.toLocaleString()} results for "${this.props.searchKeyword}"`;
     }
     if (this.props.selectedFacet !== undefined && this.props.selectedFacet !== ''){
-      resultsNumberSuggestion += ` in ${this.props.selectedFacet.replace('_', ' ')}`;
+      const tabArray = this.props.tabs;
+      const selectedFacet = this.props.selectedFacet
+      var selectedTabName = '';
+      tabArray.forEach(function(tab) {
+        if (tab['label'] === selectedFacet){
+          selectedTabName = tab['resultSummarydisplayName'];
+        }
+      });
+      resultsNumberSuggestion += ` in ${selectedTabName}`;
     }
     const resultMessageClass = (results.length === 0) ?
       'noResultMessage' : `${this.props.className}-length`;
