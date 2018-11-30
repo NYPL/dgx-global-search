@@ -9,7 +9,7 @@ const ReturnLink = ({
     <a
       href={`${linkRoot}${inputValue}`}
     >
-      Visit Old Version of NYPL.org Search >
+      View your search in our previous search tool >
     </a>
   </div>
 );
