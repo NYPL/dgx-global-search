@@ -77,8 +77,8 @@ class TabItem extends React.Component {
       <label htmlFor='category' id='categoryTextSpan'>Category</label>
       </div>
       <div id='svg-icon'>
-            {icon}
-        </div>
+        {icon}
+      </div>
       <select value={this.state.selectValue} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>{this.state.selectedFacetAnchor}
       { this.props.tabs.map((tab, i) => {
         let j = i + 1;
