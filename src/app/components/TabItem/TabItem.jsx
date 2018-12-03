@@ -43,6 +43,7 @@ class TabItem extends React.Component {
   }
 
   clickHandler(e,tabValue,tabAnchor,tab_id) {
+    alert('test');
     e.preventDefault();
     let clickedTab = e.currentTarget;
     let index = clickedTab.getAttribute('data');
@@ -92,7 +93,7 @@ class TabItem extends React.Component {
             aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
             role='option'
             data={`${j}`}
-            onClick={e => this.clickHandler(e,tab.value,tab.anchor)}
+            onChange={e => this.clickHandler(e,tab.value,tab.anchor)}
             onKeyDown={this.keyDownHandler}
             ref={(input) => {this.links[`${j}`] = input;}}
             >{tab.anchor}
