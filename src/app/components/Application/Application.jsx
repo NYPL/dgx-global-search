@@ -67,7 +67,7 @@ class App extends React.Component {
       {
         resultsComponentData: null,
         isLoading: false,
-        isGAQuerySent: false
+        isGAQuerySent: false,
       },
       Store.getState()
     );
@@ -77,6 +77,7 @@ class App extends React.Component {
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
+    this.searchBySelectedFacet = this.searchBySelectedFacet.bind(this);
   }
 
   // Setting state in componentWillMount() helps us render the results for the first time before
@@ -253,7 +254,7 @@ class App extends React.Component {
         selectedFacet={this.state.selectedFacet}
         resultsStart={this.state.resultsStart}
         queriesForGA={this.state.queriesForGA}
-        searchBySelectedFacetFunction={this.searchBySelectedFacet.bind(this)}
+        searchBySelectedFacetFunction={this.searchBySelectedFacet}
       />
     );
   }
@@ -292,7 +293,7 @@ class App extends React.Component {
               <a
                 href={
                   `https://browse.nypl.org/iii/encore/search/C__S${this.state.searchKeyword}__` +
-                  `Orightresult__U?lang=eng&suite=def`
+                  'Orightresult__U?lang=eng&suite=def'
                 }
               >
                 Find a book, movie, or music instead >
