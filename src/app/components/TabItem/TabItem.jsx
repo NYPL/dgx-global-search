@@ -14,9 +14,7 @@ class TabItem extends React.Component {
     };
 
     this.keyDownHandler = this.keyDownHandler.bind(this);
-    this.alertus = this.alertus.bind(this);
-    this.optionClick = this.optionClick.bind(this);
-    this.changeMe = this.changeMe.bind(this);
+    this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
   }
 
   // componentDidMount will set the initial tab, either 1 or the number fetched from the
@@ -64,22 +62,9 @@ class TabItem extends React.Component {
     }
   }
 
-  alertus(e){
-    console.log(e)
-    console.log(this.inputElement)
-    console.log(this.inputElement.click())
-    this.inputElement.click()
-    //debugger;
+  updateSelectedFacetMobile(e){
+    this.props.searchBySelectedFacetFunction(e.target.value);
   }
-
-  optionClick(e){
-    console.log("You clicked an option")
-  }
-
-  changeMe(e){
-    console.log("new option selected")
-  }
-
 
   render() {
 
@@ -90,12 +75,11 @@ class TabItem extends React.Component {
       <div id='categoryTextDiv'>
       <label htmlFor='category' id='categoryTextSpan'>Category</label>
       </div>
-      <select  onChange={this.changeMe} ref={input => this.inputElement = input}  onKeyDown={this.alertus} aria-labelledby="categoryTextSpan category" id='category'>{this.state.selectedFacetAnchor}
+      <select value={this.state.selectValue} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>{this.state.selectedFacetAnchor}
       { this.props.tabs.map((tab, i) => {
         let j = i + 1;
         return (
            <option 
-            ref={input => this.inputElement = input}
             key={`${j}`}
             value={tab.value}
             className={(this.state.selectedFacet === tab.value ? 'activeTab' : null) }
@@ -105,7 +89,6 @@ class TabItem extends React.Component {
             aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
             role='option'
             data={`${j}`}
-            onClick={this.optionClick}
              >{tab.anchor}
            </option>
           )
