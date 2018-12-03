@@ -8,6 +8,7 @@
 - Fixing JSON display bug
 - Changing filter values
 - Showing ARIA-live region on initial load of search page
+- Updating the syntax for better formatting codes in Results.jsx
 
 ### v0.3.10
 #### Updated

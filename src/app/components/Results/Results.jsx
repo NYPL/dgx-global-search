@@ -244,10 +244,8 @@ class Results extends React.Component {
       resultsNumberSuggestion = '';
     } else {
       resultsNumberSuggestion = (results.length === 0) ?
-        // The argument for replace() is to generate the thousands separator
-        // both on Safari and other browsers
-        'No items were found' : 'Found about ' +
-        `${this.props.amount.toString().replace(/.(?=(?:.{3})+$)/g, '$&,')} results for ` +
+        'No items were found' :
+        `Found about ${this.props.amount.toLocaleString()} results for ` +
         `"${this.props.searchKeyword}"`;
     }
     if (this.props.selectedFacet !== undefined && this.props.selectedFacet !== '') {
