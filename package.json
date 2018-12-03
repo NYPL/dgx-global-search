@@ -31,6 +31,7 @@
   "dependencies": {
     "@nypl/dgx-header-component": "2.4.15",
     "@nypl/dgx-react-footer": "0.5.1",
+    "@nypl/dgx-svg-icons": "^0.3.8",
     "axios": "0.9.1",
     "babel-core": "6.24.0",
     "babel-loader": "6.4.1",

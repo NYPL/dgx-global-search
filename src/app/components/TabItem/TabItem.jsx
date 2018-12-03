@@ -1,4 +1,5 @@
 import React from 'react';
+import { GenericWedgeIcon } from '@nypl/dgx-svg-icons';
 
 class TabItem extends React.Component {
   constructor(props) {
@@ -67,6 +68,7 @@ class TabItem extends React.Component {
 
   render() {
 
+    let icon = <GenericWedgeIcon className="dropDownIcon" ariaHidden focusable={false} />;
 
     return (
       <div className="tabbed">
@@ -74,6 +76,9 @@ class TabItem extends React.Component {
       <div id='categoryTextDiv'>
       <label htmlFor='category' id='categoryTextSpan'>Category</label>
       </div>
+      <div id='svg-icon'>
+            {icon}
+        </div>
       <select value={this.state.selectValue} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>{this.state.selectedFacetAnchor}
       { this.props.tabs.map((tab, i) => {
         let j = i + 1;
