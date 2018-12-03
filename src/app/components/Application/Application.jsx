@@ -290,14 +290,16 @@ class App extends React.Component {
                 label="SEARCH"
                 onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
               />
-              <a
-                href={
-                  `https://browse.nypl.org/iii/encore/search/C__S${this.state.searchKeyword}__` +
-                  'Orightresult__U?lang=eng&suite=def'
-                }
-              >
-                Find a book, movie, or music instead >
-              </a>
+              <div className="gs-search-catalog-link-wrapper">
+                <a
+                  href={
+                    `https://browse.nypl.org/iii/encore/search/C__S${this.state.searchKeyword}__` +
+                    'Orightresult__U?lang=eng&suite=def'
+                  }
+                >
+                  Find a book, movie, or music instead >
+                </a>
+              </div>
             </div>
           </div>
           {this.state.resultsComponentData}
