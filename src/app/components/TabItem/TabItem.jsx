@@ -41,7 +41,6 @@ class TabItem extends React.Component {
   }
 
   clickHandler(e,tabValue,tabAnchor,tab_id) {
-    alert('test');
     e.preventDefault();
     let clickedTab = e.currentTarget;
     let index = clickedTab.getAttribute('data');
