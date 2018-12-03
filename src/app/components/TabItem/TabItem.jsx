@@ -10,13 +10,13 @@ class TabItem extends React.Component {
     this.state = {
       numberOfTabs: this.props.tabs.length,
       selectedFacet: this.props.selectedFacet,
-      selectedFacetAnchor: 'All Results',
-      mobileFilterExpanded: false
+      selectedFacetAnchor: 'All Results'
     };
 
-      this.mobileHandler = this.mobileHandler.bind(this);
-      this.keyDownHandler = this.keyDownHandler.bind(this);
-
+    this.keyDownHandler = this.keyDownHandler.bind(this);
+    this.alertus = this.alertus.bind(this);
+    this.optionClick = this.optionClick.bind(this);
+    this.changeMe = this.changeMe.bind(this);
   }
 
   // componentDidMount will set the initial tab, either 1 or the number fetched from the
@@ -64,9 +64,20 @@ class TabItem extends React.Component {
     }
   }
 
-  mobileHandler(){
-      const currentState = this.state.mobileFilterExpanded;
-      this.setState({ mobileFilterExpanded: !currentState });
+  alertus(e){
+    console.log(e)
+    console.log(this.inputElement)
+    console.log(this.inputElement.click())
+    this.inputElement.click()
+    //debugger;
+  }
+
+  optionClick(e){
+    console.log("You clicked an option")
+  }
+
+  changeMe(e){
+    console.log("new option selected")
   }
 
 
@@ -79,11 +90,12 @@ class TabItem extends React.Component {
       <div id='categoryTextDiv'>
       <label htmlFor='category' id='categoryTextSpan'>Category</label>
       </div>
-      <select aria-labelledby="categoryTextSpan category" id='category'>{this.state.selectedFacetAnchor}
+      <select  onChange={this.changeMe} ref={input => this.inputElement = input}  onKeyDown={this.alertus} aria-labelledby="categoryTextSpan category" id='category'>{this.state.selectedFacetAnchor}
       { this.props.tabs.map((tab, i) => {
         let j = i + 1;
         return (
            <option 
+            ref={input => this.inputElement = input}
             key={`${j}`}
             value={tab.value}
             className={(this.state.selectedFacet === tab.value ? 'activeTab' : null) }
@@ -93,10 +105,8 @@ class TabItem extends React.Component {
             aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
             role='option'
             data={`${j}`}
-            onChange={e => this.clickHandler(e,tab.value,tab.anchor)}
-            onKeyDown={this.keyDownHandler}
-            ref={(input) => {this.links[`${j}`] = input;}}
-            >{tab.anchor}
+            onClick={this.optionClick}
+             >{tab.anchor}
            </option>
           )
       })
