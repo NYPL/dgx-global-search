@@ -1,13 +1,14 @@
 ## Changelog
 ### v0.3.12
 #### Updated
-- Note: we'll add all changes for Sprint 24 in this section and will delete this line on Nov 29, 2018.
+- Note: we'll add all changes here until the deployment around December 11th
 - Removing role and aria-atomic from area that announces the search results
 - Changing the label for the search field
 - Removing loading screen
 - Fixing JSON display bug
 - Changing filter values
 - Showing ARIA-live region on initial load of search page
+- Making a div with a role of "search" that contains search functionality & results
 
 ### v0.3.10
 #### Updated

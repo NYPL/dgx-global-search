@@ -262,7 +262,7 @@ class Results extends React.Component {
       'noResultMessage' : `${this.props.className}-length`;
 
     return (
-      <div aria-labelledby={`link${this.props.selectedTab}`} className={`${this.props.className}-wrapper`}>
+      <div className={`${this.props.className}-wrapper`}>
         <p
           id="search-results-summary"
           className={resultMessageClass}
