@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class TabItem extends React.Component {
   constructor(props) {
@@ -7,16 +8,19 @@ class TabItem extends React.Component {
     this.links = [];
     this.sections = [];
 
+    const {
+      tabs,
+      selectedFacet,
+    } = this.props;
+
     this.state = {
-      numberOfTabs: this.props.tabs.length,
-      selectedFacet: this.props.selectedFacet,
+      numberOfTabs: tabs.length,
+      selectedFacet: selectedFacet,
       selectedFacetAnchor: 'All Results',
-      mobileFilterExpanded: false
     };
 
-      this.mobileHandler = this.mobileHandler.bind(this);
-      this.keyDownHandler = this.keyDownHandler.bind(this);
-
+    this.keyDownHandler = this.keyDownHandler.bind(this);
+    this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
   }
 
   // componentDidMount will set the initial tab, either 1 or the number fetched from the
@@ -32,106 +36,147 @@ class TabItem extends React.Component {
   }
 
   //switches tabs by updating state and href
-  switchTab(newTabIndex,selectedTab,tabAnchor,tab_id) {
-    this.props.selectedTab(tab_id)
-    this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: selectedTab, tabValue: selectedTab, selectedFacetAnchor: tabAnchor});
-    // this.props.onClickApply(selectedTab);
+  switchTab(newTabIndex, tab, tabAnchor, tabId) {
+    const {
+      saveSelectedTabValue,
+      searchBySelectedFacetFunction
+    } = this.props;
+    saveSelectedTabValue(tabId);
+    this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab, selectedFacetAnchor: tabAnchor});
     let newTab = this.links[newTabIndex];
-    window.location.replace('#tab' + newTabIndex.toString());
+    window.location.replace('#_tab' + newTabIndex.toString());
     newTab.focus();
-    this.props.searchBySelectedFacetFunction(selectedTab);
+    searchBySelectedFacetFunction(tab);
   }
 
-  clickHandler(e,tabValue,tabAnchor,tab_id) {
+  clickHandler(e, tabValue, tabAnchor, tabId) {
     e.preventDefault();
     let clickedTab = e.currentTarget;
     let index = clickedTab.getAttribute('data');
-    this.switchTab(index,tabValue,tabAnchor,tab_id);
+    this.switchTab(index, tabValue, tabAnchor, tabId);
   }
 
   //enables navigation with arrow keys
-  keyDownHandler(e) {
+  keyDownHandler(e, tabValue, tabAnchor, tabId) {
+    const {
+      numberOfTabs
+    } = this.state
     const index = parseInt(e.currentTarget.getAttribute('data'));
-    let dir = e.which === 37 ? index - 1 : e.which === 39 ? index + 1 : e.which === 40 ? 'down' : null;
-    if (e.which === 32) {
+    let targetTabIndex;
+    // 37 is left
+    if (e.which === 37) {
+      targetTabIndex = index - 1;
+    } else if (e.which === 39) {
+    // 39 is right
+      targetTabIndex = index + 1;
+    } else if (e.which === 40) {
+    // 40 is down
+      targetTabIndex = 'down';
+    } else if (e.which === 32) {
+      // 32 is the space key
       e.preventDefault();
-      this.clickHandler(e);
+      this.clickHandler(e, tabValue, tabAnchor, tabId);
+    } else {
+      targetTabIndex = null;
     }
-    if (dir !== null) {
+    if (targetTabIndex !== null) {
        e.preventDefault();
-       dir === 'down' ? null : dir <= this.state.numberOfTabs && 0 <= dir ? this.focusTab(dir) : void 0;
+       if (targetTabIndex !== "down" && targetTabIndex <= numberOfTabs && 0 <= targetTabIndex) {
+         this.focusTab(targetTabIndex);
+       } else if (targetTabIndex === "down") {
+         let nextElement;
+         if (document.getElementsByClassName("gs-resultsItem-link")[0]) {
+           nextElement = document.getElementsByClassName("gs-resultsItem-link")[0];
+         } else {
+           nextElement = document.getElementsByClassName("linkItemList")[0].childNodes[0].childNodes[0];
+         }
+         nextElement.focus();
+       }
     }
   }
 
-  mobileHandler(){
-      const currentState = this.state.mobileFilterExpanded;
-      this.setState({ mobileFilterExpanded: !currentState });
+  updateSelectedFacetMobile(e){
+    const {
+      searchBySelectedFacetFunction
+    } = this.props;
+    searchBySelectedFacetFunction(e.target.value);
   }
-
 
   render() {
+    const {
+      tabNumber,
+      selectedFacet,
+      selectedFacetAnchor,
+      selectValue
+    } = this.state
 
+    const {
+      tabs
+    } = this.props
 
     return (
       <div className="tabbed">
 
-      <div id='categoryTextDiv'>
-      <span id='categoryTextSpan'>Category</span>
-      </div>
+        <div id='categoryTextDiv'>
+          <label htmlFor='category' id='categoryTextSpan'>Category</label>
+        </div>
 
-      <div onClick={this.mobileHandler} id="mobile-dropdown" className={this.state.mobileFilterExpanded ? "wrapper-dropdown active": "wrapper-dropdown"}  tabIndex="1">
-      <span>{this.state.selectedFacetAnchor}</span>
-      <ul className="dropdown">
-
-      { this.props.tabs.map((tab, i) => {
-        let j = i + 1;
-        return (
-          <li key={`${j}`} className={(parseInt(this.state.tabNumber) === j ? 'activeTab' : null) } >
-           <a href={`#tab${j}`}
-            id={`link${j}`}
-            tabIndex={!this.state.tabNumber ?  '0' : parseInt(this.state.tabNumber) === j ? null : -1}
-            aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
-            role='tab'
-            data={`${j}`}
-            onClick={e => this.clickHandler(e,tab.value,tab.anchor)}
-            onKeyDown={this.keyDownHandler}
-            ref={(input) => {this.links[`${j}`] = input;}}
-            >{tab.anchor}
-           </a>
-          </li>
-          )
-      })
-    }
-    </ul>
-    </div>
+        <select className="form-control input-lg" value={selectValue} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>
+          {selectedFacetAnchor}
+          { tabs.map((tab, i) => {
+            let j = i + 1;
+            return (
+              <option
+                key={`${j}`}
+                value={tab.value}
+                className={(selectedFacet === tab.value ? 'activeTab' : null)}
+                href={`#tab${j}`}
+                id={`link${j}`}
+                tabIndex={!tabNumber ?  '0' : parseInt(tabNumber) === j ? null : -1}
+                aria-selected={tabNumber && j === parseInt(tabNumber) ? true: false}
+                data={`${j}`}
+              >
+                {tab.anchor}
+              </option>
+            )
+          })
+        }
+        </select>
 
 
-    <ul role='tablist'>
-    { this.props.tabs.map((tab, i) => {
-      let j = i + 1;
-      return (
-        <li key={`${j}`} value={tab.value} id={`tab${j}`} className={(this.state.selectedFacet === tab.value ? 'activeTab' : null) } role='presentation'>
-         <a href={`#tab${j}`}
-          id={`link${j}`}
-          tabIndex={this.state.selectedFacet === tab.value ? null : -1}
-          aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
-          role='tab'
-          data={`${j}`}
-          onClick={e => this.clickHandler(e,tab.value,tab.anchor,j)}
-          onKeyDown={this.keyDownHandler}
-          ref={(input) => {this.links[`${j}`] = input;}}
-          >{tab.anchor}
-         </a>
-        </li>
+        <ul role='tablist'>
+          { tabs.map((tab, i) => {
+            let j = i + 1;
+            return (
+              <li key={`${j}`} value={tab.value} id={`tab${j}`} className={(selectedFacet === tab.value ? 'activeTab' : null)} role='presentation'>
+                <a
+                  href={`#_tab${j}`}
+                  id={`link${j}`}
+                  tabIndex={selectedFacet === tab.value ? null : -1}
+                  aria-selected={tabNumber && j === parseInt(tabNumber) ? true: false}
+                  role='tab'
+                  data={`${j}`}
+                  onClick={e => this.clickHandler(e, tab.value, tab.anchor, j)}
+                  onKeyDown={e => this.keyDownHandler(e, tab.value, tab.anchor, j)}
+                  ref={(input) => {this.links[`${j}`] = input;}}
+                >
+                  {tab.anchor}
+                </a>
+              </li>
         )
     })
   }
-  </ul>
-  </div>
+        </ul>
+      </div>
   );
   }
 }
 
-
+TabItem.propTypes = {
+  tabs: PropTypes.array,
+  selectedFacet: PropTypes.string,
+  saveSelectedTabValue: PropTypes.func,
+  searchBySelectedFacetFunction: PropTypes.func,
+};
 
 export default TabItem;

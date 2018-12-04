@@ -267,31 +267,33 @@ class App extends React.Component {
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
         <main id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
-          <h1>NYPL.org Search <span>BETA</span></h1>
-          <div id="gs-operations" className="gs-operations">
-            <div id="gs-searchField" className="gs-searchField">
-              <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
-                <label htmlFor="gs-inputField" className="visuallyHidden">Search NYPL.org</label>
-                <InputField
-                  id="gs-inputField"
-                  className="gs-inputField"
-                  type="text"
-                  placeholder={inputPlaceholder}
-                  value={inputValue}
-                  onKeyPress={this.triggerSubmit}
-                  onChange={this.inputChange}
-                  label="NYPL Site Search"
+          <div aria-label="NYPL Site Search" role="search">
+            <h1>NYPL.org Search <span>BETA</span></h1>
+            <div id="gs-operations" className="gs-operations">
+              <div id="gs-searchField" className="gs-searchField">
+                <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
+                  <label htmlFor="gs-inputField" className="visuallyHidden">Search NYPL.org</label>
+                  <InputField
+                    id="gs-inputField"
+                    className="gs-inputField"
+                    type="text"
+                    placeholder={inputPlaceholder}
+                    value={inputValue}
+                    onKeyPress={this.triggerSubmit}
+                    onChange={this.inputChange}
+                    label="NYPL Site Search"
+                  />
+                </div>
+                <SearchButton
+                  id="gs-searchButton"
+                  className="gs-searchButton"
+                  label="SEARCH"
+                  onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
                 />
               </div>
-              <SearchButton
-                id="gs-searchButton"
-                className="gs-searchButton"
-                label="SEARCH"
-                onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
-              />
             </div>
+            {this.state.resultsComponentData}
           </div>
-          {this.state.resultsComponentData}
         </main>
         <Footer id="footer" className="footer" />
       </div>
