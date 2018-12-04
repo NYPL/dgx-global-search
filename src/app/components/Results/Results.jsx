@@ -244,7 +244,7 @@ class Results extends React.Component {
       resultsNumberSuggestion = '';
     } else {
       resultsNumberSuggestion = (results.length === 0) ?
-        'No items were found' :
+        'No results were found' :
         `Found about ${this.props.amount.toLocaleString()} results for ` +
         `"${this.props.searchKeyword}"`;
     }
