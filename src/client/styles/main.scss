@@ -132,7 +132,7 @@ header {
   .gs-search-catalog-link-wrapper {
     @include Kievit-Book;
 
-    font-size: 16px;
+    font-size: 18px;
     padding: 0 14px;
 
     @include min-screen($tablet-portrait) {
