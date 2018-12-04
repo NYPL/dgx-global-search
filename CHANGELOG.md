@@ -8,6 +8,8 @@
 - Fixing JSON display bug
 - Changing filter values
 - Showing ARIA-live region on initial load of search page
+#### Added
+- Adding the link to search the catalog with the same search keywords.
 
 ### v0.3.10
 #### Updated
