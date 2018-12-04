@@ -9,7 +9,7 @@
   }
 
   &-wrapper {
-    @include Kievit-Medium;
+    @include Kievit-Book;
 
     padding: 0 14px;
 
@@ -25,10 +25,10 @@
   }
 
   &-length {
-    color: $COOLGRAY_COLOR;
-    font-size: 18px;
-    line-height: 21px;
-    margin: 0 0 21px 0;
+    color: $BLACK_COLOR;
+    font-size: 16px;
+    line-height: 20px;
+    margin: 0 0 16px 0;
 
     @include min-screen($tablet-landscape){
       margin: 0 0 16px 0;
@@ -40,20 +40,20 @@
   }
 
   &Item {
-    border-bottom: 2px solid $COOLGRAY_COLOR;
+    border-bottom: 2px solid $LIGHTGRAY_COLOR;
     list-style-type: none;
-    margin: 0 0 15px 0;
+    margin: 0 0 16px 0;
 
     @include layout-at(7, $tablet-portrait) {
       @include grid-span(7, 1);
 
-      margin: 0 0 30px 0;
+      margin: 0 0 24px 0;
     }
 
     @include layout-at(6, $tablet-landscape) {
       @include grid-span(6, 1);
 
-      padding: 0 0 30px 0;
+      padding: 0 0 24px 0;
     }
 
     a {
@@ -62,22 +62,24 @@
     }
 
     &-title {
+      color: $BLACK_COLOR;
       font-size: 22px;
-      font-weight: normal;
-      line-height: 23px;
+      line-height: 1.25;
+      text-decoration: underline;
 
       @include layout-at(7, $tablet-portrait) {
-        @include grid-span(5, 3);
+        @include grid-span(6, 1);
 
         margin: 0 0 12px 0;
+        margin-right: 0 !important;
       }
 
       @include layout-at(6, $tablet-landscape) {
-        @include grid-span(4, 3);
+        @include grid-span(5, 1);
 
         &:hover {
-          text-decoration: underline;
-          //border-bottom: 2px solid $SEARCH_BLUE;
+          color: $SEARCH_BLUE;
+          transition: color ease-in 0.3s;
         }
 
       }
@@ -94,13 +96,12 @@
         overflow: hidden;
 
         @include layout-at(7, $tablet-portrait) {
-          @include grid-span(2, 1);
-
+          @include grid-span(1, 7);
           display: block;
         }
 
         @include layout-at(6, $tablet-landscape) {
-          @include grid-span(2, 1);
+          @include grid-span(1, 6);
 
           margin: 0;
         }
@@ -108,70 +109,73 @@
     }
 
     &-snippet {
-      color: $charcoal;
+      color: $BLACK_COLOR;
       font-size: 16px;
-      line-height: 21px;
+      line-height: 1.25;
       margin: 0 0 23px 0;
 
       @include layout-at(7, $tablet-portrait) {
-        @include grid-span(5, 3);
+        @include grid-span(5, 1);
 
         margin: 0 0 30px 0;
       }
 
       @include layout-at(6, $tablet-landscape) {
-        @include grid-span(4, 3);
+        @include grid-span(4, 1);
 
         margin: 0;
       }
     }
 
     &-label {
-      color: $charcoal;
-      font-size: 16px;
+      @include Kievit-Bold;
+      color: $SEARCH_BLUE;
+      font-size: 13px;
+      letter-spacing: .04em;
       line-height: 21px;
-      margin: 0 0 21px 0;
+      margin: 0 0 8px 0;
       text-transform: uppercase;
+      
       @include layout-at(7, $tablet-portrait) {
-        @include grid-span(5, 3);
+        @include grid-span(6, 1);
 
-        margin: 0 0 18px 0;
+        margin: 0 0 8px 0;
       }
 
       @include layout-at(6, $tablet-landscape) {
-        @include grid-span(6, 1);
+        @include grid-span(5, 1);
 
-        margin: 0 0 12px 0;
+        margin: 0 0 8px 0;
       }
     }
 
     &-linkText {
-      color: $charcoal;
+      color: $GRAY_COLOR;
       font-size: 14px;
       line-height: 16px;
       word-break: break-all;
 
       @include layout-at(7, $tablet-portrait) {
-        @include grid-span(5, 3);
+        @include grid-span(5, 1);
 
-        margin: 0 0 11px 0;
+        margin: 0 0 8px 0;
       }
 
       @include layout-at(6, $tablet-landscape) {
-        @include grid-span(4, 3);
+        @include grid-span(4, 1);
 
-        margin: 0 0 12px 0;
+        margin: 0 0 8px 0;
       }
     }
   }
 }
 
 .noResultMessage {
-  @include Kievit-Medium;
+  @include Kievit-Book;
 
   color: $PRIMARY_COLOR;
-  font-size: 20px;
-  line-height: 21px;
+  font-size: 16px;
+  line-height: 20px;
   padding: 0;
 }
 
