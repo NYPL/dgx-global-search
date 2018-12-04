@@ -36,8 +36,7 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
-        this.selectedTab = this.selectedTab.bind(this);
-
+    this.saveSelectedTabValue = this.saveSelectedTabValue.bind(this);
   }
 
   componentDidMount() {
@@ -78,43 +77,6 @@ class Results extends React.Component {
       queriesForGA: Store.getState().queriesForGA,
     });
   }
-
-  /**
-   * parseSnippet(snippetText)
-   * The function converts a string to an array
-   * if the separator pattern is found in the string.
-   * If a value is found in index 1 of the array,
-   * return that value else the original snippetText
-   * passed.
-   */
-  parseSnippet(snippetText){
-    const faultyJsonArray = snippetText.trim().split('}}]]')
-    if(faultyJsonArray.length > 1){
-      return faultyJsonArray[1];
-    } else {
-      return snippetText;
-    }
-  }
-
-  /**
-   * transformHttpsToHttp(link)
-   * The function converts certain NYPL subdomains to http
-   * to prevent an error when that site does not have SSL enabled.
-   */
-  transformHttpsToHttp(link){
-    const transformationRequired = (
-      link.includes('//menus.nypl.org')
-      || link.includes('//exhibitions.nypl.org')
-      || link.includes('//static.nypl.org')
-      || link.includes('//web-static.nypl.org')
-    );
-    if (link && transformationRequired) {
-      return link.replace('https:', 'http:')
-    } else {
-      return link
-    }
-  }
-
 
   /**
    * getList(itemsArray)
@@ -199,6 +161,47 @@ class Results extends React.Component {
   }
 
   /**
+   * parseSnippet(snippetText)
+   * The function converts a string to an array
+   * if the separator pattern is found in the string.
+   * If a value is found in index 1 of the array,
+   * return that value else the original snippetText
+   * passed.
+   */
+  parseSnippet(snippetText) {
+    const faultyJsonArray = snippetText.trim().split('}}]]');
+
+    if (faultyJsonArray.length > 1) {
+      return faultyJsonArray[1];
+    }
+
+    return snippetText;
+  }
+
+  /**
+   * transformHttpsToHttp(link)
+   * The function converts certain NYPL subdomains to http
+   * to prevent an error when that site does not have SSL enabled.
+   */
+  transformHttpsToHttp(link) {
+    const transformationRequired = (
+      link.includes('//menus.nypl.org')
+      || link.includes('//exhibitions.nypl.org')
+      || link.includes('//static.nypl.org')
+      || link.includes('//web-static.nypl.org')
+    );
+    if (link && transformationRequired) {
+      return link.replace('https:', 'http:');
+    }
+
+    return link;
+  }
+
+  selectedTab(tabIdValue) {
+    this.setState({ tabIdValue });
+  }
+
+  /**
    * renderSeeMoreButton
    * The function renders a see more button,
    * unless there's no more results, instead of rendering the button,
@@ -232,28 +235,30 @@ class Results extends React.Component {
     );
   }
 
-
-  selectedTab(tabIdValue){
+  saveSelectedTabValue(tabIdValue){
     this.setState({tabIdValue: tabIdValue})
   }
 
-
   render() {
     const results = this.getList(this.state.searchResults);
-    let resultsNumberSuggestion = '';
     const inputValue = this.props.searchKeyword || '';
+    const textOfResult = this.props.amount === 1 ? 'result' : 'results';
+    let resultsNumberSuggestion = '';
+
     if (this.props.searchKeyword === '') {
       resultsNumberSuggestion = '';
     } else {
       resultsNumberSuggestion = (results.length === 0) ?
-        'No items were found' : `Found about ${this.props.amount.toLocaleString()} results for "${this.props.searchKeyword}"`;
+        'No results were found' :
+        `Found about ${this.props.amount.toLocaleString()} ${textOfResult} for ` +
+        `"${this.props.searchKeyword}"`;
     }
-    if (this.props.selectedFacet !== undefined && this.props.selectedFacet !== ''){
+    if (this.props.selectedFacet !== undefined && this.props.selectedFacet !== '') {
       const tabArray = this.props.tabs;
-      var selectedTabName = '';
+      let selectedTabName = '';
       tabArray.forEach((tab) => {
-        if (tab['label'] === this.props.selectedFacet){
-          selectedTabName = tab['resultSummarydisplayName'];
+        if (tab.label === this.props.selectedFacet) {
+          selectedTabName = tab.resultSummarydisplayName;
         }
       });
       resultsNumberSuggestion += ` in ${selectedTabName}`;
@@ -262,7 +267,7 @@ class Results extends React.Component {
       'noResultMessage' : `${this.props.className}-length`;
 
     return (
-      <div aria-labelledby={`link${this.props.selectedTab}`} className={`${this.props.className}-wrapper`}>
+      <div className={`${this.props.className}-wrapper`}>
         <p
           id="search-results-summary"
           className={resultMessageClass}
@@ -271,12 +276,12 @@ class Results extends React.Component {
           {resultsNumberSuggestion}
         </p>
         <TabItem
-          id='gs-tabs'
+          id="gs-tabs"
           tabs={this.props.tabs}
           selectedFacet={this.props.selectedFacet}
           searchBySelectedFacetFunction={this.props.searchBySelectedFacetFunction}
-          selectedTab={this.selectedTab}
-          />
+          saveSelectedTabValue={this.saveSelectedTabValue}
+        />
         {(typeof results.length !== 'undefined') && results.length !== 0 &&
           <div>
             <div className="clear-float"></div>
@@ -294,7 +299,10 @@ class Results extends React.Component {
             <ol id={this.props.id} className={this.props.className} ref="results">
               {results}
             </ol>
-            {results.length % 10 == 0 && this.renderSeeMoreButton(Math.min(this.props.amount - results.length, 10))}
+            {
+              results.length % 10 === 0 &&
+              this.renderSeeMoreButton(Math.min(this.props.amount - results.length, 10))
+            }
             <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           </div>
         }
@@ -312,6 +320,9 @@ Results.propTypes = {
   resultsStart: PropTypes.number,
   selectedFacet: PropTypes.string,
   queriesForGA: PropTypes.object,
+  selectedTab: PropTypes.string,
+  tabs: PropTypes.array,
+  searchBySelectedFacetFunction: PropTypes.func,
 };
 
 Results.defaultProps = {
