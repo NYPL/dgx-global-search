@@ -238,8 +238,8 @@ class Results extends React.Component {
   render() {
     const results = this.getList(this.state.searchResults);
     const inputValue = this.props.searchKeyword || '';
+    const textOfResult = this.props.amount === 1 ? 'result' : 'results';
     let resultsNumberSuggestion = '';
-    let textOfResult = this.props.amount === 1 ? 'result' : 'results';
 
     if (this.props.searchKeyword === '') {
       resultsNumberSuggestion = '';
