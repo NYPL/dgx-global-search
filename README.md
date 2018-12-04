@@ -15,7 +15,7 @@ $ npm install
 ```
 
 ### Linting
-From the CLI, run `npm run lint` to run the ESLint tool for checking JavaScript syntax.
+From the CLI, run `npm run lint` to run the ESLint tool for checking JavaScript syntax.  Here is an example of how to lint only one file: `npm run lint-single-file src/app/components/TabItem/TabItem.jsx`
 
 ### Development Mode
 We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.

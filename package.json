@@ -9,7 +9,8 @@
     "test": "node_modules/.bin/mocha --compilers js:babel-core/register",
     "accessibility-check": "loadA11y=true node index",
     "eb-start": "npm run dist && npm run start",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "lint-single-file": "eslint"
   },
   "repository": {
     "type": "git",
