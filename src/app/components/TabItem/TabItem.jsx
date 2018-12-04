@@ -1,4 +1,5 @@
 import React from 'react';
+import { GenericWedgeIcon } from '@nypl/dgx-svg-icons';
 
 class TabItem extends React.Component {
   constructor(props) {
@@ -10,13 +11,11 @@ class TabItem extends React.Component {
     this.state = {
       numberOfTabs: this.props.tabs.length,
       selectedFacet: this.props.selectedFacet,
-      selectedFacetAnchor: 'All Results',
-      mobileFilterExpanded: false
+      selectedFacetAnchor: 'All Results'
     };
 
-      this.mobileHandler = this.mobileHandler.bind(this);
-      this.keyDownHandler = this.keyDownHandler.bind(this);
-
+    this.keyDownHandler = this.keyDownHandler.bind(this);
+    this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
   }
 
   // componentDidMount will set the initial tab, either 1 or the number fetched from the
@@ -63,48 +62,39 @@ class TabItem extends React.Component {
     }
   }
 
-  mobileHandler(){
-      const currentState = this.state.mobileFilterExpanded;
-      this.setState({ mobileFilterExpanded: !currentState });
+  updateSelectedFacetMobile(e){
+    this.props.searchBySelectedFacetFunction(e.target.value);
   }
 
-
   render() {
-
 
     return (
       <div className="tabbed">
 
       <div id='categoryTextDiv'>
-      <span id='categoryTextSpan'>Category</span>
+      <label htmlFor='category' id='categoryTextSpan'>Category</label>
       </div>
-
-      <div onClick={this.mobileHandler} id="mobile-dropdown" className={this.state.mobileFilterExpanded ? "wrapper-dropdown active": "wrapper-dropdown"}  tabIndex="1">
-      <span>{this.state.selectedFacetAnchor}</span>
-      <ul className="dropdown">
-
+    
+      <select className="form-control input-lg" value={this.state.selectValue} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>{this.state.selectedFacetAnchor}
       { this.props.tabs.map((tab, i) => {
         let j = i + 1;
         return (
-          <li key={`${j}`} className={(parseInt(this.state.tabNumber) === j ? 'activeTab' : null) } >
-           <a href={`#tab${j}`}
+           <option 
+            key={`${j}`}
+            value={tab.value}
+            className={(this.state.selectedFacet === tab.value ? 'activeTab' : null) }
+            href={`#tab${j}`}
             id={`link${j}`}
             tabIndex={!this.state.tabNumber ?  '0' : parseInt(this.state.tabNumber) === j ? null : -1}
             aria-selected={this.state.tabNumber && j === parseInt(this.state.tabNumber) ? true: false}
-            role='tab'
+            role='option'
             data={`${j}`}
-            onClick={e => this.clickHandler(e,tab.value,tab.anchor)}
-            onKeyDown={this.keyDownHandler}
-            ref={(input) => {this.links[`${j}`] = input;}}
-            >{tab.anchor}
-           </a>
-          </li>
+             >{tab.anchor}
+           </option>
           )
       })
     }
-    </ul>
-    </div>
-
+    </select>
 
     <ul role='tablist'>
     { this.props.tabs.map((tab, i) => {

@@ -4,40 +4,44 @@
 }
 
 #categoryTextDiv{
-  display:none;
+  display: none;
 }
 
-#mobile-dropdown {
+#category{
   display:none;
 }
-
 
 @media (min-width:0px) and (max-width:1020px) {
+
   .gs-results-divideLineIcon {
-    margin-top:30px;
+    margin-top: 30px;
   }
 
   div .tabbed ul[role="tablist"]{
-    display:none;
+    display: none;
   }
 
   #categoryTextDiv{
-    display:inline;
+    display: inline;
   }
 
-  #mobile-dropdown {
-    display:inline;
-    z-index:1;
+  #category {
+    display: inline;
+    z-index: 1;
   }
 
-  div .tabbed .wrapper-dropdown {
+  div .tabbed select {
     /* Size and position */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     position: relative;
     min-width: 250px;
     margin: 0 auto;
     padding-top: 16px;
     padding-bottom: 16px;
-    float:left;
+    float: left;  
+    text-align-last:center;
 
     /* Styles */
     background: #fff;
@@ -47,68 +51,19 @@
     outline: none;
 
     /* Font settings */
-    font-size:18px;
+    font-size: 18px;
     color: #176E91;
-    font-family:Kievit-book;
-    text-align:center;
-  }
+    font-family: Kievit-Book;
+    text-align: center;
 
-  div .tabbed .wrapper-dropdown .dropdown {
-    /* Size & position */
-    position: absolute;
-    width: 210px;
-    top: 66%;
-    padding:0px;
-
-    /* Styles */
-    background: white;
-    border:solid black 1px;
-    list-style: none;
-
-    /* Hiding */
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  div .tabbed .wrapper-dropdown .dropdown li a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-    margin-left:40px;
-  }
-
-
-  div .tabbed .wrapper-dropdown .dropdown li:first-of-type a {
-    border-radius: 7px 7px 0 0;
-  }
-
-  div .tabbed .wrapper-dropdown .dropdown li:last-of-type a {
-    border-radius: 0 0 7px 7px;
-    border: none;
-  }
-
-  /* Hover state */
-
-  div .tabbed .wrapper-dropdown.active .dropdown {
-    opacity: 1;
-    pointer-events: auto;
-    text-align:left;
-    text-indent: -30px;
-    width:248px;
-  }
-
-  div .tabbed .wrapper-dropdown ul li[class="activeTab"] a {
-    font-weight: bolder;
   }
 
   div .tabbed #categoryTextDiv{
-    float:left;
+    float: left;
     font-size: 18px;
-    font-family: Kievit-book;
-    padding-left:16px;
-    padding-right:18px;
-    padding-top:16px;
+    font-family: Kievit-Book;
+    padding-right: 18px;
+    padding-top: 16px;
   }
 }
 
@@ -125,14 +80,14 @@
     list-style-type: none;
   }
   ul[role="tablist"]>li {
-    border: solid black 1px;
+    border: 1px solid #76777B;
     border-left: none;
     display: table-cell;
     margin-bottom: 0;
     white-space: nowrap;
   }
   ul[role="tablist"]>li.activeTab {
-    border: 1px solid black;
+    border: 1px solid #76777B;
     border-left: none;
     display: table-cell;
     margin-bottom: 0;
@@ -144,7 +99,7 @@
   }
 
   ul[role="tablist"]>li[class="activeTab"]>a {
-    color: white;
+    color: #fff;
   }
   li:hover {
     background-color: #EFEDEB;
@@ -154,25 +109,23 @@
     padding-left: 16px;
     padding-right: 16px;
     display: table-cell;
-    font-weight: 500;
     text-decoration: none;
-    font-family: Kievit-book;
+    font-family: Kievit-Book;
     font-size: 18px;
-    color: black;
+    color: #000;
   }
   ul[role="tablist"]>li:target>a {
-    color: white;
+    color: #fff;
   }
   ul[role="tablist"]>li>a[aria-selected='true'] {
     padding: 14px;
     padding-left: 16px;
     padding-right: 16px;
     display: table-cell;
-    font-weight: 500;
     text-decoration: none;
   }
   #tab1 {
-    border-left: solid black 1px;
+    border-left: solid #000 1px;
   }
 }
 
@@ -187,7 +140,7 @@ div .tabbed {
     }
     li:target {
       background-color: #176E91;
-      border: 1px solid black;
+      border: 1px solid #000;
       border-left: none;
     }
     li:hover {
