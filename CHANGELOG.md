@@ -12,6 +12,7 @@
 - Improving desktop version of filter with keyboard navigation
 - Adding commands for linting
 - Updating the syntax for better formatting codes in Results.jsx
+- Updating the texts for showing result information.
 
 ### v0.3.10
 #### Updated
