@@ -68,18 +68,14 @@ class TabItem extends React.Component {
 
   render() {
 
-    let icon = <GenericWedgeIcon className="dropDownIcon" ariaHidden focusable={false} />;
-
     return (
       <div className="tabbed">
 
       <div id='categoryTextDiv'>
       <label htmlFor='category' id='categoryTextSpan'>Category</label>
       </div>
-      <div id='svg-icon'>
-        {icon}
-      </div>
-      <select value={this.state.selectValue} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>{this.state.selectedFacetAnchor}
+    
+      <select className="form-control input-lg" value={this.state.selectValue} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>{this.state.selectedFacetAnchor}
       { this.props.tabs.map((tab, i) => {
         let j = i + 1;
         return (
@@ -99,7 +95,6 @@ class TabItem extends React.Component {
       })
     }
     </select>
-
 
     <ul role='tablist'>
     { this.props.tabs.map((tab, i) => {

@@ -17,19 +17,6 @@
 
 @media (min-width:0px) and (max-width:1020px) {
 
-  #svg-icon svg {
-    display:inline;
-    -webkit-transform: rotate(270deg);
-    -moz-transform: rotate(270deg);
-    -o-transform: rotate(270deg);
-    -ms-transform: rotate(270deg);
-    transform: rotate(270deg);
-    margin-left:210px;
-    position:absolute;
-    z-index:2;
-    margin-top:15px;
-  }
-
   .gs-results-divideLineIcon {
     margin-top: 30px;
   }
