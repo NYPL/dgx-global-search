@@ -9,6 +9,8 @@
 - Changing filter values
 - Showing ARIA-live region on initial load of search page
 - Making a div with a role of "search" that contains search functionality & results
+- Improving desktop version of filter with keyboard navigation
+- Adding commands for linting
 
 ### v0.3.10
 #### Updated
