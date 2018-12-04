@@ -36,7 +36,7 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.selectedTab = this.selectedTab.bind(this);
+    this.saveSelectedTabValue = this.saveSelectedTabValue.bind(this);
   }
 
   componentDidMount() {
@@ -235,6 +235,10 @@ class Results extends React.Component {
     );
   }
 
+  saveSelectedTabValue(tabIdValue){
+    this.setState({tabIdValue: tabIdValue})
+  }
+
   render() {
     const results = this.getList(this.state.searchResults);
     let resultsNumberSuggestion = '';
@@ -262,10 +266,7 @@ class Results extends React.Component {
       'noResultMessage' : `${this.props.className}-length`;
 
     return (
-      <div
-        aria-labelledby={`link${this.props.selectedTab}`}
-        className={`${this.props.className}-wrapper`}
-      >
+      <div className={`${this.props.className}-wrapper`}>
         <p
           id="search-results-summary"
           className={resultMessageClass}
@@ -278,7 +279,7 @@ class Results extends React.Component {
           tabs={this.props.tabs}
           selectedFacet={this.props.selectedFacet}
           searchBySelectedFacetFunction={this.props.searchBySelectedFacetFunction}
-          selectedTab={this.selectedTab}
+          saveSelectedTabValue={this.saveSelectedTabValue}
         />
         {(typeof results.length !== 'undefined') && results.length !== 0 &&
           <div>
