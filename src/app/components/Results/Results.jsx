@@ -36,8 +36,7 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
-        this.selectedTab = this.selectedTab.bind(this);
-
+    this.saveSelectedTabValue = this.saveSelectedTabValue.bind(this);
   }
 
   componentDidMount() {
@@ -233,7 +232,7 @@ class Results extends React.Component {
   }
 
 
-  selectedTab(tabIdValue){
+  saveSelectedTabValue(tabIdValue){
     this.setState({tabIdValue: tabIdValue})
   }
 
@@ -275,7 +274,7 @@ class Results extends React.Component {
           tabs={this.props.tabs}
           selectedFacet={this.props.selectedFacet}
           searchBySelectedFacetFunction={this.props.searchBySelectedFacetFunction}
-          selectedTab={this.selectedTab}
+          saveSelectedTabValue={this.saveSelectedTabValue}
           />
         {(typeof results.length !== 'undefined') && results.length !== 0 &&
           <div>

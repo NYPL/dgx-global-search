@@ -14,6 +14,9 @@ Install all dependencies listed under package.json
 $ npm install
 ```
 
+### Linting
+From the CLI, run `npm run lint` to run the ESLint tool for checking JavaScript syntax.
+
 ### Development Mode
 We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
 
