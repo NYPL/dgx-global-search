@@ -121,11 +121,38 @@ header {
 
   .gs-searchField {
     @include layout-at(8, $tablet-landscape) {
-      @include grid-span(7, 1);
+      width: 100%;
     }
 
     @include layout-at(8, $desktop) {
-      @include grid-span(6, 1);
+      width: 100%;
+    }
+  }
+
+  .gs-search-catalog-link-wrapper {
+    @include Kievit-Book;
+
+    font-size: 18px;
+    padding: 0 14px;
+
+    @include min-screen($tablet-portrait) {
+      padding: 0;
+    }
+
+    @include min-screen($tablet-landscape) {
+      padding: 60px 0 0 0;
+    }
+
+    @include min-screen($desktop) {
+      font-size: 20px;
+      height: 48px;
+      padding: 0;
+    }
+
+    a {
+      position: relative;
+      top: 16px;
+      color: $SEARCH_BLUE;
     }
   }
 }

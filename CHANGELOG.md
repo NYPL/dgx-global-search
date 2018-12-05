@@ -11,6 +11,10 @@
 - Making a div with a role of "search" that contains search functionality & results
 - Improving desktop version of filter with keyboard navigation
 - Adding commands for linting
+- Updating the syntax for better formatting codes in Results.jsx
+- Updating the texts for showing result information.
+#### Added
+- Adding the link to search the catalog with the same search keywords.
 
 ### v0.3.10
 #### Updated
