@@ -166,3 +166,14 @@ header {
   clip: rect(0 0 0 0); /* IE6, IE7 */
   clip: rect(0, 0, 0, 0);
 }
+
+:focus{
+  box-shadow: 1px 1px 1px 1px #135772; 
+  -webkit-outline-color: #135772; 
+  -moz-outline-color: #135772; 
+  -ms-outline-color: #135772; 
+  -o-outline-color: #135772; 
+  outline-color: #135772; 
+  outline-style: solid; 
+  outline-width: .1875em;
+}
