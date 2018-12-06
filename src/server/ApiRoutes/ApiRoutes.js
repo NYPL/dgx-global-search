@@ -18,25 +18,20 @@ const appEnvironment = process.env.APP_ENV || 'production';
 // const apiRoot = api.root[appEnvironment];
 const apiRoot = process.env.API_ROOT;
 
-const createOptions = (apiValue) => ({
-  endpoint: `${apiRoot}${apiValue.endpoint}`,
-  includes: apiValue.includes,
-  filters: apiValue.filters,
-});
-
-const searchOptions = createOptions(searchApi);
 const getSearchData = (url) => axios.get(url);
+
+
+const generateQueryString = (req) => {
+  const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
+  return req.params.searchRequest + searchFilter;
+}
 
 const generateApiUrl = (req) => {
   const start = req.query.start && req.query.start != 0 ? `&start=${req.query.start}` : '' ;
-  const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
-  const q = req.params.searchRequest + searchFilter;
-  return `${process.env.API_ROOT}&q=${q}${start}`
+  return `${process.env.API_ROOT}&q=${generateQueryString(req)}${start}`
 }
 
 const requestSearchResult = (req, res, next) => {
-  const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
-  const searchString = `${req.params.searchKeyword}${searchFilter}`;
   const searchApiUrl = generateApiUrl(req);
   const queriesForGA = {
     searchedFrom: req.query.searched_from || '',
@@ -50,7 +45,7 @@ const requestSearchResult = (req, res, next) => {
       res.locals.data = {
         SearchStore: {
           searchRequest: req.params.searchRequest,
-          searchData: fetchResultItems(data, searchString),
+          searchData: fetchResultItems(data, generateQueryString(req)),
           searchDataLength: fetchResultLength(data),
           isKeywordValid: true,
           selectedFacet: req.params.searchFilter,
@@ -66,7 +61,6 @@ const requestSearchResult = (req, res, next) => {
     .catch(error => {
       console.log(`error calling API : ${error}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
-      console.log(`search keyword is ${searchOptions.filters.q}`);
 
       res.locals.data = {
         SearchStore: {
@@ -103,7 +97,6 @@ const requestResultsFromClient = (req, res) => {
     .catch(error => {
       console.log(`error calling API : ${JSON.stringify(error)}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
-      console.log(`search keyword is ${searchOptions.filters.q}`);
     });
 };
 
