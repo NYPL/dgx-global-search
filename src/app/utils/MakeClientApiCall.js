@@ -22,7 +22,8 @@ const makeClientApiCall = (
   start = 0,
   callbackFunction = null,
   callbackFunctionNoKeyword = null,
-  callbackFunctionLoading = null) => {
+  callbackFunctionLoading = null
+) => {
   document.title = 'Search Results | NYPL.org';
   const searchFilter = (facet) ? ` more:${facet}` : '';
   const requestParameter = `${keyword}${searchFilter}`;
