@@ -104,22 +104,20 @@ class TabItem extends React.Component {
   render() {
     const {
       tabNumber,
-      selectedFacet,
       selectedFacetAnchor,
       selectValue
     } = this.state
 
     const {
-      tabs
+      tabs,
+      selectedFacet,
     } = this.props
 
     return (
       <div className="tabbed">
-
         <div id='categoryTextDiv'>
           <label htmlFor='category' id='categoryTextSpan'>Category</label>
         </div>
-
         <select className="form-control input-lg" value={selectValue} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>
           {selectedFacetAnchor}
           { tabs.map((tab, i) => {
