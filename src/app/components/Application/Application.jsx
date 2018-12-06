@@ -299,7 +299,7 @@ class App extends React.Component {
                     'Orightresult__U?lang=eng&suite=def'
                   }
                 >
-                  Find a book, movie, or music instead >
+                  Find books, music, or movies instead >
                 </a>
               </div>
             </div>
