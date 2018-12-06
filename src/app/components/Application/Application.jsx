@@ -293,7 +293,7 @@ class App extends React.Component {
                 />
               </div>
               <div className="gs-search-catalog-link-wrapper">
-                <a
+                <a className="gs-search-catalog-link"
                   href={
                     `https://browse.nypl.org/iii/encore/search/C__S${this.state.searchKeyword}__` +
                     'Orightresult__U?lang=eng&suite=def'
