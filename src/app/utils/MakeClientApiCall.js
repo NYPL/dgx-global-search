@@ -39,6 +39,7 @@ const makeClientApiCall = (
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);
+
         if (callbackFunctionLoading) {
           callbackFunctionLoading(false);
         }
