@@ -15,7 +15,8 @@ const { api, searchApi } = appConfig;
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
-const apiRoot = api.root[appEnvironment];
+// const apiRoot = api.root[appEnvironment];
+const apiRoot = process.env.API_ROOT;
 
 const createOptions = (apiValue) => ({
   endpoint: `${apiRoot}${apiValue.endpoint}`,
@@ -41,13 +42,13 @@ const requestSearchResult = (req, res, next) => {
 
   getSearchData(searchApiUrl)
     .then((searchData) => {
-      const searchParsed = parser.parse(searchData.data, searchOptions);
+      const data = searchData.data;
 
       res.locals.data = {
         SearchStore: {
           searchKeyword: req.params.searchKeyword,
-          searchData: fetchResultItems(searchParsed, searchRequest),
-          searchDataLength: fetchResultLength(searchParsed),
+          searchData: fetchResultItems(data, searchRequest),
+          searchDataLength: fetchResultLength(data),
           isKeywordValid: true,
           selectedFacet: req.params.searchFilter,
           resultsStart: 0,
@@ -79,23 +80,19 @@ const requestSearchResult = (req, res, next) => {
 };
 
 const requestResultsFromClient = (req, res) => {
-  searchOptions.filters = {
-    q: req.params.searchRequest,
-    start: req.query.start || '0',
-  };
-  const searchApiUrl = parser.getCompleteApi(searchOptions);
+  const searchApiUrl = `${process.env.API_ROOT}&q=${req.params.searchRequest}`
 
   if (!req.query.start) {
     res.json({});
     return;
   }
-
+// need to add a function to generate the correct google url
   getSearchData(searchApiUrl)
     .then((searchData) => {
-      const searchParsed = parser.parse(searchData.data, searchOptions);
+      const data = searchData.data;
       const searchModeled = {
-        searchResultsItems: fetchResultItems(searchParsed, req.params.searchRequest),
-        resultLength: fetchResultLength(searchParsed),
+        searchResultsItems: fetchResultItems(data, req.params.searchRequest),
+        resultLength: fetchResultLength(data),
       };
 
       res.json(searchModeled);
