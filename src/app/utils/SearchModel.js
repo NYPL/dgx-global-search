@@ -70,7 +70,7 @@ const extractSearchElements = (requestCombo) => {
   };
 };
 
-const displayName = (name) => filterNames.find(filter => filter.label === name).anchor
+const displayName = (name) => name.split("_").map(word => word[0].toUpperCase() + word.slice(1)).join(" ")
 
 /**
  * fetchDisplayName(labelsArray, searchRequest)
