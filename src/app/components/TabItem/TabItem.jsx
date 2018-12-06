@@ -4,29 +4,17 @@ import PropTypes from 'prop-types';
 class TabItem extends React.Component {
   constructor(props) {
     super(props);
-    this.clickHandler = this.clickHandler.bind(this);
+
     this.links = [];
     this.sections = [];
 
-    const {
-      tabs,
-      selectedFacet,
-    } = this.props;
-
     this.state = {
-      numberOfTabs: tabs.length,
-      selectedFacet: selectedFacet,
+      numberOfTabs: this.props.tabs.length,
     };
 
+    this.clickHandler = this.clickHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
-  }
-
-  // componentDidMount will set the initial tab, either 1 or the number fetched from the
-  // url hash (to accommodate deep linking)
-  componentDidMount() {
-    let facetName = window.location.href.split("/").pop();
-    this.setState({selectedFacet: facetName,  tabNumber: "1"});
   }
 
   focusTab(newTabIndex) {
@@ -41,7 +29,7 @@ class TabItem extends React.Component {
       searchBySelectedFacetFunction
     } = this.props;
     saveSelectedTabValue(tabId);
-    this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab });
+    this.setState({ tabNumber: newTabIndex.toString() });
     let newTab = this.links[newTabIndex];
     newTab.focus();
     searchBySelectedFacetFunction(tab);
@@ -100,6 +88,41 @@ class TabItem extends React.Component {
     searchBySelectedFacetFunction(e.target.value);
   }
 
+  // need to add documentations
+  renderMobileTabList(array, selectedFacet, tabNumber) {
+    const options= [];
+
+    array.forEach((tab, i) => {
+      const j = i + 1;
+      options.push(
+        <option
+          key={`${j}`}
+          value={tab.value}
+          className={(selectedFacet === tab.value ? 'activeTab' : null)}
+          href={`#tab${j}`}
+          id={`link${j}`}
+          tabIndex={!tabNumber ?  '0' : parseInt(tabNumber) === j ? null : -1}
+          aria-selected={tabNumber && j === parseInt(tabNumber) ? true: false}
+          data={`${j}`}
+        >
+          {tab.anchor}
+        </option>
+      );
+    });
+
+    return (
+      <select
+          className="form-control input-lg"
+          value={selectedFacet}
+          onChange={this.updateSelectedFacetMobile}
+          aria-labelledby="categoryTextSpan category"
+          id='category'
+        >
+        {options}
+      </select>
+    );
+  }
+
   render() {
     const {
       tabNumber,
@@ -115,33 +138,7 @@ class TabItem extends React.Component {
         <div id='categoryTextDiv'>
           <label htmlFor='category' id='categoryTextSpan'>Category</label>
         </div>
-        <select
-          className="form-control input-lg"
-          value={selectedFacet}
-          onChange={this.updateSelectedFacetMobile}
-          aria-labelledby="categoryTextSpan category"
-          id='category'
-        >
-          { tabs.map((tab, i) => {
-            let j = i + 1;
-            return (
-              <option
-                key={`${j}`}
-                value={tab.value}
-                className={(selectedFacet === tab.value ? 'activeTab' : null)}
-                href={`#tab${j}`}
-                id={`link${j}`}
-                tabIndex={!tabNumber ?  '0' : parseInt(tabNumber) === j ? null : -1}
-                aria-selected={tabNumber && j === parseInt(tabNumber) ? true: false}
-                data={`${j}`}
-              >
-                {tab.anchor}
-              </option>
-            )
-          })
-        }
-        </select>
-
+        {this.renderMobileTabList(tabs, selectedFacet, tabNumber)}
 
         <ul role='tablist'>
           { tabs.map((tab, i) => {
