@@ -80,7 +80,10 @@ const requestSearchResult = (req, res, next) => {
 };
 
 const requestResultsFromClient = (req, res) => {
-  const searchApiUrl = `${process.env.API_ROOT}&q=${req.params.searchRequest}`
+  const start = req.query.start || 0;
+  const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
+  const q = req.params.searchRequest + searchFilter;
+  const searchApiUrl = `${process.env.API_ROOT}&q=${q}&start=${start}`
 
   if (!req.query.start) {
     res.json({});
