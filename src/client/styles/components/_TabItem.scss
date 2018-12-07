@@ -17,11 +17,6 @@
     display: none;
   }
 
-  #categoryTextLabel{
-  display: inline;
-  float:left;
-  }
-
   #category {
     display: inline;
     z-index: 1;
@@ -57,6 +52,7 @@
   }
 
   div .tabbed #categoryTextLabel{
+    display: inline;
     float: left;
     font-size: 18px;
     font-family: Kievit-Book;
