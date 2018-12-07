@@ -272,6 +272,9 @@ class Results extends React.Component {
       <p
         id="search-results-summary"
         className={resultMessageClass}
+        aria-live="polite"
+        aria-atomic="true"
+        aria-relevant="all"
       >
         {resultsNumberSuggestion}
       </p>
