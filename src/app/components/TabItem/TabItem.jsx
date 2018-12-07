@@ -42,7 +42,7 @@ class TabItem extends React.Component {
       searchBySelectedFacetFunction
     } = this.props;
     saveSelectedTabValue(tabId);
-    this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab, selectedFacetAnchor: tabAnchor });
+    this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab, selectedFacetAnchor: tabAnchor});
     let newTab = this.links[newTabIndex];
     newTab.focus();
     searchBySelectedFacetFunction(tab);
