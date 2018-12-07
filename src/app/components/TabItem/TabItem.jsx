@@ -42,7 +42,7 @@ class TabItem extends React.Component {
       searchBySelectedFacetFunction
     } = this.props;
     saveSelectedTabValue(tabId);
-    this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab, selectedFacetAnchor: tabAnchor});
+    this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab, selectedFacetAnchor: tabAnchor });
     let newTab = this.links[newTabIndex];
     newTab.focus();
     searchBySelectedFacetFunction(tab);
@@ -120,7 +120,7 @@ class TabItem extends React.Component {
           <label htmlFor='category' id='categoryTextSpan'>Category</label>
         </div>
 
-        <select className="form-control input-lg" value={selectValue} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>
+        <select className="form-control input-lg" value={selectedFacet} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>
           {selectedFacetAnchor}
           { tabs.map((tab, i) => {
             let j = i + 1;
