@@ -106,8 +106,7 @@ class TabItem extends React.Component {
     const {
       tabNumber,
       selectedFacet,
-      selectedFacetAnchor,
-      selectValue
+      selectedFacetAnchor
     } = this.state
 
     const {
