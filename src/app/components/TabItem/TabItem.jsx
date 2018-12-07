@@ -98,6 +98,7 @@ class TabItem extends React.Component {
     const {
       searchBySelectedFacetFunction
     } = this.props;
+    this.setState({selectedFacet: e.target.value})
     searchBySelectedFacetFunction(e.target.value);
   }
 
