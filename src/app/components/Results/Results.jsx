@@ -239,21 +239,24 @@ class Results extends React.Component {
     this.setState({tabIdValue: tabIdValue})
   }
 
-  render() {
-    const results = this.getList(this.state.searchResults);
-    const inputValue = this.props.searchKeyword || '';
-    const textOfResult = this.props.amount === 1 ? 'result' : 'results';
-    let resultsNumberSuggestion = '';
 
-    if (this.props.searchKeyword === '') {
+  // need comment
+  renderResultsNumberSuggestion(resultsLength) {
+    let resultsNumberSuggestion;
+    const textOfResult = this.props.amount === 1 ? 'result' : 'results';
+    const resultMessageClass = (resultsLength === 0) ?
+      'noResultMessage' : `${this.props.className}-length`;
+
+    if (!this.props.searchKeyword) {
       resultsNumberSuggestion = '';
     } else {
-      resultsNumberSuggestion = (results.length === 0) ?
+      resultsNumberSuggestion = (resultsLength === 0) ?
         'No results were found' :
         `Found about ${this.props.amount.toLocaleString()} ${textOfResult} for ` +
         `"${this.props.searchKeyword}"`;
     }
-    if (this.props.selectedFacet !== undefined && this.props.selectedFacet !== '') {
+
+    if (this.props.selectedFacet) {
       const tabArray = this.props.tabs;
       let selectedTabName = '';
 
@@ -264,18 +267,26 @@ class Results extends React.Component {
       });
       resultsNumberSuggestion += ` in ${selectedTabName}`;
     }
-    const resultMessageClass = (results.length === 0) ?
-      'noResultMessage' : `${this.props.className}-length`;
+
+    console.log('we have keywords', resultsNumberSuggestion);
+
+    return (
+      <p
+        id="search-results-summary"
+        className={resultMessageClass}
+      >
+        {resultsNumberSuggestion}
+      </p>
+    );
+  }
+
+  render() {
+    const results = this.getList(this.state.searchResults);
+    const inputValue = this.props.searchKeyword || '';
 
     return (
       <div className={`${this.props.className}-wrapper`}>
-        <p
-          id="search-results-summary"
-          className={resultMessageClass}
-          aria-live="polite"
-        >
-          {resultsNumberSuggestion}
-        </p>
+      {this.renderResultsNumberSuggestion(results.length)}
         <TabItem
           id="gs-tabs"
           tabs={this.props.tabs}
