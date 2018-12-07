@@ -116,11 +116,8 @@ class TabItem extends React.Component {
     return (
       <div className="tabbed">
 
-        <div id='categoryTextDiv'>
-          <label htmlFor='category' id='categoryTextSpan'>Category</label>
-        </div>
-
-        <select className="form-control input-lg" value={selectedFacet} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>
+        <label htmlFor='category' id='categoryTextLabel'>Category</label>
+        <select className="form-control input-lg" value={selectedFacet} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextLabel category" name='category' id='category'>
           {selectedFacetAnchor}
           { tabs.map((tab, i) => {
             let j = i + 1;
@@ -141,7 +138,6 @@ class TabItem extends React.Component {
           })
         }
         </select>
-
 
         <ul role='tablist'>
           { tabs.map((tab, i) => {

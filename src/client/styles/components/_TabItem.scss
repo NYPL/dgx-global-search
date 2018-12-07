@@ -3,7 +3,7 @@
   margin-top: 1.5rem;
 }
 
-#categoryTextDiv{
+#categoryTextLabel{
   display: none;
 }
 
@@ -17,8 +17,9 @@
     display: none;
   }
 
-  #categoryTextDiv{
-    display: inline;
+  #categoryTextLabel{
+  display: inline;
+  float:left;
   }
 
   #category {
@@ -55,7 +56,7 @@
 
   }
 
-  div .tabbed #categoryTextDiv{
+  div .tabbed #categoryTextLabel{
     float: left;
     font-size: 18px;
     font-family: Kievit-Book;
