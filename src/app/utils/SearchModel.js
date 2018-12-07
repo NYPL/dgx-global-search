@@ -18,14 +18,10 @@ import {
 const fetchResultLength = (data) => {
   try {
     const {
-      queries: {
-        request: requestArray,
+      searchInformation: {
+        formattedTotalResults: totalResults,
       },
     } = data;
-
-    const {
-      totalResults: totalResults = 0
-    } = requestArray[0];
     return totalResults;
   } catch (e) {
     console.log(e);
@@ -168,8 +164,20 @@ const fetchItemFeature = (item, feature) => {
   return item[feature];
 };
 
+const getNestedData = (array, item) => {
+  return array.reduce((acc, el) => acc[el] ? acc[el] : '', item)
+}
+
+const thumbnailLogging = (item) => {
+  let thumbnails = getNestedData(['pagemap', 'cse_thumbnail'], item);
+  if (thumbnails.length && thumbnails.length > 1) {
+    console.log('item with multiple thumbnails: ', JSON.stringify(item));
+  }
+}
+
 const fetchThumbnail = (item) => {
-  return ['pagemap', 'cse_thumbnail', 0, 'src'].reduce((acc, el) => acc[el] ? acc[el] : '', item)
+  thumbnailLogging(item);
+  return getNestedData(['pagemap', 'cse_thumbnail', 0, 'src'], item)
 }
 
 /**
