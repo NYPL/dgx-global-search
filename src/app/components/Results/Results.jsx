@@ -268,8 +268,6 @@ class Results extends React.Component {
       resultsNumberSuggestion += ` in ${selectedTabName}`;
     }
 
-    console.log('we have keywords', resultsNumberSuggestion);
-
     return (
       <p
         id="search-results-summary"
@@ -286,7 +284,7 @@ class Results extends React.Component {
 
     return (
       <div className={`${this.props.className}-wrapper`}>
-      {this.renderResultsNumberSuggestion(results.length)}
+        {this.renderResultsNumberSuggestion(results.length)}
         <TabItem
           id="gs-tabs"
           tabs={this.props.tabs}
