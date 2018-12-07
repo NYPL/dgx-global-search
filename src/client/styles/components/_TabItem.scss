@@ -13,17 +13,16 @@
 
 @media (min-width:0px) and (max-width:1020px) {
 
-
-#category:focus{
-  box-shadow: 1px 1px 1px 1px #135772; 
-  -webkit-outline-color: #135772; 
-  -moz-outline-color: #135772; 
-  -ms-outline-color: #135772; 
-  -o-outline-color: #135772; 
-  outline-color: #135772; 
-  outline-style: solid; 
-  outline-width: .1875em;
-}
+  #category:focus{
+    box-shadow: 1px 1px 1px 1px #135772; 
+    -webkit-outline-color: #135772; 
+    -moz-outline-color: #135772; 
+    -ms-outline-color: #135772; 
+    -o-outline-color: #135772; 
+    outline-color: #135772; 
+    outline-style: solid; 
+    outline-width: .1875em;
+  }
 
   .gs-results-divideLineIcon {
     margin-top: 30px;
