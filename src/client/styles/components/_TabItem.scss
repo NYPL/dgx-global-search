@@ -13,10 +13,6 @@
 
 @media (min-width:0px) and (max-width:1050px) {
 
-  .gs-results-divideLineIcon {
-    margin-top: 30px;
-  }
-
   div .tabbed ul[role="tablist"]{
     display: none;
   }
@@ -28,6 +24,7 @@
   #category {
     display: inline;
     z-index: 1;
+    margin-bottom:24px;
   }
 
   div .tabbed select {
