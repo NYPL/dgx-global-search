@@ -84,8 +84,8 @@ class TabItem extends React.Component {
          this.focusTab(targetTabIndex);
        } else if (targetTabIndex === "down") {
          let nextElement;
-         if (document.getElementsByClassName("gs-resultsItem-link")[0]) {
-           nextElement = document.getElementsByClassName("gs-resultsItem-link")[0];
+         if (this.props.results()) {
+           nextElement = this.props.results();
          } else {
            nextElement = document.getElementsByClassName("linkItemList")[0].childNodes[0].childNodes[0];
          }
