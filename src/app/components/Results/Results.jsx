@@ -275,6 +275,10 @@ class Results extends React.Component {
         aria-live="polite"
         aria-atomic="true"
         aria-relevant="all"
+        // Assign a key here is to tell React that this result summary element should be unique
+        // for every time make a search even the results is the same
+        // Thus aria-live can be picked by screen readers
+        key={this.state.timeToLoadResults}
       >
         {resultsNumberSuggestion}
       </p>
