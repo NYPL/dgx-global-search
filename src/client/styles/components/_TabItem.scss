@@ -56,6 +56,11 @@
     font-family: Kievit-Book;
     text-align: center;
 
+    &:hover {
+      border: 1px solid $SEARCH_BLUE_DARK;
+      color: $SEARCH_BLUE_DARK;
+      transition: border color $DURATION-LONG ease;
+    }
   }
 
   div .tabbed #categoryTextDiv{

@@ -1,5 +1,5 @@
 .gs-searchButton {
-  @include Kievit-Medium;
+  @include Kievit-Book;
 
   background-color: $SEARCH_BLUE;
   border: none;
@@ -7,6 +7,7 @@
   color: #FFF;
   cursor: pointer;
   font-size: 16px;
+  letter-spacing: .04em;
   line-height: 14px;
   padding: 10px 20px;
   text-align: center;
@@ -39,8 +40,13 @@
     }
 
     @include min-screen($desktop) {
-      margin: 0 10px 0 0;
+      margin: 0 24px 0 0;
       width: 20%;
     }
+  }
+
+  &:hover {
+    background-color: $SEARCH_BLUE_DARK;
+    transition: background-color $DURATION_LONG ease;
   }
 }
