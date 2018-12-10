@@ -8,6 +8,11 @@
 
   a {
     color: $SEARCH_BLUE;
+
+    &:hover {
+      color: $SEARCH_BLUE_DARK;
+      transition: color $DURATION_LONG ease;
+    }
   }
 
   span {
