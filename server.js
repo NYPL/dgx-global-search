@@ -9,13 +9,13 @@ import ReactDOMServer from 'react-dom/server';
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
 
-import appConfig from './appConfig.js';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config.js';
 
 import Application from './src/app/components/Application/Application.jsx';
 import apiRoutes from './src/server/ApiRoutes/ApiRoutes.js';
+const appConfig = require('./appConfig.js');
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');

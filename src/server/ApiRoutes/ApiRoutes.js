@@ -8,7 +8,7 @@ import {
   fetchSearchFacetsList,
 } from '../../app/utils/SearchModel.js';
 
-import appConfig from '../../../appConfig.js';
+const appConfig = require('../../../appConfig.js');
 
 // Syntax that both ES6 and Babel 6 support
 const { api, searchApi } = appConfig;
