@@ -281,7 +281,7 @@ class Results extends React.Component {
           selectedFacet={this.props.selectedFacet}
           searchBySelectedFacetFunction={this.props.searchBySelectedFacetFunction}
           saveSelectedTabValue={this.saveSelectedTabValue}
-          results={() => this.refs['results']}
+          results={() => this.refs['resultsOlElement']}
         />
         {(typeof results.length !== 'undefined') && results.length !== 0 &&
           <div>
@@ -297,7 +297,7 @@ class Results extends React.Component {
               viewBox="0 0 84 4"
               width="84"
             />
-            <ol id={this.props.id} className={this.props.className} ref="results" tabIndex='0' aria-labelledby={`link${this.state.tabIdValue}`}>
+            <ol id={this.props.id} className={this.props.className} ref="resultsOlElement" tabIndex='0' aria-labelledby={`link${this.state.tabIdValue}`}>
               {results}
             </ol>
             {
