@@ -197,7 +197,7 @@ a:focus {
 
 }
 
-a:focus .gs-resultsItem-title, a:focus .gs-resultsItem-imageWrapper, .gs-results-paginationButton:focus {
+a:focus .gs-resultsItem-title, a:focus .gs-resultsItem-imageWrapper, .gs-results-paginationButton:focus, .gs-inputField:focus, .gs-search-catalog-link-wrapper a:focus, .returnLink a:focus {
   box-shadow: 1px 1px 1px 1px #135772; 
   -webkit-outline-color: #135772; 
   -moz-outline-color: #135772; 
