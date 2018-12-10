@@ -1,15 +1,3 @@
- @media (min-width:400px) and (max-width:800px) {
-   .gs-results {
-     &Item {
-       a {
-         color: $SEARCH_BLUE;
-         text-decoration: none;
-         display:block;
-      }
-    }
-  }
-}
-
 .gs-results {
   margin: 15px 0 0 0;
   padding: 0;
@@ -198,7 +186,6 @@
 }
 
 a:focus {
-
   box-shadow: none; 
   -webkit-outline-color: #135772; 
   -moz-outline-color: #135772; 
