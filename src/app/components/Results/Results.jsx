@@ -240,7 +240,13 @@ class Results extends React.Component {
   }
 
 
-  // need comment
+  /**
+   * renderResultsNumberSuggestion(resultsLength)
+   * Renders the <p> for displaying results summary.
+   *
+   * @param {string} resultsLength - the amount of the total result items
+   * @return {HTML Element} p
+   */
   renderResultsNumberSuggestion(resultsLength) {
     let resultsNumberSuggestion;
     const textOfResult = this.props.amount === 1 ? 'result' : 'results';
@@ -275,9 +281,9 @@ class Results extends React.Component {
         aria-live="polite"
         aria-atomic="true"
         aria-relevant="all"
-        // Assign a key here is to tell React that this result summary element should be unique
-        // for every time make a search even the results is the same
-        // Thus aria-live can be picked by screen readers
+        // Assigns the key to the element for telling React that this element should be re-rendered
+        // every time when making a search request, even the final result is the same as previous.
+        // Therefore, aria-live can be picked up by screen readers.
         key={this.state.timeToLoadResults}
       >
         {resultsNumberSuggestion}

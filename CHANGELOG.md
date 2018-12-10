@@ -15,6 +15,7 @@
 - Updating the texts for showing result information.
 - Updating the functions to render tabs on mobile view and desktop view to fix the inconsistent selected tabs between viewports.
 - Updating the function for getting URL paths so the results will be correct after hitting "Go back" button on browsers.
+- Updating Results.jsx for rendering a more accessibile HTML element of results summary.
 #### Added
 - Adding the link to search the catalog with the same search keywords.
 
