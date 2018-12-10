@@ -176,7 +176,7 @@ TabItem.propTypes = {
   selectedFacet: PropTypes.string,
   saveSelectedTabValue: PropTypes.func,
   searchBySelectedFacetFunction: PropTypes.func,
-  results: PropTypes.func,
+  resultsOlElement: PropTypes.func,
 };
 
 export default TabItem;

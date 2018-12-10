@@ -281,7 +281,7 @@ class Results extends React.Component {
           selectedFacet={this.props.selectedFacet}
           searchBySelectedFacetFunction={this.props.searchBySelectedFacetFunction}
           saveSelectedTabValue={this.saveSelectedTabValue}
-          results={() => this.refs['resultsOlElement']}
+          resultsOlElement={() => this.refs['resultsOlElement']}
         />
         {(typeof results.length !== 'undefined') && results.length !== 0 &&
           <div>
