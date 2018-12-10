@@ -4,7 +4,7 @@
   "description": "DGX Global Search Repository",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "start": "AWS_PROFILE=nypl-sandbox node index",
     "dist": "NODE_ENV=production webpack --config webpack.config.js",
     "test": "node_modules/.bin/mocha --compilers js:babel-core/register",
     "accessibility-check": "loadA11y=true node index",
@@ -40,6 +40,7 @@
   "dependencies": {
     "@nypl/dgx-header-component": "2.4.15",
     "@nypl/dgx-react-footer": "0.5.1",
+    "aws-sdk": "^2.373.0",
     "axios": "0.9.1",
     "babel-core": "6.24.0",
     "babel-loader": "6.4.1",
