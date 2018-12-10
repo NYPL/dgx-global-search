@@ -9,7 +9,8 @@ class TabItem extends React.Component {
     this.sections = [];
 
     this.state = {
-      numberOfTabs: this.props.tabs.length,
+      numberOfTabs: Array.isArray(this.props.tabs) && this.props.tabs.length ?
+        this.props.tabs.length : 0,
     };
 
     this.clickHandler = this.clickHandler.bind(this);
@@ -128,7 +129,7 @@ class TabItem extends React.Component {
   * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element of the tab list on the mobile view
   */
-  renderMobileTabList(tabArray, selectedFacet, tabNumber) {
+  renderMobileTabList(tabArray = [], selectedFacet, tabNumber) {
     const tabOptions = [];
 
     tabArray.forEach((tab, i) => {
@@ -172,7 +173,7 @@ class TabItem extends React.Component {
   * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element of the tab list on the desktop view
   */
-  renderDesktopTabList(tabArray, selectedFacet, tabNumber) {
+  renderDesktopTabList(tabArray = [], selectedFacet, tabNumber) {
     const tabItems = [];
 
     tabArray.forEach((tab, i) => {
