@@ -13,7 +13,7 @@
 - Adding commands for linting
 - Updating the syntax for better formatting codes in Results.jsx
 - Updating the texts for showing result information.
-- Updating the functions to render tabs on mobile view and deskttop view to fix the inconsistent selected tabs between viewports.
+- Updating the functions to render tabs on mobile view and desktop view to fix the inconsistent selected tabs between viewports.
 - Updating the function for getting URL paths so the results will be correct after hitting "Go back" button on browsers.
 #### Added
 - Adding the link to search the catalog with the same search keywords.

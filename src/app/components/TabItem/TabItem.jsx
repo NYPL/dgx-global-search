@@ -29,7 +29,7 @@ class TabItem extends React.Component {
    *
    * @param {int} newTabIndex - The tab number
    * @param {string} tab - The value of the selected tab value
-   * @param {string} tabAnchor
+   * @param {string} tabAnchor - The value for a tab to be reand on the DOM
    * @param {string} tabId
    */
   switchTab(newTabIndex, tab, tabAnchor, tabId) {
@@ -50,7 +50,7 @@ class TabItem extends React.Component {
    *
    * @param {event} e - The input event
    * @param {string} tabValue - The value of the selected tab value
-   * @param {string} tabAnchor
+   * @param {string} tabAnchor - The value for a tab to be reand on the DOM
    * @param {string} tabId
    */
   clickHandler(e, tabValue, tabAnchor, tabId) {
@@ -66,7 +66,7 @@ class TabItem extends React.Component {
    *
    * @param {event} e - The events of key downs
    * @param {string} tabValue
-   * @param {string} tabAnchor
+   * @param {string} tabAnchor - The value for a tab to be reand on the DOM
    * @param {string} tabId
   */
   keyDownHandler(e, tabValue, tabAnchor, tabId) {
