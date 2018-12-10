@@ -11,7 +11,23 @@
   display:none;
 }
 
-@media (min-width:0px) and (max-width:1020px) {
+@media (min-width:0px) and (max-width:1050px) {
+
+  #category:focus{
+    box-shadow: 1px 1px 1px 1px #135772; 
+    -webkit-outline-color: #135772; 
+    -moz-outline-color: #135772; 
+    -ms-outline-color: #135772; 
+    -o-outline-color: #135772; 
+    outline-color: #135772; 
+    outline-style: solid; 
+    outline-width: .1875em;
+  }
+
+  .gs-results-divideLineIcon {
+    margin-top: 30px;
+  }
+
   div .tabbed ul[role="tablist"]{
     display: none;
   }
@@ -48,6 +64,11 @@
     font-family: Kievit-Book;
     text-align: center;
 
+    &:hover {
+      border: 1px solid $SEARCH_BLUE_DARK;
+      color: $SEARCH_BLUE_DARK;
+      transition: border color $DURATION-LONG ease;
+    }
   }
 
   div .tabbed #categoryTextLabel {
@@ -61,10 +82,7 @@
 }
 
  .tabbed {
-  *:focus {
-    outline: none;
-    box-shadow: inset 0 0 0 4px lightBlue;
-  }
+ 
   ul[role="tablist"] {
     margin: 0;
     margin-bottom: 20px;
@@ -89,6 +107,11 @@
 
    ul[role="tablist"]>li.activeTab:hover {
    background-color: darken(#176E91, 10% ) ;
+  }
+
+  ul[role="tablist"]>li.activeTab>a:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 4px lightBlue;
   }
 
   ul[role="tablist"]>li[class="activeTab"]>a {

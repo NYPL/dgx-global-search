@@ -16,16 +16,17 @@
       }
     }
 
+    @include Kievit-Book;
+
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
-    border: 2px solid $COOLGRAY_COLOR;
+    border: 2px solid $SEARCH_BLUE;
     border-radius: 33px;
-    color: $COOLGRAY_COLOR;
+    color: $SEARCH_BLUE;
     cursor: pointer;
     display: inline-block;
-    font-family: Kievit-Medium;
     font-size: 16px;
     letter-spacing: 0.04em;
     line-height: 16.21px;
@@ -33,6 +34,12 @@
     padding: 14px 19px 12px 19px;
     &--hide {
       display: none;
+    }
+
+    &:hover {
+      color: $SEARCH_BLUE_DARK;
+      border: 2px solid $SEARCH_BLUE_DARK;
+      transition: border color $DURATION_LONG ease;
     }
   }
 }
