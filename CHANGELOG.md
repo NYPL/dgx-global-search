@@ -15,6 +15,7 @@
 - Updating the texts for showing result information.
 #### Added
 - Adding the link to search the catalog with the same search keywords.
+- Add chevron to mobile dropdown
 
 ### v0.3.10
 #### Updated
