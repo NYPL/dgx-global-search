@@ -44,7 +44,6 @@ class TabItem extends React.Component {
     saveSelectedTabValue(tabId);
     this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab, selectedFacetAnchor: tabAnchor});
     let newTab = this.links[newTabIndex];
-    window.location.replace('#_tab' + newTabIndex.toString());
     newTab.focus();
     searchBySelectedFacetFunction(tab);
   }

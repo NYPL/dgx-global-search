@@ -11,7 +11,7 @@
   display:none;
 }
 
-@media (min-width:0px) and (max-width:1020px) {
+@media (min-width:0px) and (max-width:1050px) {
 
   .gs-results-divideLineIcon {
     margin-top: 30px;
@@ -74,6 +74,11 @@
     color: #176E91;
     font-family: Kievit-Book;
     text-align: center;
+    &:hover {
+      border: 1px solid $SEARCH_BLUE_DARK;
+      color: $SEARCH_BLUE_DARK;
+      transition: border color $DURATION-LONG ease;
+    }
   }
 
   div .tabbed #categoryTextDiv{
