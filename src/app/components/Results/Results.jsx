@@ -284,18 +284,7 @@ class Results extends React.Component {
         />
         {(typeof results.length !== 'undefined') && results.length !== 0 &&
           <div>
-            <div className="clear-float"></div>
-            <DivideLineIcon
-              ariaHidden
-              className={`${this.props.className}-divideLineIcon`}
-              height="4"
-              length="84"
-              stroke="#2799C5"
-              strokeWidth="4"
-              title="divide.line.icon.svg"
-              viewBox="0 0 84 4"
-              width="84"
-            />
+
             <ol id={this.props.id} className={this.props.className} ref="results">
               {results}
             </ol>

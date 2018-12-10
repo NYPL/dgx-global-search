@@ -171,6 +171,11 @@
   }
 }
 
+p#search-results-summary {
+  height: 48px;
+  margin: 0;
+}
+
 .noResultMessage {
   @include Kievit-Book;
 
