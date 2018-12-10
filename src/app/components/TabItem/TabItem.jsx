@@ -222,9 +222,7 @@ class TabItem extends React.Component {
 
     return (
       <div className="tabbed">
-        <div id='categoryTextDiv'>
-          <label htmlFor='category' id='categoryTextSpan'>Category</label>
-        </div>
+        <label id='categoryTextLabel'>Category</label>
         {this.renderMobileTabList(tabs, selectedFacet, tabNumber)}
         {this.renderDesktopTabList(tabs, selectedFacet, tabNumber)}
       </div>

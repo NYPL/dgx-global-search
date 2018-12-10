@@ -3,7 +3,7 @@
   margin-top: 1.5rem;
 }
 
-#categoryTextDiv{
+#categoryTextLabel{
   display: none;
 }
 
@@ -12,21 +12,13 @@
 }
 
 @media (min-width:0px) and (max-width:1020px) {
-
-  .gs-results-divideLineIcon {
-    margin-top: 30px;
-  }
-
   div .tabbed ul[role="tablist"]{
     display: none;
   }
 
-  #categoryTextDiv{
-    display: inline;
-  }
-
   #category {
     display: inline;
+    margin-bottom: 24px;
     z-index: 1;
   }
 
@@ -58,7 +50,8 @@
 
   }
 
-  div .tabbed #categoryTextDiv{
+  div .tabbed #categoryTextLabel {
+    display: inline;
     float: left;
     font-size: 18px;
     font-family: Kievit-Book;
