@@ -29,7 +29,7 @@ $ APP_ENV=development|qa|production npm start // Starts localhost:3001 with set 
 ```
 
 ### Production Mode
-We use Webpack to fire off a hot-reloading development server. This allows for continous code changes without the need to refresh your browser.
+We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
 
 ```sh
 $ npm run dist // Builds dist path & files
