@@ -83,7 +83,7 @@ const requestResultsFromClient = (req, res) => {
     res.json({});
     return;
   }
-// need to add a function to generate the correct google url
+  
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const data = searchData.data;
