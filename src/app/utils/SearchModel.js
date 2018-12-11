@@ -184,7 +184,6 @@ const fetchThumbnail = (item) => {
  * @return {Object}
  */
 const fetchItem = (item, searchRequest) => {
-  console.log('item: ', item)
   if (!item) {
     return {
       title: '',
