@@ -149,7 +149,7 @@ class TabItem extends React.Component {
           value={tab.value}
           className={(selectedFacet === tab.value) ? 'activeTab' : null}
           href={`#tab${j}`}
-          id={`link${j}`}
+          id={`mobile-tab-link${j}`}
           tabIndex={tabIndexAttribute}
           aria-selected={(tabNumber && j === parseInt(tabNumber)) ? 'true' : 'false'}
           data={`${j}`}
