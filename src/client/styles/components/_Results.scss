@@ -196,10 +196,10 @@
 }
 
 a:focus {
-  @include a11y-focus($SEARCH_BLUE_DARK, 2px);
+  @include a11y-focus($SEARCH_BLUE_DARK, 4px);
 }
 
-a:focus .gs-resultsItem-title, a:focus .gs-resultsItem-imageWrapper, .gs-results-paginationButton:focus, .gs-inputField:focus, .gs-search-catalog-link-wrapper a:focus, .returnLink a:focus {
-  @include a11y-focus($SEARCH_BLUE_DARK, 2px);
+.gs-resultsItem-title a:focus, a:focus .gs-resultsItem-imageWrapper, .gs-results-paginationButton:focus, .gs-inputField:focus, .gs-search-catalog-link-wrapper a:focus, .returnLink a:focus {
+  @include a11y-focus($SEARCH_BLUE_DARK, 4px);
 }
 
