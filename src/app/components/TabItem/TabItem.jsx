@@ -135,16 +135,23 @@ class TabItem extends React.Component {
 
     tabArray.forEach((tab, i) => {
       const j = i + 1;
+      let tabIndexAttribute;
+
+      if (tabNumber) {
+        tabIndexAttribute = (parseInt(tabNumber) === j) ? null : '-1';
+      } else {
+        tabIndexAttribute = '0';
+      }
 
       tabOptions.push(
         <option
           key={`${j}`}
           value={tab.value}
-          className={(selectedFacet === tab.value ? 'activeTab' : null)}
+          className={(selectedFacet === tab.value) ? 'activeTab' : null}
           href={`#tab${j}`}
           id={`link${j}`}
-          tabIndex={!tabNumber ?  '0' : parseInt(tabNumber) === j ? null : -1}
-          aria-selected={tabNumber && j === parseInt(tabNumber) ? true: false}
+          tabIndex={tabIndexAttribute}
+          aria-selected={(tabNumber && j === parseInt(tabNumber)) ? 'true' : 'false'}
           data={`${j}`}
         >
           {tab.anchor}
@@ -191,8 +198,8 @@ class TabItem extends React.Component {
           <a
             href={`#_tab${j}`}
             id={`link${j}`}
-            tabIndex={selectedFacet === tab.value ? null : -1}
-            aria-selected={tabNumber && j === parseInt(tabNumber) ? true: false}
+            tabIndex={(selectedFacet === tab.value) ? null : -1}
+            aria-selected={(tabNumber && j === parseInt(tabNumber)) ? 'true' : 'false'}
             role='tab'
             data={`${j}`}
             onClick={e => this.clickHandler(e, tab.value, tab.anchor, j)}
