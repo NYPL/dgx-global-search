@@ -20,6 +20,7 @@ class TabItem extends React.Component {
 
   focusTab(newTabIndex) {
     let newTab = this.links[newTabIndex];
+
     newTab.focus();
   }
 
@@ -222,7 +223,7 @@ class TabItem extends React.Component {
     } = this.props
 
     return (
-      <div className="tabbed">
+      <div className="tabsContainer">
         <label id='categoryTextLabel'>Category</label>
         {this.renderMobileTabList(tabs, selectedFacet, tabNumber)}
         {this.renderDesktopTabList(tabs, selectedFacet, tabNumber)}
