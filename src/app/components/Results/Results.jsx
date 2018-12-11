@@ -221,7 +221,7 @@ class Results extends React.Component {
         </div>
       );
     }
-    const label = `View More Results`;
+    const label = `View ${remainingResults} More Results`;
     return (
       <div className={`${this.props.id}-paginationButton-wrapper`}>
         <PaginationButton
