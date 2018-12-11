@@ -2,19 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+// Import libraries
+import { contains as _contains, map as _map } from 'underscore';
+import { DivideLineIcon } from 'dgx-svg-icons';
+import { PaginationButton } from 'dgx-react-buttons';
+
 // Import alt components
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import components
 import ResultsItem from '../ResultsItem/ResultsItem.jsx';
-import { DivideLineIcon } from 'dgx-svg-icons';
-import { PaginationButton } from 'dgx-react-buttons';
 import TabItem from '../TabItem/TabItem.jsx';
 import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 
-// Import libraries
-import { contains as _contains, map as _map } from 'underscore';
+
 
 // Import utilities
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
@@ -169,9 +171,9 @@ class Results extends React.Component {
    * passed.
    */
   parseSnippet(snippetText) {
-    if(!snippetText && typeof snippetText !== 'string') {
+    if (!snippetText && typeof snippetText !== 'string') {
       return '';
-    };
+    }
 
     const faultyJsonArray = snippetText.trim().split('}}]]');
 
@@ -209,6 +211,10 @@ class Results extends React.Component {
     this.setState({ tabIdValue });
   }
 
+  saveSelectedTabValue(tabIdValue) {
+    this.setState({ tabIdValue: tabIdValue });
+  }
+
   /**
    * renderSeeMoreButton
    * The function renders a see more button,
@@ -241,10 +247,6 @@ class Results extends React.Component {
         />
       </div>
     );
-  }
-
-  saveSelectedTabValue(tabIdValue){
-    this.setState({tabIdValue: tabIdValue})
   }
 
   /**
@@ -314,9 +316,9 @@ class Results extends React.Component {
           saveSelectedTabValue={this.saveSelectedTabValue}
           resultsOlElement={() => this.refs['resultsOlElement']}
         />
-        {(typeof results.length !== 'undefined') && results.length !== 0 &&
+        {typeof results.length !== 'undefined' && results.length !== 0 ? (
           <div>
-            <div className="clear-float"></div>
+            <div className="clear-float" />
             <DivideLineIcon
               ariaHidden
               className={`${this.props.className}-divideLineIcon`}
@@ -328,7 +330,7 @@ class Results extends React.Component {
               viewBox="0 0 84 4"
               width="84"
             />
-            <ol id={this.props.id} className={this.props.className} ref="resultsOlElement" tabIndex='0' aria-labelledby={`link${this.state.tabIdValue}`}>
+            <ol id={this.props.id} className={this.props.className} ref="resultsOlElement" tabIndex="0" aria-labelledby={`link${this.state.tabIdValue}`}>
               {results}
             </ol>
             {
@@ -337,13 +339,14 @@ class Results extends React.Component {
             }
             <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           </div>
-        }
+        ) : null}
       </div>
     );
   }
 }
 
 Results.propTypes = {
+  lang: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
   results: PropTypes.array,
