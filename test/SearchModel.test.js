@@ -65,7 +65,7 @@ describe('fetchResultItems', () => {
     }
   );
 });
-//
+
 describe('fetchSearchFacetsList', () => {
   it('should return a preset facet array if data is undefined or null', () => {
     expect(fetchSearchFacetsList()).to.deep.equal(presetFacets);

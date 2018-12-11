@@ -19,7 +19,7 @@ const fetchResultLength = (data) => {
   try {
     const {
       searchInformation: {
-        formattedTotalResults: totalResults,
+        formattedTotalResults: totalResults = 0,
       },
     } = data;
     return totalResults;
@@ -66,7 +66,7 @@ const extractSearchElements = (requestCombo) => {
   };
 };
 
-const displayName = (name) => name.split("_").map(word => word[0].toUpperCase() + word.slice(1)).join(" ")
+const displayName = (name) => name.split("_").map(word => word ? word[0].toUpperCase() + word.slice(1) : '').join(" ")
 
 /**
  * fetchDisplayName(labelsArray, searchRequest)
@@ -92,15 +92,8 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
   }
 
   const displayNameArray = _map(labelsArray, (label) => {
-    console.log('labels: ', labelsArray)
-    if (!label.displayName || !label.name) {
-      return {
-        name: ''
-      };
-    }
-
     return {
-      name: label.name,
+      name: label.name || '',
     };
   });
 
@@ -157,18 +150,14 @@ const secureHttpsProtocol = (url) =>
  * @return {String}
  */
 const fetchItemFeature = (item, feature) => {
-  if (!item[feature]) {
-    return '';
-  }
-
-  return item[feature];
+  return item[feature] || '';
 };
 
 const getNestedData = (array, item) => {
-  return array.reduce((acc, el) => acc[el] ? acc[el] : '', item)
+  return array.reduce((acc, el) => (acc[el] || ''), item)
 }
 
-const thumbnailLogging = (item) => {
+const logThumbnail = (item) => {
   let thumbnails = getNestedData(['pagemap', 'cse_thumbnail'], item);
   if (thumbnails.length && thumbnails.length > 1) {
     console.log('item with multiple thumbnails: ', JSON.stringify(item));
@@ -176,7 +165,7 @@ const thumbnailLogging = (item) => {
 }
 
 const fetchThumbnail = (item) => {
-  thumbnailLogging(item);
+  logThumbnail(item);
   return getNestedData(['pagemap', 'cse_thumbnail', 0, 'src'], item)
 }
 

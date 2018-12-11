@@ -15,8 +15,6 @@ const { api, searchApi } = appConfig;
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
-// const apiRoot = api.root[appEnvironment];
-const apiRoot = process.env.API_ROOT;
 
 const getSearchData = (url) => axios.get(url);
 
@@ -83,7 +81,7 @@ const requestResultsFromClient = (req, res) => {
     res.json({});
     return;
   }
-  
+
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const data = searchData.data;
