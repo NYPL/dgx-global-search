@@ -26,8 +26,8 @@ history.listen(location => {
     action,
     pathname,
   } = location;
-  const searchKeyword = (pathname.split('/')[2]) ? pathname.split('/')[2] : '';
-  const searchFacet = (pathname.split('/')[3]) ? pathname.split('/')[3] : '';
+  const searchKeyword = pathname.split('/')[2] || '';
+  const searchFacet = pathname.split('/')[3] || '';
   const resultsStart = 0;
 
   if (action === 'POP') {
