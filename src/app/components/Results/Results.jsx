@@ -221,7 +221,7 @@ class Results extends React.Component {
         </div>
       );
     }
-    const label = `View ${remainingResults} More Results`;
+    const label = `View More Results`;
     return (
       <div className={`${this.props.id}-paginationButton-wrapper`}>
         <PaginationButton
@@ -281,11 +281,23 @@ class Results extends React.Component {
           selectedFacet={this.props.selectedFacet}
           searchBySelectedFacetFunction={this.props.searchBySelectedFacetFunction}
           saveSelectedTabValue={this.saveSelectedTabValue}
+          resultsOlElement={() => this.refs['resultsOlElement']}
         />
         {(typeof results.length !== 'undefined') && results.length !== 0 &&
           <div>
-
-            <ol id={this.props.id} className={this.props.className} ref="results">
+            <div className="clear-float"></div>
+            <DivideLineIcon
+              ariaHidden
+              className={`${this.props.className}-divideLineIcon`}
+              height="4"
+              length="84"
+              stroke="#2799C5"
+              strokeWidth="4"
+              title="divide.line.icon.svg"
+              viewBox="0 0 84 4"
+              width="84"
+            />
+            <ol id={this.props.id} className={this.props.className} ref="resultsOlElement" tabIndex='0' aria-labelledby={`link${this.state.tabIdValue}`}>
               {results}
             </ol>
             {

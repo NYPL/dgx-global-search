@@ -13,6 +13,7 @@
 - Adding commands for linting
 - Updating the syntax for better formatting codes in Results.jsx
 - Updating the texts for showing result information.
+- Changing the "Load More" button to "View More" and removing the loading dots
 #### Added
 - Adding the link to search the catalog with the same search keywords.
 - Add chevron to mobile dropdown

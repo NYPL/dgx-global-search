@@ -31,7 +31,6 @@ Import style rules from App components
 @import "components/SearchButton";
 @import "components/Results";
 @import "components/PaginationButton";
-@import "components/_LoadingLayer";
 @import "components/_ReturnLink";
 
 #app {
@@ -64,10 +63,6 @@ header {
     margin: 0 auto;
     max-width: 1313px;
     padding: 0;
-  }
-
-  &:focus {
-    outline: none;
   }
 
   h1 {
@@ -171,3 +166,13 @@ header {
   clip: rect(0 0 0 0); /* IE6, IE7 */
   clip: rect(0, 0, 0, 0);
 }
+
+#gs-searchButton:focus{
+   outline: none;
+   box-shadow: inset 0 0 0 4px lightBlue;
+  }
+
+#gs-searchButton:hover{
+   background-color: darken(#176E91, 10% ) ;
+  }
+
