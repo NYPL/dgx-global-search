@@ -84,8 +84,8 @@ class TabItem extends React.Component {
          this.focusTab(targetTabIndex);
        } else if (targetTabIndex === "down") {
          let nextElement;
-         if (document.getElementsByClassName("gs-resultsItem-link")[0]) {
-           nextElement = document.getElementsByClassName("gs-resultsItem-link")[0];
+         if (this.props.resultsOlElement()) {
+           nextElement = this.props.resultsOlElement();
          } else {
            nextElement = document.getElementsByClassName("linkItemList")[0].childNodes[0].childNodes[0];
          }
@@ -176,6 +176,7 @@ TabItem.propTypes = {
   selectedFacet: PropTypes.string,
   saveSelectedTabValue: PropTypes.func,
   searchBySelectedFacetFunction: PropTypes.func,
+  resultsOlElement: PropTypes.func,
 };
 
 export default TabItem;
