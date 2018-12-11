@@ -12,7 +12,7 @@
     padding: 30px 14px 0 14px;
 
     @include layout-at(7, $tablet-portrait) {
-      padding: 0 36px;
+      padding: 0 20px;
     }
 
     @include layout-at(8, $tablet-landscape) {

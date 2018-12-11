@@ -54,7 +54,6 @@ header {
   @include layout-at(9, $tablet-landscape) {
     box-sizing: border-box;
     min-height: 860px;
-    padding: 0 20px;
   }
 
   @include min-screen($desktop) {
@@ -76,7 +75,7 @@ header {
     padding: 0 14px;
 
     @include min-screen($tablet-portrait) {
-      padding: 0 36px;
+      padding: 24px 0 0 20px;
     }
 
     @include layout-at(9, $tablet-landscape) {
@@ -96,7 +95,7 @@ header {
       box-sizing: border-box;
       display: inline-block;
       margin: 0 0 27px 0;
-      padding: 0 36px;
+      padding: 0 20px;
     }
 
     @include layout-at(9, $tablet-landscape) {
@@ -108,6 +107,10 @@ header {
   }
 
   .gs-searchField {
+    /*@include layout-at(7, $tablet-portrait) {
+      @include grid-span(7, 1);
+    }*/
+
     @include layout-at(8, $tablet-landscape) {
       width: 100%;
     }
