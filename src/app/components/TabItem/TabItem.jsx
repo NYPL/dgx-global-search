@@ -65,7 +65,7 @@ class TabItem extends React.Component {
    * keyDownHandler(e, tabValue, tabAnchor, tabId)
    * Enables navigation with arrow keys.
    *
-   * @param {event} e - The events of key downs
+   * @param {event} e - The key down event
    * @param {string} tabValue
    * @param {string} tabAnchor - The value for a tab to be read on the DOM
    * @param {string} tabId
