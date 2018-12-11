@@ -20,7 +20,8 @@ From the CLI, run `npm run lint` to run the ESLint tool for checking JavaScript 
 ### Development Mode
 We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
 
-To run locally, run `npm run local`. You will have to change the string URL in the 'local' script in package.json to the actual API endpoint. Get this from a coworker
+To run locally, run:
+`API_ROOT='ENTER_URL_HERE' node index`. You will have to change the string `ENTER_URL_HERE` in the 'local' script in package.json to the actual API endpoint. Leave the quotation marks. Get this from a coworker
 
 You can also set the APP_ENV variable which dictates what API environment to use as the main source.
 ```sh
