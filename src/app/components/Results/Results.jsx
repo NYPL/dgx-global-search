@@ -169,6 +169,10 @@ class Results extends React.Component {
    * passed.
    */
   parseSnippet(snippetText) {
+    if(!snippetText && typeof snippetText !== 'string') {
+      return '';
+    };
+
     const faultyJsonArray = snippetText.trim().split('}}]]');
 
     if (faultyJsonArray.length > 1) {
@@ -184,12 +188,16 @@ class Results extends React.Component {
    * to prevent an error when that site does not have SSL enabled.
    */
   transformHttpsToHttp(link) {
-    const transformationRequired = (
-      link.includes('//menus.nypl.org')
-      || link.includes('//exhibitions.nypl.org')
-      || link.includes('//static.nypl.org')
-      || link.includes('//web-static.nypl.org')
-    );
+    if (!link) {
+      return;
+    }
+
+    const transformationRequired =
+      link.includes('//menus.nypl.org') ||
+      link.includes('//exhibitions.nypl.org') ||
+      link.includes('//static.nypl.org') ||
+      link.includes('//web-static.nypl.org');
+
     if (link && transformationRequired) {
       return link.replace('https:', 'http:');
     }
@@ -239,7 +247,6 @@ class Results extends React.Component {
     this.setState({tabIdValue: tabIdValue})
   }
 
-
   /**
    * renderResultsNumberSuggestion(resultsLength)
    * Renders the <p> for displaying results summary.
@@ -262,7 +269,7 @@ class Results extends React.Component {
         `"${this.props.searchKeyword}"`;
     }
 
-    if (this.props.selectedFacet) {
+    if (this.props.selectedFacet && Array.isArray(this.props.tabs)) {
       const tabArray = this.props.tabs;
       let selectedTabName = '';
 
@@ -271,6 +278,7 @@ class Results extends React.Component {
           selectedTabName = tab.resultSummarydisplayName;
         }
       });
+
       resultsNumberSuggestion += ` in ${selectedTabName}`;
     }
 
