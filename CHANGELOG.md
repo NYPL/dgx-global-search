@@ -17,6 +17,7 @@
 #### Added
 - Adding the link to search the catalog with the same search keywords.
 - Adding new PR workflow with a pr_approved branch.
+- Add chevron to mobile dropdown
 
 ### v0.3.10
 #### Updated
