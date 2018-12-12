@@ -142,14 +142,14 @@ class TabItem extends React.Component {
 
       tabOptions.push(
         <option
-          key={`${j}`}
+          key={j}
           value={tab.value}
           className={(selectedFacet === tab.value) ? 'activeTab' : null}
           href={`#tab${j}`}
           id={`mobile-tab-link${j}`}
           tabIndex={tabIndexAttribute}
           aria-selected={(tabNumber && j === parseInt(tabNumber)) ? 'true' : 'false'}
-          data={`${j}`}
+          data={j}
         >
           {tab.anchor}
         </option>
@@ -188,7 +188,7 @@ class TabItem extends React.Component {
 
       tabItems.push(
         <li
-          key={`${j}`}
+          key={j}
           value={tab.value}
           id={`tab${j}`}
           className={(selectedFacet === tab.value ? 'activeTab' : null)}
@@ -200,10 +200,10 @@ class TabItem extends React.Component {
             tabIndex={(selectedFacet === tab.value) ? null : -1}
             aria-selected={(tabNumber && j === parseInt(tabNumber)) ? 'true' : 'false'}
             role='tab'
-            data={`${j}`}
+            data={j}
             onClick={e => this.clickHandler(e, tab.value, tab.anchor, j)}
             onKeyDown={e => this.keyDownHandler(e, tab.value, j)}
-            ref={(input) => {this.links[`${j}`] = input;}}
+            ref={(input) => {this.links[j.toString()] = input;}}
           >
             {tab.anchor}
           </a>
