@@ -163,7 +163,7 @@ class TabItem extends React.Component {
           value={selectedFacet}
           onChange={this.updateSelectedFacetMobile}
           aria-labelledby="categoryTextSpan category"
-          id='category'
+          id="category"
         >
           {tabOptions}
         </select>
