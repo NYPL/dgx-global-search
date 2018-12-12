@@ -44,14 +44,16 @@
   }
 
   .tab-wrapper:after {
+    @include Kievit-Light;
+    
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
-    color: #176E91;
+    color: $SEARCH_BLUE;
     content: '>';
     font-size: 32px;
-    right: 11px;
+    right: 16px;
     top: 8px;
     padding: 0 0 2px;
     position: absolute;
@@ -65,14 +67,12 @@
     appearance: none;
     min-width: 250px;
     margin: 0 auto;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding: 16px 0 16px 16px;
     float: left;  
-    text-align-last:center;
 
     /* Styles */
     background: #fff;
-    border: 1px solid #176E91;
+    border: 1px solid $SEARCH_BLUE;
     box-shadow: 0 1px 1px rgba(50,50,50,0.1);
     cursor: pointer;
     outline: none;
@@ -82,6 +82,7 @@
     color: #176E91;
     font-family: Kievit-Book;
     text-align: center;
+
     &:hover {
       border: 1px solid $SEARCH_BLUE_DARK;
       color: $SEARCH_BLUE_DARK;
