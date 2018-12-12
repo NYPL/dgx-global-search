@@ -1,18 +1,16 @@
-
 .view-all-items-container {
   margin-top: 1.5rem;
 }
 
-#categoryTextLabel{
+#categoryTextLabel {
   display: none;
 }
 
-#category{
+#category {
   display:none;
 }
 
 @media (min-width:0px) and (max-width:1050px) {
-
   #category:focus{
     box-shadow: 1px 1px 1px 1px #135772; 
     -webkit-outline-color: #135772; 
@@ -28,8 +26,12 @@
     margin-top: 30px;
   }
 
-  div .tabbed ul[role="tablist"]{
+  div .tabsContainer ul[role="tablist"]{
     display: none;
+  }
+
+  #categoryTextLabel{
+    display: inline;
   }
 
   #category {
@@ -38,22 +40,41 @@
     z-index: 1;
   }
 
-  div .tabbed select {
+  .tab-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .tab-wrapper:after {
+    @include Kievit-Light;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    color: $SEARCH_BLUE;
+    content: '>';
+    font-size: 32px;
+    right: 16px;
+    top: 8px;
+    padding: 0 0 2px;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  div .tabsContainer select {
     /* Size and position */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    position: relative;
     min-width: 250px;
     margin: 0 auto;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    float: left;  
-    text-align-last:center;
+    padding: 16px 0;
+    float: left;
+    text-align-last: center;
 
     /* Styles */
     background: #fff;
-    border: 1px solid #176E91;
+    border: 1px solid $SEARCH_BLUE;
     box-shadow: 0 1px 1px rgba(50,50,50,0.1);
     cursor: pointer;
     outline: none;
@@ -62,7 +83,6 @@
     font-size: 18px;
     color: #176E91;
     font-family: Kievit-Book;
-    text-align: center;
 
     &:hover {
       border: 1px solid $SEARCH_BLUE_DARK;
@@ -71,7 +91,7 @@
     }
   }
 
-  div .tabbed #categoryTextLabel {
+  div .tabsContainer #categoryTextLabel {
     display: inline;
     float: left;
     font-size: 18px;
@@ -81,8 +101,7 @@
   }
 }
 
- .tabbed {
- 
+.tabsContainer {
   ul[role="tablist"] {
     margin: 0;
     margin-bottom: 20px;
@@ -105,8 +124,8 @@
     background-color: #176E91;
   }
 
-   ul[role="tablist"]>li.activeTab:hover {
-   background-color: darken(#176E91, 10% ) ;
+  ul[role="tablist"]>li.activeTab:hover {
+    background-color: darken(#176E91, 10% ) ;
   }
 
   ul[role="tablist"]>li.activeTab>a:focus {
@@ -149,7 +168,7 @@
   display: block;
 }
 
-div .tabbed {
+div .tabsContainer {
   ul[role="tablist"] {
     li:target~.default {
       display: none;
