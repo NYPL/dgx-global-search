@@ -101,6 +101,7 @@
         @include layout-at(7, $tablet-portrait) {
           @include grid-span(1, 7);
           display: block;
+          margin-bottom: 24px;
         }
 
         @include layout-at(6, $tablet-landscape) {
@@ -199,7 +200,10 @@ a:focus {
   @include a11y-focus($SEARCH_BLUE_DARK, 4px);
 }
 
-.gs-resultsItem-title a:focus, a:focus .gs-resultsItem-imageWrapper, .gs-results-paginationButton:focus, .gs-inputField:focus, .gs-search-catalog-link-wrapper a:focus, .returnLink a:focus {
+a:focus .gs-resultsItem-title, a:focus .gs-resultsItem-imageWrapper, .gs-results-paginationButton:focus, .gs-inputField:focus, .gs-search-catalog-link-wrapper a:focus, .returnLink a:focus {
   @include a11y-focus($SEARCH_BLUE_DARK, 4px);
 }
 
+h2.gs-resultsItem-title.whole-row {
+  @include a11y-focus(transparent, 0);
+}
