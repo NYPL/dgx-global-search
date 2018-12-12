@@ -16,6 +16,7 @@
 - Updating the functions to render tabs on mobile view and desktop view to fix the inconsistent selected tabs between viewports.
 - Updating the function for getting URL paths so the results will be correct after hitting "Go back" button on browsers.
 - Changing the "Load More" button to "View More" and removing the loading dots
+- Updating Results.jsx for rendering a more accessibile HTML element of results summary.
 #### Added
 - Adding the link to search the catalog with the same search keywords.
 - Adding new PR workflow with a pr_approved branch.

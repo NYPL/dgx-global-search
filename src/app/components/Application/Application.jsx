@@ -205,7 +205,6 @@ class App extends React.Component {
    * @param {string} selectedFacet
    */
   triggerGAThenSubmit(selectedFacet = '') {
-    document.getElementById('search-results-summary').innerHTML = '';
     // Only trigger search and GA QuerySent event one time if double or tripple clicks happen
     if (!this.state.isGAQuerySent) {
       // Set isGAQuerySent to be true to avoid another event being sent in a short period of time
