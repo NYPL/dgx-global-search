@@ -205,5 +205,7 @@ a:focus .gs-resultsItem-title, a:focus .gs-resultsItem-imageWrapper, .gs-results
 }
 
 h2.gs-resultsItem-title.whole-row {
-  @include a11y-focus(transparent, 0);
+  @include min-screen($tablet-portrait) {
+    @include a11y-focus(transparent, 0);
+  }
 }
