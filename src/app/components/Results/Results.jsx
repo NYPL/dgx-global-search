@@ -129,6 +129,7 @@ class Results extends React.Component {
    */
   addMoreResults() {
     const nextResultCount = this.state.resultsStart + this.state.incrementResults;
+    let originalResultsStart = this.state.resultsStart;
 
     makeClientApiCall(this.props.searchKeyword, this.props.selectedFacet, nextResultCount,
       (searchResultsItems) => {
@@ -155,11 +156,20 @@ class Results extends React.Component {
     );
 
     // Automatically focus on the first item of the newly reloaded results
-    setTimeout(() => {
-      const refResultIndex = `result-${this.state.resultsStart}`;
+    let counter = 1;
+    var moveFocusToNextPage = () => {
+      setTimeout(() => {
+        counter += 1;
+        if (originalResultsStart != this.state.resultsStart){
+          const refResultIndex = `result-${this.state.resultsStart}`;
+          ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
+        } else if (counter < 20) {
+          moveFocusToNextPage();
+        }
+      }, 500);
+    }
 
-      ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
-    }, 2000);
+    moveFocusToNextPage();
   }
 
   /**
