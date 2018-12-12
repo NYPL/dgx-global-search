@@ -25,15 +25,14 @@ class TabItem extends React.Component {
   }
 
   /**
-   * switchTab(newTabIndex, tab, tabAnchor, tabId)
+   * switchTab(newTabIndex, tab, tabId)
    * Switches tabs by updating state and href.
    *
    * @param {int} newTabIndex - The tab number
    * @param {string} tab - The value of the selected tab value
-   * @param {string} tabAnchor - The value for a tab to be read on the DOM
    * @param {string} tabId
    */
-  switchTab(newTabIndex, tab, tabAnchor, tabId) {
+  switchTab(newTabIndex, tab, tabId) {
     const {
       saveSelectedTabValue,
       searchBySelectedFacetFunction
@@ -46,31 +45,29 @@ class TabItem extends React.Component {
   }
 
   /**
-   * clickHandler(e, tabValue, tabAnchor, tabId)
+   * clickHandler(e, tabValue, tabId)
    * Calls the function switchTab after a key is pressed.
    *
    * @param {event} e - The input event
    * @param {string} tabValue - The value of the selected tab value
-   * @param {string} tabAnchor - The value for a tab to be read on the DOM
    * @param {string} tabId
    */
-  clickHandler(e, tabValue, tabAnchor, tabId) {
+  clickHandler(e, tabValue, tabId) {
     e.preventDefault();
     let clickedTab = e.currentTarget;
     let index = clickedTab.getAttribute('data');
-    this.switchTab(index, tabValue, tabAnchor, tabId);
+    this.switchTab(index, tabValue, tabId);
   }
 
   /**
-   * keyDownHandler(e, tabValue, tabAnchor, tabId)
+   * keyDownHandler(e, tabValue, tabId)
    * Enables navigation with arrow keys.
    *
    * @param {event} e - The key down event
    * @param {string} tabValue
-   * @param {string} tabAnchor - The value for a tab to be read on the DOM
    * @param {string} tabId
   */
-  keyDownHandler(e, tabValue, tabAnchor, tabId) {
+  keyDownHandler(e, tabValue, tabId) {
     const {
       numberOfTabs
     } = this.state
@@ -88,7 +85,7 @@ class TabItem extends React.Component {
     } else if (e.which === 32) {
       // 32 is the space key
       e.preventDefault();
-      this.clickHandler(e, tabValue, tabAnchor, tabId);
+      this.clickHandler(e, tabValue, tabId);
     } else {
       targetTabIndex = null;
     }
@@ -205,7 +202,7 @@ class TabItem extends React.Component {
             role='tab'
             data={`${j}`}
             onClick={e => this.clickHandler(e, tab.value, tab.anchor, j)}
-            onKeyDown={e => this.keyDownHandler(e, tab.value, tab.anchor, j)}
+            onKeyDown={e => this.keyDownHandler(e, tab.value, j)}
             ref={(input) => {this.links[`${j}`] = input;}}
           >
             {tab.anchor}
