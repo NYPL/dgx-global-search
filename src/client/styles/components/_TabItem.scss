@@ -1,18 +1,16 @@
-
 .view-all-items-container {
   margin-top: 1.5rem;
 }
 
-#categoryTextLabel{
+#categoryTextLabel {
   display: none;
 }
 
-#category{
+#category {
   display:none;
 }
 
 @media (min-width:0px) and (max-width:1050px) {
-
   #category:focus{
     box-shadow: 1px 1px 1px 1px #135772; 
     -webkit-outline-color: #135772; 
@@ -30,6 +28,10 @@
 
   div .tabsContainer ul[role="tablist"]{
     display: none;
+  }
+
+  #categoryTextLabel{
+    display: inline;
   }
 
   #category {
@@ -66,8 +68,9 @@
     appearance: none;
     min-width: 250px;
     margin: 0 auto;
-    padding: 16px 0 16px 16px;
-    float: left;  
+    padding: 16px 0;
+    float: left;
+    text-align-last: center;
 
     /* Styles */
     background: #fff;
@@ -98,8 +101,7 @@
   }
 }
 
- .tabsContainer {
- 
+.tabsContainer {
   ul[role="tablist"] {
     margin: 0;
     margin-bottom: 20px;
@@ -122,8 +124,8 @@
     background-color: #176E91;
   }
 
-   ul[role="tablist"]>li.activeTab:hover {
-   background-color: darken(#176E91, 10% ) ;
+  ul[role="tablist"]>li.activeTab:hover {
+    background-color: darken(#176E91, 10% ) ;
   }
 
   ul[role="tablist"]>li.activeTab>a:focus {

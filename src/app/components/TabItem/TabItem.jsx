@@ -160,15 +160,17 @@ class TabItem extends React.Component {
     });
 
     return (
-      <select
-        className="form-control input-lg"
-        value={selectedFacet}
-        onChange={this.updateSelectedFacetMobile}
-        aria-labelledby="categoryTextSpan category"
-        id='category'
-      >
-        {tabOptions}
-      </select>
+      <div className="tab-wrapper">
+        <select
+          className="form-control input-lg"
+          value={selectedFacet}
+          onChange={this.updateSelectedFacetMobile}
+          aria-labelledby="categoryTextSpan category"
+          id='category'
+        >
+          {tabOptions}
+        </select>
+      </div>
     );
   }
 
