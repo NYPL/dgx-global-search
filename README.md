@@ -50,11 +50,30 @@ https://console.aws.amazon.com
 
 You will need the credentials. Please contact NYPL Digital if you need one.
 
-#### For deploying a feature branch to one of the environments
-Sometimes, we need to test a feature branch at one of the environments, so we need to deploy the branch. For doing that, change the value of `branch` in `.travis.yml` under each environment (deploy/on/branch) from `master`, `qa`, or `development` to the name of the feature branch. Save, commit, and push it just as the regular deployments.
+#### PR Review and Deployment with Travis
+CREATING A NEW BRANCH
+
+When starting work on a new feature, developers should cut their feature branches off of the `pr_approved` branch.
+
+CREATING A NEW PR
+
+The pr_approved branch reflects all work that has been approved in a PR.  This means that when a developer creates a PR, the base branch should be the `pr_approved` branch.
+
+TESTING A FEATURE ON THE DEVELOPMENT SERVER
+
+When a developer is ready to create a new PR, they should use the CLI to merge their feature branch into the development branch and push it to the `development` branch on GitHub.  This will cause Travis to deploy the `development` branch to the development server.
+
+DEPLOYMENT BY TRAVIS
+
+The travis.yml file states that these branches get deployed to these environments:
+
+* `development` branch deploys to development server
+* `pr_approved` branch does not deploy anywhere
+* `qa` branch deploys to qa server
+* `master` branch deploys to production server
 
 #### For pushing to remote without a deployment
-Sometimes, we want to push the commit but also keep the current version on the environment for testing. For doing that, at the commit you want to push, add [skip ci] anywhere (preferable in the beginning to keep them consistent), so Travis will ignore this commit.
+Sometimes, we want to push the commit but also keep the current version on the environment for testing. For doing that, at the commit you want to push, add `[skip ci]` anywhere (preferable in the beginning to keep them consistent), so Travis will ignore this commit.
 
 
 Contributors

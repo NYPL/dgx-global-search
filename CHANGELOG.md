@@ -18,6 +18,8 @@
 - Changing the "Load More" button to "View More" and removing the loading dots
 #### Added
 - Adding the link to search the catalog with the same search keywords.
+- Add chevron to mobile dropdown
+- Adding new PR workflow with a pr_approved branch.
 
 ### v0.3.10
 #### Updated

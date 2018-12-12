@@ -38,22 +38,40 @@
     z-index: 1;
   }
 
+  .tab-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .tab-wrapper:after {
+    @include Kievit-Light;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    color: $SEARCH_BLUE;
+    content: '>';
+    font-size: 32px;
+    right: 16px;
+    top: 8px;
+    padding: 0 0 2px;
+    position: absolute;
+    pointer-events: none;
+  }
+
   div .tabsContainer select {
     /* Size and position */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    position: relative;
     min-width: 250px;
     margin: 0 auto;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding: 16px 0 16px 16px;
     float: left;  
-    text-align-last:center;
 
     /* Styles */
     background: #fff;
-    border: 1px solid #176E91;
+    border: 1px solid $SEARCH_BLUE;
     box-shadow: 0 1px 1px rgba(50,50,50,0.1);
     cursor: pointer;
     outline: none;
@@ -62,7 +80,6 @@
     font-size: 18px;
     color: #176E91;
     font-family: Kievit-Book;
-    text-align: center;
 
     &:hover {
       border: 1px solid $SEARCH_BLUE_DARK;
