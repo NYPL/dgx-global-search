@@ -3,7 +3,7 @@
   margin-top: 1.5rem;
 }
 
-#categoryTextDiv{
+#categoryTextLabel{
   display: none;
 }
 
@@ -28,16 +28,13 @@
     margin-top: 30px;
   }
 
-  div .tabbed ul[role="tablist"]{
+  div .tabsContainer ul[role="tablist"]{
     display: none;
-  }
-
-  #categoryTextDiv{
-    display: inline;
   }
 
   #category {
     display: inline;
+    margin-bottom: 24px;
     z-index: 1;
   }
 
@@ -61,7 +58,7 @@
     pointer-events: none;
   }
 
-  div .tabbed select {
+  div .tabsContainer select {
     /* Size and position */
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -92,7 +89,8 @@
     }
   }
 
-  div .tabbed #categoryTextDiv{
+  div .tabsContainer #categoryTextLabel {
+    display: inline;
     float: left;
     font-size: 18px;
     font-family: Kievit-Book;
@@ -101,7 +99,7 @@
   }
 }
 
- .tabbed {
+ .tabsContainer {
  
   ul[role="tablist"] {
     margin: 0;
@@ -169,7 +167,7 @@
   display: block;
 }
 
-div .tabbed {
+div .tabsContainer {
   ul[role="tablist"] {
     li:target~.default {
       display: none;
@@ -206,4 +204,3 @@ div .tabbed {
 .clear-float {
   clear: both;
 }
-

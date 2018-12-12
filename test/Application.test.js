@@ -4,7 +4,6 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Application from './../src/app/components/Application/Application.jsx';
 
-
 describe('Application', () => {
   let component;
 
