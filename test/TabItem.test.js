@@ -13,13 +13,13 @@ describe('TabItem', () => {
       component = shallow(<TabItem />);
     });
 
-    it('should render no options of the tab list on mobile view.', () => {
-      expect(component.find('select')).to.have.length(1);
+    it('should not render the select element of the tabs on mobile view.', () => {
+      expect(component.find('select')).to.have.length(0);
       expect(component.find('select').find('option')).to.have.length(0);
     });
 
-    it('should render no list items of the tab list on desktop view.', () => {
-      expect(component.find('ul')).to.have.length(1);
+    it('should not render the list of the tabs on desktop view.', () => {
+      expect(component.find('ul')).to.have.length(0);
       expect(component.find('ul').find('li')).to.have.length(0);
     });
   });

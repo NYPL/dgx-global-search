@@ -121,7 +121,7 @@ class TabItem extends React.Component {
   /**
   * renderMobileTabList(tabArray, selectedFacet, tabNumber)
   * Renders the tab list on the mobile view.
-  * 
+  *
   * @param {array} tabArray - The array of the tabs
   * @param {string} selectedFacet - The facet that is selected
   * @param {number} tabNumber - The number of each tab
@@ -174,7 +174,7 @@ class TabItem extends React.Component {
   /**
   * renderDesktopTabList(tabArray, selectedFacet, tabNumber)
   * Renders the tab list on the desktop view.
-  * 
+  *
   * @param {array} tabArray - The array of the tabs
   * @param {string} selectedFacet - The facet that is selected
   * @param {number} tabNumber - The number of each tab
@@ -218,6 +218,29 @@ class TabItem extends React.Component {
     );
   }
 
+  /**
+  * renderContentOfTabLists(tabArray = [], selectedFacet, tabNumber)
+  * Calls the two functions to render tab lists on different viewports.
+  *
+  * @param {array} tabArray - The array of the tabs
+  * @param {string} selectedFacet - The facet that is selected
+  * @param {number} tabNumber - The number of each tab
+  * @return {HTML Element} - The HTML element that contains both of the tab lists
+  */
+  renderContentOfTabLists(tabArray = [], selectedFacet, tabNumber) {
+    if (!tabArray.length) {
+      return null;
+    }
+
+    return (
+      <div>
+        <label id='categoryTextLabel'>Category</label>
+        {this.renderMobileTabList(tabArray, selectedFacet, tabNumber)}
+        {this.renderDesktopTabList(tabArray, selectedFacet, tabNumber)}
+      </div>
+    );
+  }
+
   render() {
     const {
       tabNumber,
@@ -230,11 +253,9 @@ class TabItem extends React.Component {
 
     return (
       <div className="tabsContainer">
-        <label id='categoryTextLabel'>Category</label>
-        {this.renderMobileTabList(tabs, selectedFacet, tabNumber)}
-        {this.renderDesktopTabList(tabs, selectedFacet, tabNumber)}
+        {this.renderContentOfTabLists(tabs, selectedFacet, tabNumber)}
       </div>
-  );
+    );
   }
 }
 
