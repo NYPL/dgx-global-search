@@ -23,6 +23,7 @@ const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const VIEWS_PATH = path.resolve(ROOT_PATH, 'src/views');
 const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 const isProduction = process.env.NODE_ENV === 'production';
+const apiRoot = process.env.API_ROOT;
 const app = express();
 
 app.use(compress());
@@ -47,8 +48,8 @@ app.use('/', apiRoutes);
 
 app.use('/', (req, res) => {
 
-// Change the page title based on having results or not. For accessibility purposes.
-const pageTitle = req.originalUrl === '/' ? 'Search NYPL.org' : "Search Results | NYPL.org";
+  // Change the page title based on having results or not. For accessibility purposes.
+  const pageTitle = req.originalUrl === '/' ? 'Search NYPL.org' : "Search Results | NYPL.org";
 
 
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
@@ -67,6 +68,7 @@ const pageTitle = req.originalUrl === '/' ? 'Search NYPL.org' : "Search Results 
     appEnv: process.env.APP_ENV,
     apiUrl: (res.locals.data) ? res.locals.data.completeApiUrl : '',
     isProduction,
+    apiRoot
   });
 });
 
