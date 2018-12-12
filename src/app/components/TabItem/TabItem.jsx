@@ -101,6 +101,31 @@ class TabItem extends React.Component {
     searchBySelectedFacetFunction(e.target.value);
   }
 
+  renderMobileTabs(array, selectedFacet, tabNumber) {
+    const tabArray = [];
+
+    array.forEach((tab, i) => {
+      let j = i + 1;
+
+      tabArray.push(
+        <option
+          key={`${j}`}
+          value={tab.value}
+          className={(selectedFacet === tab.value ? 'activeTab' : null)}
+          href={`#tab${j}`}
+          id={`link${j}`}
+          tabIndex={!tabNumber ?  '0' : parseInt(tabNumber) === j ? null : -1}
+          aria-selected={tabNumber && j === parseInt(tabNumber) ? true: false}
+          data={`${j}`}
+        >
+          {tab.anchor}
+        </option>
+      )
+    });
+
+    return tabArray;
+  }
+
   render() {
     const {
       tabNumber,
@@ -120,28 +145,11 @@ class TabItem extends React.Component {
           <label htmlFor='category' id='categoryTextSpan'>Category</label>
         </div>
 
-        <select className="form-control input-lg" value={selectValue} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>
-          {selectedFacetAnchor}
-          { tabs.map((tab, i) => {
-            let j = i + 1;
-            return (
-              <option
-                key={`${j}`}
-                value={tab.value}
-                className={(selectedFacet === tab.value ? 'activeTab' : null)}
-                href={`#tab${j}`}
-                id={`link${j}`}
-                tabIndex={!tabNumber ?  '0' : parseInt(tabNumber) === j ? null : -1}
-                aria-selected={tabNumber && j === parseInt(tabNumber) ? true: false}
-                data={`${j}`}
-              >
-                {tab.anchor}
-              </option>
-            )
-          })
-        }
-        </select>
-
+        <div className="tab-wrapper">
+          <select className="form-control input-lg" value={selectValue} onChange={this.updateSelectedFacetMobile} aria-labelledby="categoryTextSpan category" id='category'>
+            {this.renderMobileTabs(tabs, selectedFacet, tabNumber)}
+          </select>
+        </div>
 
         <ul role='tablist'>
           { tabs.map((tab, i) => {
