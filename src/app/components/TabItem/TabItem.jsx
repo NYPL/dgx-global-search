@@ -25,6 +25,7 @@ class TabItem extends React.Component {
     this.clickHandler = this.clickHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +38,7 @@ class TabItem extends React.Component {
 
   onChange() {
     let facet = Store.getState().selectedFacet;
+    console.log('facet: ', facet)
     this.setState({
       selectedFacet: facet,
       tabNumber: this.getNumberForFacet(facet)
