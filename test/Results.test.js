@@ -17,21 +17,19 @@ describe('Results', () => {
       component  = shallow(<Results />);
     });
 
-    it('should render no results summary.', () => {
-
+    it('search results summary should be empty.', () => {
       expect(component.find('#search-results-summary').text()).to.deep.equal('');
     });
   });
 
-  describe('if there is no results but has a search keyword', () => {
+  describe('if there are no results but there is a search keyword', () => {
     let component;
 
     before(() => {
       component  = shallow(<Results tabs={tabs} searchKeyword={'jibberish'} results={[]} />);
     });
 
-    it('should render no results summary.', () => {
-
+    it('should render "No results were found.', () => {
       expect(component.find('#search-results-summary').text()).to.deep.equal(
         'No results were found'
       );
@@ -53,7 +51,6 @@ describe('Results', () => {
     });
 
     it('should render "No results were found in selected_facet_name".', () => {
-
       expect(component.find('#search-results-summary').text()).to.deep.equal(
         'No results were found in events'
       );
@@ -72,8 +69,7 @@ describe('Results', () => {
       );
     });
 
-    it('should render no results summary with the facet indicated.', () => {
-
+    it('should render "No results were found".', () => {
       expect(component.find('#search-results-summary').text()).to.deep.equal(
         'No results were found'
       );
