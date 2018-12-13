@@ -142,6 +142,7 @@ header {
 
     a {
       @include Kievit-Book-Italic;
+
       color: $SEARCH_BLUE;
       position: relative;
       text-decoration: none;
