@@ -205,7 +205,6 @@ class App extends React.Component {
    * @param {string} selectedFacet
    */
   triggerGAThenSubmit(selectedFacet = '') {
-    document.getElementById('search-results-summary').innerHTML = '';
     // Only trigger search and GA QuerySent event one time if double or tripple clicks happen
     if (!this.state.isGAQuerySent) {
       // Set isGAQuerySent to be true to avoid another event being sent in a short period of time
@@ -265,7 +264,7 @@ class App extends React.Component {
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
         <main id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <div aria-label="NYPL Site Search" role="search">
-            <h1>NYPL.org Search <span>BETA</span></h1>
+            <h1>NYPL.org Search</h1>
             <div id="gs-operations" className="gs-operations">
               <div id="gs-searchField" className="gs-searchField">
                 <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
