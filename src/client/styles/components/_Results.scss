@@ -3,9 +3,7 @@
   padding: 0;
 
   @include layout-at(8, $tablet-landscape) {
-    @include grid-span(6, 1);
-
-    margin: 20px 0 0 0;
+    @include grid-span(7, 1);
   }
 
   &-wrapper {
@@ -14,21 +12,24 @@
     padding: 30px 14px 0 14px;
 
     @include layout-at(7, $tablet-portrait) {
-      padding: 0 36px;
+      padding: 0 20px;
     }
 
-    @include layout-at(9, $tablet-landscape) {
-      @include grid-span(8, 2);
-
-      padding: 0;
+    @include layout-at(8, $tablet-landscape) {
+      padding: 0 0 0 2rem;
     }
   }
 
   &-length {
+    @include layout-at(8, $tablet-landscape) {
+      @include grid-span(8, 1);
+    }
+
     color: $BLACK_COLOR;
     font-size: 16px;
     line-height: 20px;
     margin: 0 0 16px 0;
+    width: 100%;
 
     @include min-screen($tablet-landscape){
       margin: 0 0 16px 0;
@@ -40,7 +41,7 @@
   }
 
   &Item {
-    border-bottom: 2px solid $LIGHTGRAY_COLOR;
+    border-bottom: 1px solid $LIGHTGRAY_COLOR;
     list-style-type: none;
     margin: 0 0 16px 0;
 
@@ -67,11 +68,12 @@
       line-height: 1.5;
       font-weight: normal;
       text-decoration: underline;
+      margin: 0 0 8px 0;
 
       @include layout-at(7, $tablet-portrait) {
         @include grid-span(6, 1);
 
-        margin: 0 0 12px 0;
+        margin: 0 0 8px 0;
         margin-right: 0 !important;
       }
 
@@ -99,6 +101,7 @@
         @include layout-at(7, $tablet-portrait) {
           @include grid-span(1, 7);
           display: block;
+          margin-bottom: 24px;
         }
 
         @include layout-at(6, $tablet-landscape) {
@@ -122,7 +125,7 @@
       }
 
       @include layout-at(6, $tablet-landscape) {
-        @include grid-span(4, 1);
+        @include grid-span(5, 1);
 
         margin: 0;
       }
@@ -130,6 +133,7 @@
 
     &-label {
       @include Kievit-Bold;
+
       color: $SEARCH_BLUE;
       font-size: 13px;
       letter-spacing: .04em;
@@ -151,21 +155,24 @@
     }
 
     &-linkText {
+      @include Kievit-Book-Italic;
+
       color: $DARKGRAY_COLOR;
       font-size: 14px;
-      line-height: 16px;
+      line-height: 1.25;
+      margin: 0 0 8px 0;
       word-break: break-all;
 
       @include layout-at(7, $tablet-portrait) {
         @include grid-span(5, 1);
 
-        margin: 0 0 12px 0;
+        margin: 0 0 8px 0;
       }
 
       @include layout-at(6, $tablet-landscape) {
         @include grid-span(4, 1);
 
-        margin: 0 0 12px 0;
+        margin: 0 0 8px 0;
       }
     }
   }
@@ -191,25 +198,15 @@
 }
 
 a:focus {
-  box-shadow: none; 
-  -webkit-outline-color: #135772; 
-  -moz-outline-color: #135772; 
-  -ms-outline-color: #135772; 
-  -o-outline-color: #135772; 
-  outline-color: #135772; 
-  outline-style: none; 
-  outline-width: .1875em;
-
+  @include a11y-focus($SEARCH_BLUE_DARK, 4px);
 }
 
 a:focus .gs-resultsItem-title, a:focus .gs-resultsItem-imageWrapper, .gs-results-paginationButton:focus, .gs-inputField:focus, .gs-search-catalog-link-wrapper a:focus, .returnLink a:focus {
-  box-shadow: 1px 1px 1px 1px #135772; 
-  -webkit-outline-color: #135772; 
-  -moz-outline-color: #135772; 
-  -ms-outline-color: #135772; 
-  -o-outline-color: #135772; 
-  outline-color: #135772; 
-  outline-style: solid; 
-  outline-width: .1875em;
+  @include a11y-focus($SEARCH_BLUE_DARK, 4px);
 }
 
+h2.gs-resultsItem-title.whole-row {
+  @include min-screen($tablet-portrait) {
+    @include a11y-focus(transparent, 0);
+  }
+}
