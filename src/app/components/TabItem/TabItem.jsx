@@ -45,7 +45,6 @@ class TabItem extends React.Component {
       searchBySelectedFacetFunction
     } = this.props;
     saveSelectedTabValue(tabId);
-    console.log('switching to tab: ', tab)
     this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab });
     let newTab = this.links[newTabIndex];
     newTab.focus();
@@ -124,7 +123,6 @@ class TabItem extends React.Component {
       searchBySelectedFacetFunction
     } = this.props;
 
-    console.log('target: ', e.target)
     this.setState({selectedFacet: e.target.value})
     searchBySelectedFacetFunction(e.target.value);
 
@@ -196,7 +194,6 @@ class TabItem extends React.Component {
     const tabItems = [];
     tabArray.forEach((tab, i) => {
       let j = i + 1;
-      console.log('tab: ', j, tab.value)
       tabItems.push(
         <li
           key={j}
