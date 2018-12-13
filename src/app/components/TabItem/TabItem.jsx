@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Actions from '../../actions/Actions.js';
 
 class TabItem extends React.Component {
   constructor(props) {
@@ -8,9 +9,16 @@ class TabItem extends React.Component {
     this.links = [];
     this.sections = [];
 
+    const  {
+      tabs,
+      selectedFacet
+    } = this.props;
+
     this.state = {
-      numberOfTabs: Array.isArray(this.props.tabs) && this.props.tabs.length ?
-        this.props.tabs.length : 0,
+      numberOfTabs: Array.isArray(tabs) && tabs.length ?
+        tabs.length : 0,
+      tabs: tabs,
+      selectedFacet: selectedFacet
     };
 
     this.clickHandler = this.clickHandler.bind(this);
@@ -38,7 +46,8 @@ class TabItem extends React.Component {
       searchBySelectedFacetFunction
     } = this.props;
     saveSelectedTabValue(tabId);
-    this.setState({ tabNumber: newTabIndex.toString() });
+    Actions.updateSelectedFacet(tab)
+    this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab });
     let newTab = this.links[newTabIndex];
     newTab.focus();
     searchBySelectedFacetFunction(tab);
@@ -115,7 +124,10 @@ class TabItem extends React.Component {
     const {
       searchBySelectedFacetFunction
     } = this.props;
+    Actions.updateSelectedFacet(e.target.value);
+    this.setState({selectedFacet: e.target.value})
     searchBySelectedFacetFunction(e.target.value);
+
   }
 
   /**
@@ -182,10 +194,8 @@ class TabItem extends React.Component {
   */
   renderDesktopTabList(tabArray = [], selectedFacet, tabNumber) {
     const tabItems = [];
-
     tabArray.forEach((tab, i) => {
       let j = i + 1;
-
       tabItems.push(
         <li
           key={j}
@@ -242,14 +252,12 @@ class TabItem extends React.Component {
   }
 
   render() {
-    const {
-      tabNumber,
-    } = this.state
 
     const {
+      tabNumber,
       tabs,
       selectedFacet,
-    } = this.props
+    } = this.state
 
     return (
       <div className="tabsContainer">
