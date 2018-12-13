@@ -295,7 +295,7 @@ class Results extends React.Component {
         }
       });
 
-      resultsNumberSuggestion += ` in ${selectedTabName}`;
+      resultsNumberSuggestion ? resultsNumberSuggestion += ` in ${selectedTabName}` : null;
     }
 
     return (

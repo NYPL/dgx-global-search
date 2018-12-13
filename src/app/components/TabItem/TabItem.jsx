@@ -40,7 +40,6 @@ class TabItem extends React.Component {
 
   onChange() {
     let facet = Store.getState().selectedFacet;
-    console.log('facet: ', facet)
     this.setState({
       selectedFacet: facet,
       tabNumber: getNumberForFacet(facet)
@@ -67,7 +66,6 @@ class TabItem extends React.Component {
     } = this.props;
     // saveSelectedTabValue(tabId);
     Actions.updateSelectedFacet(tab)
-    // this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab });
     let newTab = this.links[newTabIndex];
     newTab.focus();
     searchBySelectedFacetFunction(tab);
@@ -145,9 +143,7 @@ class TabItem extends React.Component {
       searchBySelectedFacetFunction
     } = this.props;
     Actions.updateSelectedFacet(e.target.value);
-    // this.setState({selectedFacet: e.target.value})
     searchBySelectedFacetFunction(e.target.value);
-
   }
 
   /**
@@ -211,7 +207,6 @@ class TabItem extends React.Component {
   *
   * @param {array} tabArray - The array of the tabs
   * @param {string} selectedFacet - The facet that is selected
-  * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element of the tab list on the desktop view
   */
   renderDesktopTabList(tabArray = [], selectedFacet) {
@@ -219,7 +214,6 @@ class TabItem extends React.Component {
     const {
       tabNumber
     } = this.state;
-    console.log('tabNumber: ', tabNumber)
     tabArray.forEach((tab, i) => {
       let j = i + 1;
       tabItems.push(
@@ -260,7 +254,6 @@ class TabItem extends React.Component {
   *
   * @param {array} tabArray - The array of the tabs
   * @param {string} selectedFacet - The facet that is selected
-  * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element that contains both of the tab lists
   */
   renderContentOfTabLists(tabArray = [], selectedFacet) {
@@ -280,14 +273,13 @@ class TabItem extends React.Component {
   render() {
 
     const {
-      tabNumber,
       tabs,
       selectedFacet,
     } = this.state
 
     return (
       <div className="tabsContainer">
-        {this.renderContentOfTabLists(tabs, selectedFacet, tabNumber)}
+        {this.renderContentOfTabLists(tabs, selectedFacet)}
       </div>
     );
   }
