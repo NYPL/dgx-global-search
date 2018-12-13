@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Actions from '../../actions/Actions.js';
 import Store from '../../stores/Store.js';
+import getNumberForFacet from '../../utils/TabIndex.js'
 
 class TabItem extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class TabItem extends React.Component {
         tabs.length : 0,
       tabs: tabs,
       selectedFacet: selectedFacet,
-      tabNumber: this.getNumberForFacet(selectedFacet)
+      tabNumber: getNumberForFacet(selectedFacet)
     };
 
     this.clickHandler = this.clickHandler.bind(this);
@@ -42,23 +43,8 @@ class TabItem extends React.Component {
     console.log('facet: ', facet)
     this.setState({
       selectedFacet: facet,
-      tabNumber: this.getNumberForFacet(facet)
+      tabNumber: getNumberForFacet(facet)
     })
-  }
-
-
-  getNumberForFacet(facet) {
-    const facets = [
-      '',
-      'articles_databases',
-      'research_guides',
-      'events_classes',
-      'exhibitions',
-      'blog_posts',
-      'audio_video',
-      'help_articles',
-      'locations']
-    return facets.indexOf(facet) + 1;
   }
 
   focusTab(newTabIndex) {
