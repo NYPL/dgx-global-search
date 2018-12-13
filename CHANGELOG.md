@@ -20,6 +20,7 @@
 - Speeding up the change in focus after clicking "View More"
 #### Added
 - Adding the link to search the catalog with the same search keywords.
+- Add chevron to mobile dropdown
 - Adding new PR workflow with a pr_approved branch.
 - Add chevron to mobile dropdown
 

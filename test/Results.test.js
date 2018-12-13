@@ -10,7 +10,7 @@ describe('Results', () => {
     { anchor: 'Events', label: 'events_classes', resultSummarydisplayName: 'events' }
   ];
 
-  describe('if there is no results and no search keyword', () => {
+  describe('if there are no results and no search keyword', () => {
     let component;
 
     before(() => {
@@ -38,14 +38,21 @@ describe('Results', () => {
     });
   });
 
-  describe('if there is no results but has a search keyword and a facet other than "All" is selected', () => {
+  describe('if there is a search keyword and a facet other than "All" is selected, ' +
+    'yet there are no matching search results', () => {
     let component;
 
     before(() => {
-      component  = shallow(<Results tabs={tabs} searchKeyword={'jibberish'} selectedFacet={'events_classes'} results={[]} />);
+      component  = shallow(
+        <Results
+          tabs={tabs}
+          searchKeyword={'jibberish'}
+          selectedFacet={'events_classes'}
+          results={[]}
+        />);
     });
 
-    it('should render no results summary with the facet indicated.', () => {
+    it('should render "No results were found in selected_facet_name".', () => {
 
       expect(component.find('#search-results-summary').text()).to.deep.equal(
         'No results were found in events'
@@ -53,12 +60,16 @@ describe('Results', () => {
     });
   });
 
-  describe('if there is no results but has a search keyword and the facet "All" is selected', () => {
+  describe('if there is a search keyword and the facet "All" is selected, ' +
+    'yet there are no search results', () => {
     let component;
 
     before(() => {
-      // When the selected facet is all, that means no selectedFacet value is passde to the component
-      component  = shallow(<Results tabs={tabs} searchKeyword={'jibberish'} selectedFacet={''} results={[]} />);
+      // When the selected facet is all, that means no selectedFacet value is passed to
+      // the component
+      component  = shallow(
+        <Results tabs={tabs} searchKeyword={'jibberish'} selectedFacet={''} results={[]} />
+      );
     });
 
     it('should render no results summary with the facet indicated.', () => {
@@ -75,26 +86,47 @@ describe('Results', () => {
     const amount = results.length;
 
     before(() => {
-      component = shallow(<Results tabs={tabs} amount={amount} searchKeyword={'okapi'} selectedFacet={'articles_databases'} results={results} />);
+      component = shallow(
+        <Results
+          tabs={tabs}
+          amount={amount}
+          searchKeyword={'okapi'}
+          selectedFacet={'articles_databases'}
+          results={results}
+        />
+      );
     });
 
     it('should render the proper summary for the results.', () => {
-      expect(component.find('#search-results-summary').text()).to.deep.equal('Found about 3 results for "okapi" in databases');
+      expect(component.find('#search-results-summary').text()).to.deep.equal(
+        'Found about 3 results for "okapi" in databases'
+      );
     });
   });
 
-  describe('if more than 1 results are returned and the facet "All" is selected', () => {
+  describe('if more than 1 result are returned and the facet "All" is selected', () => {
     let component;
     const results = [{}, {}, {}];
     const amount = results.length;
 
     before(() => {
-      // When the selected facet is all, that means no selectedFacet value is passde to the component
-      component = shallow(<Results tabs={tabs} amount={amount} searchKeyword={'okapi'} selectedFacet={''} results={results} />);
+      // When the selected facet is all, that means no selectedFacet value is passed to
+      // the component
+      component = shallow(
+        <Results
+          tabs={tabs}
+          amount={amount}
+          searchKeyword={'okapi'}
+          selectedFacet={''}
+          results={results}
+        />
+      );
     });
 
     it('should render the proper summary for the results.', () => {
-      expect(component.find('#search-results-summary').text()).to.deep.equal('Found about 3 results for "okapi"');
+      expect(component.find('#search-results-summary').text()).to.deep.equal(
+        'Found about 3 results for "okapi"'
+      );
     });
   });
 
@@ -104,11 +136,21 @@ describe('Results', () => {
     const amount = results.length;
 
     before(() => {
-      component = shallow(<Results tabs={tabs} amount={amount} searchKeyword={'volcano'} selectedFacet={'articles_databases'} results={results} />);
+      component = shallow(
+        <Results
+          tabs={tabs}
+          amount={amount}
+          searchKeyword={'volcano'}
+          selectedFacet={'articles_databases'}
+          results={results}
+        />
+      );
     });
 
     it('should render the proper summary for the 1 result.', () => {
-      expect(component.find('#search-results-summary').text()).to.deep.equal('Found about 1 result for "volcano" in databases');
+      expect(component.find('#search-results-summary').text()).to.deep.equal(
+        'Found about 1 result for "volcano" in databases'
+      );
     });
   });
 });
