@@ -19,7 +19,8 @@ class TabItem extends React.Component {
       numberOfTabs: Array.isArray(tabs) && tabs.length ?
         tabs.length : 0,
       tabs: tabs,
-      selectedFacet: selectedFacet
+      selectedFacet: selectedFacet,
+      tabNumber: this.getNumberForFacet(selectedFacet)
     };
 
     this.clickHandler = this.clickHandler.bind(this);
@@ -48,6 +49,7 @@ class TabItem extends React.Component {
 
   getNumberForFacet(facet) {
     const facets = [
+      '',
       'articles_databases',
       'research_guides',
       'events_classes',
@@ -171,9 +173,11 @@ class TabItem extends React.Component {
   * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element of the tab list on the mobile view
   */
-  renderMobileTabList(tabArray = [], selectedFacet, tabNumber) {
+  renderMobileTabList(tabArray = [], selectedFacet) {
     const tabOptions = [];
-
+    const {
+      tabNumber
+    } = this.state;
     tabArray.forEach((tab, i) => {
       const j = i + 1;
       let tabIndexAttribute;
@@ -224,8 +228,12 @@ class TabItem extends React.Component {
   * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element of the tab list on the desktop view
   */
-  renderDesktopTabList(tabArray = [], selectedFacet, tabNumber) {
+  renderDesktopTabList(tabArray = [], selectedFacet) {
     const tabItems = [];
+    const {
+      tabNumber
+    } = this.state;
+    console.log('tabNumber: ', tabNumber)
     tabArray.forEach((tab, i) => {
       let j = i + 1;
       tabItems.push(
@@ -269,7 +277,7 @@ class TabItem extends React.Component {
   * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element that contains both of the tab lists
   */
-  renderContentOfTabLists(tabArray = [], selectedFacet, tabNumber) {
+  renderContentOfTabLists(tabArray = [], selectedFacet) {
     if (!tabArray.length) {
       return null;
     }
@@ -277,8 +285,8 @@ class TabItem extends React.Component {
     return (
       <div>
         <label id='categoryTextLabel'>Category</label>
-        {this.renderMobileTabList(tabArray, selectedFacet, tabNumber)}
-        {this.renderDesktopTabList(tabArray, selectedFacet, tabNumber)}
+        {this.renderMobileTabList(tabArray, selectedFacet)}
+        {this.renderDesktopTabList(tabArray, selectedFacet)}
       </div>
     );
   }
