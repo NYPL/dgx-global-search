@@ -269,7 +269,7 @@ class App extends React.Component {
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
         <main id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <div aria-label="NYPL Site Search" role="search">
-            <h1>NYPL.org Search <span>BETA</span></h1>
+            <h1>NYPL.org Search</h1>
             <div id="gs-operations" className="gs-operations">
               <div id="gs-searchField" className="gs-searchField">
                 <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">

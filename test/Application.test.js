@@ -21,7 +21,7 @@ describe('Application', () => {
   it('contains an h1.', () => {
     const title = component.find('h1');
     expect(title).to.have.length(1);
-    expect(title.text()).to.equal('NYPL.org Search BETA');
+    expect(title.text()).to.equal('NYPL.org Search');
   });
 
   it('should render a link to catalog search page with current search keywords.', () => {
