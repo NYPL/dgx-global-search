@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Actions from '../../actions/Actions.js';
+import Store from '../../stores/Store.js';
 
 class TabItem extends React.Component {
   constructor(props) {
@@ -26,9 +27,38 @@ class TabItem extends React.Component {
     this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
   }
 
+  componentDidMount() {
+    Store.listen(this.onChange);
+  }
+
+  componentWillUnmount() {
+    Store.unlisten(this.onChange);
+  }
+
+  onChange() {
+    let facet = Store.getState().selectedFacet;
+    this.setState({
+      selectedFacet: facet,
+      tabNumber: this.getNumberForFacet(facet)
+    })
+  }
+
+
+  getNumberForFacet(facet) {
+    const facets = [
+      'articles_databases',
+      'research_guides',
+      'events_classes',
+      'exhibitions',
+      'blog_posts',
+      'audio_video',
+      'help_articles',
+      'locations']
+    return facets.indexOf(facet) + 1;
+  }
+
   focusTab(newTabIndex) {
     let newTab = this.links[newTabIndex];
-
     newTab.focus();
   }
 
@@ -45,9 +75,9 @@ class TabItem extends React.Component {
       saveSelectedTabValue,
       searchBySelectedFacetFunction
     } = this.props;
-    saveSelectedTabValue(tabId);
+    // saveSelectedTabValue(tabId);
     Actions.updateSelectedFacet(tab)
-    this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab });
+    // this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab });
     let newTab = this.links[newTabIndex];
     newTab.focus();
     searchBySelectedFacetFunction(tab);
@@ -125,7 +155,7 @@ class TabItem extends React.Component {
       searchBySelectedFacetFunction
     } = this.props;
     Actions.updateSelectedFacet(e.target.value);
-    this.setState({selectedFacet: e.target.value})
+    // this.setState({selectedFacet: e.target.value})
     searchBySelectedFacetFunction(e.target.value);
 
   }
