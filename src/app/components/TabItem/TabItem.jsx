@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Actions from '../../actions/Actions.js';
 
 class TabItem extends React.Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class TabItem extends React.Component {
       searchBySelectedFacetFunction
     } = this.props;
     saveSelectedTabValue(tabId);
+    Actions.updateSelectedFacet(tab)
     this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab });
     let newTab = this.links[newTabIndex];
     newTab.focus();
@@ -122,7 +124,7 @@ class TabItem extends React.Component {
     const {
       searchBySelectedFacetFunction
     } = this.props;
-
+    Actions.updateSelectedFacet(e.target.value);
     this.setState({selectedFacet: e.target.value})
     searchBySelectedFacetFunction(e.target.value);
 
