@@ -1,7 +1,7 @@
 ## Changelog
 ### v0.3.12
 #### Updated
-- Note: we'll add all changes here until the deployment around December 11th
+- Note: we'll add all changes here until the deployment around December 18th
 - Removing role and aria-atomic from area that announces the search results
 - Changing the label for the search field
 - Removing loading screen
@@ -13,7 +13,10 @@
 - Adding commands for linting
 - Updating the syntax for better formatting codes in Results.jsx
 - Updating the texts for showing result information.
+- Updating the functions to render tabs on mobile view and desktop view to fix the inconsistent selected tabs between viewports.
+- Updating the function for getting URL paths so the results will be correct after hitting "Go back" button on browsers.
 - Changing the "Load More" button to "View More" and removing the loading dots
+- Speeding up the change in focus after clicking "View More"
 #### Added
 - Adding the link to search the catalog with the same search keywords.
 - Add chevron to mobile dropdown

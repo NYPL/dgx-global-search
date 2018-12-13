@@ -22,8 +22,8 @@ const makeClientApiCall = (
   start = 0,
   callbackFunction = null,
   callbackFunctionNoKeyword = null,
-  callbackFunctionLoading = null) => {
-  document.title = 'Search Results | NYPL.org';
+  callbackFunctionLoading = null
+) => {
   const searchFilter = (facet) ? ` more:${facet}` : '';
   const requestParameter = `${keyword}${searchFilter}`;
 
@@ -39,6 +39,7 @@ const makeClientApiCall = (
       })
       .catch(error => {
         console.log(`error calling API to search '${requestParameter}': ${error}`);
+
         if (callbackFunctionLoading) {
           callbackFunctionLoading(false);
         }

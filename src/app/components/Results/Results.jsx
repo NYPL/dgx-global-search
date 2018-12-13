@@ -37,6 +37,7 @@ class Results extends React.Component {
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
     this.saveSelectedTabValue = this.saveSelectedTabValue.bind(this);
+    this.moveFocusToNextPage = this.moveFocusToNextPage.bind(this);
   }
 
   componentDidMount() {
@@ -127,6 +128,7 @@ class Results extends React.Component {
    */
   addMoreResults() {
     const nextResultCount = this.state.resultsStart + this.state.incrementResults;
+    let originalResultsStart = this.state.resultsStart;
 
     makeClientApiCall(this.props.searchKeyword, this.props.selectedFacet, nextResultCount,
       (searchResultsItems) => {
@@ -152,12 +154,23 @@ class Results extends React.Component {
       }
     );
 
-    // Automatically focus on the first item of the newly reloaded results
-    setTimeout(() => {
-      const refResultIndex = `result-${this.state.resultsStart}`;
+    this.moveFocusToNextPage(originalResultsStart, 0);
+  }
 
-      ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
-    }, 2000);
+  /**
+   * moveFocusToNextPage(snippetText)
+   * Move the page focus to the first item in the next page of search results.
+   */
+  moveFocusToNextPage(originalResultsStart, counter) {
+    setTimeout(() => {
+      counter += 1;
+      if (originalResultsStart != this.state.resultsStart){
+        const refResultIndex = `result-${this.state.resultsStart}`;
+        ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
+      } else if (counter < 20) {
+        moveFocusToNextPage(originalResultsStart, counter);
+      }
+    }, 500);
   }
 
   /**
@@ -256,6 +269,7 @@ class Results extends React.Component {
     if (this.props.selectedFacet !== undefined && this.props.selectedFacet !== '') {
       const tabArray = this.props.tabs;
       let selectedTabName = '';
+
       tabArray.forEach((tab) => {
         if (tab.label === this.props.selectedFacet) {
           selectedTabName = tab.resultSummarydisplayName;
@@ -281,7 +295,6 @@ class Results extends React.Component {
           selectedFacet={this.props.selectedFacet}
           searchBySelectedFacetFunction={this.props.searchBySelectedFacetFunction}
           saveSelectedTabValue={this.saveSelectedTabValue}
-          resultsOlElement={() => this.refs['resultsOlElement']}
         />
         {(typeof results.length !== 'undefined') && results.length !== 0 &&
           <div>
@@ -297,7 +310,7 @@ class Results extends React.Component {
               viewBox="0 0 84 4"
               width="84"
             />
-            <ol id={this.props.id} className={this.props.className} ref="resultsOlElement" tabIndex='0' aria-labelledby={`link${this.state.tabIdValue}`}>
+            <ol id={this.props.id} className={this.props.className} ref="results">
               {results}
             </ol>
             {
