@@ -26,13 +26,13 @@
     }
 
     color: $BLACK_COLOR;
-    font-size: 16px;
-    line-height: 20px;
-    margin: 0 0 16px 0;
+    font-size: 18px;
+    line-height: 1.25;
+    margin: 16px 0 16px 0;
     width: 100%;
 
     @include min-screen($tablet-landscape){
-      margin: 0 0 16px 0;
+      margin: 16px 0 16px 0;
     }
   }
 
@@ -179,17 +179,19 @@
 }
 
 p#search-results-summary {
-  height: 48px;
-  margin: 0;
+  @include min-screen($tablet-landscape) {
+    display: flex;
+    flex-direction: column;
+    height: 48px;
+    justify-content: center;
+    margin-left: 0;
+  }
 }
 
 .noResultMessage {
-  @include Kievit-Book;
+  @extend .gs-results-length;
 
-  color: $PRIMARY_COLOR;
-  font-size: 16px;
-  line-height: 20px;
-  padding: 0;
+  color: $WARNING_COLOR;
 }
 
 .whole-row {
