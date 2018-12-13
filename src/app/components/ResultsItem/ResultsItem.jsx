@@ -182,7 +182,7 @@ class ResultsItem extends React.Component {
         <img
           className={`${className}-image`}
           src={src}
-          alt={title}
+          alt=""
         />
       </div>
     );
