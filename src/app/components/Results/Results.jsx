@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 // Import libraries
 import { contains as _contains, map as _map } from 'underscore';
-import { DivideLineIcon } from 'dgx-svg-icons';
-import { PaginationButton } from 'dgx-react-buttons';
+import { DivideLineIcon, DownWedgeIcon } from '@nypl/dgx-svg-icons';
+import { BasicButton } from 'dgx-react-buttons';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -251,12 +251,14 @@ class Results extends React.Component {
     const label = `View More Results`;
     return (
       <div className={`${this.props.id}-paginationButton-wrapper`}>
-        <PaginationButton
+        <BasicButton
           id={`${this.props.id}-paginationButton`}
           className={`${this.props.id}-paginationButton`}
           isLoading={this.state.isLoadingPagination}
           onClick={this.addMoreResults}
           label={label}
+          icon={ <DownWedgeIcon stroke="#1B7FA7" /> }
+          iconSide='right'
         />
       </div>
     );
