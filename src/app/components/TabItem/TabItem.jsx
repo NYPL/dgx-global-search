@@ -192,7 +192,7 @@ class TabItem extends React.Component {
           className="form-control input-lg"
           value={selectedFacet}
           onChange={this.updateSelectedFacetMobile}
-          aria-labelledby="categoryTextSpan category"
+          aria-labelledby="categoryTextLabel"
           id="category"
         >
           {tabOptions}
