@@ -330,7 +330,7 @@ class Results extends React.Component {
           saveSelectedTabValue={this.saveSelectedTabValue}
         />
         {typeof results.length !== 'undefined' && results.length !== 0 ? (
-          <div>
+          <div tabIndex='0' aria-labelledby={`link${getNumberForFacet(this.props.selectedFacet)}`} ref="resultsOlElement">
             <div className="clear-float" />
             <DivideLineIcon
               ariaHidden
@@ -343,7 +343,7 @@ class Results extends React.Component {
               viewBox="0 0 84 4"
               width="84"
             />
-            <ol id={this.props.id} className={this.props.className} ref="resultsOlElement" tabIndex="0" aria-labelledby={`link${getNumberForFacet(this.props.selectedFacet)}`}>
+            <ol id={this.props.id} className={this.props.className}  >
               {results}
             </ol>
             {
