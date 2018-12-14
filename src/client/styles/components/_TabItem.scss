@@ -50,7 +50,7 @@
     color: $SEARCH_BLUE;
     content: '>';
     font-size: 32px;
-    right: 16px;
+    right: 24px;
     top: 8px;
     padding: 0 0 2px;
     position: absolute;
@@ -64,9 +64,8 @@
     appearance: none;
     min-width: 200px;
     margin: 0 auto;
-    padding: 14px 0;
+    padding: 16px 24px;
     float: left;
-    text-align-last: center;
 
     /* Styles */
     background: #fff;
