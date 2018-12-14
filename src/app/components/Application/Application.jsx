@@ -264,44 +264,44 @@ class App extends React.Component {
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
         <main id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
           <div className="gs-header">
-          <div aria-label="NYPL Site Search" role="search">
-            <h1>NYPL.org Search</h1>
-            <div id="gs-operations" className="gs-operations">
-              <div id="gs-searchField" className="gs-searchField">
-                <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
-                  <label htmlFor="gs-inputField" className="visuallyHidden">Search NYPL.org</label>
-                  <InputField
-                    id="gs-inputField"
-                    className="gs-inputField"
-                    type="text"
-                    placeholder={inputPlaceholder}
-                    value={inputValue}
-                    onKeyPress={this.triggerSubmit}
-                    onChange={this.inputChange}
-                    label="NYPL Site Search"
+            <div aria-label="NYPL Site Search" role="search">
+              <h1>NYPL.org Search</h1>
+              <div id="gs-operations" className="gs-operations">
+                <div id="gs-searchField" className="gs-searchField">
+                  <div id="gs-inputField-wrapper" className="gs-inputField-wrapper">
+                    <label htmlFor="gs-inputField" className="visuallyHidden">Search NYPL.org</label>
+                    <InputField
+                      id="gs-inputField"
+                      className="gs-inputField"
+                      type="text"
+                      placeholder={inputPlaceholder}
+                      value={inputValue}
+                      onKeyPress={this.triggerSubmit}
+                      onChange={this.inputChange}
+                      label="NYPL Site Search"
+                    />
+                  </div>
+                  <SearchButton
+                    id="gs-searchButton"
+                    className="gs-searchButton"
+                    label="SEARCH"
+                    onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
                   />
                 </div>
-                <SearchButton
-                  id="gs-searchButton"
-                  className="gs-searchButton"
-                  label="SEARCH"
-                  onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
-                />
-              </div>
-              <div className="gs-search-catalog-link-wrapper">
-                <a className="gs-search-catalog-link"
-                  href={
-                    `https://browse.nypl.org/iii/encore/search/C__S${this.state.searchKeyword}__` +
-                    'Orightresult__U?lang=eng&suite=def'
-                  }
-                >
-                  Find books, music, or movies instead >
-                </a>
-              </div>
+                <div className="gs-search-catalog-link-wrapper">
+                  <a className="gs-search-catalog-link"
+                    href={
+                      `https://browse.nypl.org/iii/encore/search/C__S${this.state.searchKeyword}__` +
+                      'Orightresult__U?lang=eng&suite=def'
+                    }
+                  >
+                    Find books, music, or movies instead >
+                  </a>
+                </div>
 
+              </div>
+              {this.state.resultsComponentData}
             </div>
-            {this.state.resultsComponentData}
-          </div>
           </div>
         </main>
         <Footer id="footer" className="footer" />
