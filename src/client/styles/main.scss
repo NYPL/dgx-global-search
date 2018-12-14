@@ -36,6 +36,7 @@ Import style rules from App components
 #app {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 
   @include add-grid(3);
 }
@@ -60,7 +61,7 @@ header {
     box-sizing: content-box;
     float: none;
     margin: 0 auto;
-    max-width: 1313px;
+    width: 1333px;
     padding: 0;
   }
 
@@ -85,6 +86,20 @@ header {
       padding: 0 0 0 2rem;
     }
   }
+
+.gs-header {
+
+  @include min-screen($tablet-landscape){
+    background-color: $LIGHTGRAY_COLOR;
+    border-bottom: 2px solid $BLACK_COLOR;
+    margin: 0;
+  }
+
+  @include min-screen($desktop){
+    margin: 0 -9999rem;
+    padding: 0.25rem 9999rem;
+  }
+}
 
   .gs-operations {
     display: block;
@@ -170,4 +185,3 @@ header {
 #gs-searchButton:hover{
    background-color: darken(#176E91, 10% ) ;
   }
-

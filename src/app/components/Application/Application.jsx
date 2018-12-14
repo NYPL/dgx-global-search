@@ -263,6 +263,7 @@ class App extends React.Component {
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
         <main id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
+          <div className="gs-header">
           <div aria-label="NYPL Site Search" role="search">
             <h1>NYPL.org Search</h1>
             <div id="gs-operations" className="gs-operations">
@@ -297,8 +298,10 @@ class App extends React.Component {
                   Find books, music, or movies instead >
                 </a>
               </div>
+
             </div>
             {this.state.resultsComponentData}
+          </div>
           </div>
         </main>
         <Footer id="footer" className="footer" />
