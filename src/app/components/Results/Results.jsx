@@ -343,7 +343,7 @@ class Results extends React.Component {
               viewBox="0 0 84 4"
               width="84"
             />
-          <ol id={this.props.id} className={this.props.className} ref="resultsOlElement" tabIndex="0" aria-labelledby={`link${getNumberForFacet(this.props.selectedFacet)}`}>
+            <ol id={this.props.id} className={this.props.className} ref="resultsOlElement" tabIndex="0" aria-labelledby={`link${getNumberForFacet(this.props.selectedFacet)}`}>
               {results}
             </ol>
             {
