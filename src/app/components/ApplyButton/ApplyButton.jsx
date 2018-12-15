@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { BasicButton } from 'dgx-react-buttons';
-import { CheckSoloIcon } from 'dgx-svg-icons';
+import { CheckSoloIcon } from '@nypl/dgx-svg-icons';
 
 const ApplyButton = ({
   className,

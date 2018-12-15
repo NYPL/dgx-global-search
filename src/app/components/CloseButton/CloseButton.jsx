@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { BasicButton } from 'dgx-react-buttons';
-import { XIcon } from 'dgx-svg-icons';
+import { XIcon } from '@nypl/dgx-svg-icons';
 
 const CloseButton = ({
   className,
