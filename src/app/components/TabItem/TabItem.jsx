@@ -154,7 +154,7 @@ class TabItem extends React.Component {
           href={`#tab${j}`}
           id={`mobile-tab-link${j}`}
           tabIndex={tabIndexAttribute}
-          aria-selected={(tabNumber && j === parseInt(tabNumber)) ? 'true' : 'false'}
+          aria-selected={(selectedFacet === tab.value) ? 'true' : 'false'}
           data={j}
         >
           {tab.anchor}
@@ -204,7 +204,7 @@ class TabItem extends React.Component {
             href={`#_tab${j}`}
             id={`link${j}`}
             tabIndex={(selectedFacet === tab.value) ? null : -1}
-            aria-selected={(tabNumber && j === parseInt(tabNumber)) ? 'true' : 'false'}
+            aria-selected={(selectedFacet === tab.value) ? 'true' : 'false'}
             role='tab'
             data={j}
             onClick={e => this.clickHandler(e, tab.value, tab.anchor, j)}
