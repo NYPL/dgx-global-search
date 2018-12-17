@@ -114,6 +114,24 @@ class Results extends React.Component {
   }
 
   /**
+   * moveFocusToNextPage(originalResultsStart, counter)
+   * Move the page focus to the first item in the next page of search results.
+   * @param {Number} numResultsOnPage
+   * @param {Number} counter
+   */
+  moveFocusToNextPage(numResultsOnPage, counter) {
+    setTimeout(() => {
+      counter += 1;
+      if (numResultsOnPage != this.state.resultsStart){
+        const refResultIndex = `result-${this.state.resultsStart}`;
+        ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
+      } else if (counter < 20) {
+        this.moveFocusToNextPage(numResultsOnPage, counter);
+      }
+    }, 500);
+  }
+
+  /**
    * updateGAClickThroughClicked(newState)
    * Updates isGAClickThroughClicked to true when ResultsItems are clicked once.
    * @param {Boolean} newState
@@ -158,22 +176,6 @@ class Results extends React.Component {
     );
 
     this.moveFocusToNextPage(originalResultsStart, 0);
-  }
-
-  /**
-   * moveFocusToNextPage(snippetText)
-   * Move the page focus to the first item in the next page of search results.
-   */
-  moveFocusToNextPage(originalResultsStart, counter) {
-    setTimeout(() => {
-      counter += 1;
-      if (originalResultsStart != this.state.resultsStart){
-        const refResultIndex = `result-${this.state.resultsStart}`;
-        ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
-      } else if (counter < 20) {
-        moveFocusToNextPage(originalResultsStart, counter);
-      }
-    }, 500);
   }
 
   /**
