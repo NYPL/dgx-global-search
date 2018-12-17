@@ -66,7 +66,6 @@ const extractSearchElements = (requestCombo) => {
   };
 };
 
-// const displayName = (name) => name.split("_").map(word => word ? word[0].toUpperCase() + word.slice(1) : '').join(" ")
 const displayName = (name) => filterNames.find(obj => obj.value === name).anchor
 /**
  * fetchDisplayName(labelsArray, searchRequest)
