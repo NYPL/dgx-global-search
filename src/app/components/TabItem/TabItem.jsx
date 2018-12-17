@@ -18,12 +18,30 @@ class TabItem extends React.Component {
       numberOfTabs: Array.isArray(tabs) && tabs.length ?
         tabs.length : 0,
       tabs: tabs,
-      tabNumber: getNumberForFacet(selectedFacet)
+      tabNumber: getNumberForFacet(selectedFacet),
+      selectedFacet: this.props.selectedFacet,
     };
 
     this.clickHandler = this.clickHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
+  }
+
+    componentDidMount() {
+    // Listen to any change of the Store
+    Store.listen(this.onChange);
+  }
+
+  componentWillUnmount() {
+    // Stop listening to the Store
+    Store.unlisten(this.onChange);
+  }
+
+  onChange() {
+    // Updates the state with the new search data
+    this.setState({
+      selectedFacet: Store.getState().selectedFacet,
+    });
   }
 
   focusTab(newTabIndex) {
@@ -190,8 +208,10 @@ class TabItem extends React.Component {
     const {
       tabNumber
     } = this.state;
+
     tabArray.forEach((tab, i) => {
       let j = i + 1;
+
       tabItems.push(
         <li
           key={j}
@@ -253,7 +273,7 @@ class TabItem extends React.Component {
 
     return (
       <div className="tabsContainer">
-        {this.renderContentOfTabLists(tabs, this.props.selectedFacet)}
+        {this.renderContentOfTabLists(tabs, this.state.selectedFacet)}
       </div>
     );
   }
