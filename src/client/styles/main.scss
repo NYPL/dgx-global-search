@@ -156,15 +156,14 @@ header {
     a {
       @include Kievit-Book-Italic;
 
-      color: $SEARCH_BLUE;
+      color: $SEARCH_BLUE_DARK;
       position: relative;
       text-decoration: none;
       top: 16px;
 
       &:hover {
-        color: $SEARCH_BLUE_DARK;
         text-decoration: underline;
-        transition: color $DURATION_LONG ease;
+        transition: text-decordation $DURATION_LONG ease;
       }
     }
   }
