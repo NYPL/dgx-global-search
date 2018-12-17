@@ -285,19 +285,19 @@ class Results extends React.Component {
         'No results were found' :
         `Found about ${this.props.amount.toLocaleString()} ${textOfResult} for ` +
         `"${this.props.searchKeyword}"`;
-    }
 
-    if (this.props.selectedFacet && Array.isArray(this.props.tabs)) {
-      const tabArray = this.props.tabs;
-      let selectedTabName = '';
+      if (this.props.selectedFacet && Array.isArray(this.props.tabs)) {
+        const tabArray = this.props.tabs;
+        let selectedTabName = '';
 
-      tabArray.forEach((tab) => {
-        if (tab.label === this.props.selectedFacet) {
-          selectedTabName = tab.resultSummarydisplayName;
-        }
-      });
+        tabArray.forEach((tab) => {
+          if (tab.label === this.props.selectedFacet) {
+            selectedTabName = ` in ${tab.resultSummarydisplayName}`;
+          }
+        });
 
-      resultsNumberSuggestion += (resultsNumberSuggestion ? ` in ${selectedTabName}` : '');
+        resultsNumberSuggestion += selectedTabName;
+      }
     }
 
     return (
