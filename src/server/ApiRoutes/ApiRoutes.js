@@ -42,7 +42,7 @@ const requestSearchResult = (req, res, next) => {
 
       res.locals.data = {
         SearchStore: {
-          searchRequest: req.params.searchRequest,
+          searchKeyword: req.params.searchRequest,
           searchData: fetchResultItems(data, generateQueryString(req)),
           searchDataLength: fetchResultLength(data),
           isKeywordValid: true,
