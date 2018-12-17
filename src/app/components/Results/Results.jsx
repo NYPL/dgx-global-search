@@ -344,7 +344,7 @@ class Results extends React.Component {
               viewBox="0 0 84 4"
               width="84"
             />
-            <ol id={this.props.id} className={this.props.className}  >
+            <ol id={this.props.id} className={this.props.className}>
               {results}
             </ol>
             {

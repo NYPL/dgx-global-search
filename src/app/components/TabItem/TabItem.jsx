@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Actions from '../../actions/Actions.js';
-// import Store from '../../stores/Store.js';
 import getNumberForFacet from '../../utils/TabIndex.js'
 
 class TabItem extends React.Component {
@@ -20,31 +18,31 @@ class TabItem extends React.Component {
       numberOfTabs: Array.isArray(tabs) && tabs.length ?
         tabs.length : 0,
       tabs: tabs,
-      // selectedFacet: selectedFacet,
-      tabNumber: getNumberForFacet(selectedFacet)
+      tabNumber: getNumberForFacet(selectedFacet),
+      selectedFacet: this.props.selectedFacet,
     };
 
     this.clickHandler = this.clickHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
-    // this.onChange = this.onChange.bind(this);
   }
 
-  // componentDidMount() {
-  //   Store.listen(this.onChange);
-  // }
+    componentDidMount() {
+    // Listen to any change of the Store
+    Store.listen(this.onChange);
+  }
 
-  // componentWillUnmount() {
-  //   Store.unlisten(this.onChange);
-  // }
+  componentWillUnmount() {
+    // Stop listening to the Store
+    Store.unlisten(this.onChange);
+  }
 
-  // onChange() {
-  //   let facet = Store.getState().selectedFacet;
-  //   this.setState({
-  //     selectedFacet: facet,
-  //     tabNumber: getNumberForFacet(facet)
-  //   })
-  // }
+  onChange() {
+    // Updates the state with the new search data
+    this.setState({
+      selectedFacet: Store.getState().selectedFacet,
+    });
+  }
 
   focusTab(newTabIndex) {
     let newTab = this.links[newTabIndex];
@@ -52,19 +50,16 @@ class TabItem extends React.Component {
   }
 
   /**
-   * switchTab(newTabIndex, tab, tabId)
+   * switchTab(newTabIndex, tab)
    * Switches tabs by updating state and href.
    *
    * @param {int} newTabIndex - The tab number
    * @param {string} tab - The value of the selected tab value
-   * @param {string} tabId
    */
-  switchTab(newTabIndex, tab, tabId) {
+  switchTab(newTabIndex, tab) {
     const {
-      saveSelectedTabValue,
       searchBySelectedFacetFunction
     } = this.props;
-    // Actions.updateSelectedFacet(tab)
     let newTab = this.links[newTabIndex];
     newTab.focus();
     searchBySelectedFacetFunction(tab);
@@ -141,7 +136,7 @@ class TabItem extends React.Component {
     const {
       searchBySelectedFacetFunction
     } = this.props;
-    // Actions.updateSelectedFacet(e.target.value);
+
     searchBySelectedFacetFunction(e.target.value);
   }
 
@@ -213,8 +208,10 @@ class TabItem extends React.Component {
     const {
       tabNumber
     } = this.state;
+
     tabArray.forEach((tab, i) => {
       let j = i + 1;
+
       tabItems.push(
         <li
           key={j}
@@ -271,13 +268,12 @@ class TabItem extends React.Component {
 
   render() {
     const {
-      tabNumber,
       tabs,
     } = this.state
 
     return (
       <div className="tabsContainer">
-        {this.renderContentOfTabLists(tabs, this.props.selectedFacet)}
+        {this.renderContentOfTabLists(tabs, this.state.selectedFacet)}
       </div>
     );
   }
@@ -286,7 +282,6 @@ class TabItem extends React.Component {
 TabItem.propTypes = {
   tabs: PropTypes.array,
   selectedFacet: PropTypes.string,
-  saveSelectedTabValue: PropTypes.func,
   searchBySelectedFacetFunction: PropTypes.func,
   resultsOlElement: PropTypes.func,
 };
