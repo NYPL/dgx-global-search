@@ -11,7 +11,7 @@ class TabItem extends React.Component {
     this.links = [];
     this.sections = [];
 
-    const  {
+    const {
       tabs,
       selectedFacet
     } = this.props;
@@ -27,9 +27,10 @@ class TabItem extends React.Component {
     this.clickHandler = this.clickHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-    componentDidMount() {
+  componentDidMount() {
     // Listen to any change of the Store
     Store.listen(this.onChange);
   }
