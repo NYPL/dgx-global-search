@@ -1,9 +1,11 @@
 .gs-results {
-  margin: 15px 0 0 0;
+  margin: 0;
   padding: 0;
 
   @include layout-at(8, $tablet-landscape) {
     @include grid-span(7, 1);
+
+    margin: 40px 0 0 0;
   }
 
   &-wrapper {
@@ -38,6 +40,7 @@
 
   &-divideLineIcon {
     display: block;
+    margin-left:0;
   }
 
   &Item {
@@ -117,6 +120,7 @@
       font-size: 16px;
       line-height: 1.25;
       margin: 0 0 23px 0;
+      word-wrap: break-word;
 
       @include layout-at(7, $tablet-portrait) {
         @include grid-span(5, 1);
@@ -137,7 +141,6 @@
       color: $SEARCH_BLUE;
       font-size: 13px;
       letter-spacing: .04em;
-      line-height: 21px;
       margin: 0 0 8px 0;
       text-transform: uppercase;
 

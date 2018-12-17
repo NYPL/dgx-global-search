@@ -29,13 +29,7 @@ describe('fetchResultItems', () => {
     expect(fetchResultItems(testData.noItem)).to.deep.equal(matchedResults.presetItem);
   });
 
-  it('should return an array with a default item if the attributes of the item are undefined or ' +
-    'null.',
-    () => {
-      expect(fetchResultItems(testData.noItemAttributes)).to.deep.equal(matchedResults.presetItem);
-    });
-
-  it('should return an item with preset label if attributes.labels is undefined or null.',
+  it('should return an item with preset label if labels is undefined or null.',
     () => {
       expect(fetchResultItems(testData.noLabels)).to.deep.equal(matchedResults.presetItem);
     }
