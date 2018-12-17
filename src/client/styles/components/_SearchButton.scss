@@ -3,6 +3,7 @@
 
   background-color: $SEARCH_BLUE;
   border: none;
+  border-radius: 2px;
   box-sizing: border-box;
   color: #FFF;
   cursor: pointer;
@@ -15,6 +16,11 @@
 
   @include layout-at(7, $tablet-portrait) {
     padding: 6.5px 35px;
+  }
+
+  @include min-screen($tablet-landscape) {
+    margin-left: 2px;
+    border-radius: 0 2px 2px 0;
   }
 
   span {

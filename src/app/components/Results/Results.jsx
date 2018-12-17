@@ -338,12 +338,12 @@ class Results extends React.Component {
               ariaHidden
               className={`${this.props.className}-divideLineIcon`}
               height="4"
-              length="84"
-              stroke="#2799C5"
+              length="100%"
+              stroke="transparent"
               strokeWidth="4"
               title="divide.line.icon.svg"
-              viewBox="0 0 84 4"
-              width="84"
+              viewBox="0 0 100% 4"
+              width="100%"
             />
             <ol id={this.props.id} className={this.props.className}  >
               {results}
