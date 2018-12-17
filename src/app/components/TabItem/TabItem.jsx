@@ -64,7 +64,7 @@ class TabItem extends React.Component {
       saveSelectedTabValue,
       searchBySelectedFacetFunction
     } = this.props;
-    Actions.updateSelectedFacet(tab)
+    // Actions.updateSelectedFacet(tab)
     let newTab = this.links[newTabIndex];
     newTab.focus();
     searchBySelectedFacetFunction(tab);
@@ -141,9 +141,8 @@ class TabItem extends React.Component {
     const {
       searchBySelectedFacetFunction
     } = this.props;
-    Actions.updateSelectedFacet(e.target.value);
+    // Actions.updateSelectedFacet(e.target.value);
     searchBySelectedFacetFunction(e.target.value);
-
   }
 
   /**
