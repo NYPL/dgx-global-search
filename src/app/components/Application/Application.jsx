@@ -64,6 +64,7 @@ class App extends React.Component {
         resultsComponentData: null,
         isLoading: false,
         isGAQuerySent: false,
+        searchKeyword: Store.getState().searchRequest,
       },
       Store.getState()
     );
