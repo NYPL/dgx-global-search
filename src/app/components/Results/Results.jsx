@@ -306,7 +306,6 @@ class Results extends React.Component {
         className={resultMessageClass}
         aria-live="polite"
         aria-atomic="true"
-        aria-relevant="all"
         // Assigns the key to the element for telling React that this element should be re-rendered
         // every time when making a search request, even if the final result is
         // the same as previous. Therefore, aria-live can be picked up by screen readers.
