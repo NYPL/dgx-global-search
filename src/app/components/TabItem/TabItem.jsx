@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import getNumberForFacet from '../../utils/TabIndex.js'
+// Import alt components
+import Store from '../../stores/Store.js';
 
 class TabItem extends React.Component {
   constructor(props) {
