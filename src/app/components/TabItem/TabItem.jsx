@@ -115,7 +115,7 @@ class TabItem extends React.Component {
     } else {
       targetTabIndex = null;
     }
-    if (targetTabIndex !== null) {
+    if (targetTabIndex !== null && targetTabIndex > 0) {
        e.preventDefault();
        if (targetTabIndex !== "down" && targetTabIndex <= numberOfTabs && 0 <= targetTabIndex) {
          this.focusTab(targetTabIndex);
