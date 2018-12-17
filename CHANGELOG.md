@@ -1,7 +1,6 @@
 ## Changelog
-### v0.3.12
+### v1.0.0
 #### Updated
-- Note: we'll add all changes here until the deployment around December 18th
 - Removing role and aria-atomic from area that announces the search results
 - Changing the label for the search field
 - Removing loading screen
