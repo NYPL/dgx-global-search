@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Actions from '../../actions/Actions.js';
-// import Store from '../../stores/Store.js';
 import getNumberForFacet from '../../utils/TabIndex.js'
 
 class TabItem extends React.Component {
@@ -20,31 +18,13 @@ class TabItem extends React.Component {
       numberOfTabs: Array.isArray(tabs) && tabs.length ?
         tabs.length : 0,
       tabs: tabs,
-      // selectedFacet: selectedFacet,
       tabNumber: getNumberForFacet(selectedFacet)
     };
 
     this.clickHandler = this.clickHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
-    // this.onChange = this.onChange.bind(this);
   }
-
-  // componentDidMount() {
-  //   Store.listen(this.onChange);
-  // }
-
-  // componentWillUnmount() {
-  //   Store.unlisten(this.onChange);
-  // }
-
-  // onChange() {
-  //   let facet = Store.getState().selectedFacet;
-  //   this.setState({
-  //     selectedFacet: facet,
-  //     tabNumber: getNumberForFacet(facet)
-  //   })
-  // }
 
   focusTab(newTabIndex) {
     let newTab = this.links[newTabIndex];
@@ -52,16 +32,14 @@ class TabItem extends React.Component {
   }
 
   /**
-   * switchTab(newTabIndex, tab, tabId)
+   * switchTab(newTabIndex, tab)
    * Switches tabs by updating state and href.
    *
    * @param {int} newTabIndex - The tab number
    * @param {string} tab - The value of the selected tab value
-   * @param {string} tabId
    */
-  switchTab(newTabIndex, tab, tabId) {
+  switchTab(newTabIndex, tab) {
     const {
-      saveSelectedTabValue,
       searchBySelectedFacetFunction
     } = this.props;
     // Actions.updateSelectedFacet(tab)
@@ -271,7 +249,6 @@ class TabItem extends React.Component {
 
   render() {
     const {
-      tabNumber,
       tabs,
     } = this.state
 
@@ -286,7 +263,6 @@ class TabItem extends React.Component {
 TabItem.propTypes = {
   tabs: PropTypes.array,
   selectedFacet: PropTypes.string,
-  saveSelectedTabValue: PropTypes.func,
   searchBySelectedFacetFunction: PropTypes.func,
   resultsOlElement: PropTypes.func,
 };
