@@ -20,7 +20,7 @@ class TabItem extends React.Component {
       numberOfTabs: Array.isArray(tabs) && tabs.length ?
         tabs.length : 0,
       tabs: tabs,
-      selectedFacet: selectedFacet,
+      // selectedFacet: selectedFacet,
       tabNumber: getNumberForFacet(selectedFacet)
     };
 
@@ -270,16 +270,14 @@ class TabItem extends React.Component {
   }
 
   render() {
-
     const {
       tabNumber,
       tabs,
-      selectedFacet,
     } = this.state
 
     return (
       <div className="tabsContainer">
-        {this.renderContentOfTabLists(tabs, selectedFacet)}
+        {this.renderContentOfTabLists(tabs, this.props.selectedFacet)}
       </div>
     );
   }
