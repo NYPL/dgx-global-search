@@ -16,24 +16,25 @@
   &-wrapper {
     padding: 0 14px;
 
-    @include layout-at(7, $tablet-portrait) {
-      @include grid-span(3, 1);
-
-      border-right: 0px;
-      display: inline-block;
-      margin: 0 -2px 0 0;
-      padding: 0;
+    @include min-screen($tablet-portrait) {
+      padding-left: 0;
     }
 
     @include layout-at(7, $tablet-landscape) {
       @include grid-span(5, 1);
-
+      
+      border-right: 0px;
+      display: inline-block;
+      padding: 0;
       margin: 0 -2px 0 0;
     }
 
+    @include min-screen($tablet-landscape) {
+      width: 400px;
+    }
+
     @include min-screen($desktop) {
-      width: 48%;
+      width: 650px;
     }
   }
 }
-
