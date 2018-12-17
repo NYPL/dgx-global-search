@@ -47,6 +47,7 @@
 
   .tab-wrapper:after {
     @include Kievit-Light;
+
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
@@ -82,6 +83,7 @@
     font-size: 18px;
     color: #176E91;
     font-family: Kievit-Book;
+    text-align: center;
 
     &:hover {
       border: 1px solid $SEARCH_BLUE_DARK;

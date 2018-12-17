@@ -107,6 +107,10 @@ header {
   }
 
   .gs-searchField {
+    /*@include layout-at(7, $tablet-portrait) {
+      @include grid-span(7, 1);
+    }*/
+
     @include layout-at(8, $tablet-landscape) {
       width: 100%;
     }
@@ -141,7 +145,6 @@ header {
       position: relative;
       text-decoration: none;
       top: 16px;
-
 
       &:hover {
         color: $SEARCH_BLUE_DARK;
