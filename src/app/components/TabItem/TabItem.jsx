@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Actions from '../../actions/Actions.js';
+import Store from '../../stores/Store.js';
+import getNumberForFacet from '../../utils/TabIndex.js'
 
 class TabItem extends React.Component {
   constructor(props) {
@@ -18,17 +20,34 @@ class TabItem extends React.Component {
       numberOfTabs: Array.isArray(tabs) && tabs.length ?
         tabs.length : 0,
       tabs: tabs,
-      selectedFacet: selectedFacet
+      selectedFacet: selectedFacet,
+      tabNumber: getNumberForFacet(selectedFacet)
     };
 
     this.clickHandler = this.clickHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    Store.listen(this.onChange);
+  }
+
+  componentWillUnmount() {
+    Store.unlisten(this.onChange);
+  }
+
+  onChange() {
+    let facet = Store.getState().selectedFacet;
+    this.setState({
+      selectedFacet: facet,
+      tabNumber: getNumberForFacet(facet)
+    })
   }
 
   focusTab(newTabIndex) {
     let newTab = this.links[newTabIndex];
-
     newTab.focus();
   }
 
@@ -45,9 +64,7 @@ class TabItem extends React.Component {
       saveSelectedTabValue,
       searchBySelectedFacetFunction
     } = this.props;
-    saveSelectedTabValue(tabId);
     Actions.updateSelectedFacet(tab)
-    this.setState({ tabNumber: newTabIndex.toString(), selectedFacet: tab });
     let newTab = this.links[newTabIndex];
     newTab.focus();
     searchBySelectedFacetFunction(tab);
@@ -125,7 +142,6 @@ class TabItem extends React.Component {
       searchBySelectedFacetFunction
     } = this.props;
     Actions.updateSelectedFacet(e.target.value);
-    this.setState({selectedFacet: e.target.value})
     searchBySelectedFacetFunction(e.target.value);
 
   }
@@ -139,9 +155,11 @@ class TabItem extends React.Component {
   * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element of the tab list on the mobile view
   */
-  renderMobileTabList(tabArray = [], selectedFacet, tabNumber) {
+  renderMobileTabList(tabArray = [], selectedFacet) {
     const tabOptions = [];
-
+    const {
+      tabNumber
+    } = this.state;
     tabArray.forEach((tab, i) => {
       const j = i + 1;
       let tabIndexAttribute;
@@ -174,7 +192,7 @@ class TabItem extends React.Component {
           className="form-control input-lg"
           value={selectedFacet}
           onChange={this.updateSelectedFacetMobile}
-          aria-labelledby="categoryTextSpan category"
+          aria-labelledby="categoryTextLabel"
           id="category"
         >
           {tabOptions}
@@ -189,11 +207,13 @@ class TabItem extends React.Component {
   *
   * @param {array} tabArray - The array of the tabs
   * @param {string} selectedFacet - The facet that is selected
-  * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element of the tab list on the desktop view
   */
-  renderDesktopTabList(tabArray = [], selectedFacet, tabNumber) {
+  renderDesktopTabList(tabArray = [], selectedFacet) {
     const tabItems = [];
+    const {
+      tabNumber
+    } = this.state;
     tabArray.forEach((tab, i) => {
       let j = i + 1;
       tabItems.push(
@@ -234,10 +254,9 @@ class TabItem extends React.Component {
   *
   * @param {array} tabArray - The array of the tabs
   * @param {string} selectedFacet - The facet that is selected
-  * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element that contains both of the tab lists
   */
-  renderContentOfTabLists(tabArray = [], selectedFacet, tabNumber) {
+  renderContentOfTabLists(tabArray = [], selectedFacet) {
     if (!tabArray.length) {
       return null;
     }
@@ -245,8 +264,8 @@ class TabItem extends React.Component {
     return (
       <div>
         <label id='categoryTextLabel'>Category</label>
-        {this.renderMobileTabList(tabArray, selectedFacet, tabNumber)}
-        {this.renderDesktopTabList(tabArray, selectedFacet, tabNumber)}
+        {this.renderMobileTabList(tabArray, selectedFacet)}
+        {this.renderDesktopTabList(tabArray, selectedFacet)}
       </div>
     );
   }
@@ -261,7 +280,7 @@ class TabItem extends React.Component {
 
     return (
       <div className="tabsContainer">
-        {this.renderContentOfTabLists(tabs, selectedFacet, tabNumber)}
+        {this.renderContentOfTabLists(tabs, selectedFacet)}
       </div>
     );
   }

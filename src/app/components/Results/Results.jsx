@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 // Import libraries
 import { contains as _contains, map as _map } from 'underscore';
-import { DivideLineIcon } from 'dgx-svg-icons';
-import { PaginationButton } from 'dgx-react-buttons';
+import { DivideLineIcon, DownWedgeIcon } from '@nypl/dgx-svg-icons';
+import { BasicButton } from 'dgx-react-buttons';
 
 // Import alt components
 import Store from '../../stores/Store.js';
@@ -21,6 +21,7 @@ import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 // Import utilities
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
 import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils.js';
+import getNumberForFacet from '../../utils/TabIndex.js'
 
 class Results extends React.Component {
   constructor(props) {
@@ -251,12 +252,14 @@ class Results extends React.Component {
     const label = `View More Results`;
     return (
       <div className={`${this.props.id}-paginationButton-wrapper`}>
-        <PaginationButton
+        <BasicButton
           id={`${this.props.id}-paginationButton`}
           className={`${this.props.id}-paginationButton`}
           isLoading={this.state.isLoadingPagination}
           onClick={this.addMoreResults}
           label={label}
+          icon={ <DownWedgeIcon stroke="#1B7FA7" /> }
+          iconSide='right'
         />
       </div>
     );
@@ -294,7 +297,7 @@ class Results extends React.Component {
         }
       });
 
-      resultsNumberSuggestion += ` in ${selectedTabName}`;
+      resultsNumberSuggestion += (resultsNumberSuggestion ? ` in ${selectedTabName}` : '');
     }
 
     return (
@@ -329,7 +332,7 @@ class Results extends React.Component {
           saveSelectedTabValue={this.saveSelectedTabValue}
         />
         {typeof results.length !== 'undefined' && results.length !== 0 ? (
-          <div>
+          <div tabIndex='0' aria-labelledby={`link${getNumberForFacet(this.props.selectedFacet)}`} ref="resultsOlElement">
             <div className="clear-float" />
             <DivideLineIcon
               ariaHidden
@@ -342,7 +345,7 @@ class Results extends React.Component {
               viewBox="0 0 84 4"
               width="84"
             />
-            <ol id={this.props.id} className={this.props.className} ref="resultsOlElement" tabIndex="0" aria-labelledby={`link${this.state.tabIdValue}`}>
+            <ol id={this.props.id} className={this.props.className}  >
               {results}
             </ol>
             {

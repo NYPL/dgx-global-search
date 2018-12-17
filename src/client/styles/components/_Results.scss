@@ -139,7 +139,7 @@
       letter-spacing: .04em;
       margin: 0 0 8px 0;
       text-transform: uppercase;
-      
+
       @include layout-at(7, $tablet-portrait) {
         @include grid-span(6, 1);
 
@@ -209,6 +209,12 @@ a:focus {
 
 a:focus .gs-resultsItem-title, a:focus .gs-resultsItem-imageWrapper, .gs-results-paginationButton:focus, .gs-inputField:focus, .gs-search-catalog-link-wrapper a:focus, .returnLink a:focus {
   @include a11y-focus($SEARCH_BLUE_DARK, 4px);
+}
+
+.gs-results-paginationButton {
+  span {
+    margin-right: 10px;
+  }
 }
 
 h2.gs-resultsItem-title.whole-row {
