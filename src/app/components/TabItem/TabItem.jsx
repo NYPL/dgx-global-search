@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Actions from '../../actions/Actions.js';
-import Store from '../../stores/Store.js';
+// import Actions from '../../actions/Actions.js';
+// import Store from '../../stores/Store.js';
 import getNumberForFacet from '../../utils/TabIndex.js'
 
 class TabItem extends React.Component {
@@ -27,24 +27,24 @@ class TabItem extends React.Component {
     this.clickHandler = this.clickHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.updateSelectedFacetMobile = this.updateSelectedFacetMobile.bind(this);
-    this.onChange = this.onChange.bind(this);
+    // this.onChange = this.onChange.bind(this);
   }
 
-  componentDidMount() {
-    Store.listen(this.onChange);
-  }
+  // componentDidMount() {
+  //   Store.listen(this.onChange);
+  // }
 
-  componentWillUnmount() {
-    Store.unlisten(this.onChange);
-  }
+  // componentWillUnmount() {
+  //   Store.unlisten(this.onChange);
+  // }
 
-  onChange() {
-    let facet = Store.getState().selectedFacet;
-    this.setState({
-      selectedFacet: facet,
-      tabNumber: getNumberForFacet(facet)
-    })
-  }
+  // onChange() {
+  //   let facet = Store.getState().selectedFacet;
+  //   this.setState({
+  //     selectedFacet: facet,
+  //     tabNumber: getNumberForFacet(facet)
+  //   })
+  // }
 
   focusTab(newTabIndex) {
     let newTab = this.links[newTabIndex];
