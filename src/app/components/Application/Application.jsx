@@ -148,6 +148,7 @@ class App extends React.Component {
   submitSearchRequest(selectedFacet = '') {
     if (!this.state.searchKeyword) {
       this.setState({ isKeywordValid: false });
+      Actions.updateSelectedFacet(selectedFacet);
     } else {
       makeClientApiCall(this.state.searchKeyword, selectedFacet, 0,
         (searchResultsItems, resultLength) => {

@@ -287,19 +287,19 @@ class Results extends React.Component {
         'No results were found' :
         `Found about ${this.props.amount.toLocaleString()} ${textOfResult} for ` +
         `"${this.props.searchKeyword}"`;
-    }
 
-    if (this.props.selectedFacet && Array.isArray(this.props.tabs)) {
-      const tabArray = this.props.tabs;
-      let selectedTabName = '';
+      if (this.props.selectedFacet && Array.isArray(this.props.tabs)) {
+        const tabArray = this.props.tabs;
+        let selectedTabName = '';
 
-      tabArray.forEach((tab) => {
-        if (tab.label === this.props.selectedFacet) {
-          selectedTabName = tab.resultSummarydisplayName;
-        }
-      });
+        tabArray.forEach((tab) => {
+          if (tab.label === this.props.selectedFacet) {
+            selectedTabName = ` in ${tab.resultSummarydisplayName}`;
+          }
+        });
 
-      resultsNumberSuggestion += (resultsNumberSuggestion ? ` in ${selectedTabName}` : '');
+        resultsNumberSuggestion += selectedTabName;
+      }
     }
 
     return (
@@ -308,7 +308,6 @@ class Results extends React.Component {
         className={resultMessageClass}
         aria-live="polite"
         aria-atomic="true"
-        aria-relevant="all"
         // Assigns the key to the element for telling React that this element should be re-rendered
         // every time when making a search request, even if the final result is
         // the same as previous. Therefore, aria-live can be picked up by screen readers.
@@ -334,20 +333,20 @@ class Results extends React.Component {
           saveSelectedTabValue={this.saveSelectedTabValue}
         />
         {typeof results.length !== 'undefined' && results.length !== 0 ? (
-          <div tabIndex='0' aria-labelledby={`link${getNumberForFacet(this.props.selectedFacet)}`} ref="resultsOlElement">
+          <div tabIndex='0' role="tabpanel" aria-labelledby={`link${getNumberForFacet(this.props.selectedFacet)}`} ref="resultsOlElement">
             <div className="clear-float" />
             <DivideLineIcon
               ariaHidden
               className={`${this.props.className}-divideLineIcon`}
               height="4"
-              length="100%"
+              length="84"
               stroke="transparent"
               strokeWidth="4"
               title="divide.line.icon.svg"
-              viewBox="0 0 100% 4"
-              width="100%"
+              viewBox="0 0 84 4"
+              width="84"
             />
-            <ol id={this.props.id} className={this.props.className}  >
+            <ol id={this.props.id} className={this.props.className}>
               {results}
             </ol>
             {
