@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { BasicButton } from 'dgx-react-buttons';
-import { SearchIcon } from 'dgx-svg-icons';
+import { SearchIcon } from '@nypl/dgx-svg-icons';
 
 const SearchButton = ({
   id,

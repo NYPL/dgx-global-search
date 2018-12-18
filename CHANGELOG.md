@@ -1,4 +1,42 @@
 ## Changelog
+### v1.0.0
+#### Updated
+- Removing role and aria-atomic from area that announces the search results
+- Changing the label for the search field
+- Removing loading screen
+- Fixing JSON display bug
+- Changing filter values
+- Showing ARIA-live region on initial load of search page
+- Making a div with a role of "search" that contains search functionality & results
+- Improving desktop version of filter with keyboard navigation
+- Adding commands for linting
+- Updating the syntax for better formatting codes in Results.jsx
+- Updating the texts for showing result information.
+- Updating the functions to render tabs on mobile view and desktop view to fix the inconsistent selected tabs between viewports.
+- Updating the function for getting URL paths so the results will be correct after hitting "Go back" button on browsers.
+- Changing the "Load More" button to "View More" and removing the loading dots
+- Updating Results.jsx for rendering a more accessibile HTML element of results summary.
+- Speeding up the change in focus after clicking "View More"
+#### Added
+- Adding the link to search the catalog with the same search keywords.
+- Add chevron to mobile dropdown
+- Adding new PR workflow with a pr_approved branch.
+
+### v0.3.10
+#### Updated
+- Updating @nypl/dgx-header-component to 2.4.15 and checking for QA in APP_ENV.
+
+### v0.3.9
+#### Updated
+- Updating @nypl/dgx-header-component to 2.4.14 and set APP_ENV.
+
+### v0.3.8
+#### Updated
+- Updating @nypl/dgx-header-component to 2.4.13.
+
+### v0.3.7
+#### Updated
+- Updating @nypl/dgx-header-component to 2.4.12 and changing "searchbeta" to "search".
 
 ### v0.3.6
 #### Updated

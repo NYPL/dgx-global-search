@@ -26,17 +26,17 @@ Import style rules from NYPL React module components
 /*
 Import style rules from App components
 */
+@import "components/_TabItem";
 @import "components/InputField";
 @import "components/SearchButton";
-@import "components/Filter";
 @import "components/Results";
 @import "components/PaginationButton";
-@import "components/_LoadingLayer";
 @import "components/_ReturnLink";
 
 #app {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 
   @include add-grid(3);
 }
@@ -55,49 +55,51 @@ header {
   @include layout-at(9, $tablet-landscape) {
     box-sizing: border-box;
     min-height: 860px;
-    padding: 0 20px;
   }
 
   @include min-screen($desktop) {
     box-sizing: content-box;
     float: none;
     margin: 0 auto;
-    max-width: 1313px;
+    width: 1333px;
     padding: 0;
   }
 
-  &:focus {
-    outline: none;
-  }
-
   h1 {
-    @include Kievit-Medium;
+    @include Kievit-Book;
 
     color: $PRIMARY_COLOR;
-    font-size: 18px;
+    font-size: 24px;
     font-weight: normal;
     line-height: 21px;
     margin: 19px 0 23px 0;
     padding: 0 14px;
 
     @include min-screen($tablet-portrait) {
-      padding: 0 36px;
+      padding: 24px 0 0 20px;
     }
 
     @include layout-at(9, $tablet-landscape) {
-      @include grid-span(8, 2);
+      @include grid-span(9, 2);
 
-      margin: 19px 0 0 0;
-      padding: 0;
-    }
-
-    span {
-      &:last-child {
-        font-size: 12px;
-        vertical-align: 12px;
-      }
+      margin: 32px 0 0 0;
+      padding: 0 0 0 2rem;
     }
   }
+
+.gs-header {
+
+  @include min-screen($tablet-landscape){
+    background-color: $LIGHTGRAY_COLOR;
+    border-bottom: 2px solid $BLACK_COLOR;
+    margin: 0;
+  }
+
+  @include min-screen($desktop){
+    margin: 0 -9999rem;
+    padding: 0.25rem 9999rem;
+  }
+}
 
   .gs-operations {
     display: block;
@@ -108,24 +110,61 @@ header {
       box-sizing: border-box;
       display: inline-block;
       margin: 0 0 27px 0;
-      padding: 0 36px;
+      padding: 0 20px;
     }
 
     @include layout-at(9, $tablet-landscape) {
-      @include grid-span(8, 2);
+      @include grid-span(9, 2);
 
-      margin: 30px 0 27px 0;
-      padding: 0 20px 0 0;
+      margin: 30px 0 0 0;
+      padding: 0 20px 0 2rem;
     }
   }
 
   .gs-searchField {
-    @include layout-at(8, $tablet-landscape) {
+    /*@include layout-at(7, $tablet-portrait) {
       @include grid-span(7, 1);
+    }*/
+
+    @include layout-at(8, $tablet-landscape) {
+      width: 100%;
     }
 
     @include layout-at(8, $desktop) {
-      @include grid-span(6, 1);
+      width: 100%;
+    }
+  }
+
+  .gs-search-catalog-link-wrapper {
+    font-size: 18px;
+    padding: 0 14px;
+
+    @include min-screen($tablet-portrait) {
+      padding: 0;
+    }
+
+    @include min-screen($tablet-landscape) {
+      padding: 0;
+    }
+
+    @include min-screen($desktop) {
+      font-size: 20px;
+      height: 48px;
+      padding: 0;
+    }
+
+    a {
+      @include Kievit-Book-Italic;
+
+      color: $SEARCH_BLUE_DARK;
+      position: relative;
+      text-decoration: none;
+      top: 16px;
+
+      &:hover {
+        text-decoration: underline;
+        transition: text-decordation $DURATION_LONG ease;
+      }
     }
   }
 }
@@ -139,3 +178,12 @@ header {
   clip: rect(0 0 0 0); /* IE6, IE7 */
   clip: rect(0, 0, 0, 0);
 }
+
+#gs-searchButton:focus{
+   outline: none;
+   box-shadow: inset 0 0 0 4px lightBlue;
+  }
+
+#gs-searchButton:hover{
+   background-color: darken(#176E91, 10% ) ;
+  }

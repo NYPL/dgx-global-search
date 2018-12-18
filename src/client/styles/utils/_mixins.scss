@@ -233,3 +233,20 @@
     @content;
   }
 }
+
+/* durations */
+$DURATION_SHORT: .1s;
+$DURATION_MEDIUM: .3s;
+$DURATION_LONG: .6s;
+
+/* focus color */
+@mixin a11y-focus($a11y-color, $a11y-border-width){
+  box-shadow: 1px 1px 1px 1px $a11y-color; 
+  -webkit-outline-color: $a11y-color; 
+  -moz-outline-color: $a11y-color; 
+  -ms-outline-color: $a11y-color; 
+  -o-outline-color: $a11y-color; 
+  outline-color: $a11y-color; 
+  outline-style: solid; 
+  outline-width: $a11y-border-width;
+}

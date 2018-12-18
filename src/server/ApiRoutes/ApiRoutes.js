@@ -15,25 +15,22 @@ const { api, searchApi } = appConfig;
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
-const apiRoot = api.root[appEnvironment];
 
-const createOptions = (apiValue) => ({
-  endpoint: `${apiRoot}${apiValue.endpoint}`,
-  includes: apiValue.includes,
-  filters: apiValue.filters,
-});
-
-const searchOptions = createOptions(searchApi);
 const getSearchData = (url) => axios.get(url);
 
-const requestSearchResult = (req, res, next) => {
+
+const generateQueryString = (req) => {
   const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
-  const searchRequest = `${req.params.searchKeyword}${searchFilter}`;
-  searchOptions.filters = {
-    q: searchRequest,
-    start: 0,
-  };
-  const searchApiUrl = parser.getCompleteApi(searchOptions);
+  return req.params.searchRequest + searchFilter;
+}
+
+const generateApiUrl = (req) => {
+  const start = req.query.start && req.query.start != 0 ? `&start=${req.query.start}` : '' ;
+  return `${process.env.API_ROOT}&q=${generateQueryString(req)}${start}`
+}
+
+const requestSearchResult = (req, res, next) => {
+  const searchApiUrl = generateApiUrl(req);
   const queriesForGA = {
     searchedFrom: req.query.searched_from || '',
     timestamp: req.query.timestamp || '',
@@ -41,13 +38,13 @@ const requestSearchResult = (req, res, next) => {
 
   getSearchData(searchApiUrl)
     .then((searchData) => {
-      const searchParsed = parser.parse(searchData.data, searchOptions);
+      const data = searchData.data;
 
       res.locals.data = {
         SearchStore: {
-          searchKeyword: req.params.searchKeyword,
-          searchData: fetchResultItems(searchParsed, searchRequest),
-          searchDataLength: fetchResultLength(searchParsed),
+          searchKeyword: req.params.searchRequest,
+          searchData: fetchResultItems(data, generateQueryString(req)),
+          searchDataLength: fetchResultLength(data),
           isKeywordValid: true,
           selectedFacet: req.params.searchFilter,
           resultsStart: 0,
@@ -62,11 +59,10 @@ const requestSearchResult = (req, res, next) => {
     .catch(error => {
       console.log(`error calling API : ${error}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
-      console.log(`search keyword is ${searchOptions.filters.q}`);
 
       res.locals.data = {
         SearchStore: {
-          searchKeyword: '',
+          searchRequest: '',
           searchData: [],
           searchDataLength: 0,
           searchFacets: fetchSearchFacetsList(),
@@ -79,11 +75,7 @@ const requestSearchResult = (req, res, next) => {
 };
 
 const requestResultsFromClient = (req, res) => {
-  searchOptions.filters = {
-    q: req.params.searchRequest,
-    start: req.query.start || '0',
-  };
-  const searchApiUrl = parser.getCompleteApi(searchOptions);
+  const searchApiUrl = generateApiUrl(req);
 
   if (!req.query.start) {
     res.json({});
@@ -92,18 +84,17 @@ const requestResultsFromClient = (req, res) => {
 
   getSearchData(searchApiUrl)
     .then((searchData) => {
-      const searchParsed = parser.parse(searchData.data, searchOptions);
+      const data = searchData.data;
       const searchModeled = {
-        searchResultsItems: fetchResultItems(searchParsed, req.params.searchRequest),
-        resultLength: fetchResultLength(searchParsed),
+        searchResultsItems: fetchResultItems(data, req.params.searchRequest),
+        resultLength: fetchResultLength(data),
       };
 
       res.json(searchModeled);
     })
     .catch(error => {
-      console.log(`error calling API : ${error}`);
+      console.log(`error calling API : ${JSON.stringify(error)}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
-      console.log(`search keyword is ${searchOptions.filters.q}`);
     });
 };
 
@@ -116,17 +107,17 @@ router
   .get(requestNoResultApp);
 
 router
-  .route('/searchbeta')
+  .route('/search')
   .get(requestNoResultApp);
 
 // For reverse proxy URLs
 router
-  .route('/:searchKeyword/:searchFilter?')
+  .route('/:searchRequest/:searchFilter?')
   .get(requestSearchResult);
 
 // The route here is for local development
 router
-  .route('/searchbeta/:searchKeyword/:searchFilter?')
+  .route('/search/:searchRequest/:searchFilter?')
   .get(requestSearchResult);
 
 // For reverse proxy client side API call
@@ -135,7 +126,7 @@ router
   .get(requestResultsFromClient);
 
 router
-  .route('/searchbeta/request/api/:searchRequest/')
+  .route('/search/request/api/:searchRequest/')
   .get(requestResultsFromClient);
 
 export default router;

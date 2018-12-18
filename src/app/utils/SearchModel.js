@@ -1,3 +1,5 @@
+import { filterNames } from './FilterNames.js';
+
 // Import libraries
 import {
   map as _map,
@@ -16,13 +18,10 @@ import {
 const fetchResultLength = (data) => {
   try {
     const {
-      attributes: {
-        meta: {
-          'total-results': totalResults = 0,
-        },
+      searchInformation: {
+        formattedTotalResults: totalResults = 0,
       },
     } = data;
-
     return totalResults;
   } catch (e) {
     console.log(e);
@@ -36,64 +35,9 @@ const fetchResultLength = (data) => {
  *
  * @return {Array}
  */
-const fetchSearchFacetsList = () =>
-  [
-    {
-      anchor: 'All Results',
-      value: '',
-      label: 'all_results',
-    },
-    {
-      anchor: 'Digital Collections',
-      value: 'digital_collections',
-      label: 'digital_collections',
-    },
-    {
-      anchor: 'Exhibitions',
-      value: 'exhibitions',
-      label: 'exhibitions',
-    },
-    {
-      anchor: 'Archives',
-      value: 'archives',
-      label: 'archives',
-    },
-    {
-      anchor: 'Audio / Visual',
-      value: 'audio_video',
-      label: 'audio_video',
-    },
-    {
-      anchor: 'Blog',
-      value: 'blog',
-      label: 'blog',
-    },
-    {
-      anchor: 'Projects',
-      value: 'projects',
-      label: 'projects',
-    },
-    {
-      anchor: 'Events / Classes',
-      value: 'events_classes',
-      label: 'events_classes',
-    },
-    {
-      anchor: 'Recommendations',
-      value: 'recommendations',
-      label: 'recommendations',
-    },
-    {
-      anchor: 'Locations',
-      value: 'locations',
-      label: 'locations',
-    },
-    {
-      anchor: 'Help',
-      value: 'help',
-      label: 'help',
-    },
-  ];
+const fetchSearchFacetsList = () => {
+  return filterNames;
+}
 
 /**
  * extractSearchElements(requestCombo)
@@ -122,6 +66,7 @@ const extractSearchElements = (requestCombo) => {
   };
 };
 
+const displayName = (name) => filterNames.find(obj => obj.value === name).anchor
 /**
  * fetchDisplayName(labelsArray, searchRequest)
  * The function returns the display name of the item.
@@ -139,35 +84,29 @@ const extractSearchElements = (requestCombo) => {
  * @return {String}
  */
 const fetchDisplayName = (labelsArray, searchRequest) => {
+  let name;
+
   if (!_isArray(labelsArray) || _isEmpty(labelsArray)) {
     return '';
   }
 
   const displayNameArray = _map(labelsArray, (label) => {
-    if (!label.displayName || !label.name) {
-      return {
-        name: '',
-        displayName: '',
-      };
-    }
-
     return {
-      name: label.name,
-      displayName: label.displayName,
+      name: label.name || '',
     };
   });
 
   const searchFacet = extractSearchElements(searchRequest).searchFacet;
 
   if (!searchFacet) {
-    return displayNameArray[0].displayName;
+    name = displayNameArray[0].name;
+  } else {
+    name = _find(displayNameArray, (item) =>
+      item.name === searchFacet
+    ).name;
   }
 
-  const displayName = _find(displayNameArray, (item) =>
-    item.name === searchFacet
-  ).displayName;
-
-  return displayName || '';
+  return displayName(name || '');
 };
 
 /**
@@ -210,12 +149,24 @@ const secureHttpsProtocol = (url) =>
  * @return {String}
  */
 const fetchItemFeature = (item, feature) => {
-  if (!item.attributes[feature]) {
-    return '';
-  }
-
-  return item.attributes[feature];
+  return item[feature] || '';
 };
+
+const getNestedData = (array, item) => {
+  return array.reduce((acc, el) => (acc[el] || ''), item)
+}
+
+const logThumbnail = (item) => {
+  let thumbnails = getNestedData(['pagemap', 'cse_thumbnail'], item);
+  if (thumbnails.length && thumbnails.length > 1) {
+    console.log('item with multiple thumbnails: ', JSON.stringify(item));
+  }
+}
+
+const fetchThumbnail = (item) => {
+  logThumbnail(item);
+  return getNestedData(['pagemap', 'cse_thumbnail', 0, 'src'], item)
+}
 
 /**
  * fetchItem(item, searchRequest)
@@ -232,7 +183,7 @@ const fetchItemFeature = (item, feature) => {
  * @return {Object}
  */
 const fetchItem = (item, searchRequest) => {
-  if (!item || !item.attributes) {
+  if (!item) {
     return {
       title: '',
       link: '',
@@ -249,8 +200,8 @@ const fetchItem = (item, searchRequest) => {
     title: modeledTitle,
     link: secureHttpsProtocol(fetchItemFeature(item, 'link')),
     snippet: modeledSnippet,
-    thumbnailSrc: fetchItemFeature(item, 'thumbnail-url'),
-    label: fetchDisplayName(item.attributes.labels, searchRequest),
+    thumbnailSrc: fetchThumbnail(item),
+    label: fetchDisplayName(item.labels, searchRequest),
   };
 };
 

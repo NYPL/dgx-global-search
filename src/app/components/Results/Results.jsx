@@ -2,21 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+// Import libraries
+import { contains as _contains, map as _map } from 'underscore';
+import { DivideLineIcon, DownWedgeIcon } from '@nypl/dgx-svg-icons';
+import { BasicButton } from 'dgx-react-buttons';
+
 // Import alt components
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import components
 import ResultsItem from '../ResultsItem/ResultsItem.jsx';
-import { DivideLineIcon } from 'dgx-svg-icons';
-import { PaginationButton } from 'dgx-react-buttons';
+import TabItem from '../TabItem/TabItem.jsx';
+import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 
-// Import libraries
-import { contains as _contains, map as _map } from 'underscore';
+
 
 // Import utilities
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
 import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils.js';
+import getNumberForFacet from '../../utils/TabIndex.js'
 
 class Results extends React.Component {
   constructor(props) {
@@ -34,6 +39,8 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.saveSelectedTabValue = this.saveSelectedTabValue.bind(this);
+    this.moveFocusToNextPage = this.moveFocusToNextPage.bind(this);
   }
 
   componentDidMount() {
@@ -90,8 +97,8 @@ class Results extends React.Component {
         index={index}
         ref={`result-${index}`}
         title={item.title}
-        link={item.link}
-        snippet={item.snippet}
+        link={this.transformHttpsToHttp(item.link)}
+        snippet={this.parseSnippet(item.snippet)}
         thumbnailSrc={item.thumbnailSrc}
         label={item.label}
         className={`${this.props.className}Item`}
@@ -104,6 +111,24 @@ class Results extends React.Component {
         timeToLoadResults={this.state.timeToLoadResults}
       />
     ));
+  }
+
+  /**
+   * moveFocusToNextPage(originalResultsStart, counter)
+   * Move the page focus to the first item in the next page of search results.
+   * @param {Number} numResultsOnPage
+   * @param {Number} counter
+   */
+  moveFocusToNextPage(numResultsOnPage, counter) {
+    setTimeout(() => {
+      counter += 1;
+      if (numResultsOnPage != this.state.resultsStart){
+        const refResultIndex = `result-${this.state.resultsStart}`;
+        ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
+      } else if (counter < 20) {
+        this.moveFocusToNextPage(numResultsOnPage, counter);
+      }
+    }, 500);
   }
 
   /**
@@ -124,6 +149,7 @@ class Results extends React.Component {
    */
   addMoreResults() {
     const nextResultCount = this.state.resultsStart + this.state.incrementResults;
+    let originalResultsStart = this.state.resultsStart;
 
     makeClientApiCall(this.props.searchKeyword, this.props.selectedFacet, nextResultCount,
       (searchResultsItems) => {
@@ -149,12 +175,60 @@ class Results extends React.Component {
       }
     );
 
-    // Automatically focus on the first item of the newly reloaded results
-    setTimeout(() => {
-      const refResultIndex = `result-${this.state.resultsStart}`;
+    this.moveFocusToNextPage(originalResultsStart, 0);
+  }
 
-      ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
-    }, 2000);
+  /**
+   * parseSnippet(snippetText)
+   * The function converts a string to an array
+   * if the separator pattern is found in the string.
+   * If a value is found in index 1 of the array,
+   * return that value else the original snippetText
+   * passed.
+   */
+  parseSnippet(snippetText) {
+    if (!snippetText && typeof snippetText !== 'string') {
+      return '';
+    }
+
+    const faultyJsonArray = snippetText.trim().split('}}]]');
+
+    if (faultyJsonArray.length > 1) {
+      return faultyJsonArray[1];
+    }
+
+    return snippetText;
+  }
+
+  /**
+   * transformHttpsToHttp(link)
+   * The function converts certain NYPL subdomains to http
+   * to prevent an error when that site does not have SSL enabled.
+   */
+  transformHttpsToHttp(link) {
+    if (!link) {
+      return;
+    }
+
+    const transformationRequired =
+      link.includes('//menus.nypl.org') ||
+      link.includes('//exhibitions.nypl.org') ||
+      link.includes('//static.nypl.org') ||
+      link.includes('//web-static.nypl.org');
+
+    if (link && transformationRequired) {
+      return link.replace('https:', 'http:');
+    }
+
+    return link;
+  }
+
+  selectedTab(tabIdValue) {
+    this.setState({ tabIdValue });
+  }
+
+  saveSelectedTabValue(tabIdValue) {
+    this.setState({ tabIdValue: tabIdValue });
   }
 
   /**
@@ -177,62 +251,118 @@ class Results extends React.Component {
         </div>
       );
     }
-
+    const label = `View More Results`;
     return (
       <div className={`${this.props.id}-paginationButton-wrapper`}>
-        <PaginationButton
+        <BasicButton
           id={`${this.props.id}-paginationButton`}
           className={`${this.props.id}-paginationButton`}
           isLoading={this.state.isLoadingPagination}
           onClick={this.addMoreResults}
-          label="LOAD MORE"
+          label={label}
+          icon={ <DownWedgeIcon stroke="#1B7FA7" /> }
+          iconSide='right'
         />
       </div>
     );
   }
 
+  /**
+   * renderResultsNumberSuggestion(resultsLength)
+   * Renders the <p> for displaying results summary.
+   *
+   * @param {string} resultsLength - the amount of the total result items
+   * @return {HTML Element} p
+   */
+  renderResultsNumberSuggestion(resultsLength) {
+    let resultsNumberSuggestion;
+    const textOfResult = this.props.amount === 1 ? 'result' : 'results';
+    const resultMessageClass = (resultsLength === 0) ?
+      'noResultMessage' : `${this.props.className}-length`;
+
+    if (!this.props.searchKeyword) {
+      resultsNumberSuggestion = '';
+    } else {
+      resultsNumberSuggestion = (resultsLength === 0) ?
+        'No results were found' :
+        `Found about ${this.props.amount.toLocaleString()} ${textOfResult} for ` +
+        `"${this.props.searchKeyword}"`;
+
+      if (this.props.selectedFacet && Array.isArray(this.props.tabs)) {
+        const tabArray = this.props.tabs;
+        let selectedTabName = '';
+
+        tabArray.forEach((tab) => {
+          if (tab.label === this.props.selectedFacet) {
+            selectedTabName = ` in ${tab.resultSummarydisplayName}`;
+          }
+        });
+
+        resultsNumberSuggestion += selectedTabName;
+      }
+    }
+
+    return (
+      <p
+        id="search-results-summary"
+        className={resultMessageClass}
+        aria-live="polite"
+        aria-atomic="true"
+        // Assigns the key to the element for telling React that this element should be re-rendered
+        // every time when making a search request, even if the final result is
+        // the same as previous. Therefore, aria-live can be picked up by screen readers.
+        key={this.state.timeToLoadResults}
+      >
+        {resultsNumberSuggestion}
+      </p>
+    );
+  }
+
   render() {
     const results = this.getList(this.state.searchResults);
-    const resultsNumberSuggestion = (results.length === 0) ?
-      'No items were found' : `We found about ${this.props.amount} results.`;
-    const resultMessageClass = (results.length === 0) ?
-      'noResultMessage' : `${this.props.className}-length`;
+    const inputValue = this.props.searchKeyword || '';
 
     return (
       <div className={`${this.props.className}-wrapper`}>
-        <p
-          className={resultMessageClass}
-          role="alert"
-          aria-atomic="true"
-          aria-live="polite"
-        >
-          {resultsNumberSuggestion}
-        </p>
-        {results.length !== 0 &&
-          <div>
+        {this.renderResultsNumberSuggestion(results.length)}
+        <TabItem
+          id="gs-tabs"
+          tabs={this.props.tabs}
+          selectedFacet={this.props.selectedFacet}
+          searchBySelectedFacetFunction={this.props.searchBySelectedFacetFunction}
+          saveSelectedTabValue={this.saveSelectedTabValue}
+        />
+        {typeof results.length !== 'undefined' && results.length !== 0 ? (
+          <div tabIndex='0' role="tabpanel" aria-labelledby={`link${getNumberForFacet(this.props.selectedFacet)}`} ref="resultsOlElement">
+            <div className="clear-float" />
             <DivideLineIcon
               ariaHidden
               className={`${this.props.className}-divideLineIcon`}
               height="4"
               length="84"
-              stroke="#2799C5"
+              stroke="transparent"
               strokeWidth="4"
               title="divide.line.icon.svg"
               viewBox="0 0 84 4"
               width="84"
             />
-            <ul id={this.props.id} className={this.props.className} ref="results">
+            <ol id={this.props.id} className={this.props.className}>
               {results}
-            </ul>
-            {this.renderSeeMoreButton()}
+            </ol>
+            {
+              results.length % 10 === 0 &&
+              this.renderSeeMoreButton(Math.min(this.props.amount - results.length, 10))
+            }
+            <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           </div>
-        }
+        ) : null}
       </div>
     );
   }
 }
 
 Results.propTypes = {
+  lang: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
   results: PropTypes.array,
@@ -241,6 +371,9 @@ Results.propTypes = {
   resultsStart: PropTypes.number,
   selectedFacet: PropTypes.string,
   queriesForGA: PropTypes.object,
+  selectedTab: PropTypes.string,
+  tabs: PropTypes.array,
+  searchBySelectedFacetFunction: PropTypes.func,
 };
 
 Results.defaultProps = {

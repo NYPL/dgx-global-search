@@ -8,13 +8,22 @@
 $PRIMARY_COLOR: #E32B31 !default;
 $SECONDARY_RED_COLOR: #B80F15 !default;
 
+/* NYPL gray */
+$BLACK_COLOR: #000;
+$LIGHTGRAY_COLOR: #EFEDEB;
+$GRAY_COLOR: #76777B;
+$DARKGRAY_COLOR: #54514A;
+
 /* Coolgray */
 $COOLGRAY_COLOR: #7B756F !default;
 
 /* Search */
 $SEARCH_BLUE: #1B7FA7 !default;
-$INPUT_FIELD_GREY: #665C52 !default;
+$SEARCH_BLUE_DARK: darken($SEARCH_BLUE, 10%);
+$SEARCH_BLUE_LIGHT: #EFF2F5;
+$INPUT_FIELD_GREY: $DARKGRAY_COLOR !default;
 $FILTER_ICON_GREY: #7B756F !default;
+$WARNING_COLOR: #8A1A9C !default;
 
 /* Utilities */
 $charcoal: #333333;

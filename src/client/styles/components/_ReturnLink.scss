@@ -1,40 +1,21 @@
 .returnLink {
-  @include Kievit-Medium;
+  @include Kievit-Book;
 
+  font-size: 1em;
+  text-align: center;
   display: block;
-  margin: 15px 0;
-  padding: 0 14px;
+  margin: 48px 0px 60px 0px;
 
   a {
-    color: $COOLGRAY_COLOR;
+    color: $SEARCH_BLUE;
+
+    &:hover {
+      color: $SEARCH_BLUE_DARK;
+      transition: color $DURATION_LONG ease;
+    }
   }
 
   span {
     color: $COOLGRAY_COLOR;
-  }
-
-  @include layout-at(7, $tablet-portrait) {
-    padding: 0 36px;
-  }
-
-  @include layout-at(8, $tablet-landscape) {
-    @include grid-span(7, 1);;
-
-    margin: 0;
-    padding: 0;
-
-    div {
-      float: right;
-      margin: 0 27px -27px 0;
-    }
-  }
-
-  @include layout-at(8, $desktop) {
-    div {
-      margin: 0;
-      position: absolute;
-      right: 313px;
-      top: 158px;
-    }
   }
 }

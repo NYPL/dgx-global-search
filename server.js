@@ -23,6 +23,7 @@ const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const VIEWS_PATH = path.resolve(ROOT_PATH, 'src/views');
 const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 const isProduction = process.env.NODE_ENV === 'production';
+const apiRoot = process.env.API_ROOT;
 const app = express();
 
 app.use(compress());
@@ -38,7 +39,7 @@ app.set('views', VIEWS_PATH);
 app.set('port', process.env.PORT || 3001);
 
 app.use(express.static(DIST_PATH));
-app.use('/searchbeta/', express.static(DIST_PATH));
+app.use('/search/', express.static(DIST_PATH));
 
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
@@ -46,6 +47,11 @@ app.use('*/src/client', express.static(INDEX_PATH));
 app.use('/', apiRoutes);
 
 app.use('/', (req, res) => {
+
+  // Change the page title based on having results or not. For accessibility purposes.
+  const pageTitle = req.originalUrl === '/' ? 'Search NYPL.org' : "Search Results | NYPL.org";
+
+
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
   const iso = new Iso();
@@ -56,12 +62,13 @@ app.use('/', (req, res) => {
   // First parameter references the ejs filename
   res.render('index', {
     application: iso.render(),
-    appTitle: appConfig.appTitle,
+    appTitle: pageTitle,
     favicon: appConfig.favIconPath,
     webpackPort: WEBPACK_DEV_PORT,
     appEnv: process.env.APP_ENV,
     apiUrl: (res.locals.data) ? res.locals.data.completeApiUrl : '',
     isProduction,
+    apiRoot
   });
 });
 

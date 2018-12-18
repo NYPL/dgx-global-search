@@ -31,7 +31,6 @@ const InputField = ({
     onChange={onChange}
     required={isRequired}
     style={style}
-    aria-label={label}
     aria-required="true"
   />
 );

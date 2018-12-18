@@ -2,7 +2,7 @@
   &-paginationButton {
     &-wrapper {
       display: block;
-      margin: 45px 0 72px 0;
+      margin: 45px 0 0 0;
       text-align: center;
 
       @include layout-at(8, $tablet-landscape) {
@@ -16,40 +16,30 @@
       }
     }
 
+    @include Kievit-Book;
+
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
-    border: 2px solid $COOLGRAY_COLOR;
+    border: 2px solid $SEARCH_BLUE;
     border-radius: 33px;
-    color: $COOLGRAY_COLOR;
+    color: $SEARCH_BLUE;
     cursor: pointer;
     display: inline-block;
-    font-family: Kievit-Medium;
     font-size: 16px;
     letter-spacing: 0.04em;
     line-height: 16.21px;
     overflow: hidden;
-    padding: 14px 19px 12px 37px;
-    &-dotRow {
-      display: block;
-      list-style: none;
-      margin: 0 auto;
-      padding: 0;
-      &-dot {
-        border: 3px solid $COOLGRAY_COLOR;
-        border-radius: 100%;
-        display: inline-block;
-        margin: 0 4px 0 0;
-        vertical-align: 1px;
-      }
-      &-number {
-        display: inline-table;
-        margin: 0 10px 0 4px;
-      }
-    }
+    padding: 14px 19px 12px 19px;
     &--hide {
       display: none;
+    }
+
+    &:hover {
+      color: $SEARCH_BLUE_DARK;
+      border: 2px solid $SEARCH_BLUE_DARK;
+      transition: border color $DURATION_LONG ease;
     }
   }
 }

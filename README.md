@@ -3,10 +3,10 @@
 This repository is the global search application for nypl.org.
 
 ### URL
-https://www.nypl.org/searchbeta
+https://www.nypl.org/search
 
 ### Version
-> v0.3.6
+> v1.0.0
 
 ### Installation
 Install all dependencies listed under package.json
@@ -14,12 +14,14 @@ Install all dependencies listed under package.json
 $ npm install
 ```
 
+### Linting
+From the CLI, run `npm run lint` to run the ESLint tool for checking JavaScript syntax.  Here is an example of how to lint only one file: `npm run lint-single-file src/app/components/TabItem/TabItem.jsx`
+
 ### Development Mode
 We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
 
-```sh
-$ npm start // Starts localhost:3001 defaulting to APP_ENV=development
-```
+To run locally, run:
+`API_ROOT='ENTER_URL_WITH_CREDENTIALS_HERE' node index`. You will have to change the string `ENTER_URL_WITH_CREDENTIALS_HERE` in the 'local' script in package.json to the actual API endpoint. Leave the quotation marks. Get this from a coworker.
 
 You can also set the APP_ENV variable which dictates what API environment to use as the main source.
 ```sh
@@ -27,7 +29,7 @@ $ APP_ENV=development|qa|production npm start // Starts localhost:3001 with set 
 ```
 
 ### Production Mode
-We use Webpack to fire off a hot-reloading development server. This allows for continous code changes without the need to refresh your browser.
+We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
 
 ```sh
 $ npm run dist // Builds dist path & files
@@ -47,11 +49,30 @@ https://console.aws.amazon.com
 
 You will need the credentials. Please contact NYPL Digital if you need one.
 
-#### For deploying a feature branch to one of the environments
-Sometimes, we need to test a feature branch at one of the environments, so we need to deploy the branch. For doing that, change the value of `branch` in `.travis.yml` under each environment (deploy/on/branch) from `master`, `qa`, or `development` to the name of the feature branch. Save, commit, and push it just as the regular deployments.
+#### PR Review and Deployment with Travis
+CREATING A NEW BRANCH
+
+When starting work on a new feature, developers should cut their feature branches off of the `pr_approved` branch.
+
+CREATING A NEW PR
+
+The pr_approved branch reflects all work that has been approved in a PR.  This means that when a developer creates a PR, the base branch should be the `pr_approved` branch.
+
+TESTING A FEATURE ON THE DEVELOPMENT SERVER
+
+When a developer is ready to create a new PR, they should use the CLI to merge their feature branch into the development branch and push it to the `development` branch on GitHub.  This will cause Travis to deploy the `development` branch to the development server.
+
+DEPLOYMENT BY TRAVIS
+
+The travis.yml file states that these branches get deployed to these environments:
+
+* `development` branch deploys to development server
+* `pr_approved` branch does not deploy anywhere
+* `qa` branch deploys to qa server
+* `master` branch deploys to production server
 
 #### For pushing to remote without a deployment
-Sometimes, we want to push the commit but also keep the current version on the environment for testing. For doing that, at the commit you want to push, add [skip ci] anywhere (preferable in the beginning to keep them consistent), so Travis will ignore this commit.
+Sometimes, we want to push the commit but also keep the current version on the environment for testing. For doing that, at the commit you want to push, add `[skip ci]` anywhere (preferable in the beginning to keep them consistent), so Travis will ignore this commit.
 
 
 Contributors
