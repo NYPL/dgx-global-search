@@ -213,6 +213,8 @@ class Results extends React.Component {
       link.includes('//menus.nypl.org') ||
       link.includes('//exhibitions.nypl.org') ||
       link.includes('//static.nypl.org') ||
+      link.includes('//static.nypl.org/exhibitions') ||
+      link.includes('//web-static.nypl.org/exhibitions') || 
       link.includes('//web-static.nypl.org');
 
     if (link && transformationRequired) {
