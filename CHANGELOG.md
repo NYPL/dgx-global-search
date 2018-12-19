@@ -1,4 +1,9 @@
 ## Changelog
+
+### v1.0.1
+#### Updated
+- Updating @nypl/dgx-header-component to 2.4.19
+
 ### v1.0.0
 #### Updated
 - Removing role and aria-atomic from area that announces the search results
