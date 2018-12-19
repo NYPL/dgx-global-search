@@ -209,6 +209,7 @@ class Results extends React.Component {
     }
 
     const transformationRequired =
+      link.includes('//digital.nypl.org') ||
       link.includes('//menus.nypl.org') ||
       link.includes('//exhibitions.nypl.org') ||
       link.includes('//static.nypl.org') ||
