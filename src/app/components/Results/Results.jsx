@@ -205,7 +205,7 @@ class Results extends React.Component {
    */
   transformHttpsToHttp(link) {
     if (!link) {
-      return;
+      return '';
     }
 
     const transformationRequired =
@@ -214,7 +214,7 @@ class Results extends React.Component {
       link.includes('//exhibitions.nypl.org') ||
       link.includes('//static.nypl.org') ||
       link.includes('//static.nypl.org/exhibitions') ||
-      link.includes('//web-static.nypl.org/exhibitions') || 
+      link.includes('//web-static.nypl.org/exhibitions') ||
       link.includes('//web-static.nypl.org');
 
     if (link && transformationRequired) {
