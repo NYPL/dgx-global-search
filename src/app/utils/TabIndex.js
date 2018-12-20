@@ -9,6 +9,6 @@ const incrementIndex = (arr, index, step) => {
 
 const incrementTab = (name, step) => values[incrementIndex(values, values.indexOf(name), step)]
 
-const getNameForFacet = (facet) => `_${facet}`
+const getNameForFacet = (facet) => `${facet}`
 
 export { getNameForFacet, incrementTab, incrementIndex, values };

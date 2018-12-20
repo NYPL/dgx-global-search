@@ -142,8 +142,8 @@ class TabItem extends React.Component {
           key={name}
           value={name}
           className={(selectedFacet === name) ? 'activeTab' : null}
-          href={`#tab${name}`}
-          id={`mobile-tab-link${name}`}
+          href={`#tab_${name}`}
+          id={`mobile-tab-link-${name}`}
           tabIndex={tabIndexAttribute}
           aria-selected={(selectedFacet === name) ? 'true' : 'false'}
           data={name}
@@ -185,13 +185,13 @@ class TabItem extends React.Component {
         <li
           key={name}
           value={name}
-          id={`tab${name}`}
+          id={`tab_${name}`}
           className={(selectedFacet === name ? 'activeTab' : null)}
           role='presentation'
         >
           <a
-            href={`#_tab${name}`}
-            id={`link${name}`}
+            href={`#_tab_${name}`}
+            id={`link_${name}`}
             tabIndex={(selectedFacet === name) ? null : -1}
             aria-selected={(selectedFacet === name) ? 'true' : 'false'}
             role='tab'
