@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getNameForFacet, incrementTab } from '../../utils/TabIndex.js'
+import { getNameForFacet, incrementTab, displayNameForFacet } from '../../utils/TabIndex.js'
 // Import alt components
 import Store from '../../stores/Store.js';
 

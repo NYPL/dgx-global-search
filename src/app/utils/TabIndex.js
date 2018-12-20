@@ -11,4 +11,6 @@ const incrementTab = (name, step) => values[incrementIndex(values, values.indexO
 
 const getNameForFacet = (facet) => `${facet}`
 
-export { getNameForFacet, incrementTab, incrementIndex, values };
+const displayNameForFacet = facet => facet === '' ? 'all' : facet
+
+export { getNameForFacet, incrementTab, incrementIndex, values, displayNameForFacet };

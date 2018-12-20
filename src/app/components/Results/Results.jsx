@@ -21,7 +21,7 @@ import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 // Import utilities
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
 import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils.js';
-import { getNameForFacet } from '../../utils/TabIndex.js'
+import { getNameForFacet, displayNameForFacet } from '../../utils/TabIndex.js'
 
 class Results extends React.Component {
   constructor(props) {
