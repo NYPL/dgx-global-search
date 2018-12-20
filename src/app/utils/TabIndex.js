@@ -1,7 +1,14 @@
 import { filterNames } from './FilterNames.js'
 
-// const getNumberForFacet = facet => filterNames.map(name => name.value).indexOf(facet) + 1
+const values = filterNames.map(filter => filter.value);
 
-const getNumberForFacet = facet => `_${facet}`
+const incrementIndex = (arr, index, step) => {
+  let newIndex = index + step;
+  return newIndex > -1 && newIndex < arr.length ? newIndex : index;
+}
 
-export default getNumberForFacet;
+const incrementTab = (name, step) => values[incrementIndex(values, values.indexOf(name), step)]
+
+const getNameForFacet = (facet) => `_${facet}`
+
+export { getNameForFacet, incrementTab, incrementIndex, values };

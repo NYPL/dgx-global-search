@@ -21,7 +21,7 @@ import ReturnLink from '../ReturnLink/ReturnLink.jsx';
 // Import utilities
 import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
 import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils.js';
-import getNumberForFacet from '../../utils/TabIndex.js'
+import { getNameForFacet } from '../../utils/TabIndex.js'
 
 class Results extends React.Component {
   constructor(props) {
@@ -333,7 +333,7 @@ class Results extends React.Component {
           saveSelectedTabValue={this.saveSelectedTabValue}
         />
         {typeof results.length !== 'undefined' && results.length !== 0 ? (
-          <div tabIndex='0' role="tabpanel" aria-labelledby={`link${getNumberForFacet(this.props.selectedFacet)}`} ref="resultsOlElement">
+          <div tabIndex='0' role="tabpanel" aria-labelledby={`link${getNameForFacet(this.props.selectedFacet)}`} ref="resultsOlElement">
             <div className="clear-float" />
             <DivideLineIcon
               ariaHidden
