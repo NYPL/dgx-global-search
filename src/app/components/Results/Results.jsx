@@ -333,7 +333,7 @@ class Results extends React.Component {
           saveSelectedTabValue={this.saveSelectedTabValue}
         />
         {typeof results.length !== 'undefined' && results.length !== 0 ? (
-          <div tabIndex='0' role="tabpanel" aria-labelledby={`link_${getNameForFacet(this.props.selectedFacet)}`} ref="resultsOlElement">
+          <div tabIndex='0' role="tabpanel" aria-labelledby={`link_${displayNameForFacet(this.props.selectedFacet)}`} ref="resultsOlElement">
             <div className="clear-float" />
             <DivideLineIcon
               ariaHidden

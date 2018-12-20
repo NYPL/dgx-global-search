@@ -136,14 +136,15 @@ class TabItem extends React.Component {
     const tabOptions = [];
     tabArray.forEach(tab => {
       const name = getNameForFacet(tab.value);
+      const display = displayNameForFacet(tab.value)
       let tabIndexAttribute = tab.value === selectedFacet;
       tabOptions.push(
         <option
           key={name}
           value={name}
           className={(selectedFacet === name) ? 'activeTab' : null}
-          href={`#tab_${name}`}
-          id={`mobile-tab-link-${name}`}
+          href={`#tab_${display}`}
+          id={`mobile-tab-link-${display}`}
           tabIndex={tabIndexAttribute}
           aria-selected={(selectedFacet === name) ? 'true' : 'false'}
           data={name}
@@ -180,18 +181,19 @@ class TabItem extends React.Component {
     const tabItems = [];
     tabArray.forEach(tab => {
       let name = getNameForFacet(tab.value);
+      let display = displayNameForFacet(tab.value);
 
       tabItems.push(
         <li
           key={name}
           value={name}
-          id={`tab_${name}`}
+          id={`tab_${display}`}
           className={(selectedFacet === name ? 'activeTab' : null)}
           role='presentation'
         >
           <a
-            href={`#_tab_${name}`}
-            id={`link_${name}`}
+            href={`#_tab_${display}`}
+            id={`link_${display}`}
             tabIndex={(selectedFacet === name) ? null : -1}
             aria-selected={(selectedFacet === name) ? 'true' : 'false'}
             role='tab'
