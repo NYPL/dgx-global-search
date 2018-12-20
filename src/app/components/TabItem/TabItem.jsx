@@ -20,8 +20,7 @@ class TabItem extends React.Component {
       numberOfTabs: Array.isArray(tabs) && tabs.length ?
         tabs.length : 0,
       tabs: tabs,
-      tabNumber: getNumberForFacet(selectedFacet),
-      selectedFacet: this.props.selectedFacet,
+      selectedFacet: selectedFacet,
     };
 
     this.clickHandler = this.clickHandler.bind(this);
@@ -144,29 +143,18 @@ class TabItem extends React.Component {
   }
 
   /**
-  * renderMobileTabList(tabArray, selectedFacet, tabNumber)
+  * renderMobileTabList(tabArray, selectedFacet)
   * Renders the tab list on the mobile view.
   *
   * @param {array} tabArray - The array of the tabs
   * @param {string} selectedFacet - The facet that is selected
-  * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element of the tab list on the mobile view
   */
   renderMobileTabList(tabArray = [], selectedFacet) {
     const tabOptions = [];
-    const {
-      tabNumber
-    } = this.state;
-    tabArray.forEach((tab, i) => {
-      const j = i + 1;
-      let tabIndexAttribute;
-
-      if (tabNumber) {
-        tabIndexAttribute = (parseInt(tabNumber) === j) ? null : '-1';
-      } else {
-        tabIndexAttribute = '0';
-      }
-
+    tabArray.forEach(tab => {
+      const j = getNumberForFacet(tab.value);
+      let tabIndexAttribute = tab.value === selectedFacet;
       tabOptions.push(
         <option
           key={j}
@@ -199,7 +187,7 @@ class TabItem extends React.Component {
   }
 
   /**
-  * renderDesktopTabList(tabArray, selectedFacet, tabNumber)
+  * renderDesktopTabList(tabArray, selectedFacet)
   * Renders the tab list on the desktop view.
   *
   * @param {array} tabArray - The array of the tabs
@@ -208,12 +196,8 @@ class TabItem extends React.Component {
   */
   renderDesktopTabList(tabArray = [], selectedFacet) {
     const tabItems = [];
-    const {
-      tabNumber
-    } = this.state;
-
-    tabArray.forEach((tab, i) => {
-      let j = i + 1;
+    tabArray.forEach(tab => {
+      let j = getNumberForFacet(tab.value);
 
       tabItems.push(
         <li
@@ -248,7 +232,7 @@ class TabItem extends React.Component {
   }
 
   /**
-  * renderContentOfTabLists(tabArray = [], selectedFacet, tabNumber)
+  * renderContentOfTabLists(tabArray = [], selectedFacet)
   * Calls the two functions to render tab lists on different viewports.
   *
   * @param {array} tabArray - The array of the tabs

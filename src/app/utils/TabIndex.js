@@ -1,15 +1,5 @@
-const getNumberForFacet = (facet) => {
-  const facets = [
-    '',
-    'articles_databases',
-    'research_guides',
-    'events_classes',
-    'exhibitions',
-    'blog_posts',
-    'audio_video',
-    'help_articles',
-    'locations']
-  return facets.indexOf(facet) + 1;
-}
+import { filterNames } from './FilterNames.js'
+
+const getNumberForFacet = facet => filterNames.map(name => name.value).indexOf(facet) + 1
 
 export default getNumberForFacet;
