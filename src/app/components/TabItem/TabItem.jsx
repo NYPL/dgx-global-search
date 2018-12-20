@@ -153,18 +153,18 @@ class TabItem extends React.Component {
   renderMobileTabList(tabArray = [], selectedFacet) {
     const tabOptions = [];
     tabArray.forEach(tab => {
-      const j = getNumberForFacet(tab.value);
+      const name = tab.value;
       let tabIndexAttribute = tab.value === selectedFacet;
       tabOptions.push(
         <option
-          key={j}
-          value={tab.value}
-          className={(selectedFacet === tab.value) ? 'activeTab' : null}
-          href={`#tab${j}`}
-          id={`mobile-tab-link${j}`}
+          key={name}
+          value={name}
+          className={(selectedFacet === name) ? 'activeTab' : null}
+          href={`#tab${name}`}
+          id={`mobile-tab-link${name}`}
           tabIndex={tabIndexAttribute}
-          aria-selected={(selectedFacet === tab.value) ? 'true' : 'false'}
-          data={j}
+          aria-selected={(selectedFacet === name) ? 'true' : 'false'}
+          data={name}
         >
           {tab.anchor}
         </option>
@@ -197,26 +197,26 @@ class TabItem extends React.Component {
   renderDesktopTabList(tabArray = [], selectedFacet) {
     const tabItems = [];
     tabArray.forEach(tab => {
-      let j = getNumberForFacet(tab.value);
+      let name = tab.value;
 
       tabItems.push(
         <li
-          key={j}
-          value={tab.value}
-          id={`tab${j}`}
-          className={(selectedFacet === tab.value ? 'activeTab' : null)}
+          key={name}
+          value={name}
+          id={`tab${name}`}
+          className={(selectedFacet === name ? 'activeTab' : null)}
           role='presentation'
         >
           <a
-            href={`#_tab${j}`}
-            id={`link${j}`}
-            tabIndex={(selectedFacet === tab.value) ? null : -1}
-            aria-selected={(selectedFacet === tab.value) ? 'true' : 'false'}
+            href={`#_tab${name}`}
+            id={`link${name}`}
+            tabIndex={(selectedFacet === name) ? null : -1}
+            aria-selected={(selectedFacet === name) ? 'true' : 'false'}
             role='tab'
-            data={j}
-            onClick={e => this.clickHandler(e, tab.value, tab.anchor, j)}
-            onKeyDown={e => this.keyDownHandler(e, tab.value, j)}
-            ref={(input) => {this.links[j.toString()] = input;}}
+            data={name}
+            onClick={e => this.clickHandler(e, name, tab.anchor)}
+            onKeyDown={e => this.keyDownHandler(e, name, tab.anchor)}
+            ref={(input) => {this.links[name] = input;}}
           >
             {tab.anchor}
           </a>
