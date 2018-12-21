@@ -1,6 +1,5 @@
 import express from 'express';
 import axios from 'axios';
-import parser from 'jsonapi-parserinator';
 
 import {
   fetchResultLength,
@@ -8,13 +7,9 @@ import {
   fetchSearchFacetsList,
 } from '../../app/utils/SearchModel.js';
 
-import appConfig from '../../../appConfig.js';
-
 // Syntax that both ES6 and Babel 6 support
-const { api, searchApi } = appConfig;
 
 const router = express.Router();
-const appEnvironment = process.env.APP_ENV || 'production';
 
 const getSearchData = (url) => axios.get(url);
 
