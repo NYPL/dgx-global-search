@@ -5,10 +5,7 @@ const cleanBuild = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const aws = require('./lib/kms-helper.js');
 const pkg = require('./package.json');
-const urlConfig = require('./urlConfig.js');
-
-const development = urlConfig.api.development;
-const production = urlConfig.api.production;
+const { api: { development, production } } = require('./urlConfig.js');
 
 // References the applications root path
 const ROOT_PATH = path.resolve(__dirname);
