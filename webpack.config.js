@@ -19,11 +19,8 @@ const appEnv = process.env.APP_ENV ? process.env.APP_ENV : 'production';
 // set API_ROOT to the correct encrypted value
 process.env.API_ROOT = ENV === 'development' ? development : production;
 
-if (process.env.AWS_PROFILE) {
-  aws.setProfile(process.env.AWS_PROFILE)
-}
-
-aws.decrypt(process.env.API_ROOT).then(result => {process.env.API_ROOT = result.slice(1, result.length-1)})
+aws.setProfile(process.env.AWS_PROFILE);
+aws.decrypt(process.env.API_ROOT).then(result => {process.env.API_ROOT = result.slice(1, result.length-1)});
 console.log(process.env.API_ROOT)
 
 // Holds the common settings for any environment
