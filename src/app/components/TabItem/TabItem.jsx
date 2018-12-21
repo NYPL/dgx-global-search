@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import getNumberForFacet from '../../utils/TabIndex.js'
+import getNumberForFacet from '../../utils/TabIndex';
 // Import alt components
-import Store from '../../stores/Store.js';
+import Store from '../../stores/Store';
 
 class TabItem extends React.Component {
   constructor(props) {
@@ -13,15 +13,15 @@ class TabItem extends React.Component {
 
     const {
       tabs,
-      selectedFacet
+      selectedFacet,
     } = this.props;
 
     this.state = {
-      numberOfTabs: Array.isArray(tabs) && tabs.length ?
-        tabs.length : 0,
-      tabs: tabs,
+      numberOfTabs: Array.isArray(tabs) && tabs.length
+        ? tabs.length : 0,
+      tabs,
       tabNumber: getNumberForFacet(selectedFacet),
-      selectedFacet: this.props.selectedFacet,
+      selectedFacet,
     };
 
     this.clickHandler = this.clickHandler.bind(this);
@@ -48,7 +48,7 @@ class TabItem extends React.Component {
   }
 
   focusTab(newTabIndex) {
-    let newTab = this.links[newTabIndex];
+    const newTab = this.links[newTabIndex];
     newTab.focus();
   }
 
@@ -61,9 +61,10 @@ class TabItem extends React.Component {
    */
   switchTab(newTabIndex, tab) {
     const {
-      searchBySelectedFacetFunction
+      searchBySelectedFacetFunction,
     } = this.props;
-    let newTab = this.links[newTabIndex];
+    const newTab = this.links[newTabIndex];
+
     newTab.focus();
     searchBySelectedFacetFunction(tab);
   }
@@ -78,8 +79,8 @@ class TabItem extends React.Component {
    */
   clickHandler(e, tabValue, tabId) {
     e.preventDefault();
-    let clickedTab = e.currentTarget;
-    let index = clickedTab.getAttribute('data');
+    const clickedTab = e.currentTarget;
+    const index = clickedTab.getAttribute('data');
     this.switchTab(index, tabValue, tabId);
   }
 
@@ -93,10 +94,14 @@ class TabItem extends React.Component {
   */
   keyDownHandler(e, tabValue, tabId) {
     const {
-      numberOfTabs
-    } = this.state
-    const index = parseInt(e.currentTarget.getAttribute('data'));
+      numberOfTabs,
+    } = this.state;
+    const {
+      resultsOlElement,
+    } = this.props;
+    const index = parseInt(e.currentTarget.getAttribute('data'), 10);
     let targetTabIndex;
+
     // 37 is left
     if (e.which === 37) {
       targetTabIndex = index - 1;
@@ -113,19 +118,21 @@ class TabItem extends React.Component {
     } else {
       targetTabIndex = null;
     }
+
     if (targetTabIndex !== null && targetTabIndex > 0) {
-       e.preventDefault();
-       if (targetTabIndex !== "down" && targetTabIndex <= numberOfTabs && 0 <= targetTabIndex) {
-         this.focusTab(targetTabIndex);
-       } else if (targetTabIndex === "down") {
-         let nextElement;
-         if (this.props.resultsOlElement()) {
-           nextElement = this.props.resultsOlElement();
-         } else {
-           nextElement = document.getElementsByClassName("linkItemList")[0].childNodes[0].childNodes[0];
-         }
-         nextElement.focus();
-       }
+      e.preventDefault();
+      if (targetTabIndex !== 'down' && targetTabIndex <= numberOfTabs && targetTabIndex >= 0) {
+        this.focusTab(targetTabIndex);
+      } else if (targetTabIndex === 'down') {
+        let nextElement;
+        if (resultsOlElement()) {
+          nextElement = resultsOlElement();
+        } else {
+          nextElement = document.getElementsByClassName('linkItemList')[0].childNodes[0]
+            .childNodes[0];
+        }
+        nextElement.focus();
+      }
     }
   }
 
@@ -135,9 +142,9 @@ class TabItem extends React.Component {
   *
   * @param {event} e - The event when a tab is clicked
   */
-  updateSelectedFacetMobile(e){
+  updateSelectedFacetMobile(e) {
     const {
-      searchBySelectedFacetFunction
+      searchBySelectedFacetFunction,
     } = this.props;
 
     searchBySelectedFacetFunction(e.target.value);
@@ -155,19 +162,20 @@ class TabItem extends React.Component {
   renderMobileTabList(tabArray = [], selectedFacet) {
     const tabOptions = [];
     const {
-      tabNumber
+      tabNumber,
     } = this.state;
+
     tabArray.forEach((tab, i) => {
       const j = i + 1;
       let tabIndexAttribute;
 
       if (tabNumber) {
-        tabIndexAttribute = (parseInt(tabNumber) === j) ? null : '-1';
+        tabIndexAttribute = (parseInt(tabNumber, 10) === j) ? null : '-1';
       } else {
         tabIndexAttribute = '0';
       }
 
-      tabOptions.push(
+      const option = (
         <option
           key={j}
           value={tab.value}
@@ -181,6 +189,8 @@ class TabItem extends React.Component {
           {tab.anchor}
         </option>
       );
+
+      tabOptions.push(option);
     });
 
     return (
@@ -208,40 +218,38 @@ class TabItem extends React.Component {
   */
   renderDesktopTabList(tabArray = [], selectedFacet) {
     const tabItems = [];
-    const {
-      tabNumber
-    } = this.state;
 
     tabArray.forEach((tab, i) => {
-      let j = i + 1;
-
-      tabItems.push(
+      const j = i + 1;
+      const listItem = (
         <li
           key={j}
           value={tab.value}
           id={`tab${j}`}
           className={(selectedFacet === tab.value ? 'activeTab' : null)}
-          role='presentation'
+          role="presentation"
         >
           <a
             href={`#_tab${j}`}
             id={`link${j}`}
             tabIndex={(selectedFacet === tab.value) ? null : -1}
             aria-selected={(selectedFacet === tab.value) ? 'true' : 'false'}
-            role='tab'
+            role="tab"
             data={j}
             onClick={e => this.clickHandler(e, tab.value, tab.anchor, j)}
             onKeyDown={e => this.keyDownHandler(e, tab.value, j)}
-            ref={(input) => {this.links[j.toString()] = input;}}
+            ref={(input) => { this.links[j.toString()] = input; }}
           >
             {tab.anchor}
           </a>
         </li>
       );
+
+      tabItems.push(listItem);
     });
 
     return (
-      <ul role='tablist'>
+      <ul role="tablist">
         {tabItems}
       </ul>
     );
@@ -262,7 +270,7 @@ class TabItem extends React.Component {
 
     return (
       <div>
-        <label id='categoryTextLabel'>Category</label>
+        <label id="categoryTextLabel" htmlFor="category">Category</label>
         {this.renderMobileTabList(tabArray, selectedFacet)}
         {this.renderDesktopTabList(tabArray, selectedFacet)}
       </div>
@@ -272,21 +280,29 @@ class TabItem extends React.Component {
   render() {
     const {
       tabs,
-    } = this.state
+      selectedFacet,
+    } = this.state;
 
     return (
       <div className="tabsContainer">
-        {this.renderContentOfTabLists(tabs, this.state.selectedFacet)}
+        {this.renderContentOfTabLists(tabs, selectedFacet)}
       </div>
     );
   }
 }
 
 TabItem.propTypes = {
-  tabs: PropTypes.array,
+  tabs: PropTypes.arrayOf(PropTypes.object),
   selectedFacet: PropTypes.string,
   searchBySelectedFacetFunction: PropTypes.func,
   resultsOlElement: PropTypes.func,
+};
+
+TabItem.defaultProps = {
+  tabs: [],
+  selectedFacet: '',
+  searchBySelectedFacetFunction: () => {},
+  resultsOlElement: () => {},
 };
 
 export default TabItem;
