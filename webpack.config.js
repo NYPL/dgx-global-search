@@ -4,6 +4,7 @@ const merge = require('webpack-merge');
 const cleanBuild = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const aws = require('./lib/kms-helper.js');
+const pkg = require('./package.json');
 const { default: { api: { development, production } } }  = require('./appConfig.js')
 
 // References the applications root path
