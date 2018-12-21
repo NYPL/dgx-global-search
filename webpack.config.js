@@ -7,13 +7,6 @@ const pkg = require('./package.json');
 const aws = require('./lib/kms-helper.js');
 const { default: { api: { development, production } } }  = require('./appConfig.js')
 
-
-// let development = appConfig.api.development;
-// let production = appConfig.api.production;
-
-console.log(development, production)
-// console.log(JSON.stringify(appConfig, null, 2))
-
 // References the applications root path
 const ROOT_PATH = path.resolve(__dirname);
 
@@ -23,7 +16,15 @@ const ENV = process.env.NODE_ENV || 'development';
 // Sets appEnv so the the header component will point to the search app on either Dev or Prod
 const appEnv = process.env.APP_ENV ? process.env.APP_ENV : 'production';
 
+// set API_ROOT to the correct encrypted value
+process.env.API_ROOT = ENV === 'development' ? development : production;
 
+if (process.env.AWS_PROFILE) {
+  aws.setProfile(process.env.AWS_PROFILE)
+}
+
+aws.decrypt(process.env.API_ROOT).then(result => {process.env.API_ROOT = result.slice(1, result.length-1)})
+console.log(process.env.API_ROOT)
 
 // Holds the common settings for any environment
 const commonSettings = {
