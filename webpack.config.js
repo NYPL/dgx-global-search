@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const cleanBuild = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const pkg = require('./package.json');
 const aws = require('./lib/kms-helper.js');
 const { default: { api: { development, production } } }  = require('./appConfig.js')
 
