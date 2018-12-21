@@ -50,7 +50,7 @@ deploy:
   bucket_path: nypl-global-search-development
   on:
     repo: NYPL/dgx-global-search
-    branch: da_encrypt_url
+    branch: development
 after_deploy: echo 'Successfully executed deploy trigger for NYPL Global Search on AWS'
 env:
   global:
