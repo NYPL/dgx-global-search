@@ -84,7 +84,8 @@ class App extends React.Component {
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
-        Store.getState().searchDataLength
+        Store.getState().searchDataLength,
+        Store.getState().isKeywordValid
       ),
     });
   }
@@ -102,14 +103,14 @@ class App extends React.Component {
   onChange() {
     // Updates the state with the new search data
     this.setState({
-      isKeywordValid: true,
       isLoading: false,
       searchKeyword: Store.getState().searchKeyword,
       selectedFacet: Store.getState().selectedFacet,
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
-        Store.getState().searchDataLength
+        Store.getState().searchDataLength,
+        Store.getState().isKeywordValid
       ),
       queriesForGA: Store.getState().queriesForGA,
     });
@@ -147,8 +148,8 @@ class App extends React.Component {
    */
   submitSearchRequest(selectedFacet = '') {
     if (!this.state.searchKeyword) {
-      this.setState({ isKeywordValid: false });
       Actions.updateSelectedFacet(selectedFacet);
+      Actions.updateIsKeywordValid(false);
     } else {
       makeClientApiCall(this.state.searchKeyword, selectedFacet, 0,
         (searchResultsItems, resultLength) => {
@@ -237,7 +238,7 @@ class App extends React.Component {
    * @param {number} searchResultsLength
    * @return {object} object
    */
-  renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
+  renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid) {
     return (
       <Results
         selectedTab={this.state.tabIdValue}
@@ -251,14 +252,14 @@ class App extends React.Component {
         resultsStart={this.state.resultsStart}
         queriesForGA={this.state.queriesForGA}
         searchBySelectedFacetFunction={this.searchBySelectedFacet}
+        isKeywordValid={isKeywordValid}
       />
     );
   }
 
   render() {
     const inputValue = this.state.searchKeyword || '';
-    const inputPlaceholder = (this.state.isKeywordValid) ?
-      'What would you like to find?' : 'Please enter a keyword';
+    const inputPlaceholder = 'What would you like to find?';
 
     return (
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
