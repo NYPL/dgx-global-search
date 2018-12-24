@@ -5,7 +5,7 @@ const cleanBuild = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const aws = require('./lib/kms-helper.js');
 const pkg = require('./package.json');
-const { api: { development, production } } = require('./urlConfig.js');
+const { api: { developmentUrl, productionUrl } } = require('./urlConfig.js');
 
 // References the applications root path
 const ROOT_PATH = path.resolve(__dirname);
@@ -17,7 +17,7 @@ const ENV = process.env.NODE_ENV || 'development';
 const appEnv = process.env.APP_ENV ? process.env.APP_ENV : 'production';
 
 // set API_ROOT to the correct encrypted value
-process.env.API_ROOT = appEnv === 'development' ? development : production;
+process.env.API_ROOT = appEnv === 'development' ? developmentUrl : productionUrl;
 
 aws.setProfile(process.env.AWS_PROFILE);
 aws.decrypt(process.env.API_ROOT).then(result => {process.env.API_ROOT = result.slice(1, result.length-1)});
