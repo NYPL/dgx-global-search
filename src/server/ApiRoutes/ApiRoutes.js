@@ -31,10 +31,12 @@ const getDataAndSetClientKey = (url) => {
   });
 }
 
-const getSearchData = url => redisClientWithPromise(url)
-  .then(redisResponse => (redisResponse === null ? getDataAndSetClientKey(url) : Promise.resolve(redisResponse)))
+const useCachedOrGetData = url => redisClientWithPromise(url)
+  .then(redisResponse => (redisResponse === null ? getDataAndSetClientKey(url) : redisResponse));
+
+const getSearchData = url => useCachedOrGetData(url)
   .then(stringifiedSearchData => JSON.parse(stringifiedSearchData));
-  
+
 const generateQueryString = (req) => {
   const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
   return req.params.searchRequest + searchFilter;
