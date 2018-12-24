@@ -135,10 +135,10 @@ class TabItem extends React.Component {
   */
   renderMobileTabList(tabArray = [], selectedFacet) {
     const tabOptions = [];
-    tabArray.forEach(tab => {
+    tabArray.forEach((tab) => {
       const name = getNameForFacet(tab.value);
       const display = displayNameForFacet(tab.value)
-      let tabIndexAttribute = tab.value === selectedFacet;
+      const tabIndexAttribute = tab.value === selectedFacet;
       tabOptions.push(
         <option
           key={name}
@@ -153,8 +153,6 @@ class TabItem extends React.Component {
           {tab.anchor}
         </option>
       );
-
-      tabOptions.push(option);
     });
 
     return (
@@ -182,9 +180,9 @@ class TabItem extends React.Component {
   */
   renderDesktopTabList(tabArray = [], selectedFacet) {
     const tabItems = [];
-    tabArray.forEach(tab => {
-      let name = getNameForFacet(tab.value);
-      let display = displayNameForFacet(tab.value);
+    tabArray.forEach((tab) => {
+      const name = getNameForFacet(tab.value);
+      const display = displayNameForFacet(tab.value);
 
       tabItems.push(
         <li
@@ -209,8 +207,6 @@ class TabItem extends React.Component {
           </a>
         </li>
       );
-
-      tabItems.push(listItem);
     });
 
     return (
