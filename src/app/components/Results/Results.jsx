@@ -34,7 +34,6 @@ class Results extends React.Component {
       searchResults: this.props.results,
       timeToLoadResults: new Date().getTime(),
       queriesForGA: this.props.queriesForGA,
-      isKeywordValid: this.props.isKeywordValid,
     };
 
     this.getList = this.getList.bind(this);
@@ -80,7 +79,6 @@ class Results extends React.Component {
       searchResults: Store.getState().searchData,
       timeToLoadResults: new Date().getTime(),
       queriesForGA: Store.getState().queriesForGA,
-      isKeywordValid: Store.getState().isKeywordValid,
     });
   }
 
@@ -282,13 +280,16 @@ class Results extends React.Component {
   renderResultsNumberSuggestion(resultsLength) {
     let resultsNumberSuggestion;
     const textOfResult = this.props.amount === 1 ? 'result' : 'results';
-    const resultMessageClass = (resultsLength === 0 || !this.state.isKeywordValid) ?
+    const resultMessageClass = (resultsLength === 0 || !this.props.isKeywordValid) ?
       'noResultMessage' : `${this.props.className}-length`;
 
     if (!this.props.searchKeyword) {
-      if (!this.state.isKeywordValid) {
+      if (!this.props.isKeywordValid) {
+        // Show 'Please enter a keyword' only if press tab or search button without a keyword
         resultsNumberSuggestion = 'Please enter a keyword';
       } else {
+        // If go to the root URL without a keyword for the first time,
+        // it will not show 'Please enter a keyword'
         resultsNumberSuggestion = '';
       }
     } else {

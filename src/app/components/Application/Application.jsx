@@ -163,6 +163,7 @@ class App extends React.Component {
           });
 
           Actions.updateSearchKeyword(currentSearchKeyword);
+          Actions.updateIsKeywordValid(true);
           Actions.updateSearchData(searchResultsItems);
           Actions.updateSearchDataLength(resultLength);
           Actions.updateSelectedFacet(facet);
@@ -174,7 +175,7 @@ class App extends React.Component {
         },
         () => {
           Actions.updateSearchKeyword('');
-          Actions.updateIsKeywordValid(false);
+          Actions.updateIsKeywordValid(true);
           Actions.updateQueriesForGA({
             searchedFrom: 'betasearch',
             timestamp: new Date().getTime(),
@@ -230,13 +231,14 @@ class App extends React.Component {
 
 
   /**
-   * renderResults(searchKeyword, searchResultsArray, searchResultsLength)
+   * renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid)
    * The function renders the results of the search request.
    * If no search keyword input, it won't render anything and return null.
    *
    * @param {string} searchKeyword
    * @param {array} searchResultsArray
    * @param {number} searchResultsLength
+   * @param {boolean} isKeywordValid
    * @return {object} object
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid) {
