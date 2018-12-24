@@ -1,7 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
-import redis from 'redis';
+import addCaching from './cacheUtil.js';
 
 import {
   fetchResultLength,
@@ -17,25 +17,7 @@ const { api, searchApi } = appConfig;
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 
-const client = redis.createClient()
-
-const redisClientWithPromise = key => new Promise((resolve) => {
-  client.get(key, (err, cachedResponse) => resolve(cachedResponse))
-});
-
-const getDataAndSetClientKey = (url) => {
-  return axios.get(url).then((apiResponse) => {
-    const stringifiedResponse = JSON.stringify(apiResponse);
-    client.set(url, stringifiedResponse, 'EX', 3600);
-    return stringifiedResponse;
-  });
-}
-
-const useCachedOrGetData = url => redisClientWithPromise(url)
-  .then(redisResponse => (redisResponse === null ? getDataAndSetClientKey(url) : redisResponse));
-
-const getSearchData = url => useCachedOrGetData(url)
-  .then(stringifiedSearchData => JSON.parse(stringifiedSearchData));
+const getSearchData = addCaching(url => axios.get(url), !process.env.SKIP_CACHING);
 
 const generateQueryString = (req) => {
   const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
