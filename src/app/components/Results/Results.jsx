@@ -282,7 +282,7 @@ class Results extends React.Component {
   renderResultsNumberSuggestion(resultsLength) {
     let resultsNumberSuggestion;
     const textOfResult = this.props.amount === 1 ? 'result' : 'results';
-    const resultMessageClass = (resultsLength === 0) ?
+    const resultMessageClass = (resultsLength === 0 || !this.state.isKeywordValid) ?
       'noResultMessage' : `${this.props.className}-length`;
 
     if (!this.props.searchKeyword) {
