@@ -34,6 +34,7 @@ class Results extends React.Component {
       searchResults: this.props.results,
       timeToLoadResults: new Date().getTime(),
       queriesForGA: this.props.queriesForGA,
+      isKeywordValid: this.props.isKeywordValid,
     };
 
     this.getList = this.getList.bind(this);
@@ -79,6 +80,7 @@ class Results extends React.Component {
       searchResults: Store.getState().searchData,
       timeToLoadResults: new Date().getTime(),
       queriesForGA: Store.getState().queriesForGA,
+      isKeywordValid: Store.getState().isKeywordValid,
     });
   }
 
@@ -284,7 +286,11 @@ class Results extends React.Component {
       'noResultMessage' : `${this.props.className}-length`;
 
     if (!this.props.searchKeyword) {
-      resultsNumberSuggestion = '';
+      if (!this.state.isKeywordValid) {
+        resultsNumberSuggestion = 'Please enter a keyword';
+      } else {
+        resultsNumberSuggestion = '';
+      }
     } else {
       resultsNumberSuggestion = (resultsLength === 0) ?
         'No results were found' :
