@@ -6,22 +6,22 @@ import {
 // Import components
 import { Header, navConfig } from '@nypl/dgx-header-component';
 import Footer from '@nypl/dgx-react-footer';
-import Results from '../Results/Results.jsx';
-import InputField from '../InputField/InputField.jsx';
-import SearchButton from '../SearchButton/SearchButton.jsx';
+import Results from '../Results/Results';
+import InputField from '../InputField/InputField';
+import SearchButton from '../SearchButton/SearchButton';
 
 // Import alt components
-import Store from '../../stores/Store.js';
-import Actions from '../../actions/Actions.js';
+import Store from '../../stores/Store';
+import Actions from '../../actions/Actions';
 
 // Import utilities
-import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
-import { createAppHistory } from '../../utils/SearchHistory.js';
-import { nativeGA } from '../../utils/GAUtils.js';
+import { makeClientApiCall } from '../../utils/MakeClientApiCall';
+import { createAppHistory } from '../../utils/SearchHistory';
+import { nativeGA } from '../../utils/GAUtils';
 
 const history = createAppHistory();
 
-history.listen(location => {
+history.listen((location) => {
   const {
     action,
     pathname,
@@ -31,7 +31,10 @@ history.listen(location => {
   const resultsStart = 0;
 
   if (action === 'POP') {
-    makeClientApiCall(searchKeyword, searchFacet, resultsStart,
+    makeClientApiCall(
+      searchKeyword,
+      searchFacet,
+      resultsStart,
       (searchResultsItems, resultLength) => {
         Actions.updateSearchKeyword(searchKeyword);
         Actions.updateSearchData(searchResultsItems);
@@ -50,7 +53,7 @@ history.listen(location => {
           searchedFrom: 'betasearch',
           timestamp: new Date().getTime(),
         });
-      }
+      },
     );
   }
 });
@@ -62,10 +65,9 @@ class App extends React.Component {
     this.state = _extend(
       {
         resultsComponentData: null,
-        isLoading: false,
         isGAQuerySent: false,
       },
-      Store.getState()
+      Store.getState(),
     );
 
     this.onChange = this.onChange.bind(this);
@@ -85,7 +87,7 @@ class App extends React.Component {
         Store.getState().searchKeyword,
         Store.getState().searchData,
         Store.getState().searchDataLength,
-        Store.getState().isKeywordValid
+        Store.getState().isKeywordValid,
       ),
     });
   }
@@ -103,14 +105,13 @@ class App extends React.Component {
   onChange() {
     // Updates the state with the new search data
     this.setState({
-      isLoading: false,
       searchKeyword: Store.getState().searchKeyword,
       selectedFacet: Store.getState().selectedFacet,
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
         Store.getState().searchDataLength,
-        Store.getState().isKeywordValid
+        Store.getState().isKeywordValid,
       ),
       queriesForGA: Store.getState().queriesForGA,
     });
@@ -152,7 +153,10 @@ class App extends React.Component {
       Actions.updateIsKeywordValid(false);
       Actions.updateSearchKeyword('');
     } else {
-      makeClientApiCall(this.state.searchKeyword, selectedFacet, 0,
+      makeClientApiCall(
+        this.state.searchKeyword,
+        selectedFacet,
+        0,
         (searchResultsItems, resultLength) => {
           const currentSearchKeyword = this.state.searchKeyword.trim() || '';
           const facet = selectedFacet;
@@ -180,7 +184,7 @@ class App extends React.Component {
             searchedFrom: 'betasearch',
             timestamp: new Date().getTime(),
           });
-        }
+        },
       );
     }
   }
@@ -224,7 +228,7 @@ class App extends React.Component {
           // as we don't reload the page after a search request
           setTimeout(() => { this.setState({ isGAQuerySent: false }); }, 200);
           this.submitSearchRequest(selectedFacet);
-        }
+        },
       );
     }
   }
@@ -294,13 +298,14 @@ class App extends React.Component {
                   />
                 </div>
                 <div className="gs-search-catalog-link-wrapper">
-                  <a className="gs-search-catalog-link"
+                  <a
+                    className="gs-search-catalog-link"
                     href={
-                      `https://browse.nypl.org/iii/encore/search/C__S${this.state.searchKeyword}__` +
-                      'Orightresult__U?lang=eng&suite=def'
+                      `https://browse.nypl.org/iii/encore/search/C__S${this.state.searchKeyword}__`
+                      + 'Orightresult__U?lang=eng&suite=def'
                     }
                   >
-                    Find books, music, or movies instead >
+                    {'Find books, music, or movies instead >'}
                   </a>
                 </div>
 
