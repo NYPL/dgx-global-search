@@ -207,13 +207,16 @@ class Results extends React.Component {
    */
   transformHttpsToHttp(link) {
     if (!link) {
-      return;
+      return '';
     }
 
     const transformationRequired =
+      link.includes('//digital.nypl.org') ||
       link.includes('//menus.nypl.org') ||
       link.includes('//exhibitions.nypl.org') ||
       link.includes('//static.nypl.org') ||
+      link.includes('//static.nypl.org/exhibitions') ||
+      link.includes('//web-static.nypl.org/exhibitions') ||
       link.includes('//web-static.nypl.org');
 
     if (link && transformationRequired) {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getNameForFacet, incrementTab, displayNameForFacet } from '../../utils/TabIndex.js'
 // Import alt components
-import Store from '../../stores/Store.js';
+import Store from '../../stores/Store';
 
 class TabItem extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class TabItem extends React.Component {
 
     const {
       tabs,
-      selectedFacet
+      selectedFacet,
     } = this.props;
 
     this.state = {
@@ -58,9 +58,10 @@ class TabItem extends React.Component {
    */
   switchTab(newTabIndex, tab) {
     const {
-      searchBySelectedFacetFunction
+      searchBySelectedFacetFunction,
     } = this.props;
-    let newTab = this.links[newTabIndex];
+    const newTab = this.links[newTabIndex];
+
     newTab.focus();
     searchBySelectedFacetFunction(tab);
   }
@@ -75,8 +76,8 @@ class TabItem extends React.Component {
    */
   clickHandler(e, tabValue, tabId) {
     e.preventDefault();
-    let clickedTab = e.currentTarget;
-    let index = clickedTab.getAttribute('data');
+    const clickedTab = e.currentTarget;
+    const index = clickedTab.getAttribute('data');
     this.switchTab(index, tabValue, tabId);
   }
 
@@ -116,9 +117,9 @@ class TabItem extends React.Component {
   *
   * @param {event} e - The event when a tab is clicked
   */
-  updateSelectedFacetMobile(e){
+  updateSelectedFacetMobile(e) {
     const {
-      searchBySelectedFacetFunction
+      searchBySelectedFacetFunction,
     } = this.props;
 
     searchBySelectedFacetFunction(e.target.value);
@@ -152,6 +153,8 @@ class TabItem extends React.Component {
           {tab.anchor}
         </option>
       );
+
+      tabOptions.push(option);
     });
 
     return (
@@ -206,10 +209,12 @@ class TabItem extends React.Component {
           </a>
         </li>
       );
+
+      tabItems.push(listItem);
     });
 
     return (
-      <ul role='tablist'>
+      <ul role="tablist">
         {tabItems}
       </ul>
     );
@@ -230,7 +235,7 @@ class TabItem extends React.Component {
 
     return (
       <div>
-        <label id='categoryTextLabel'>Category</label>
+        <label id="categoryTextLabel" htmlFor="category">Category</label>
         {this.renderMobileTabList(tabArray, selectedFacet)}
         {this.renderDesktopTabList(tabArray, selectedFacet)}
       </div>
@@ -240,21 +245,29 @@ class TabItem extends React.Component {
   render() {
     const {
       tabs,
-    } = this.state
+      selectedFacet,
+    } = this.state;
 
     return (
       <div className="tabsContainer">
-        {this.renderContentOfTabLists(tabs, this.state.selectedFacet)}
+        {this.renderContentOfTabLists(tabs, selectedFacet)}
       </div>
     );
   }
 }
 
 TabItem.propTypes = {
-  tabs: PropTypes.array,
+  tabs: PropTypes.arrayOf(PropTypes.object),
   selectedFacet: PropTypes.string,
   searchBySelectedFacetFunction: PropTypes.func,
   resultsOlElement: PropTypes.func,
+};
+
+TabItem.defaultProps = {
+  tabs: [],
+  selectedFacet: '',
+  searchBySelectedFacetFunction: () => {},
+  resultsOlElement: () => {},
 };
 
 export default TabItem;
