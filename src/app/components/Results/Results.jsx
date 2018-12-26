@@ -243,7 +243,7 @@ class Results extends React.Component {
    * @return {object}
    */
   renderSeeMoreButton(remainingResults) {
-    if (this.props.amount < this.state.incrementResults) {
+    if (parseInt(this.props.amount, 10) < this.state.incrementResults) {
       return null;
     }
 
@@ -279,7 +279,7 @@ class Results extends React.Component {
    */
   renderResultsNumberSuggestion(resultsLength) {
     let resultsNumberSuggestion;
-    const textOfResult = this.props.amount === 1 ? 'result' : 'results';
+    const textOfResult = parseInt(this.props.amount, 10) === 1 ? 'result' : 'results';
     const resultMessageClass = (resultsLength === 0 || !this.props.isKeywordValid) ?
       'noResultMessage' : `${this.props.className}-length`;
 
@@ -361,7 +361,7 @@ class Results extends React.Component {
             </ol>
             {
               results.length % 10 === 0 &&
-              this.renderSeeMoreButton(Math.min(this.props.amount - results.length, 10))
+              this.renderSeeMoreButton(Math.min(parseInt(this.props.amount, 10) - results.length, 10))
             }
             <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           </div>
@@ -376,7 +376,7 @@ Results.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   results: PropTypes.array,
-  amount: PropTypes.number,
+  amount: PropTypes.string,
   searchKeyword: PropTypes.string,
   resultsStart: PropTypes.number,
   selectedFacet: PropTypes.string,
@@ -391,7 +391,7 @@ Results.defaultProps = {
   id: 'results',
   className: 'results',
   results: [],
-  amount: 0,
+  amount: '0',
   searchKeyword: '',
   resultsStart: 0,
   selectedFacet: '',
