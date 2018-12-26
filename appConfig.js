@@ -1,4 +1,4 @@
-const aws = require('./lib/kms-helper.js');
+const aws = require('./src/app/utils/kms-helper.js');
 
 const appConfig = {
   appTitle: 'Search NYPL.org',
