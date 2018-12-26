@@ -1,5 +1,9 @@
 ## Changelog
 
+### v1.0.2
+#### Added
+- Adding the instruction message to ask the user to enter a search keyword.
+
 ### v1.0.1
 #### Updated
 - Updating @nypl/dgx-header-component to 2.4.19
