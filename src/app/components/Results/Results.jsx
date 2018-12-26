@@ -465,6 +465,7 @@ Results.defaultProps = {
   selectedFacet: '',
   queriesForGA: {},
   tabs: [],
+  searchBySelectedFacetFunction: () => {},
 };
 
 export default Results;
