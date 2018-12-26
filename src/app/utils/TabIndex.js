@@ -27,15 +27,6 @@ const incrementIndex = (arr, index, step) => {
 
 const incrementTab = (name, step) => values[incrementIndex(values, values.indexOf(name), step)];
 
-/**
-* getNameForFacet(facet)
- * Returns the name for a facet. This is the name used for internal logic, e.g.,
- * comparing the facet name to the selectedFacet
- *
- * @param {string} facet - the value property of the facet
- */
-
-const getNameForFacet = facet => `${facet}`;
 
 /**
  * displayNameForFacet(facet)
@@ -49,5 +40,5 @@ const getNameForFacet = facet => `${facet}`;
 const displayNameForFacet = facet => (facet === '' ? 'all' : facet);
 
 export {
-  getNameForFacet, incrementTab, incrementIndex, values, displayNameForFacet,
+  incrementTab, incrementIndex, values, displayNameForFacet,
 };

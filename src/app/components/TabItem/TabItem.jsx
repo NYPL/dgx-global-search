@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getNameForFacet, incrementTab, displayNameForFacet } from '../../utils/TabIndex';
+import { incrementTab, displayNameForFacet } from '../../utils/TabIndex';
 // Import alt components
 import Store from '../../stores/Store';
 
@@ -136,7 +136,7 @@ class TabItem extends React.Component {
   renderMobileTabList(tabArray = [], selectedFacet) {
     const tabOptions = [];
     tabArray.forEach((tab) => {
-      const name = getNameForFacet(tab.value);
+      const name = tab.value;
       const display = displayNameForFacet(tab.value);
       const tabIndexAttribute = tab.value === selectedFacet;
       tabOptions.push(
@@ -181,7 +181,7 @@ class TabItem extends React.Component {
   renderDesktopTabList(tabArray = [], selectedFacet) {
     const tabItems = [];
     tabArray.forEach((tab) => {
-      const name = getNameForFacet(tab.value);
+      const name = tab.value;
       const display = displayNameForFacet(tab.value);
 
       tabItems.push(
