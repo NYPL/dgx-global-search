@@ -37,6 +37,7 @@ history.listen((location) => {
       resultsStart,
       (searchResultsItems, resultLength) => {
         Actions.updateSearchKeyword(searchKeyword);
+        Actions.updateIsKeywordValid(true);
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
         Actions.updateSelectedFacet(searchFacet);
@@ -48,7 +49,7 @@ history.listen((location) => {
       },
       () => {
         Actions.updateSearchKeyword('');
-        Actions.updateIsKeywordValid(false);
+        Actions.updateIsKeywordValid(true);
         Actions.updateQueriesForGA({
           searchedFrom: 'betasearch',
           timestamp: new Date().getTime(),
