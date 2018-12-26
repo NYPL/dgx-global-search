@@ -1,13 +1,13 @@
 import redis from 'redis';
 
-export default (dataFunction, skipCaching) => {
+export default (dataFunction, skipCaching, customClient = null) => {
   if (skipCaching) {
     return {
       getSearchData: dataFunction,
     };
   }
 
-  const client = redis.createClient();
+  const client = customClient || redis.createClient();
 
   const cacheUtil = {};
 
