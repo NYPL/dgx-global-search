@@ -63,5 +63,14 @@ describe('TabItem', () => {
       expect(component.find('ul').find('li').at(2).hasClass('activeTab')).to.equal(false);
     });
 
+    it('should give database link a property of aria-selected=true', () => {
+      expect(component.find('ul').find('li').at(1).find('a').prop('aria-selected')).to.equal('true');
+    });
+
+    it('should give other li elements a property of aria-selected=false', () => {
+      expect(component.find('ul').find('li').at(0).find('a').prop('aria-selected')).to.equal('false');
+      expect(component.find('ul').find('li').at(2).find('a').prop('aria-selected')).to.equal('false');
+    });
+
   });
 });
