@@ -7,8 +7,6 @@ describe('TabItem', () => {
   let component;
 
   describe('if there is no tab array', () => {
-    let component;
-
     before(() => {
       component = shallow(<TabItem />);
     });
@@ -25,7 +23,6 @@ describe('TabItem', () => {
   });
 
   describe('if there are three tabs passed down to the component', () => {
-    let component;
     const tabs = [{ anchor: 'All', value: '' }, { anchor: 'Database', value: 'database' }, { anchor: 'Blogs', value: 'blogs' }];
 
     before(() => {
@@ -64,13 +61,15 @@ describe('TabItem', () => {
     });
 
     it('should give database link a property of aria-selected=true', () => {
-      expect(component.find('ul').find('li').at(1).find('a').prop('aria-selected')).to.equal('true');
+      expect(component.find('ul').find('li').at(1).find('a')
+        .prop('aria-selected')).to.equal('true');
     });
 
     it('should give other li elements a property of aria-selected=false', () => {
-      expect(component.find('ul').find('li').at(0).find('a').prop('aria-selected')).to.equal('false');
-      expect(component.find('ul').find('li').at(2).find('a').prop('aria-selected')).to.equal('false');
+      expect(component.find('ul').find('li').at(0).find('a')
+        .prop('aria-selected')).to.equal('false');
+      expect(component.find('ul').find('li').at(2).find('a')
+        .prop('aria-selected')).to.equal('false');
     });
-
   });
 });

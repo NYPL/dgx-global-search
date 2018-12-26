@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getNameForFacet, incrementTab, displayNameForFacet } from '../../utils/TabIndex.js'
+import { getNameForFacet, incrementTab, displayNameForFacet } from '../../utils/TabIndex';
 // Import alt components
 import Store from '../../stores/Store';
 
@@ -17,8 +17,8 @@ class TabItem extends React.Component {
     } = this.props;
 
     this.state = {
-      tabs: tabs,
-      selectedFacet: selectedFacet,
+      tabs,
+      selectedFacet,
     };
 
     this.clickHandler = this.clickHandler.bind(this);
@@ -45,7 +45,7 @@ class TabItem extends React.Component {
   }
 
   focusTab(newTabName) {
-    let newTab = this.links[newTabName];
+    const newTab = this.links[newTabName];
     newTab.focus();
   }
 
@@ -106,8 +106,8 @@ class TabItem extends React.Component {
       targetTabName = null;
     }
     if (targetTabName !== null) {
-       e.preventDefault();
-       this.focusTab(targetTabName);
+      e.preventDefault();
+      this.focusTab(targetTabName);
     }
   }
 
@@ -137,7 +137,7 @@ class TabItem extends React.Component {
     const tabOptions = [];
     tabArray.forEach((tab) => {
       const name = getNameForFacet(tab.value);
-      const display = displayNameForFacet(tab.value)
+      const display = displayNameForFacet(tab.value);
       const tabIndexAttribute = tab.value === selectedFacet;
       tabOptions.push(
         <option
@@ -151,7 +151,7 @@ class TabItem extends React.Component {
           data={name}
         >
           {tab.anchor}
-        </option>
+        </option>,
       );
     });
 
@@ -190,22 +190,22 @@ class TabItem extends React.Component {
           value={name}
           id={`tab_${display}`}
           className={(selectedFacet === name ? 'activeTab' : null)}
-          role='presentation'
+          role="presentation"
         >
           <a
             href={`#_tab_${display}`}
             id={`link_${display}`}
             tabIndex={(selectedFacet === name) ? null : -1}
             aria-selected={(selectedFacet === name) ? 'true' : 'false'}
-            role='tab'
+            role="tab"
             data={name}
             onClick={e => this.clickHandler(e, name, tab.anchor)}
             onKeyDown={e => this.keyDownHandler(e, name, tab.anchor)}
-            ref={(input) => {this.links[name] = input;}}
+            ref={(input) => { this.links[name] = input; }}
           >
             {tab.anchor}
           </a>
-        </li>
+        </li>,
       );
     });
 
@@ -256,14 +256,12 @@ TabItem.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.object),
   selectedFacet: PropTypes.string,
   searchBySelectedFacetFunction: PropTypes.func,
-  resultsOlElement: PropTypes.func,
 };
 
 TabItem.defaultProps = {
   tabs: [],
   selectedFacet: '',
   searchBySelectedFacetFunction: () => {},
-  resultsOlElement: () => {},
 };
 
 export default TabItem;
