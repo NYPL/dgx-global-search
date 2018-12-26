@@ -7,18 +7,20 @@ export default (dataFunction, skipCaching) => {
 
   const client = redis.createClient();
 
-  const redisClientWithPromise = key => new Promise((resolve) => {
-    client.get(key, (err, cachedResponse) => resolve(cachedResponse));
+  // This wraps the redis client's get method in a promise, so we can avoid
+  // nested callbacks
+  const checkForKeyInClient = key => new Promise((resolve) => {
+    client.get(key, (err, cachedValue) => resolve(cachedValue));
   });
 
-  const getDataAndSetClientKey = url => dataFunction(url).then((apiResponse) => {
+  const getDataAndSetKeyInClient = url => dataFunction(url).then((apiResponse) => {
     const stringifiedResponse = JSON.stringify(apiResponse);
     client.set(url, stringifiedResponse, 'EX', 3600);
     return stringifiedResponse;
   });
 
-  const useCachedOrGetData = url => redisClientWithPromise(url)
-    .then(redisResponse => (redisResponse === null ? getDataAndSetClientKey(url) : redisResponse));
+  const useCachedOrGetData = url => checkForKeyInClient(url)
+    .then(redisResponse => (redisResponse === null ? getDataAndSetKeyInClient(url) : redisResponse));
 
   return url => useCachedOrGetData(url)
     .then(stringifiedSearchData => JSON.parse(stringifiedSearchData));
