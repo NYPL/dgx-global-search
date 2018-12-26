@@ -44,7 +44,6 @@ class Results extends React.Component {
     this.getList = this.getList.bind(this);
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.saveSelectedTabValue = this.saveSelectedTabValue.bind(this);
     this.moveFocusToNextPage = this.moveFocusToNextPage.bind(this);
   }
 
@@ -398,7 +397,6 @@ class Results extends React.Component {
           tabs={tabs}
           selectedFacet={selectedFacet}
           searchBySelectedFacetFunction={searchBySelectedFacetFunction}
-          saveSelectedTabValue={this.saveSelectedTabValue}
         />
         {typeof results.length !== 'undefined' && results.length !== 0 ? (
           <div tabIndex="0" role="tabpanel" aria-labelledby={`link_${displayNameForFacet(selectedFacet)}`}>
