@@ -8,7 +8,7 @@ export default (dataFunction, useClient) => {
   } else {
     client = {
       set: () => null,
-      get: () => null,
+      get: (key, cb) => cb(null, null),
     };
   }
 
