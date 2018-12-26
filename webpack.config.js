@@ -3,9 +3,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const cleanBuild = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const aws = require('./lib/kms-helper.js');
 const pkg = require('./package.json');
-const { api: { developmentUrl, productionUrl } } = require('./urlConfig.js');
 
 // References the applications root path
 const ROOT_PATH = path.resolve(__dirname);
@@ -15,12 +13,6 @@ const ENV = process.env.NODE_ENV || 'development';
 
 // Sets appEnv so the the header component will point to the search app on either Dev or Prod
 const appEnv = process.env.APP_ENV ? process.env.APP_ENV : 'production';
-
-// set API_ROOT to the correct encrypted value
-process.env.API_ROOT = appEnv === 'development' ? developmentUrl : productionUrl;
-
-aws.setProfile(process.env.AWS_PROFILE);
-aws.decrypt(process.env.API_ROOT).then(result => {process.env.API_ROOT = result.slice(1, result.length-1)});
 
 // Holds the common settings for any environment
 const commonSettings = {

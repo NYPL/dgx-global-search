@@ -1,11 +1,12 @@
 import express from 'express';
 import axios from 'axios';
+import appConfig from '../../../appConfig'
 
 import {
   fetchResultLength,
   fetchResultItems,
   fetchSearchFacetsList,
-} from '../../app/utils/SearchModel.js';
+} from '../../app/utils/SearchModel';
 
 // Syntax that both ES6 and Babel 6 support
 
@@ -21,7 +22,7 @@ const generateQueryString = (req) => {
 
 const generateApiUrl = (req) => {
   const start = req.query.start && req.query.start != 0 ? `&start=${req.query.start}` : '' ;
-  return `${process.env.API_ROOT}&q=${generateQueryString(req)}${start}`
+  return `${appConfig.apiRoot}&q=${generateQueryString(req)}${start}`
 }
 
 const requestSearchResult = (req, res, next) => {
