@@ -149,17 +149,21 @@ class App extends React.Component {
    * @param {string} selectedFacet
    */
   submitSearchRequest(selectedFacet = '') {
-    if (!this.state.searchKeyword) {
+    const {
+      searchKeyword,
+    } = this.state;
+
+    if (!searchKeyword) {
       Actions.updateSelectedFacet(selectedFacet);
       Actions.updateIsKeywordValid(false);
       Actions.updateSearchKeyword('');
     } else {
       makeClientApiCall(
-        this.state.searchKeyword,
+        searchKeyword,
         selectedFacet,
         0,
         (searchResultsItems, resultLength) => {
-          const currentSearchKeyword = this.state.searchKeyword.trim() || '';
+          const currentSearchKeyword = searchKeyword.trim() || '';
           const facet = selectedFacet;
 
           // Update and transit to the match URL
@@ -198,9 +202,13 @@ class App extends React.Component {
    * @param {object} event
    */
   triggerSubmit(event) {
+    const {
+      selectedFacet,
+    } = this.state;
+
     if (event) {
       if (event.keyCode === 13 || event.key === 'Enter') {
-        this.triggerGAThenSubmit(this.state.selectedFacet);
+        this.triggerGAThenSubmit(selectedFacet);
       }
     }
   }
@@ -214,13 +222,18 @@ class App extends React.Component {
    * @param {string} selectedFacet
    */
   triggerGAThenSubmit(selectedFacet = '') {
+    const {
+      searchKeyword,
+      isGAQuerySent,
+    } = this.state;
+
     // Only trigger search and GA QuerySent event one time if double or tripple clicks happen
-    if (!this.state.isGAQuerySent) {
+    if (!isGAQuerySent) {
       // Set isGAQuerySent to be true to avoid another event being sent in a short period of time
       this.setState({ isGAQuerySent: true });
       nativeGA(
         'QuerySent',
-        this.state.searchKeyword,
+        searchKeyword,
         0,
         'BetaSearchForm',
         null,
@@ -247,18 +260,26 @@ class App extends React.Component {
    * @return {object} object
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid) {
+    const {
+      tabIdValue,
+      searchFacets,
+      selectedFacet,
+      resultsStart,
+      queriesForGA,
+    } = this.state;
+
     return (
       <Results
-        selectedTab={this.state.tabIdValue}
+        selectedTab={tabIdValue}
         amount={searchResultsLength}
         results={searchResultsArray}
         id="gs-results"
         className="gs-results"
         searchKeyword={searchKeyword}
-        tabs={this.state.searchFacets}
-        selectedFacet={this.state.selectedFacet}
-        resultsStart={this.state.resultsStart}
-        queriesForGA={this.state.queriesForGA}
+        tabs={searchFacets}
+        selectedFacet={selectedFacet}
+        resultsStart={resultsStart}
+        queriesForGA={queriesForGA}
         searchBySelectedFacetFunction={this.searchBySelectedFacet}
         isKeywordValid={isKeywordValid}
       />
@@ -266,7 +287,12 @@ class App extends React.Component {
   }
 
   render() {
-    const inputValue = this.state.searchKeyword || '';
+    const {
+      resultsComponentData,
+      searchKeyword,
+      selectedFacet,
+    } = this.state;
+    const inputValue = searchKeyword || '';
     const inputPlaceholder = 'What would you like to find?';
 
     return (
@@ -295,14 +321,14 @@ class App extends React.Component {
                     id="gs-searchButton"
                     className="gs-searchButton"
                     label="SEARCH"
-                    onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
+                    onClick={() => this.triggerGAThenSubmit(selectedFacet)}
                   />
                 </div>
                 <div className="gs-search-catalog-link-wrapper">
                   <a
                     className="gs-search-catalog-link"
                     href={
-                      `https://browse.nypl.org/iii/encore/search/C__S${this.state.searchKeyword}__`
+                      `https://browse.nypl.org/iii/encore/search/C__S${searchKeyword}__`
                       + 'Orightresult__U?lang=eng&suite=def'
                     }
                   >
@@ -311,7 +337,7 @@ class App extends React.Component {
                 </div>
 
               </div>
-              {this.state.resultsComponentData}
+              {resultsComponentData}
             </div>
           </div>
         </main>

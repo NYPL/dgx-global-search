@@ -441,26 +441,26 @@ class Results extends React.Component {
 }
 
 Results.propTypes = {
-  lang: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
   results: PropTypes.arrayOf(PropTypes.object),
   amount: PropTypes.string,
   searchKeyword: PropTypes.string,
+  isKeywordValid: PropTypes.bool,
   resultsStart: PropTypes.number,
   selectedFacet: PropTypes.string,
-  queriesForGA: PropTypes.objectOf(PropTypes.object),
+  queriesForGA: PropTypes.objectOf(PropTypes.any),
   tabs: PropTypes.arrayOf(PropTypes.object),
   searchBySelectedFacetFunction: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
-  lang: 'en',
   id: 'results',
   className: 'results',
   results: [],
   amount: '0',
   searchKeyword: '',
+  isKeywordValid: true,
   resultsStart: 0,
   selectedFacet: '',
   queriesForGA: {},
