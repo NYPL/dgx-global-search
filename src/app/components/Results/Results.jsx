@@ -438,7 +438,7 @@ Results.propTypes = {
   selectedFacet: PropTypes.string,
   queriesForGA: PropTypes.objectOf(PropTypes.object),
   tabs: PropTypes.arrayOf(PropTypes.object),
-  searchBySelectedFacetFunction: PropTypes.func,
+  searchBySelectedFacetFunction: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
@@ -451,6 +451,7 @@ Results.defaultProps = {
   resultsStart: 0,
   selectedFacet: '',
   queriesForGA: {},
+  tabs: [],
 };
 
 export default Results;
