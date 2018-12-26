@@ -10,15 +10,28 @@ describe('Results', () => {
     { anchor: 'Events', label: 'events_classes', resultSummarydisplayName: 'events' }
   ];
 
-  describe('if there are no results and no search keyword', () => {
+  describe('if the user visits the main page without keyword as a pathname', () => {
     let component;
 
     before(() => {
-      component  = shallow(<Results />);
+      component  = shallow(<Results isKeywordValid={true} />);
     });
 
     it('search results summary should be empty.', () => {
       expect(component.find('#search-results-summary').text()).to.deep.equal('');
+    });
+  });
+
+  describe('if the user requests search wihtout any search keyword', () => {
+    let component;
+
+    before(() => {
+      component = shallow(<Results isKeywordValid={false} />);
+    });
+
+    it('should show the message asking for a search keyword', () => {
+      expect(component.find('#search-results-summary').text())
+        .to.deep.equal('Please enter a keyword');
     });
   });
 
