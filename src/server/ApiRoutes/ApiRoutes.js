@@ -17,7 +17,7 @@ const { api, searchApi } = appConfig;
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 
-const getSearchData = addCaching(url => axios.get(url), !process.env.SKIP_CACHING);
+const getSearchData = addCaching(url => axios.get(url), process.env.SKIP_CACHING);
 
 const generateQueryString = (req) => {
   const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';

@@ -1,19 +1,14 @@
 import redis from 'redis';
 
-export default (dataFunction, useClient) => {
-  let client;
-
-  if (useClient) {
-    client = redis.createClient();
-  } else {
-    client = {
-      set: () => null,
-      get: (key, cb) => cb(null, null),
-    };
+export default (dataFunction, skipCaching) => {
+  if (skipCaching) {
+    return dataFunction;
   }
 
+  const client = redis.createClient();
+
   const redisClientWithPromise = key => new Promise((resolve) => {
-    client.get(key, (err, cachedResponse) => resolve(cachedResponse))
+    client.get(key, (err, cachedResponse) => resolve(cachedResponse));
   });
 
   const getDataAndSetClientKey = url => dataFunction(url).then((apiResponse) => {
