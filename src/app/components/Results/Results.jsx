@@ -98,7 +98,7 @@ class Results extends React.Component {
         ref={`result-${index}`}
         title={item.title}
         link={this.transformHttpsToHttp(item.link)}
-        snippet={this.parseSnippet(item.snippet)}
+        snippet={item.snippet}
         thumbnailSrc={item.thumbnailSrc}
         label={item.label}
         className={`${this.props.className}Item`}
@@ -176,28 +176,6 @@ class Results extends React.Component {
     );
 
     this.moveFocusToNextPage(originalResultsStart, 0);
-  }
-
-  /**
-   * parseSnippet(snippetText)
-   * The function converts a string to an array
-   * if the separator pattern is found in the string.
-   * If a value is found in index 1 of the array,
-   * return that value else the original snippetText
-   * passed.
-   */
-  parseSnippet(snippetText) {
-    if (!snippetText && typeof snippetText !== 'string') {
-      return '';
-    }
-
-    const faultyJsonArray = snippetText.trim().split('}}]]');
-
-    if (faultyJsonArray.length > 1) {
-      return faultyJsonArray[1];
-    }
-
-    return snippetText;
   }
 
   /**
