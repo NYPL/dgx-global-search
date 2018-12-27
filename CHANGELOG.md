@@ -1,5 +1,9 @@
 ## Changelog
 
+### v1.0.2
+#### Updated
+- Updating Results.jsx to remove the unnecessary function to parse the snippet of a result item.
+
 ### v1.0.1
 #### Updated
 - Updating @nypl/dgx-header-component to 2.4.19
