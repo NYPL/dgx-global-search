@@ -1,6 +1,3 @@
-import { filterNames } from './FilterNames.js';
-import { execptionalDomains } from './ExecptionalDomains.js';
-
 // Import libraries
 import {
   map as _map,
@@ -8,6 +5,8 @@ import {
   isEmpty as _isEmpty,
   find as _find,
 } from 'underscore';
+import filterNames from './FilterNames';
+import execptionalDomains from './ExecptionalDomains';
 
 /**
  * fetchResultLength(data)
@@ -36,9 +35,7 @@ const fetchResultLength = (data) => {
  *
  * @return {Array}
  */
-const fetchSearchFacetsList = () => {
-  return filterNames;
-}
+const fetchSearchFacetsList = () => filterNames;
 
 /**
  * extractSearchElements(requestCombo)
@@ -67,7 +64,7 @@ const extractSearchElements = (requestCombo) => {
   };
 };
 
-const displayName = (name) => filterNames.find(obj => obj.value === name).anchor
+const displayName = name => filterNames.find(obj => obj.value === name).anchor;
 /**
  * fetchDisplayName(labelsArray, searchRequest)
  * The function returns the display name of the item.
@@ -91,20 +88,16 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
     return '';
   }
 
-  const displayNameArray = _map(labelsArray, (label) => {
-    return {
-      name: label.name || '',
-    };
-  });
+  const displayNameArray = _map(labelsArray, label => ({ name: label.name || '' }));
 
-  const searchFacet = extractSearchElements(searchRequest).searchFacet;
+  const {
+    searchFacet,
+  } = extractSearchElements(searchRequest);
 
   if (!searchFacet) {
     name = displayNameArray[0].name;
   } else {
-    name = _find(displayNameArray, (item) =>
-      item.name === searchFacet
-    ).name;
+    name = _find(displayNameArray, item => item.name === searchFacet).name;
   }
 
   return displayName(name || '');
@@ -125,28 +118,28 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
  * @param {String} string
  * @return {String}
  */
-const stripPossibleHTMLTag = (string) =>
-  string.replace(/&lt;[^(&gt;)]+?&gt;/g, '').replace(/&lt;.*/, '');
+const stripPossibleHTMLTag = string => string
+  .replace(/&lt;[^(&gt;)]+?&gt;/g, '').replace(/&lt;.*/, '');
 
 
 /**
- * secureHttpsProtocol(url, execptionalDomains)
+ * secureHttpsProtocol(url, domains)
  * The function gets the URL that begins with http and converts it to begin with https,
  * unless if the URL belongs to one of the execptional domains.
  *
  * @param {String} url
- * @param {Array} execptionalDomains
+ * @param {Array} domains
  * @return {String}
  */
-const secureHttpsProtocol = (url, execptionalDomains) => {
-  if (execptionalDomains.some((domainString) => url.includes(domainString))) {
+const secureHttpsProtocol = (url, domains) => {
+  if (domains.some(domain => url.includes(domain))) {
     return url;
   }
 
   const newUrl = url.replace(/^http:\/\//i, 'https://');
 
   return newUrl;
-}
+};
 
 /**
  * fetchItemFeature(item, feature)
@@ -158,25 +151,21 @@ const secureHttpsProtocol = (url, execptionalDomains) => {
  * @param {String} SearchRequest
  * @return {String}
  */
-const fetchItemFeature = (item, feature) => {
-  return item[feature] || '';
-};
+const fetchItemFeature = (item, feature) => (item[feature] || '');
 
-const getNestedData = (array, item) => {
-  return array.reduce((acc, el) => (acc[el] || ''), item)
-}
+const getNestedData = (array, item) => array.reduce((acc, el) => (acc[el] || ''), item);
 
 const logThumbnail = (item) => {
-  let thumbnails = getNestedData(['pagemap', 'cse_thumbnail'], item);
+  const thumbnails = getNestedData(['pagemap', 'cse_thumbnail'], item);
   if (thumbnails.length && thumbnails.length > 1) {
     console.log('item with multiple thumbnails: ', JSON.stringify(item));
   }
-}
+};
 
 const fetchThumbnail = (item) => {
   logThumbnail(item);
-  return getNestedData(['pagemap', 'cse_thumbnail', 0, 'src'], item)
-}
+  return getNestedData(['pagemap', 'cse_thumbnail', 0, 'src'], item);
+};
 
 /**
  * fetchItem(item, searchRequest)
@@ -228,7 +217,7 @@ const fetchItem = (item, searchRequest) => {
  */
 const fetchResultItems = (data, searchRequest = '') => {
   try {
-    return _map(data.items, (item) => (fetchItem(item, searchRequest)));
+    return _map(data.items, item => fetchItem(item, searchRequest));
   } catch (e) {
     console.log(e);
     return [];

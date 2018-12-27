@@ -1,5 +1,5 @@
 import Actions from '../actions/Actions.js';
-import { filterNames } from '../utils/FilterNames.js';
+import filterNames from '../utils/FilterNames.js';
 import alt from 'dgx-alt-center';
 
 class SearchStore {

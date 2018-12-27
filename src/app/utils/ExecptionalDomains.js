@@ -10,4 +10,4 @@ const execptionalDomains = [
   '//web-static.nypl.org',
 ];
 
-export { execptionalDomains };
+export default execptionalDomains;

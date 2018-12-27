@@ -1,4 +1,4 @@
-import { filterNames } from '../src/app/utils/FilterNames.js';
+import filterNames from '../src/app/utils/FilterNames.js';
 
 const testData = {
   noItem: {
