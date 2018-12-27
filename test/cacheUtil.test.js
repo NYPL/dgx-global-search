@@ -54,10 +54,6 @@ describe('cacheUtil', () => {
 
     cache = cacheUtil(mockDataFunction, false, mockClient);
     checkForKeyInRedis = cache.checkForKeyInRedis;
-    // cache.checkForKeyInRedis = key => {
-    //   console.log(key);
-    //   return checkForKeyInRedis(key).then(res => console.log(res))
-    // }
     getDataAndSetKeyInClient = cache.getDataAndSetKeyInClient;
     useCachedOrGetData = cache.useCachedOrGetData;
     getSearchData = cache.getSearchData;
