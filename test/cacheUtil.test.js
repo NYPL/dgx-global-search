@@ -10,7 +10,6 @@ const {
 } = chai;
 
 describe('cacheUtil', () => {
-  let calledWith;
   let values;
   let mockClient;
   let checkForKeyInRedis;
@@ -18,12 +17,10 @@ describe('cacheUtil', () => {
   let useCachedOrGetData;
   let getSearchData;
   let cache;
+  let mockDataFunction;
 
   beforeEach(() => {
-    calledWith = [];
-
-    function mockDataFunction(url) {
-      calledWith.push(url);
+    mockDataFunction = (url) => {
       let resolveTo;
       switch (url) {
         case 'elephant':
@@ -85,8 +82,9 @@ describe('cacheUtil', () => {
 
   describe('useCachedOrGetData', () => {
     it('should call the data function for a new key', () => {
+      let spy = sinon.spy(cache, "getDataAndSetKeyInClient");
       return expect(useCachedOrGetData('elephant')
-        .then(() => calledWith.includes('elephant')))
+        .then(() => spy.called))
         .to
         .eventually
         .equal(true);
@@ -100,12 +98,13 @@ describe('cacheUtil', () => {
     })
 
     it('should not call the data function for an old key', () => {
+      let spy = sinon.spy(cache, 'getDataAndSetKeyInClient');
       return expect(useCachedOrGetData('elephant')
         .then(() => useCachedOrGetData('elephant'))
-        .then(() => calledWith.length === 2))
+        .then(() => spy.calledOnce))
         .to
         .eventually
-        .equal(false);
+        .equal(true);
     });
 
     it('should return the correct value for an old key', () => {
