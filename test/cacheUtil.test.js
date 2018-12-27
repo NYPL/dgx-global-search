@@ -35,7 +35,6 @@ describe('cacheUtil', () => {
         default:
           resolveTo = '';
       }
-      // console.log(resolveTo);
       return Promise.resolve(resolveTo);
     }
 
