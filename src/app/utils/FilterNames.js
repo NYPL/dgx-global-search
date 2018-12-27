@@ -53,6 +53,6 @@ const filterNames = [
     label: 'locations',
     resultSummarydisplayName: 'locations',
   }
-]
+];
 
 export { filterNames };

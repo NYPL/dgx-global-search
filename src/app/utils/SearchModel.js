@@ -1,4 +1,5 @@
 import { filterNames } from './FilterNames.js';
+import { execptionalDomains } from './ExecptionalDomains.js';
 
 // Import libraries
 import {
@@ -129,14 +130,23 @@ const stripPossibleHTMLTag = (string) =>
 
 
 /**
- * secureHttpsProtocol(url)
- * The function gets the urls that begin with http and converts them to begin with https.
+ * secureHttpsProtocol(url, execptionalDomains)
+ * The function gets the URL that begins with http and converts it to begin with https,
+ * unless if the URL belongs to one of the execptional domains.
  *
- * @param {String} string
+ * @param {String} url
+ * @param {Array} execptionalDomains
  * @return {String}
  */
-const secureHttpsProtocol = (url) =>
-  url.replace(/^http:\/\//i, 'https://');
+const secureHttpsProtocol = (url, execptionalDomains) => {
+  if (execptionalDomains.some((domainString) => url.includes(domainString))) {
+    return url;
+  }
+
+  const newUrl = url.replace(/^http:\/\//i, 'https://');
+
+  return newUrl;
+}
 
 /**
  * fetchItemFeature(item, feature)
@@ -198,7 +208,7 @@ const fetchItem = (item, searchRequest) => {
 
   return {
     title: modeledTitle,
-    link: secureHttpsProtocol(fetchItemFeature(item, 'link')),
+    link: secureHttpsProtocol(fetchItemFeature(item, 'link'), execptionalDomains),
     snippet: modeledSnippet,
     thumbnailSrc: fetchThumbnail(item),
     label: fetchDisplayName(item.labels, searchRequest),
