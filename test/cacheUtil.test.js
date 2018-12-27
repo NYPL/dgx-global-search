@@ -24,7 +24,6 @@ describe('cacheUtil', () => {
 
     function mockDataFunction(url) {
       calledWith.push(url);
-      console.log(url);
       let resolveTo;
       switch (url) {
         case 'elephant':
@@ -105,16 +104,9 @@ describe('cacheUtil', () => {
         .equal('{"loxodonta":"africana"}');
     })
 
-    it.only('should not call the data function for an old key', () => {
+    it('should not call the data function for an old key', () => {
       return expect(useCachedOrGetData('elephant')
-        // .then(() => cache.checkForKeyInRedis('elephant'))
-        // .then((response) => {
-        //   console.log(112, response);
-        //   return response === null
-        //     ? cache.getDataAndSetKeyInClient('elephant')
-        //     : response
-        // }))
-        .then(useCachedOrGetData('elephant'))
+        .then(() => useCachedOrGetData('elephant'))
         .then(() => calledWith.length === 2))
         .to
         .eventually
@@ -127,6 +119,16 @@ describe('cacheUtil', () => {
         .to
         .eventually
         .equal('{"loxodonta":"africana"}');
+    });
+  });
+
+  describe('getSearchData', () => {
+    it('should return the correct object', () => {
+      return expect(getSearchData('elephant'))
+        .to
+        .eventually
+        .deep
+        .equal({ loxodonta: 'africana' });
     });
   });
 });
