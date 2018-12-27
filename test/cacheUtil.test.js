@@ -10,42 +10,59 @@ const {
 } = chai;
 
 describe('cacheUtil', () => {
+  let calledWith;
+  let values;
+  let mockClient;
+  let checkForKeyInRedis;
+  let getDataAndSetKeyInClient;
+  let useCachedOrGetData;
+  let getSearchData;
+  let cache;
 
-  const mockDataFunction = (url) => {
-    let resolveTo;
-    switch (url) {
-      case 'elephant':
-        resolveTo = { loxodonta: 'africana' };
-        break;
-      case 'turtle':
-        resolveTo = { terrapene: 'carolina' };
-        break;
-      default:
-        resolveTo = '';
+  beforeEach(() => {
+    calledWith = [];
+
+    function mockDataFunction(url) {
+      calledWith.push(url);
+      console.log(url);
+      let resolveTo;
+      switch (url) {
+        case 'elephant':
+          resolveTo = { loxodonta: 'africana' };
+          break;
+        case 'turtle':
+          resolveTo = { terrapene: 'carolina' };
+          break;
+        default:
+          resolveTo = '';
+      }
+      // console.log(resolveTo);
+      return Promise.resolve(resolveTo);
     }
-    console.log(resolveTo);
-    return Promise.resolve(resolveTo);
-  };
 
-  const values = {};
+    values = {};
 
-  const mockClient = {
-    get: (key, cb) => {
-      const value = values[key] || null;
-      cb(null, value);
-      return !!value;
-    },
-    set: (key, value) => {
-      values[key] = value;
-    },
-  };
+    mockClient = {
+      get: (key, cb) => {
+        const value = values[key] || null;
+        cb(null, value);
+        return !!value;
+      },
+      set: (key, value) => {
+        values[key] = value;
+      },
+    };
 
-  const {
-    checkForKeyInRedis,
-    getDataAndSetKeyInClient,
-    useCachedOrGetData,
-    getSearchData,
-  } = cacheUtil(mockDataFunction, false, mockClient);
+    cache = cacheUtil(mockDataFunction, false, mockClient);
+    checkForKeyInRedis = cache.checkForKeyInRedis;
+    // cache.checkForKeyInRedis = key => {
+    //   console.log(key);
+    //   return checkForKeyInRedis(key).then(res => console.log(res))
+    // }
+    getDataAndSetKeyInClient = cache.getDataAndSetKeyInClient;
+    useCachedOrGetData = cache.useCachedOrGetData;
+    getSearchData = cache.getSearchData;
+  });
 
   describe('checkForKeyInRedis', () => {
     it('should resolve to a value that has been set', () => {
@@ -64,28 +81,52 @@ describe('cacheUtil', () => {
     });
 
     it('should assign the stringified response to the key of the url', () => {
-      expect(values.elephant).to.equal('{"loxodonta":"africana"}');
+      return expect(getDataAndSetKeyInClient('elephant')
+        .then(() => values.elephant))
+        .to
+        .eventually
+        .equal('{"loxodonta":"africana"}');
     });
   });
 
   describe('useCachedOrGetData', () => {
-    const spy = sinon.spy(mockDataFunction);
-    it('should not call the data function for an old key', () => {
+    it('should call the data function for a new key', () => {
       return expect(useCachedOrGetData('elephant')
-        .then(() => spy.calledWith('elephant')))
+        .then(() => calledWith.includes('elephant')))
+        .to
+        .eventually
+        .equal(true);
+    });
+
+    it('should return the correct value for a new key', () => {
+      return expect(useCachedOrGetData('elephant'))
+        .to
+        .eventually
+        .equal('{"loxodonta":"africana"}');
+    })
+
+    it.only('should not call the data function for an old key', () => {
+      return expect(useCachedOrGetData('elephant')
+        // .then(() => cache.checkForKeyInRedis('elephant'))
+        // .then((response) => {
+        //   console.log(112, response);
+        //   return response === null
+        //     ? cache.getDataAndSetKeyInClient('elephant')
+        //     : response
+        // }))
+        .then(useCachedOrGetData('elephant'))
+        .then(() => calledWith.length === 2))
         .to
         .eventually
         .equal(false);
     });
 
-    it('should call the data function for a new key', () => {
-      return expect(useCachedOrGetData('turtle')
-        .then(() => spy.calledWith('turtle')))
+    it('should return the correct value for an old key', () => {
+      return expect(useCachedOrGetData('elephant')
+        .then(useCachedOrGetData('elephant')))
         .to
         .eventually
-        .equal(true);
+        .equal('{"loxodonta":"africana"}');
     });
   });
-
-
 });
