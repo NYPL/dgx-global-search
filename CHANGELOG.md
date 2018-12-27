@@ -1,5 +1,9 @@
 ## Changelog
 
+### v1.0.2
+#### Updated
+- Updadting Results.jsx to move the functions rerlated to modeling data out of it.
+
 ### v1.0.1
 #### Updated
 - Updating @nypl/dgx-header-component to 2.4.19
