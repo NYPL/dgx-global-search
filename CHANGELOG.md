@@ -1,5 +1,10 @@
 ## Changelog
 
+### v1.0.2
+#### Changed
+- Tab attributes use tab names instead of numbers
+- The current tab is tracked from the selectedFacet property in the Store
+
 ### v1.0.1
 #### Updated
 - Updating @nypl/dgx-header-component to 2.4.19
