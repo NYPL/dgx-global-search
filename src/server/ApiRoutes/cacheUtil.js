@@ -24,7 +24,7 @@ const useCachedOrGetData = (dataFunction, client) => (params) => {
 };
 
 
-const addCaching = (dataFunction, customClient = null, useClient = true) => {
+const addCaching = (dataFunction, useClient = true, customClient = null) => {
   if (!useClient) {
     return dataFunction;
   }
