@@ -1,9 +1,11 @@
 ## Changelog
 
 ### v1.0.2
-#### Changed
+#### Updated
 - Tab attributes use tab names instead of numbers
 - The current tab is tracked from the selectedFacet property in the Store
+#### Added
+- Adding the instruction message to ask the user to enter a search keyword.
 
 ### v1.0.1
 #### Updated

@@ -6,22 +6,22 @@ import {
 // Import components
 import { Header, navConfig } from '@nypl/dgx-header-component';
 import Footer from '@nypl/dgx-react-footer';
-import Results from '../Results/Results.jsx';
-import InputField from '../InputField/InputField.jsx';
-import SearchButton from '../SearchButton/SearchButton.jsx';
+import Results from '../Results/Results';
+import InputField from '../InputField/InputField';
+import SearchButton from '../SearchButton/SearchButton';
 
 // Import alt components
-import Store from '../../stores/Store.js';
-import Actions from '../../actions/Actions.js';
+import Store from '../../stores/Store';
+import Actions from '../../actions/Actions';
 
 // Import utilities
-import { makeClientApiCall } from '../../utils/MakeClientApiCall.js';
-import { createAppHistory } from '../../utils/SearchHistory.js';
-import { nativeGA } from '../../utils/GAUtils.js';
+import { makeClientApiCall } from '../../utils/MakeClientApiCall';
+import { createAppHistory } from '../../utils/SearchHistory';
+import { nativeGA } from '../../utils/GAUtils';
 
 const history = createAppHistory();
 
-history.listen(location => {
+history.listen((location) => {
   const {
     action,
     pathname,
@@ -31,9 +31,13 @@ history.listen(location => {
   const resultsStart = 0;
 
   if (action === 'POP') {
-    makeClientApiCall(searchKeyword, searchFacet, resultsStart,
+    makeClientApiCall(
+      searchKeyword,
+      searchFacet,
+      resultsStart,
       (searchResultsItems, resultLength) => {
         Actions.updateSearchKeyword(searchKeyword);
+        Actions.updateIsKeywordValid(true);
         Actions.updateSearchData(searchResultsItems);
         Actions.updateSearchDataLength(resultLength);
         Actions.updateSelectedFacet(searchFacet);
@@ -45,12 +49,12 @@ history.listen(location => {
       },
       () => {
         Actions.updateSearchKeyword('');
-        Actions.updateIsKeywordValid(false);
+        Actions.updateIsKeywordValid(true);
         Actions.updateQueriesForGA({
           searchedFrom: 'betasearch',
           timestamp: new Date().getTime(),
         });
-      }
+      },
     );
   }
 });
@@ -62,10 +66,9 @@ class App extends React.Component {
     this.state = _extend(
       {
         resultsComponentData: null,
-        isLoading: false,
         isGAQuerySent: false,
       },
-      Store.getState()
+      Store.getState(),
     );
 
     this.onChange = this.onChange.bind(this);
@@ -84,7 +87,8 @@ class App extends React.Component {
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
-        Store.getState().searchDataLength
+        Store.getState().searchDataLength,
+        Store.getState().isKeywordValid,
       ),
     });
   }
@@ -102,14 +106,13 @@ class App extends React.Component {
   onChange() {
     // Updates the state with the new search data
     this.setState({
-      isKeywordValid: true,
-      isLoading: false,
       searchKeyword: Store.getState().searchKeyword,
       selectedFacet: Store.getState().selectedFacet,
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
-        Store.getState().searchDataLength
+        Store.getState().searchDataLength,
+        Store.getState().isKeywordValid,
       ),
       queriesForGA: Store.getState().queriesForGA,
     });
@@ -146,13 +149,21 @@ class App extends React.Component {
    * @param {string} selectedFacet
    */
   submitSearchRequest(selectedFacet = '') {
-    if (!this.state.searchKeyword) {
-      this.setState({ isKeywordValid: false });
+    const {
+      searchKeyword,
+    } = this.state;
+
+    if (!searchKeyword) {
       Actions.updateSelectedFacet(selectedFacet);
+      Actions.updateIsKeywordValid(false);
+      Actions.updateSearchKeyword('');
     } else {
-      makeClientApiCall(this.state.searchKeyword, selectedFacet, 0,
+      makeClientApiCall(
+        searchKeyword,
+        selectedFacet,
+        0,
         (searchResultsItems, resultLength) => {
-          const currentSearchKeyword = this.state.searchKeyword.trim() || '';
+          const currentSearchKeyword = searchKeyword.trim() || '';
           const facet = selectedFacet;
 
           // Update and transit to the match URL
@@ -161,6 +172,7 @@ class App extends React.Component {
           });
 
           Actions.updateSearchKeyword(currentSearchKeyword);
+          Actions.updateIsKeywordValid(true);
           Actions.updateSearchData(searchResultsItems);
           Actions.updateSearchDataLength(resultLength);
           Actions.updateSelectedFacet(facet);
@@ -172,12 +184,12 @@ class App extends React.Component {
         },
         () => {
           Actions.updateSearchKeyword('');
-          Actions.updateIsKeywordValid(false);
+          Actions.updateIsKeywordValid(true);
           Actions.updateQueriesForGA({
             searchedFrom: 'betasearch',
             timestamp: new Date().getTime(),
           });
-        }
+        },
       );
     }
   }
@@ -190,9 +202,13 @@ class App extends React.Component {
    * @param {object} event
    */
   triggerSubmit(event) {
+    const {
+      selectedFacet,
+    } = this.state;
+
     if (event) {
       if (event.keyCode === 13 || event.key === 'Enter') {
-        this.triggerGAThenSubmit(this.state.selectedFacet);
+        this.triggerGAThenSubmit(selectedFacet);
       }
     }
   }
@@ -206,13 +222,18 @@ class App extends React.Component {
    * @param {string} selectedFacet
    */
   triggerGAThenSubmit(selectedFacet = '') {
+    const {
+      searchKeyword,
+      isGAQuerySent,
+    } = this.state;
+
     // Only trigger search and GA QuerySent event one time if double or tripple clicks happen
-    if (!this.state.isGAQuerySent) {
+    if (!isGAQuerySent) {
       // Set isGAQuerySent to be true to avoid another event being sent in a short period of time
       this.setState({ isGAQuerySent: true });
       nativeGA(
         'QuerySent',
-        this.state.searchKeyword,
+        searchKeyword,
         0,
         'BetaSearchForm',
         null,
@@ -221,44 +242,58 @@ class App extends React.Component {
           // as we don't reload the page after a search request
           setTimeout(() => { this.setState({ isGAQuerySent: false }); }, 200);
           this.submitSearchRequest(selectedFacet);
-        }
+        },
       );
     }
   }
 
 
   /**
-   * renderResults(searchKeyword, searchResultsArray, searchResultsLength)
+   * renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid)
    * The function renders the results of the search request.
    * If no search keyword input, it won't render anything and return null.
    *
    * @param {string} searchKeyword
    * @param {array} searchResultsArray
    * @param {number} searchResultsLength
+   * @param {boolean} isKeywordValid
    * @return {object} object
    */
-  renderResults(searchKeyword, searchResultsArray, searchResultsLength) {
+  renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid) {
+    const {
+      tabIdValue,
+      searchFacets,
+      selectedFacet,
+      resultsStart,
+      queriesForGA,
+    } = this.state;
+
     return (
       <Results
-        selectedTab={this.state.tabIdValue}
+        selectedTab={tabIdValue}
         amount={searchResultsLength}
         results={searchResultsArray}
         id="gs-results"
         className="gs-results"
         searchKeyword={searchKeyword}
-        tabs={this.state.searchFacets}
-        selectedFacet={this.state.selectedFacet}
-        resultsStart={this.state.resultsStart}
-        queriesForGA={this.state.queriesForGA}
+        tabs={searchFacets}
+        selectedFacet={selectedFacet}
+        resultsStart={resultsStart}
+        queriesForGA={queriesForGA}
         searchBySelectedFacetFunction={this.searchBySelectedFacet}
+        isKeywordValid={isKeywordValid}
       />
     );
   }
 
   render() {
-    const inputValue = this.state.searchKeyword || '';
-    const inputPlaceholder = (this.state.isKeywordValid) ?
-      'What would you like to find?' : 'Please enter a keyword';
+    const {
+      resultsComponentData,
+      searchKeyword,
+      selectedFacet,
+    } = this.state;
+    const inputValue = searchKeyword || '';
+    const inputPlaceholder = 'What would you like to find?';
 
     return (
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
@@ -286,22 +321,23 @@ class App extends React.Component {
                     id="gs-searchButton"
                     className="gs-searchButton"
                     label="SEARCH"
-                    onClick={() => this.triggerGAThenSubmit(this.state.selectedFacet)}
+                    onClick={() => this.triggerGAThenSubmit(selectedFacet)}
                   />
                 </div>
                 <div className="gs-search-catalog-link-wrapper">
-                  <a className="gs-search-catalog-link"
+                  <a
+                    className="gs-search-catalog-link"
                     href={
-                      `https://browse.nypl.org/iii/encore/search/C__S${this.state.searchKeyword}__` +
-                      'Orightresult__U?lang=eng&suite=def'
+                      `https://browse.nypl.org/iii/encore/search/C__S${searchKeyword}__`
+                      + 'Orightresult__U?lang=eng&suite=def'
                     }
                   >
-                    Find books, music, or movies instead >
+                    {'Find books, music, or movies instead >'}
                   </a>
                 </div>
 
               </div>
-              {this.state.resultsComponentData}
+              {resultsComponentData}
             </div>
           </div>
         </main>

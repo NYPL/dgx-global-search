@@ -281,7 +281,7 @@ class Results extends React.Component {
       isLoadingPagination,
     } = this.state;
 
-    if (amount < incrementResults) {
+    if (parseInt(amount, 10) < incrementResults) {
       return null;
     }
 
@@ -322,6 +322,7 @@ class Results extends React.Component {
       searchKeyword,
       selectedFacet,
       tabs,
+      isKeywordValid,
     } = this.props;
 
     const {
@@ -329,12 +330,20 @@ class Results extends React.Component {
     } = this.state;
 
     let resultsNumberSuggestion;
-    const textOfResult = amount === 1 ? 'result' : 'results';
-    const resultMessageClass = (resultsLength === 0)
+    const textOfResult = parseInt(amount, 10) === 1 ? 'result' : 'results';
+    const resultMessageClass = (parseInt(resultsLength, 10) === 0 || !isKeywordValid)
       ? 'noResultMessage' : `${className}-length`;
 
     if (!searchKeyword) {
-      resultsNumberSuggestion = '';
+      if (!isKeywordValid) {
+        // Show 'Please enter a keyword' only if pressing a tab or
+        // the search button without a keyword
+        resultsNumberSuggestion = 'Please enter a keyword';
+      } else {
+        // If go to the root URL without a keyword for the first time,
+        // it will not show 'Please enter a keyword'
+        resultsNumberSuggestion = '';
+      }
     } else {
       resultsNumberSuggestion = (resultsLength === 0)
         ? 'No results were found'
@@ -399,7 +408,11 @@ class Results extends React.Component {
           searchBySelectedFacetFunction={searchBySelectedFacetFunction}
         />
         {typeof results.length !== 'undefined' && results.length !== 0 ? (
-          <div tabIndex="0" role="tabpanel" aria-labelledby={`link_${displayNameForFacet(selectedFacet)}`}>
+          <div
+            tabIndex="0"
+            role="tabpanel"
+            aria-labelledby={`link_${displayNameForFacet(selectedFacet)}`}
+          >
             <div className="clear-float" />
             <DivideLineIcon
               ariaHidden
@@ -417,7 +430,7 @@ class Results extends React.Component {
             </ol>
             {
               results.length % 10 === 0
-              && this.renderSeeMoreButton(Math.min(amount - results.length, 10))
+              && this.renderSeeMoreButton(Math.min(parseInt(amount, 10) - results.length, 10))
             }
             <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           </div>
@@ -428,30 +441,31 @@ class Results extends React.Component {
 }
 
 Results.propTypes = {
-  lang: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
   results: PropTypes.arrayOf(PropTypes.object),
-  amount: PropTypes.number,
+  amount: PropTypes.string,
   searchKeyword: PropTypes.string,
+  isKeywordValid: PropTypes.bool,
   resultsStart: PropTypes.number,
   selectedFacet: PropTypes.string,
-  queriesForGA: PropTypes.objectOf(PropTypes.object),
+  queriesForGA: PropTypes.objectOf(PropTypes.any),
   tabs: PropTypes.arrayOf(PropTypes.object),
   searchBySelectedFacetFunction: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
-  lang: 'en',
   id: 'results',
   className: 'results',
   results: [],
-  amount: 0,
+  amount: '0',
   searchKeyword: '',
+  isKeywordValid: true,
   resultsStart: 0,
   selectedFacet: '',
   queriesForGA: {},
   tabs: [],
+  searchBySelectedFacetFunction: () => {},
 };
 
 export default Results;
