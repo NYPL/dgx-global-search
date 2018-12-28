@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import getNumberForFacet from '../../utils/TabIndex';
+import { incrementTab, displayNameForFacet } from '../../utils/TabIndex';
 // Import alt components
 import Store from '../../stores/Store';
 
@@ -17,10 +17,7 @@ class TabItem extends React.Component {
     } = this.props;
 
     this.state = {
-      numberOfTabs: Array.isArray(tabs) && tabs.length
-        ? tabs.length : 0,
       tabs,
-      tabNumber: getNumberForFacet(selectedFacet),
       selectedFacet,
     };
 
@@ -47,8 +44,8 @@ class TabItem extends React.Component {
     });
   }
 
-  focusTab(newTabIndex) {
-    const newTab = this.links[newTabIndex];
+  focusTab(newTabName) {
+    const newTab = this.links[newTabName];
     newTab.focus();
   }
 
@@ -93,46 +90,24 @@ class TabItem extends React.Component {
    * @param {string} tabId
   */
   keyDownHandler(e, tabValue, tabId) {
-    const {
-      numberOfTabs,
-    } = this.state;
-    const {
-      resultsOlElement,
-    } = this.props;
-    const index = parseInt(e.currentTarget.getAttribute('data'), 10);
-    let targetTabIndex;
-
+    const name = e.currentTarget.getAttribute('data');
+    let targetTabName;
     // 37 is left
     if (e.which === 37) {
-      targetTabIndex = index - 1;
+      targetTabName = incrementTab(name, -1);
     } else if (e.which === 39) {
     // 39 is right
-      targetTabIndex = index + 1;
-    } else if (e.which === 40) {
-    // 40 is down
-      targetTabIndex = 'down';
+      targetTabName = incrementTab(name, 1);
     } else if (e.which === 32) {
       // 32 is the space key
       e.preventDefault();
       this.clickHandler(e, tabValue, tabId);
     } else {
-      targetTabIndex = null;
+      targetTabName = null;
     }
-
-    if (targetTabIndex !== null && targetTabIndex > 0) {
+    if (targetTabName !== null) {
       e.preventDefault();
-      if (targetTabIndex !== 'down' && targetTabIndex <= numberOfTabs && targetTabIndex >= 0) {
-        this.focusTab(targetTabIndex);
-      } else if (targetTabIndex === 'down') {
-        let nextElement;
-        if (resultsOlElement()) {
-          nextElement = resultsOlElement();
-        } else {
-          nextElement = document.getElementsByClassName('linkItemList')[0].childNodes[0]
-            .childNodes[0];
-        }
-        nextElement.focus();
-      }
+      this.focusTab(targetTabName);
     }
   }
 
@@ -151,46 +126,33 @@ class TabItem extends React.Component {
   }
 
   /**
-  * renderMobileTabList(tabArray, selectedFacet, tabNumber)
+  * renderMobileTabList(tabArray, selectedFacet)
   * Renders the tab list on the mobile view.
   *
   * @param {array} tabArray - The array of the tabs
   * @param {string} selectedFacet - The facet that is selected
-  * @param {number} tabNumber - The number of each tab
   * @return {HTML Element} - The HTML element of the tab list on the mobile view
   */
   renderMobileTabList(tabArray = [], selectedFacet) {
     const tabOptions = [];
-    const {
-      tabNumber,
-    } = this.state;
-
-    tabArray.forEach((tab, i) => {
-      const j = i + 1;
-      let tabIndexAttribute;
-
-      if (tabNumber) {
-        tabIndexAttribute = (parseInt(tabNumber, 10) === j) ? null : '-1';
-      } else {
-        tabIndexAttribute = '0';
-      }
-
-      const option = (
+    tabArray.forEach((tab) => {
+      const name = tab.value;
+      const display = displayNameForFacet(tab.value);
+      const tabIndexAttribute = tab.value === selectedFacet;
+      tabOptions.push(
         <option
-          key={j}
-          value={tab.value}
-          className={(selectedFacet === tab.value) ? 'activeTab' : null}
-          href={`#tab${j}`}
-          id={`mobile-tab-link${j}`}
+          key={name}
+          value={name}
+          className={(selectedFacet === name) ? 'activeTab' : null}
+          href={`#tab_${display}`}
+          id={`mobile-tab-link-${display}`}
           tabIndex={tabIndexAttribute}
-          aria-selected={(selectedFacet === tab.value) ? 'true' : 'false'}
-          data={j}
+          aria-selected={(selectedFacet === name) ? 'true' : 'false'}
+          data={name}
         >
           {tab.anchor}
-        </option>
+        </option>,
       );
-
-      tabOptions.push(option);
     });
 
     return (
@@ -209,7 +171,7 @@ class TabItem extends React.Component {
   }
 
   /**
-  * renderDesktopTabList(tabArray, selectedFacet, tabNumber)
+  * renderDesktopTabList(tabArray, selectedFacet)
   * Renders the tab list on the desktop view.
   *
   * @param {array} tabArray - The array of the tabs
@@ -218,34 +180,33 @@ class TabItem extends React.Component {
   */
   renderDesktopTabList(tabArray = [], selectedFacet) {
     const tabItems = [];
+    tabArray.forEach((tab) => {
+      const name = tab.value;
+      const display = displayNameForFacet(tab.value);
 
-    tabArray.forEach((tab, i) => {
-      const j = i + 1;
-      const listItem = (
+      tabItems.push(
         <li
-          key={j}
-          value={tab.value}
-          id={`tab${j}`}
-          className={(selectedFacet === tab.value ? 'activeTab' : null)}
+          key={name}
+          value={name}
+          id={`tab_${display}`}
+          className={(selectedFacet === name ? 'activeTab' : null)}
           role="presentation"
         >
           <a
-            href={`#_tab${j}`}
-            id={`link${j}`}
-            tabIndex={(selectedFacet === tab.value) ? null : -1}
-            aria-selected={(selectedFacet === tab.value) ? 'true' : 'false'}
+            href={`#_tab_${display}`}
+            id={`link_${display}`}
+            tabIndex={(selectedFacet === name) ? null : -1}
+            aria-selected={(selectedFacet === name) ? 'true' : 'false'}
             role="tab"
-            data={j}
-            onClick={e => this.clickHandler(e, tab.value, tab.anchor, j)}
-            onKeyDown={e => this.keyDownHandler(e, tab.value, j)}
-            ref={(input) => { this.links[j.toString()] = input; }}
+            data={name}
+            onClick={e => this.clickHandler(e, name, tab.anchor)}
+            onKeyDown={e => this.keyDownHandler(e, name, tab.anchor)}
+            ref={(input) => { this.links[name] = input; }}
           >
             {tab.anchor}
           </a>
-        </li>
+        </li>,
       );
-
-      tabItems.push(listItem);
     });
 
     return (
@@ -256,7 +217,7 @@ class TabItem extends React.Component {
   }
 
   /**
-  * renderContentOfTabLists(tabArray = [], selectedFacet, tabNumber)
+  * renderContentOfTabLists(tabArray = [], selectedFacet)
   * Calls the two functions to render tab lists on different viewports.
   *
   * @param {array} tabArray - The array of the tabs
@@ -295,14 +256,12 @@ TabItem.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.object),
   selectedFacet: PropTypes.string,
   searchBySelectedFacetFunction: PropTypes.func,
-  resultsOlElement: PropTypes.func,
 };
 
 TabItem.defaultProps = {
   tabs: [],
   selectedFacet: '',
   searchBySelectedFacetFunction: () => {},
-  resultsOlElement: () => {},
 };
 
 export default TabItem;
