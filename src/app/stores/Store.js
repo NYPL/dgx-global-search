@@ -19,7 +19,7 @@ class SearchStore {
     this.on('init', () => {
       this.searchKeyword = '';
       this.searchData = [];
-      this.searchDataLength = 0;
+      this.searchDataLength = '0';
       this.isKeywordValid = true;
       this.selectedFacet = '';
       this.resultsStart = 0;
