@@ -1,7 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
-import { addCaching } from './cacheUtil.js';
+import { addCaching } from './cacheUtil';
 
 import {
   fetchResultLength,
