@@ -12,13 +12,13 @@
 
 @media (min-width:0px) and (max-width:1050px) {
   #category:focus{
-    box-shadow: 1px 1px 1px 1px #135772; 
-    -webkit-outline-color: #135772; 
-    -moz-outline-color: #135772; 
-    -ms-outline-color: #135772; 
-    -o-outline-color: #135772; 
-    outline-color: #135772; 
-    outline-style: solid; 
+    box-shadow: 1px 1px 1px 1px #135772;
+    -webkit-outline-color: #135772;
+    -moz-outline-color: #135772;
+    -ms-outline-color: #135772;
+    -o-outline-color: #135772;
+    outline-color: #135772;
+    outline-style: solid;
     outline-width: .1875em;
   }
 
@@ -156,7 +156,7 @@
     display: table-cell;
     text-decoration: none;
   }
-  #tab1 {
+  #tab_all {
     border-left: solid #000 1px;
   }
 }
@@ -183,12 +183,6 @@ div .tabsContainer {
 
 .non-default {
   display: none;
-}
-
-@for $i from 1 through 11 {
-  #tab#{$i}:target~#section#{$i} {
-    display: block;
-  }
 }
 
 @media (max-width: 1120px) {
