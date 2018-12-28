@@ -18,7 +18,7 @@ const generateQueryString = (req) => {
 };
 
 const generateApiUrl = (req) => {
-  const start = req.query.start && req.query.start !== 0 ? `&start=${req.query.start}` : '';
+  const start = req.query.start && req.query.start !== '0' ? `&start=${req.query.start}` : '';
   return `${process.env.API_ROOT}&q=${generateQueryString(req)}${start}`;
 };
 
