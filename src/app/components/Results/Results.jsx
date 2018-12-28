@@ -121,7 +121,7 @@ class Results extends React.Component {
         index={index}
         ref={`result-${index}`}
         title={item.title}
-        link={this.transformHttpsToHttp(item.link)}
+        link={item.link}
         snippet={item.snippet}
         thumbnailSrc={item.thumbnailSrc}
         label={item.label}
@@ -213,31 +213,6 @@ class Results extends React.Component {
       });
 
     this.moveFocusToNextPage(originalResultsStart, 0);
-  }
-
-  /**
-   * transformHttpsToHttp(link)
-   * The function converts certain NYPL subdomains to http
-   * to prevent an error when that site does not have SSL enabled.
-   */
-  transformHttpsToHttp(link) {
-    if (!link) {
-      return '';
-    }
-
-    const transformationRequired = link.includes('//digital.nypl.org')
-      || link.includes('//menus.nypl.org')
-      || link.includes('//exhibitions.nypl.org')
-      || link.includes('//static.nypl.org')
-      || link.includes('//static.nypl.org/exhibitions')
-      || link.includes('//web-static.nypl.org/exhibitions')
-      || link.includes('//web-static.nypl.org');
-
-    if (link && transformationRequired) {
-      return link.replace('https:', 'http:');
-    }
-
-    return link;
   }
 
   /**
@@ -443,7 +418,6 @@ Results.defaultProps = {
   selectedFacet: '',
   queriesForGA: {},
   tabs: [],
-  searchBySelectedFacetFunction: () => {},
 };
 
 export default Results;

@@ -1,4 +1,4 @@
-import { filterNames } from './FilterNames';
+import filterNames from './FilterNames';
 
 const values = filterNames.map(filter => filter.value);
 

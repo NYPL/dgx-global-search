@@ -39,7 +39,7 @@ describe('fetchResultItems', () => {
     'undefined or null.',
     () => {
       expect(fetchResultItems(testData.contentWithHTMLTags)).to.deep.equal(
-        matchedResults.ItemWithExhibitionLabel
+        matchedResults.itemWithExhibitionLabel
       );
     }
   );
@@ -47,27 +47,39 @@ describe('fetchResultItems', () => {
   it('should return an item with the matched label with search facet.',
     () => {
       expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')
-      ).to.deep.equal(matchedResults.ItemWithExhibitionLabel);
+      ).to.deep.equal(matchedResults.itemWithExhibitionLabel);
     }
   );
 
   it('should return an item without HTML tags in its title and snippet.',
     () => {
       expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')
-      ).to.deep.equal(matchedResults.ItemWithExhibitionLabel);
+      ).to.deep.equal(matchedResults.itemWithExhibitionLabel);
     }
   );
 
   it('should return an item with correct attributes.',
     () => {
       expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')
-      ).to.deep.equal(matchedResults.ItemWithExhibitionLabel);
+      ).to.deep.equal(matchedResults.itemWithExhibitionLabel);
     }
   );
+
+  it('should return the converted link of a result item to start with "https" instead of "http".',
+    () => {
+      expect(fetchResultItems(testData.contentWithChangeableHttpLink, 'apple more:exhibitions'))
+        .to.deep.equal(matchedResults.itemWithExhibitionLabel);
+    });
+
+  it('should preserve the link of a result item to start with "http" if its domain is specified' +
+    ' as an execption.', () => {
+      expect(fetchResultItems(testData.contentWithUnchangeableHttpLink, 'apple more:exhibitions'))
+        .to.deep.equal(matchedResults.itemWithUnchangeableLink);
+    });
 });
 
 describe('fetchSearchFacetsList', () => {
-  it('should return a preset facet array if data is undefined or null', () => {
+  it('should return a preset facet array if data is undefined or null.', () => {
     expect(fetchSearchFacetsList()).to.deep.equal(presetFacets);
   });
 });
