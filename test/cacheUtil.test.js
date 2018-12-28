@@ -132,6 +132,14 @@ describe('cacheUtil', () => {
     });
   });
 
+  describe('addCaching', () => {
+    it('should return the dataFunction if useClient is false', () => {
+      expect(addCaching(mockDataFunction, false))
+        .to
+        .equal(mockDataFunction)
+    })
+  });
+
   describe('getSearchData', () => {
     it('should return the correct object', () => {
       return expect(getSearchData('elephant'))
