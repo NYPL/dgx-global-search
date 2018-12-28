@@ -1,6 +1,8 @@
 ## Changelog
 
 ### v1.0.2
+#### Updated
+- Updating Results.jsx to remove the unnecessary function to parse the snippet of a result item.
 #### Added
 - Adding the instruction message to ask the user to enter a search keyword.
 
