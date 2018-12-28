@@ -25,7 +25,7 @@ const getDataAndSetClientKey = (dataFunction, params, key) => dataFunction(...pa
     return stringifiedResponse;
   });
 
-export default (dataFunction, useClient) => {
+const addCaching = (dataFunction, useClient) => {
 
   if (!useClient) {
     return dataFunction;
@@ -34,3 +34,5 @@ export default (dataFunction, useClient) => {
   return (...params) => useCachedOrGetData(dataFunction, params)
     .then(stringifiedData => JSON.parse(stringifiedData));
 };
+
+export default { addCaching, getDataAndSetClientKey, useCachedOrGetData, checkForKeyInRedis}
