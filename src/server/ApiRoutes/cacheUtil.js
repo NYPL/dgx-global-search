@@ -1,30 +1,36 @@
 import redis from 'redis';
 
-export default (dataFunction, useClient) => {
-  let client;
+const client = redis.createClient();
 
-  if (useClient) {
-    client = redis.createClient();
-  } else {
-    client = {
-      set: () => null,
-      get: () => null,
-    };
-  }
+const getKeyFromParams = params => params.map(x => JSON.stringify(x)).join('');
 
-  const redisClientWithPromise = key => new Promise((resolve) => {
-    client.get(key, (err, cachedResponse) => resolve(cachedResponse))
-  });
+const checkForKeyInRedis = key => new Promise(resolve => {
+  client.get(key, (err, cachedResponse) => resolve(cachedResponse));
+});
 
-  const getDataAndSetClientKey = url => dataFunction(url).then((apiResponse) => {
-    const stringifiedResponse = JSON.stringify(apiResponse);
-    client.set(url, stringifiedResponse, 'EX', 3600);
+const useCachedOrGetData = (dataFunction, params) => {
+  const key = getKeyFromParams(params);
+  return checkForKeyInRedis(key)
+    .then(
+      redisResponse => (redisResponse === null ? getDataAndSetClientKey(dataFunction, params, key) : redisResponse)
+    );
+};
+
+const getDataAndSetClientKey = (dataFunction, params, key) => dataFunction(...params)
+  .then(response => {
+    console.log('here', params);
+    const stringifiedResponse = JSON.stringify(response);
+    // Note that this is asynchronous, but shouldn't matter in this simplest case
+    client.set(key, stringifiedResponse, 'EX', 3600);
     return stringifiedResponse;
   });
 
-  const useCachedOrGetData = url => redisClientWithPromise(url)
-    .then(redisResponse => (redisResponse === null ? getDataAndSetClientKey(url) : redisResponse));
+export default (dataFunction, useClient) => {
 
-  return url => useCachedOrGetData(url)
-    .then(stringifiedSearchData => JSON.parse(stringifiedSearchData));
+  if (!useClient) {
+    return dataFunction;
+  }
+
+  return (...params) => useCachedOrGetData(dataFunction, params)
+    .then(stringifiedData => JSON.parse(stringifiedData));
 };
