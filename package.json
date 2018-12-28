@@ -49,6 +49,7 @@
     "babel-preset-react": "6.23.0",
     "breakpoint-sass": "2.7.0",
     "chai": "3.5.0",
+    "chai-as-promised": "^7.1.1",
     "classnames": "2.2.5",
     "clean-webpack-plugin": "0.1.10",
     "colors": "1.1.2",
