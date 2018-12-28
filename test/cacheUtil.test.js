@@ -53,7 +53,7 @@ describe('cacheUtil', () => {
     };
 
     checkForKeyInRedis = cacheMethods.checkForKeyInRedis(mockClient);
-    getDataAndSetKeyInClient = cacheMethods.getDataAndSetClientKey(mockDataFunction, mockClient);
+    getDataAndSetKeyInClient = cacheMethods.getDataAndSetKeyInClient(mockDataFunction, mockClient);
     useCachedOrGetData = cacheMethods.useCachedOrGetData(mockDataFunction, mockClient);
     addCaching = cacheMethods.addCaching;
     getSearchData = addCaching(mockDataFunction, true, mockClient);

@@ -5,7 +5,7 @@ const getKeyFromParams = params => params.map(x => JSON.stringify(x)).join('');
 const checkForKeyInRedis = client => key => new Promise(resolve => client
   .get(key, (err, cachedResponse) => resolve(cachedResponse)));
 
-const getDataAndSetClientKey = (dataFunction, client) => (params, key) => dataFunction(...params)
+const getDataAndSetKeyInClient = (dataFunction, client) => (params, key) => dataFunction(...params)
   .then((response) => {
     const stringifiedResponse = JSON.stringify(response);
     // Note that this is asynchronous, but shouldn't matter in this simplest case
@@ -18,7 +18,7 @@ const useCachedOrGetData = (dataFunction, client) => (params) => {
   return checkForKeyInRedis(client)(key)
     .then(
       redisResponse => (redisResponse === null
-        ? getDataAndSetClientKey(dataFunction, client)(params, key)
+        ? getDataAndSetKeyInClient(dataFunction, client)(params, key)
         : redisResponse),
     );
 };
@@ -35,6 +35,6 @@ const addCaching = (dataFunction, useClient = true, customClient = null) => {
     .then(stringifiedData => JSON.parse(stringifiedData));
 };
 
-export {
-  addCaching, getDataAndSetClientKey, useCachedOrGetData, checkForKeyInRedis, getKeyFromParams,
+export default {
+  addCaching, getDataAndSetKeyInClient, useCachedOrGetData, checkForKeyInRedis, getKeyFromParams,
 };

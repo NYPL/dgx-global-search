@@ -1,6 +1,6 @@
 import express from 'express';
 import axios from 'axios';
-import { addCaching } from './cacheUtil';
+import cache from './cacheUtil';
 
 import {
   fetchResultLength,
@@ -9,7 +9,7 @@ import {
 } from '../../app/utils/SearchModel';
 
 const router = express.Router();
-
+const { addCaching } = cache;
 const getSearchData = addCaching(url => axios.get(url), !process.env.SKIP_CACHING);
 
 const generateQueryString = (req) => {
