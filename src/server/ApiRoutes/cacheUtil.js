@@ -35,6 +35,6 @@ const addCaching = (dataFunction, useClient = true, customClient = null) => {
     .then(stringifiedData => JSON.parse(stringifiedData));
 };
 
-export default {
+export {
   addCaching, getDataAndSetClientKey, useCachedOrGetData, checkForKeyInRedis, getKeyFromParams,
 };
