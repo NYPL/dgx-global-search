@@ -125,7 +125,7 @@ describe('cacheUtil', () => {
 
     it('should return the correct value for an old key', () => {
       return expect(useCachedOrGetData(['elephant'])
-        .then(useCachedOrGetData(['elephant'])))
+        .then(() => useCachedOrGetData(['elephant'])))
         .to
         .eventually
         .equal('{"loxodonta":"africana"}');
