@@ -3,6 +3,10 @@
 ### v1.0.2
 #### Updated
 - Updating Results.jsx to remove the unnecessary function to parse the snippet of a result item.
+- Tab attributes use tab names instead of numbers
+- The current tab is tracked from the selectedFacet property in the Store
+#### Added
+- Adding the instruction message to ask the user to enter a search keyword.
 
 ### v1.0.1
 #### Updated
