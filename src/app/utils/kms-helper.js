@@ -1,5 +1,4 @@
-const aws = require('aws-sdk')
-
+import aws from 'aws-sdk';
 
 /**
  * decrypt(encrypted)
@@ -19,8 +18,8 @@ function decrypt (encrypted) {
     kms.decrypt({ CiphertextBlob: Buffer.from(encrypted, 'base64') }, (err, data) => {
       if (err) return reject(err)
 
-      var decrypted = data.Plaintext.toString('ascii')
-      resolve(decrypted)
+      var decrypted = data.Plaintext.toString('ascii');
+      resolve(decrypted);
     })
   })
 }
@@ -43,6 +42,7 @@ function setProfile (profile) {
   }
 
   // Set aws region:
+  // This region should be set in appConfig.js so in case we have a new region in the future
   let awsSecurity = { region: 'us-east-1' }
   aws.config.update(awsSecurity)
 }
