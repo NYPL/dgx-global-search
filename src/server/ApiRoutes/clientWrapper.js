@@ -2,7 +2,6 @@ import redis from 'redis';
 
 function ClientWrapper() {
   this.client = redis.createClient();
-  const that = this;
   this.connected = false;
   this.client.on('connect', () => {
     this.connected = true;
