@@ -1,4 +1,10 @@
+import appConfig from '../../../appConfig';
+import kms from '../../app/utils/kms-helper';
 import ClientWrapper from './clientWrapper';
+
+const {
+  redisHosts,
+} = appConfig;
 
 const getKeyFromParams = params => params.map(x => JSON.stringify(x)).join('');
 
@@ -29,10 +35,18 @@ const addCaching = (dataFunction, useClient = true, customClient = null) => {
     return dataFunction;
   }
 
-  const client = customClient || new ClientWrapper();
-
-  return (...params) => useCachedOrGetData(dataFunction, client)(params)
-    .then(stringifiedData => JSON.parse(stringifiedData));
+  return new Promise((resolve) => {
+    if (process.env.APP_ENV) {
+      kms.decrypt(redisHosts[process.env.APP_ENV], (err, data) => resolve(new ClientWrapper(data)));
+    } else {
+      resolve(new ClientWrapper());
+    }
+  })
+    .then((clientWrapper) => {
+      const client = customClient || clientWrapper;
+      return (...params) => useCachedOrGetData(dataFunction, client)(params)
+        .then(stringifiedData => JSON.parse(stringifiedData));
+    });
 };
 
 export default {

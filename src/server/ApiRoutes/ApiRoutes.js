@@ -10,7 +10,11 @@ import {
 
 const router = express.Router();
 const { addCaching } = cache;
-const getSearchData = addCaching(url => axios.get(url), !process.env.SKIP_CACHING);
+let getSearchData;
+addCaching(url => axios.get(url), !process.env.SKIP_CACHING)
+  .then((cacheAdded) => {
+    getSearchData = cacheAdded;
+  });
 
 const generateQueryString = (req) => {
   const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
