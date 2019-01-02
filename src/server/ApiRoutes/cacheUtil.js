@@ -36,6 +36,7 @@ const addCaching = (dataFunction, useClient = true, customClient = null) => {
   }
 
   return new Promise((resolve) => {
+    kms.setProfile();
     if (process.env.APP_ENV) {
       kms.decrypt(redisHosts[process.env.APP_ENV], (err, data) => resolve(new ClientWrapper(data)));
     } else {
