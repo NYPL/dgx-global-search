@@ -39,50 +39,31 @@ const requestSearchResult = (req, res, next) => {
     timestamp: req.query.timestamp || '',
   };
 
-  aws.decrypt(getApiRoot(process.env.APP_ENV))
-    .then((decryptApiRoot) => {
-      decryptApiRoot = decryptApiRoot.slice(1, decryptApiRoot.length - 1);
-      const searchApiUrl = `${decryptApiRoot}${generateApiQueries(req)}`;
+  const searchApiUrl = `${req.app.locals.apiRoot}${generateApiQueries(req)}`;
 
-      getSearchData(searchApiUrl)
-        .then((searchData) => {
-          const data = searchData.data;
+  getSearchData(searchApiUrl)
+    .then((searchData) => {
+      const data = searchData.data;
 
-          res.locals.data = {
-            SearchStore: {
-              searchKeyword: req.params.searchRequest,
-              searchData: fetchResultItems(data, generateQueryString(req)),
-              searchDataLength: fetchResultLength(data),
-              isKeywordValid: true,
-              selectedFacet: req.params.searchFilter,
-              resultsStart: 0,
-              searchFacets: fetchSearchFacetsList(),
-              queriesForGA,
-            },
-            completeApiUrl: searchApiUrl,
-          };
+      res.locals.data = {
+        SearchStore: {
+          searchKeyword: req.params.searchRequest,
+          searchData: fetchResultItems(data, generateQueryString(req)),
+          searchDataLength: fetchResultLength(data),
+          isKeywordValid: true,
+          selectedFacet: req.params.searchFilter,
+          resultsStart: 0,
+          searchFacets: fetchSearchFacetsList(),
+          queriesForGA,
+        },
+        completeApiUrl: searchApiUrl,
+      };
 
-          next();
-        })
-        .catch(error => {
-          console.log(`error calling API : ${error}`);
-          console.log(`from the endpoint: ${searchApiUrl}`);
-
-          res.locals.data = {
-            SearchStore: {
-              searchRequest: '',
-              searchData: [],
-              searchDataLength: 0,
-              searchFacets: fetchSearchFacetsList(),
-              queriesForGA,
-            },
-          };
-
-          next();
-        });
+      next();
     })
     .catch(error => {
-      console.log(`error getting API ROOT : ${error}`);
+      console.log(`error calling API : ${error}`);
+      console.log(`from the endpoint: ${searchApiUrl}`);
 
       res.locals.data = {
         SearchStore: {
@@ -104,28 +85,21 @@ const requestResultsFromClient = (req, res) => {
     return;
   }
 
-  aws.decrypt(getApiRoot(process.env.APP_ENV))
-    .then((decryptApiRoot) => {
-      decryptApiRoot = decryptApiRoot.slice(1, decryptApiRoot.length - 1);
-      const searchApiUrl = `${decryptApiRoot}${generateApiQueries(req)}`;
+  const searchApiUrl = `${req.app.locals.apiRoot}${generateApiQueries(req)}`;
 
-      getSearchData(searchApiUrl)
-        .then((searchData) => {
-          const data = searchData.data;
-          const searchModeled = {
-            searchResultsItems: fetchResultItems(data, req.params.searchRequest),
-            resultLength: fetchResultLength(data),
-          };
+  getSearchData(searchApiUrl)
+    .then((searchData) => {
+      const data = searchData.data;
+      const searchModeled = {
+        searchResultsItems: fetchResultItems(data, req.params.searchRequest),
+        resultLength: fetchResultLength(data),
+      };
 
-          res.json(searchModeled);
-        })
-        .catch(error => {
-          console.log(`error calling API : ${JSON.stringify(error)}`);
-          console.log(`from the endpoint: ${searchApiUrl}`);
-        });
+      res.json(searchModeled);
     })
     .catch(error => {
-       console.log(`error getting API ROOT : ${error}`);
+      console.log(`error calling API : ${JSON.stringify(error)}`);
+      console.log(`from the endpoint: ${searchApiUrl}`);
     });
 };
 

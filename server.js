@@ -9,6 +9,7 @@ import ReactDOMServer from 'react-dom/server';
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
 
+import aws from './src/app/utils/kms-helper.js';
 import appConfig from './appConfig.js';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
@@ -23,7 +24,7 @@ const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const VIEWS_PATH = path.resolve(ROOT_PATH, 'src/views');
 const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 const isProduction = process.env.NODE_ENV === 'production';
-const apiRoot = appConfig.apiRoot;
+
 const app = express();
 
 app.use(compress());
@@ -44,13 +45,44 @@ app.use('/search/', express.static(DIST_PATH));
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
+// Gets the decrypt API Root from AWS for requesting search results
+app.use('/', (req, res, next) => {
+  // Skips calling AWS if we already have API Root
+  if (app.locals.apiRoot) {
+    next();
+  } else {
+    // Assigns API_ROOT env variable if the app receives it
+    if (process.env.API_ROOT) {
+      app.locals.apiRoot = process.env.API_ROOT;
+      next();
+    // If we do not have API_ROOT env variable or existing API Root, call AWS to decrypt API Root
+    } else {
+        const encryptApiUrl = process.env.APP_ENV === 'development'
+          ? appConfig.developmentUrl : appConfig.productionUrl;
+        const awsProfile = process.env.APP_ENV === 'development'
+          ? 'nypl-sandbox' : 'nypl-digital-dev';
+
+        // set API_ROOT to the correct encrypted value
+        aws.setProfile(awsProfile);
+        aws.decrypt(encryptApiUrl)
+          .then((decryptApiRoot) => {
+            app.locals.apiRoot = decryptApiRoot.slice(1, decryptApiRoot.length - 1);
+            next();
+          })
+          .catch(error => {
+            console.log(`error getting API ROOT : ${error}`);
+            app.locals.apiRoot = undefined;
+            next();
+          });
+    }
+  }
+});
+
 app.use('/', apiRoutes);
 
 app.use('/', (req, res) => {
-
   // Change the page title based on having results or not. For accessibility purposes.
   const pageTitle = req.originalUrl === '/' ? 'Search NYPL.org' : "Search Results | NYPL.org";
-
 
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
@@ -66,9 +98,7 @@ app.use('/', (req, res) => {
     favicon: appConfig.favIconPath,
     webpackPort: WEBPACK_DEV_PORT,
     appEnv: process.env.APP_ENV,
-    apiUrl: (res.locals.data) ? res.locals.data.completeApiUrl : '',
-    isProduction,
-    apiRoot
+    isProduction
   });
 });
 
