@@ -1,6 +1,6 @@
 import redis from 'redis';
 import appConfig from '../../../appConfig';
-import kms from '../../../src/app/utils/kms-helper';
+import kms from '../../app/utils/kms-helper';
 
 const {
   redisHosts,
@@ -8,7 +8,7 @@ const {
 
 function ClientWrapper() {
   this.rawClient = process.env.appEnv
-    ? redis.createClient(6379, redisHosts[process.env.appEnv])
+    ? redis.createClient(6379, kms.decrypt(redisHosts[process.env.appEnv]))
     : redis.createClient();
   this.connected = false;
   this.rawClient.on('connect', () => {
