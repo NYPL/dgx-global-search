@@ -5,14 +5,14 @@ function ClientWrapper() {
   this.connected = false;
   this.rawClient.on('connect', () => {
     this.connected = true;
-    console.log('REDIS CONNECT');
+    console.error('REDIS CONNECT');
   });
   this.rawClient.on('error', (err) => {
     this.connected = false;
-    console.log('REDIS ERROR', err);
+    console.error('REDIS ERROR', err);
   });
   this.rawClient.on('reconnecting', (delay) => {
-    console.log('REDIS RECONNECTING: ', delay);
+    console.error('REDIS RECONNECTING: ', delay);
   });
   this.get = (key, callback) => (this.connected
     ? this.rawClient.get(key, callback)
