@@ -5,11 +5,11 @@ function ClientWrapper() {
   const that = this;
   this.connected = false;
   this.client.on('connect', () => {
-    that.connected = true;
+    this.connected = true;
     console.log('REDIS CONNECT');
   });
   this.client.on('error', (err) => {
-    that.connected = false;
+    this.connected = false;
     console.log('REDIS ERROR', err);
   });
   this.client.on('reconnecting', (delay) => {
