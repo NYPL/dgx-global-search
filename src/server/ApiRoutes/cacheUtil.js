@@ -1,5 +1,11 @@
 import redis from 'redis';
 
+const dummyClient = {
+  get: (key, callback) => callback(null, null),
+  set: () => null,
+  on: () => null,
+};
+
 const getKeyFromParams = params => params.map(x => JSON.stringify(x)).join('');
 
 const checkForKeyInRedis = client => key => new Promise(resolve => client
@@ -29,7 +35,20 @@ const addCaching = (dataFunction, useClient = true, customClient = null) => {
     return dataFunction;
   }
 
-  const client = customClient || redis.createClient();
+  let client = customClient;
+  if (!customClient) {
+    const redisClient = redis.createClient();
+    redisClient.on('REDIS CONNECT', () => {
+      client = redisClient;
+    });
+    redisClient.on('error', (err) => {
+      client = dummyClient;
+      console.log('REDIS ERROR', err);
+    });
+    redisClient.on('reconnecting', (delay) => {
+      console.log('REDIS DELAY: ', delay);
+    });
+  }
 
   return (...params) => useCachedOrGetData(dataFunction, client)(params)
     .then(stringifiedData => JSON.parse(stringifiedData));
