@@ -56,7 +56,10 @@ describe('cacheUtil', () => {
     getDataAndSetKeyInClient = cacheMethods.getDataAndSetKeyInClient(mockDataFunction, mockClient);
     useCachedOrGetData = cacheMethods.useCachedOrGetData(mockDataFunction, mockClient);
     addCaching = cacheMethods.addCaching;
-    getSearchData = addCaching(mockDataFunction, true, mockClient);
+    addCaching(mockDataFunction, true, mockClient)
+      .then((cacheAdded) => {
+        getSearchData = cacheAdded;
+      });
     getKeyFromParams = cacheMethods.getKeyFromParams;
   });
 
