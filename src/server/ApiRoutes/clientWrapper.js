@@ -7,9 +7,9 @@ const {
 } = appConfig;
 
 function ClientWrapper() {
-  console.log('App Env: ', process.env.appEnv, redisHosts[process.env.appEnv]);
-  this.rawClient = process.env.appEnv
-    ? redis.createClient(6379, kms.decrypt(redisHosts[process.env.appEnv]))
+  console.log('App Env: ', process.env.APP_ENV, redisHosts[process.env.APP_ENV]);
+  this.rawClient = process.env.APP_ENV
+    ? redis.createClient(6379, kms.decrypt(redisHosts[process.env.APP_ENV]))
     : redis.createClient();
   this.connected = false;
   this.rawClient.on('connect', () => {
