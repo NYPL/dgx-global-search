@@ -40,11 +40,8 @@ const addCaching = (dataFunction, useClient = true, customClient = null) => {
     : kms.setProfile();
 
   return (process.env.APP_ENV
-    ? Promise.resolve(kms.decrypt(redisHosts[process.env.APP_ENV])
-      .then((data) => {
-        console.log('aws', data);
-        return new ClientWrapper(data);
-      }))
+    ? kms.decrypt(redisHosts[process.env.APP_ENV])
+      .then(data => new ClientWrapper(data))
     : Promise.resolve(new ClientWrapper()))
     .then((clientWrapper) => {
       const client = customClient || clientWrapper;
