@@ -9,21 +9,25 @@ import ReactDOMServer from 'react-dom/server';
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
 
-import appConfig from './appConfig.js';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import webpackConfig from './webpack.config.js';
 
-import Application from './src/app/components/Application/Application.jsx';
-import apiRoutes from './src/server/ApiRoutes/ApiRoutes.js';
+import appConfig from './appConfig';
+import webpackConfig from './webpack.config';
+
+import Application from './src/app/components/Application/Application';
+import apiRoutes from './src/server/ApiRoutes/ApiRoutes';
+import getApiRoot from './src/server/GetApiRoot';
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const VIEWS_PATH = path.resolve(ROOT_PATH, 'src/views');
 const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
+const appEnv = process.env.APP_ENV || 'production';
 const isProduction = process.env.NODE_ENV === 'production';
-const apiRoot = process.env.API_ROOT;
+const regionEnv = process.env.REGION_ENV || 'us-east-1';
+
 const app = express();
 
 app.use(compress());
@@ -44,13 +48,17 @@ app.use('/search/', express.static(DIST_PATH));
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
+// Gets the valid API root for requesting search results
+app.use('/', (req, res, next) => {
+  const callGetApiRoot = getApiRoot(req, res, next);
+  callGetApiRoot(app, process.env.API_ROOT, appEnv, regionEnv);
+});
+
 app.use('/', apiRoutes);
 
 app.use('/', (req, res) => {
-
   // Change the page title based on having results or not. For accessibility purposes.
-  const pageTitle = req.originalUrl === '/' ? 'Search NYPL.org' : "Search Results | NYPL.org";
-
+  const pageTitle = req.originalUrl === '/' ? 'Search NYPL.org' : 'Search Results | NYPL.org';
 
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
@@ -65,10 +73,8 @@ app.use('/', (req, res) => {
     appTitle: pageTitle,
     favicon: appConfig.favIconPath,
     webpackPort: WEBPACK_DEV_PORT,
-    appEnv: process.env.APP_ENV,
-    apiUrl: (res.locals.data) ? res.locals.data.completeApiUrl : '',
+    appEnv,
     isProduction,
-    apiRoot
   });
 });
 
@@ -80,7 +86,7 @@ const server = app.listen(app.get('port'), (error) => {
   console.log(colors.yellow.underline(appConfig.appName));
   console.log(
     colors.green('Express server is listening at'),
-    colors.cyan('localhost:' + app.get('port'))
+    colors.cyan(`localhost:${app.get('port')}`),
   );
 });
 

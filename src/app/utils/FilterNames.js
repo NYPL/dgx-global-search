@@ -52,7 +52,7 @@ const filterNames = [
     value: 'locations',
     label: 'locations',
     resultSummarydisplayName: 'locations',
-  }
-]
+  },
+];
 
-export { filterNames };
+export default filterNames;

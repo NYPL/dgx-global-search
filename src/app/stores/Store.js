@@ -1,5 +1,5 @@
 import Actions from '../actions/Actions.js';
-import { filterNames } from '../utils/FilterNames.js';
+import filterNames from '../utils/FilterNames.js';
 import alt from 'dgx-alt-center';
 
 class SearchStore {
@@ -19,7 +19,7 @@ class SearchStore {
     this.on('init', () => {
       this.searchKeyword = '';
       this.searchData = [];
-      this.searchDataLength = 0;
+      this.searchDataLength = '0';
       this.isKeywordValid = true;
       this.selectedFacet = '';
       this.resultsStart = 0;
