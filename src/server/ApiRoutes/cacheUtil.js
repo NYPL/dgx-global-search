@@ -35,9 +35,7 @@ const addCaching = (dataFunction, useClient = true, customClient = null) => {
     return dataFunction;
   }
 
-  const profile = process.env.AWS_PROFILE
-    ? kms.setProfile(process.env.AWS_PROFILE)
-    : kms.setProfile();
+  kms.setProfile();
 
   return (process.env.APP_ENV
     ? kms.decrypt(redisHosts[process.env.APP_ENV])

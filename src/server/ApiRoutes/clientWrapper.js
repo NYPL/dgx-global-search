@@ -1,7 +1,7 @@
 import redis from 'redis';
 
 function ClientWrapper(host) {
-  console.log('host: ', host);
+  console.log('REDIS HOST: ', host);
   this.rawClient = host
     ? redis.createClient(6379, host)
     : redis.createClient();
