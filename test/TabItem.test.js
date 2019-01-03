@@ -7,8 +7,6 @@ describe('TabItem', () => {
   let component;
 
   describe('if there is no tab array', () => {
-    let component;
-
     before(() => {
       component = shallow(<TabItem />);
     });
@@ -25,11 +23,10 @@ describe('TabItem', () => {
   });
 
   describe('if there are three tabs passed down to the component', () => {
-    let component;
-    const tabs = [{ anchor: 'All' }, { anchor: 'Database' }, { anchor: 'Blogs' }];
+    const tabs = [{ anchor: 'All', value: '' }, { anchor: 'Database', value: 'database' }, { anchor: 'Blogs', value: 'blogs' }];
 
     before(() => {
-      component = shallow(<TabItem tabs={tabs} />);
+      component = shallow(<TabItem tabs={tabs} selectedFacet="database" />);
     });
 
     it('should render 3 options of the tab list on mobile view.', () => {
@@ -52,6 +49,27 @@ describe('TabItem', () => {
       expect(component.find('ul').find('li').at(0).text()).to.deep.equal('All');
       expect(component.find('ul').find('li').at(1).text()).to.deep.equal('Database');
       expect(component.find('ul').find('li').at(2).text()).to.deep.equal('Blogs');
+    });
+
+    it('should give database li a class of activeTab', () => {
+      expect(component.find('ul').find('li').at(1).hasClass('activeTab')).to.equal(true);
+    });
+
+    it('should not give other li elements a class of activeTab', () => {
+      expect(component.find('ul').find('li').at(0).hasClass('activeTab')).to.equal(false);
+      expect(component.find('ul').find('li').at(2).hasClass('activeTab')).to.equal(false);
+    });
+
+    it('should give database link a property of aria-selected=true', () => {
+      expect(component.find('ul').find('li').at(1).find('a')
+        .prop('aria-selected')).to.equal('true');
+    });
+
+    it('should give other li elements a property of aria-selected=false', () => {
+      expect(component.find('ul').find('li').at(0).find('a')
+        .prop('aria-selected')).to.equal('false');
+      expect(component.find('ul').find('li').at(2).find('a')
+        .prop('aria-selected')).to.equal('false');
     });
   });
 });
