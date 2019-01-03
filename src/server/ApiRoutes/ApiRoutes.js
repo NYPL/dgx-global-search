@@ -1,37 +1,26 @@
 import express from 'express';
 import axios from 'axios';
-import appConfig from '../../../appConfig'
-import aws from './../../app/utils/kms-helper.js';
-
 import {
   fetchResultLength,
   fetchResultItems,
   fetchSearchFacetsList,
 } from '../../app/utils/SearchModel';
 
-// Syntax that both ES6 and Babel 6 support
-
 const router = express.Router();
 
-const getSearchData = (url) => axios.get(url);
+const getSearchData = url => axios.get(url);
 
 const generateQueryString = (req) => {
   const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
   return req.params.searchRequest + searchFilter;
-}
+};
 
 const generateApiQueries = (req) => {
-  const start = req.query.start && req.query.start != 0 ? `&start=${req.query.start}` : '' ;
+  const start = req.query.start && req.query.start !== '0' ? `&start=${req.query.start}` : '';
   const queryString = generateQueryString(req);
 
   return `&q=${queryString}${start}`;
 };
-
-const getApiRoot = (env) => (env === 'development'? appConfig.developmentUrl : appConfig.productionUrl);
-
-const awsProfile = process.env.APP_ENV === 'development' ? 'nypl-sandbox' : 'nypl-digital-dev';
-// set API_ROOT to the correct encrypted value
-aws.setProfile(awsProfile);
 
 const requestSearchResult = (req, res, next) => {
   const queriesForGA = {
@@ -43,7 +32,7 @@ const requestSearchResult = (req, res, next) => {
 
   getSearchData(searchApiUrl)
     .then((searchData) => {
-      const data = searchData.data;
+      const { data } = searchData;
 
       res.locals.data = {
         SearchStore: {
@@ -61,7 +50,7 @@ const requestSearchResult = (req, res, next) => {
 
       next();
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(`error calling API : ${error}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
 
@@ -89,7 +78,7 @@ const requestResultsFromClient = (req, res) => {
 
   getSearchData(searchApiUrl)
     .then((searchData) => {
-      const data = searchData.data;
+      const { data } = searchData;
       const searchModeled = {
         searchResultsItems: fetchResultItems(data, req.params.searchRequest),
         resultLength: fetchResultLength(data),
@@ -97,7 +86,7 @@ const requestResultsFromClient = (req, res) => {
 
       res.json(searchModeled);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(`error calling API : ${JSON.stringify(error)}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
     });
