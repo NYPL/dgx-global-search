@@ -24,7 +24,9 @@ const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const VIEWS_PATH = path.resolve(ROOT_PATH, 'src/views');
 const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
+const appEnv = process.env.APP_ENV || 'production';
 const isProduction = process.env.NODE_ENV === 'production';
+const regionEnv = process.env.REGION_ENV || 'us-east-1';
 
 const app = express();
 
@@ -49,7 +51,7 @@ app.use('*/src/client', express.static(INDEX_PATH));
 // Gets the valid API root for requesting search results
 app.use('/', (req, res, next) => {
   const callGetApiRoot = getApiRoot(req, res, next);
-  callGetApiRoot(app, process.env.API_ROOT, process.env.APP_ENV, process.env.REGION_ENV);
+  callGetApiRoot(app, process.env.API_ROOT, appEnv, regionEnv);
 });
 
 app.use('/', apiRoutes);
@@ -71,7 +73,7 @@ app.use('/', (req, res) => {
     appTitle: pageTitle,
     favicon: appConfig.favIconPath,
     webpackPort: WEBPACK_DEV_PORT,
-    appEnv: process.env.APP_ENV,
+    appEnv,
     isProduction
   });
 });

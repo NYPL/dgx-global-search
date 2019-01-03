@@ -14,7 +14,9 @@ import aws from '../app/utils/kms-helper';
  * appEnv {string} - The environment variable of APP_ENV
  * regionEnv {string} - The environment variable of REGION_ENV
  */
-const getApiRoot = (req, res, next) => (app, apiRootEnv, appEnv, regionEnv) => {
+const getApiRoot = (req, res, next) => (
+  app, apiRootEnv, appEnv = 'production', regionEnv = 'us-east-1',
+) => {
   // Skips calling AWS if we already have API root
   if (app.locals.apiRoot) {
     next();
@@ -31,7 +33,7 @@ const getApiRoot = (req, res, next) => (app, apiRootEnv, appEnv, regionEnv) => {
       ? appConfig.developmentUrl : appConfig.productionUrl;
     const awsProfile = appEnv === 'development'
       ? 'nypl-sandbox' : 'nypl-digital-dev';
-    const region = regionEnv || 'us-east-1';
+    const region = regionEnv;
 
     // set API_ROOT to the correct encrypted value
     aws.decrypt(encryptApiUrl, awsProfile, region)
