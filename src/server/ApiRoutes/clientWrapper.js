@@ -1,5 +1,14 @@
 import redis from 'redis';
 
+/**
+ ClientWrapper:
+  1) Holds the redis client,
+  2) Tracks the connection to the redis client,
+  3) Calls the redis getter and setter functions when the connection is good,
+  4) Calls dummy getter and setter functions when the connection is bad to avoid
+     errors.
+ */
+
 function ClientWrapper(host) {
   console.log('REDIS HOST: ', host);
   this.rawClient = host
