@@ -17,6 +17,7 @@ import webpackConfig from './webpack.config.js';
 
 import Application from './src/app/components/Application/Application.jsx';
 import apiRoutes from './src/server/ApiRoutes/ApiRoutes.js';
+import getApiRoot from './src/server/GetApiRoot.js';
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
@@ -45,37 +46,10 @@ app.use('/search/', express.static(DIST_PATH));
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
-// Gets the decrypt API Root from AWS for requesting search results
+// Gets the valid API root for requesting search results
 app.use('/', (req, res, next) => {
-  // Skips calling AWS if we already have API Root
-  if (app.locals.apiRoot) {
-    next();
-  } else {
-    // Assigns API_ROOT env variable if the app receives it
-    if (process.env.API_ROOT) {
-      app.locals.apiRoot = process.env.API_ROOT;
-      next();
-    // If we do not have API_ROOT env variable or existing API Root, call AWS to decrypt API Root
-    } else {
-        const encryptApiUrl = process.env.APP_ENV === 'development'
-          ? appConfig.developmentUrl : appConfig.productionUrl;
-        const awsProfile = process.env.APP_ENV === 'development'
-          ? 'nypl-sandbox' : 'nypl-digital-dev';
-
-        // set API_ROOT to the correct encrypted value
-        aws.setProfile(awsProfile);
-        aws.decrypt(encryptApiUrl)
-          .then((decryptApiRoot) => {
-            app.locals.apiRoot = decryptApiRoot.slice(1, decryptApiRoot.length - 1);
-            next();
-          })
-          .catch(error => {
-            console.log(`error getting API ROOT : ${error}`);
-            app.locals.apiRoot = undefined;
-            next();
-          });
-    }
-  }
+  const callGetApiRoot = getApiRoot(req, res, next);
+  callGetApiRoot(app, process.env.API_ROOT, process.env.APP_ENV, process.env.REGION_ENV);
 });
 
 app.use('/', apiRoutes);
