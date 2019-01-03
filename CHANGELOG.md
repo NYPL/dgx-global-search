@@ -2,7 +2,7 @@
 
 ### v1.1.0
 #### Updated
-- Updadting Results.jsx to move the functions rerlated to modeling data out of it.
+- Updating Results.jsx to move the functions related to modeling data out of it.
 - Updating Results.jsx to remove the unnecessary function to parse the snippet of a result item.
 - Tab attributes use tab names instead of numbers
 - The current tab is tracked from the selectedFacet property in the Store

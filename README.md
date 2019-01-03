@@ -20,15 +20,15 @@ From the CLI, run `npm run lint` to run the ESLint tool for checking JavaScript 
 ### Environment Variables
 We use four environment variables so far for this application.
 
-  - `API_ROOT` indicates the root of the endpoint this app calles for search requests.
-  - `APP_ENV` indicates the envrionment the app is running. It could be `development`, `qa`, or `production`. The default value is `production`.
+  - `API_ROOT` indicates the root of the endpoint this app calls for search requests.
+  - `APP_ENV` indicates the environment the app is running in. It could be `development`, `qa`, or `production`. The default value is `production`.
   - `NODE_ENV` indicates if the app is running locally or on a remote server. It could be `development` or `production`. The default value is `development`.
   - `REGION_ENV` indicates the region where the app's AWS Elastic Beanstalk instance is. If it is not specified, the default value will be `us-east-1`.
 
 ### Development Mode
 We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
 
-You do not need any environment variables if you want to run it locally in development mode. However, you will need valid AWS credentials stored locally and correct AWS Elastic Beanstalk Region to decrypt the correcnt API endpoint for search. Contact NYPL Digital Department for further informations.
+You do not need any environment variables if you want to run it locally in development mode. However, you will need valid AWS credentials stored locally and correct AWS Elastic Beanstalk Region to decrypt the correct API endpoint for search. Contact NYPL Digital Department for further information.
 
 To run locally, run:
 `npm start`
