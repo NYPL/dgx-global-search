@@ -9,15 +9,15 @@ import ReactDOMServer from 'react-dom/server';
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
 
-import aws from './src/app/utils/kms-helper.js';
-import appConfig from './appConfig.js';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import webpackConfig from './webpack.config.js';
 
-import Application from './src/app/components/Application/Application.jsx';
-import apiRoutes from './src/server/ApiRoutes/ApiRoutes.js';
-import getApiRoot from './src/server/GetApiRoot.js';
+import appConfig from './appConfig';
+import webpackConfig from './webpack.config';
+
+import Application from './src/app/components/Application/Application';
+import apiRoutes from './src/server/ApiRoutes/ApiRoutes';
+import getApiRoot from './src/server/GetApiRoot';
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
@@ -58,7 +58,7 @@ app.use('/', apiRoutes);
 
 app.use('/', (req, res) => {
   // Change the page title based on having results or not. For accessibility purposes.
-  const pageTitle = req.originalUrl === '/' ? 'Search NYPL.org' : "Search Results | NYPL.org";
+  const pageTitle = req.originalUrl === '/' ? 'Search NYPL.org' : 'Search Results | NYPL.org';
 
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
@@ -74,7 +74,7 @@ app.use('/', (req, res) => {
     favicon: appConfig.favIconPath,
     webpackPort: WEBPACK_DEV_PORT,
     appEnv,
-    isProduction
+    isProduction,
   });
 });
 
@@ -86,7 +86,7 @@ const server = app.listen(app.get('port'), (error) => {
   console.log(colors.yellow.underline(appConfig.appName));
   console.log(
     colors.green('Express server is listening at'),
-    colors.cyan('localhost:' + app.get('port'))
+    colors.cyan(`localhost:${app.get('port')}`),
   );
 });
 
