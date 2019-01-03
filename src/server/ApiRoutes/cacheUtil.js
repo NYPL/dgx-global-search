@@ -35,19 +35,20 @@ const addCaching = (dataFunction, useClient = true, customClient = null) => {
     return dataFunction;
   }
 
-  return new Promise((resolve) => {
-    kms.setProfile();
-    if (process.env.APP_ENV) {
-      kms.decrypt(redisHosts[process.env.APP_ENV], (err, data) => resolve(new ClientWrapper(data)));
-    } else {
-      resolve(new ClientWrapper());
-    }
-  })
+  const profile = process.env.AWS_PROFILE
+    ? kms.setProfile(process.env.AWS_PROFILE)
+    : kms.setProfile();
+
+  return (process.env.APP_ENV
+    ? kms.decrypt(redisHosts[process.env.APP_ENV])
+      .then((err, data) => new ClientWrapper(data))
+    : Promise.resolve(new ClientWrapper()))
     .then((clientWrapper) => {
       const client = customClient || clientWrapper;
       return (...params) => useCachedOrGetData(dataFunction, client)(params)
         .then(stringifiedData => JSON.parse(stringifiedData));
     });
+
 };
 
 export default {
