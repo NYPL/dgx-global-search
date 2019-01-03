@@ -18,7 +18,7 @@ function setProfile(profile, region = 'us-east-1') {
   }
 
   // Set aws region:
-  let awsSecurity = { region };
+  const awsSecurity = { region };
   aws.config.update(awsSecurity);
 }
 
