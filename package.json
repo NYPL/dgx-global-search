@@ -1,15 +1,14 @@
 {
   "name": "dgx-global-search",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "DGX Global Search Repository",
   "main": "index.js",
   "scripts": {
-    "local": "AWS_PROFILE=nypl-digital-dev node index",
     "start": "node index",
+    "eb-start": "npm run dist && npm run start",
     "dist": "NODE_ENV=production webpack --config webpack.config.js",
     "test": "node_modules/.bin/mocha --compilers js:babel-core/register",
     "accessibility-check": "loadA11y=true node index",
-    "eb-start": "npm run dist && npm run start",
     "lint": "eslint ./",
     "lint-single-file": "eslint"
   },

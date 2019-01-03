@@ -6,7 +6,7 @@ This repository is the global search application for nypl.org.
 https://www.nypl.org/search
 
 ### Version
-> v1.0.1
+> v1.1.0
 
 ### Installation
 Install all dependencies listed under package.json
@@ -17,16 +17,34 @@ $ npm install
 ### Linting
 From the CLI, run `npm run lint` to run the ESLint tool for checking JavaScript syntax.  Here is an example of how to lint only one file: `npm run lint-single-file src/app/components/TabItem/TabItem.jsx`
 
+### Environment Variables
+We use four environment variables so far for this application.
+
+  - `API_ROOT` indicates the root of the endpoint this app calls for search requests.
+  - `APP_ENV` indicates the environment the app is running in. It could be `development`, `qa`, or `production`. The default value is `production`.
+  - `NODE_ENV` indicates if the app is running locally or on a remote server. It could be `development` or `production`. The default value is `development`.
+  - `REGION_ENV` indicates the region where the app's AWS Elastic Beanstalk instance is. If it is not specified, the default value will be `us-east-1`.
+
 ### Development Mode
 We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
 
+You do not need any environment variables if you want to run it locally in development mode. However, you will need valid AWS credentials stored locally and correct AWS Elastic Beanstalk Region to decrypt the correct API endpoint for search. Contact NYPL Digital Department for further information.
+
 To run locally, run:
-`npm run local`
+`npm start`
 
 You can also set the APP_ENV variable which dictates what API environment to use as the main source.
 ```sh
 $ APP_ENV=development|qa|production npm start // Starts localhost:3001 with set APP_ENV
 ```
+
+You can set API_ROOT directly as well if you have the info. Notice it needs to be decrypted. For example,
+
+```sh
+$ API_ROOT=https://somethingsomething.com node index
+```
+
+If you did not set API_ROOT, the app will try to call AWS KMS to decrypt the encypted API root in `appConfig.js` based on the APP_ENV.
 
 ### Production Mode
 We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
