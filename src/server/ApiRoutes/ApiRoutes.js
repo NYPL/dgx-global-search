@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 const { addCaching } = cache;
 let getSearchData;
-addCaching(url => axios.get(url), !process.env.SKIP_CACHING)
+addCaching(url => axios.get(url), !process.env.SKIP_CACHING, null, process.env.APP_ENV)
   .then((cacheAdded) => {
     getSearchData = cacheAdded;
   });

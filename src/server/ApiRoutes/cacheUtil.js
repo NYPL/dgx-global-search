@@ -71,6 +71,25 @@ const useCachedOrGetData = (dataFunction, client) => (params) => {
 };
 
 /**
+ * generateClient(customClient, appEnv, region)
+ * If not customClient is provided, returns a ClientWrapper instance pointing
+ * to the redis server specified in appConfig, or else pointing to a default
+ * server if none is specified
+ * @param {object} customClient
+ * @param {string} appEnv
+ * @param {string} region
+ */
+const generateClient = (customClient = null, appEnv = null, region = 'us-east-1') => {
+  if (customClient) {
+    return Promise.resolve(customClient);
+  }
+  return appEnv
+    ? kms.decrypt(redisHosts[appEnv], null, region)
+      .then(data => new ClientWrapper(data))
+    : Promise.resolve(new ClientWrapper());
+};
+
+/**
  addCaching(dataFunction, useClient, customClient)
  Returns a promise which will resolve to a function that wraps the given
  datafunction. The wrapper will call useCachedOrGetData with the given datafunction
@@ -83,20 +102,14 @@ const useCachedOrGetData = (dataFunction, client) => (params) => {
  @param {object} customClient
  */
 
-const addCaching = (dataFunction, useClient = true, customClient = null) => {
+const addCaching = (dataFunction, useClient = true, customClient = null, appEnv, region = 'us-east-1') => {
   if (!useClient) {
     return Promise.resolve(dataFunction);
   }
 
-  return (process.env.APP_ENV
-    ? kms.decrypt(redisHosts[process.env.APP_ENV], null, 'us-east-1')
-      .then(data => new ClientWrapper(data))
-    : Promise.resolve(new ClientWrapper()))
-    .then((clientWrapper) => {
-      const client = customClient || clientWrapper;
-      return (...params) => useCachedOrGetData(dataFunction, client)(params)
-        .then(stringifiedData => JSON.parse(stringifiedData));
-    });
+  return generateClient(customClient, appEnv, region)
+    .then(client => (...params) => useCachedOrGetData(dataFunction, client)(params)
+      .then(stringifiedData => JSON.parse(stringifiedData)));
 };
 
 export default {
