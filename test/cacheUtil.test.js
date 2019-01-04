@@ -1,6 +1,6 @@
+import chai from 'chai';
 import cacheMethods from '../src/server/ApiRoutes/cacheUtil';
 
-const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
