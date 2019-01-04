@@ -38,7 +38,7 @@ deploy:
   bucket_path: nypl-global-search-qa
   on:
     repo: NYPL/dgx-global-search
-    branch: da_hotfix
+    branch: qa
 - provider: elasticbeanstalk
   skip_cleanup: true
   access_key_id: $AWS_ACCESS_KEY_ID_DEVELOPMENT
