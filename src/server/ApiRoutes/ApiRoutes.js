@@ -21,23 +21,24 @@ const generateQueryString = (req) => {
   return req.params.searchRequest + searchFilter;
 };
 
-const generateApiUrl = (req) => {
+const generateApiQueries = (req) => {
   const start = req.query.start && req.query.start !== '0' ? `&start=${req.query.start}` : '';
-  return `${process.env.API_ROOT}&q=${generateQueryString(req)}${start}`;
+  const queryString = generateQueryString(req);
+
+  return `&q=${queryString}${start}`;
 };
 
 const requestSearchResult = (req, res, next) => {
-  const searchApiUrl = generateApiUrl(req);
   const queriesForGA = {
     searchedFrom: req.query.searched_from || '',
     timestamp: req.query.timestamp || '',
   };
 
+  const searchApiUrl = `${req.app.locals.apiRoot}${generateApiQueries(req)}`;
+
   getSearchData(searchApiUrl)
     .then((searchData) => {
-      const {
-        data,
-      } = searchData;
+      const { data } = searchData;
 
       res.locals.data = {
         SearchStore: {
@@ -74,18 +75,16 @@ const requestSearchResult = (req, res, next) => {
 };
 
 const requestResultsFromClient = (req, res) => {
-  const searchApiUrl = generateApiUrl(req);
-
   if (!req.query.start) {
     res.json({});
     return;
   }
 
+  const searchApiUrl = `${req.app.locals.apiRoot}${generateApiQueries(req)}`;
+
   getSearchData(searchApiUrl)
     .then((searchData) => {
-      const {
-        data,
-      } = searchData;
+      const { data } = searchData;
       const searchModeled = {
         searchResultsItems: fetchResultItems(data, req.params.searchRequest),
         resultLength: fetchResultLength(data),
