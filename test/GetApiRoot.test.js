@@ -21,6 +21,8 @@ describe('Get API Root', () => {
     anotherApp = {
       locals: {},
     };
+
+    decryptSpy.reset();
   });
 
   it('should end the fucntion if the parameter "app.locals.apiRoot" already exists.', () => {
