@@ -31,8 +31,8 @@ describe('Get API Root', () => {
     expect(decryptSpy.calledOnce).to.equal(false);
   });
 
-  it('should assign the value of "apiRootEnv" to "app.locals.apiRoot", if "app.locals.apiRoot" ' +
-    'does not exist and "apiRootEnv" is valid.', () => {
+  it('should assign the value of "apiRootEnv" to "app.locals.apiRoot", if "app.locals.apiRoot" '
+    + 'does not exist and "apiRootEnv" is valid.', () => {
     const callGetApiRoot = getApiRoot({}, {}, () => {});
     callGetApiRoot(anotherApp, apiRootEnv, appEnv, regionEnv);
 
@@ -40,8 +40,8 @@ describe('Get API Root', () => {
     expect(decryptSpy.calledOnce).to.equal(false);
   });
 
-  it('should execute the function to call AWS KMS service if neither "app.locals.apiRoot" nor ' +
-    '"apiRootEnv" exists."', () => {
+  it('should execute the function to call AWS KMS service if neither "app.locals.apiRoot" nor '
+    + '"apiRootEnv" exists."', () => {
     const callGetApiRoot = getApiRoot({}, {}, () => {});
     callGetApiRoot(anotherApp, undefined, appEnv, regionEnv);
 
