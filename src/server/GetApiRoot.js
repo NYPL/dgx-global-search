@@ -31,8 +31,13 @@ const getApiRoot = (req, res, next) => (
     // We have to have valid AWS crendentials locally to do that
     const encryptApiUrl = appEnv === 'development'
       ? appConfig.developmentUrl : appConfig.productionUrl;
-    const awsProfile = appEnv === 'development'
+    let awsProfile = appEnv === 'development'
       ? 'nypl-sandbox' : 'nypl-digital-dev';
+    console.log('NODE_ENV', process.env.NODE_ENV, process.env.NODE_ENV === 'production');
+    if (process.env.NODE_ENV === 'production') {
+      console.log('here');
+      awsProfile = null;
+    }
     const region = regionEnv;
 
     // set API_ROOT to the correct encrypted value
