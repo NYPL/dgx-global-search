@@ -33,6 +33,13 @@ You do not need any environment variables if you want to run it locally in devel
 To run locally, run:
 `npm start`
 
+You will need to have a redis server running in another tab if you want to use caching:
+`redis-server`
+
+If you don't want to use caching, you can run:
+`SKIP_CACHING=true npm start`
+To avoid logging errors related to lack of caching.
+
 You can also set the APP_ENV variable which dictates what API environment to use as the main source.
 ```sh
 $ APP_ENV=development|qa|production npm start // Starts localhost:3001 with set APP_ENV
