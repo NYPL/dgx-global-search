@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import getApiRoot from '../src/server/getApiRoot.js';
-import aws from '../src/app/utils/kms-helper.js';
+import getApiRoot from '../src/server/GetApiRoot';
+import aws from '../src/app/utils/kms-helper';
 
 describe('Get API Root', () => {
   const decryptSpy = sinon.spy(aws, 'decrypt');
