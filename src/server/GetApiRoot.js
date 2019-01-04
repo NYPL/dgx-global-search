@@ -2,6 +2,20 @@ import appConfig from '../../appConfig';
 import aws from '../app/utils/kms-helper';
 
 /**
+ * generateAwsProfile(appEnv)
+ * A helper method for setting the AWS profile. There is only a profile if app is
+ * running locally, in which case it depends on whether we are running in development
+ * or production mode.
+ * @param {string} appEnv
+ */
+const generateAwsProfile = (appEnv) => {
+  if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
+  return appEnv === 'development' ? 'nypl-sandbox' : 'nypl-digital-dev';
+};
+
+/**
  * getApiRoot(req, res, next)
  * It returns the method to be called for generating the valid API root for search requesting.
  *
@@ -31,13 +45,7 @@ const getApiRoot = (req, res, next) => (
     // We have to have valid AWS crendentials locally to do that
     const encryptApiUrl = appEnv === 'development'
       ? appConfig.developmentUrl : appConfig.productionUrl;
-    let awsProfile = appEnv === 'development'
-      ? 'nypl-sandbox' : 'nypl-digital-dev';
-    console.log('NODE_ENV', process.env.NODE_ENV, process.env.NODE_ENV === 'production');
-    if (process.env.NODE_ENV === 'production') {
-      console.log('here');
-      awsProfile = null;
-    }
+    const awsProfile = generateAwsProfile(appEnv);
     const region = regionEnv;
 
     // set API_ROOT to the correct encrypted value
