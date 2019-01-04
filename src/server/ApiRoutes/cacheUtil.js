@@ -85,7 +85,7 @@ const useCachedOrGetData = (dataFunction, client) => (params) => {
 
 const addCaching = (dataFunction, useClient = true, customClient = null) => {
   if (!useClient) {
-    return dataFunction;
+    return Promise.resolve(dataFunction);
   }
 
   return (process.env.APP_ENV
