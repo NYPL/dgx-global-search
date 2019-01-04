@@ -34,12 +34,11 @@ const getApiRoot = (req, res, next) => (
   // Skips calling AWS if we already have API root
   if (app.locals.apiRoot) {
     next();
-  } else {
+  } else if (apiRootEnv) {
     // Assigns API_ROOT env variable to the API root if the app receives it
-    if (apiRootEnv) {
-      app.locals.apiRoot = apiRootEnv;
-      next();
-    }
+    app.locals.apiRoot = apiRootEnv;
+    next();
+  } else {
     // If we do not have API_ROOT env variable or existing API root, call AWS to decrypt the one
     // in appConfig.js
     // We have to have valid AWS crendentials locally to do that
