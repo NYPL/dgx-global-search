@@ -88,10 +88,8 @@ const addCaching = (dataFunction, useClient = true, customClient = null) => {
     return dataFunction;
   }
 
-  kms.setProfile();
-
   return (process.env.APP_ENV
-    ? kms.decrypt(redisHosts[process.env.APP_ENV])
+    ? kms.decrypt(redisHosts[process.env.APP_ENV], null, 'us-east-1')
       .then(data => new ClientWrapper(data))
     : Promise.resolve(new ClientWrapper()))
     .then((clientWrapper) => {
