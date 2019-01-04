@@ -137,11 +137,17 @@ describe('cacheUtil', () => {
 
   describe('addCaching', () => {
     it('should return a promise resolving to the dataFunction if useClient is false', () => {
-      expect(addCaching(mockDataFunction, false)
-        .then(datafunction => datafunction))
-        .to
-        .eventually
-        .equal(mockDataFunction);
+      return addCaching(mockDataFunction, false, mockClient)
+        .then((datafunction) => {
+          expect(datafunction)
+            .to
+            .equal(mockDataFunction);
+        });
+      // expect(addCaching(mockDataFunction, false, mockClient)
+      //   .then(datafunction => datafunction))
+      //   .to
+      //   .eventually
+      //   .equal('frog');
     });
   });
 
