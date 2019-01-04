@@ -136,11 +136,13 @@ describe('cacheUtil', () => {
   });
 
   describe('addCaching', () => {
-    it('should return the dataFunction if useClient is false', () => {
-      expect(addCaching(mockDataFunction, false))
+    it('should return a promise resolving to the dataFunction if useClient is false', () => {
+      expect(addCaching(mockDataFunction, false)
+        .then(datafunction => datafunction))
         .to
-        .equal(mockDataFunction)
-    })
+        .eventually
+        .equal(mockDataFunction);
+    });
   });
 
   describe('getSearchData', () => {
