@@ -143,11 +143,6 @@ describe('cacheUtil', () => {
             .to
             .equal(mockDataFunction);
         });
-      // expect(addCaching(mockDataFunction, false, mockClient)
-      //   .then(datafunction => datafunction))
-      //   .to
-      //   .eventually
-      //   .equal('frog');
     });
   });
 
