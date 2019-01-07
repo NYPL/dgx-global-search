@@ -20,6 +20,18 @@ describe('cacheUtil', () => {
   let getSearchData;
   let getKeyFromParams;
 
+  function MockClient() {
+    this.values = {};
+    this.get = (key, cb) => {
+      const value = this.values[key] || null;
+      cb(null, value);
+      return !!value;
+    };
+    this.set = (key, value) => {
+      this.values[key] = value;
+    };
+  }
+
   beforeEach(() => {
     calledWith = [];
     mockDataFunction = (url) => {
@@ -38,17 +50,6 @@ describe('cacheUtil', () => {
       return Promise.resolve(resolveTo);
     }
 
-    function MockClient() {
-      this.values = {};
-      this.get = (key, cb) => {
-        const value = this.values[key] || null;
-        cb(null, value);
-        return !!value;
-      };
-      this.set = (key, value) => {
-        this.values[key] = value;
-      };
-    }
 
     mockClient = new MockClient();
 
