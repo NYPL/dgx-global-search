@@ -87,7 +87,7 @@ const generateClient = (customClient = null, appEnv = null, region = 'us-east-1'
 };
 
 /**
- addCaching(dataFunction, useClient, customClient)
+ addCaching(dataFunction, useClient, customClient, appEnv, region)
  Returns a promise which will resolve to a function that wraps the given
  datafunction. The wrapper will call useCachedOrGetData with the given datafunction
  and to ensure the value is cached, and then return the value.
