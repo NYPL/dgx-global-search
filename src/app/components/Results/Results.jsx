@@ -121,8 +121,8 @@ class Results extends React.Component {
         index={index}
         ref={`result-${index}`}
         title={item.title}
-        link={this.transformHttpsToHttp(item.link)}
-        snippet={this.parseSnippet(item.snippet)}
+        link={item.link}
+        snippet={item.snippet}
         thumbnailSrc={item.thumbnailSrc}
         label={item.label}
         className={`${className}Item`}
@@ -213,53 +213,6 @@ class Results extends React.Component {
       });
 
     this.moveFocusToNextPage(originalResultsStart, 0);
-  }
-
-  /**
-   * parseSnippet(snippetText)
-   * The function converts a string to an array
-   * if the separator pattern is found in the string.
-   * If a value is found in index 1 of the array,
-   * return that value else the original snippetText
-   * passed.
-   */
-  parseSnippet(snippetText) {
-    if (!snippetText && typeof snippetText !== 'string') {
-      return '';
-    }
-
-    const faultyJsonArray = snippetText.trim().split('}}]]');
-
-    if (faultyJsonArray.length > 1) {
-      return faultyJsonArray[1];
-    }
-
-    return snippetText;
-  }
-
-  /**
-   * transformHttpsToHttp(link)
-   * The function converts certain NYPL subdomains to http
-   * to prevent an error when that site does not have SSL enabled.
-   */
-  transformHttpsToHttp(link) {
-    if (!link) {
-      return '';
-    }
-
-    const transformationRequired = link.includes('//digital.nypl.org')
-      || link.includes('//menus.nypl.org')
-      || link.includes('//exhibitions.nypl.org')
-      || link.includes('//static.nypl.org')
-      || link.includes('//static.nypl.org/exhibitions')
-      || link.includes('//web-static.nypl.org/exhibitions')
-      || link.includes('//web-static.nypl.org');
-
-    if (link && transformationRequired) {
-      return link.replace('https:', 'http:');
-    }
-
-    return link;
   }
 
   /**
@@ -465,7 +418,6 @@ Results.defaultProps = {
   selectedFacet: '',
   queriesForGA: {},
   tabs: [],
-  searchBySelectedFacetFunction: () => {},
 };
 
 export default Results;
