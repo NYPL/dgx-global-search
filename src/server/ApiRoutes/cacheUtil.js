@@ -1,6 +1,8 @@
-import { redisHosts } from '../../../appConfig';
+import appConfig from '../../../appConfig';
 import kms from '../../app/utils/kms-helper';
 import ClientWrapper from './clientWrapper';
+
+const { redisHosts } = appConfig;
 
 /**
  Takes a list of params and returns a string which will be used as a key
