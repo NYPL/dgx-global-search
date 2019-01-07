@@ -1,10 +1,6 @@
-import appConfig from '../../../appConfig';
+import { redisHosts } from '../../../appConfig';
 import kms from '../../app/utils/kms-helper';
 import ClientWrapper from './clientWrapper';
-
-const {
-  redisHosts,
-} = appConfig;
 
 /**
  Takes a list of params and returns a string which will be used as a key
@@ -12,7 +8,7 @@ const {
  @param {array} params
  */
 
-const getKeyFromParams = params => params.map(x => JSON.stringify(x)).join('');
+const getKeyFromParams = params => params.map(x => JSON.stringify(x)).join(',');
 
 /**
  checkForKeyInRedis(client)
@@ -74,7 +70,8 @@ const useCachedOrGetData = (dataFunction, client) => (params) => {
  * generateClient(customClient, appEnv, region)
  * If not customClient is provided, returns a ClientWrapper instance pointing
  * to the redis server specified in appConfig, or else pointing to a default
- * server if none is specified
+ * server if none is specified. appEnv and region are used for decrypting the
+ * endpoint of the redis client.
  * @param {object} customClient
  * @param {string} appEnv
  * @param {string} region
@@ -95,11 +92,13 @@ const generateClient = (customClient = null, appEnv = null, region = 'us-east-1'
  datafunction. The wrapper will call useCachedOrGetData with the given datafunction
  and to ensure the value is cached, and then return the value.
  addCaching will also generate the dataclient if a custom client is not given and
- useClient is not set to false.
+ useClient is not set to false. appEnv and region are passed to generateClient.
 
  @param {function} datafunction
  @param {boolean} useClient
  @param {object} customClient
+ @param {string} appEnv
+ @param {string} region
  */
 
 const addCaching = (dataFunction, useClient = true, customClient = null, appEnv, region = 'us-east-1') => {
