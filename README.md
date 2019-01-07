@@ -35,6 +35,8 @@ To run locally, run:
 
 You will need to have a redis server running in another tab if you want to use caching:
 `redis-server`
+Download redis here:
+`https://redis.io/topics/quickstart`
 
 If you don't want to use caching, you can run:
 `SKIP_CACHING=true npm start`
