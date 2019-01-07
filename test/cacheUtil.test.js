@@ -12,7 +12,6 @@ const {
 describe('cacheUtil', () => {
   let calledWith;
   let mockClient;
-  let values;
   let mockDataFunction;
   let checkForKeyInRedis;
   let getDataAndSetKeyInClient;
@@ -39,18 +38,19 @@ describe('cacheUtil', () => {
       return Promise.resolve(resolveTo);
     }
 
-    values = {};
-
-    mockClient = {
-      get: (key, cb) => {
-        const value = values[key] || null;
+    function MockClient() {
+      this.values = {};
+      this.get = (key, cb) => {
+        const value = this.values[key] || null;
         cb(null, value);
         return !!value;
-      },
-      set: (key, value) => {
-        values[key] = value;
-      },
-    };
+      };
+      this.set = (key, value) => {
+        this.values[key] = value;
+      };
+    }
+
+    mockClient = new MockClient();
 
     checkForKeyInRedis = cacheMethods.checkForKeyInRedis(mockClient);
     getDataAndSetKeyInClient = cacheMethods.getDataAndSetKeyInClient(mockDataFunction, mockClient);
@@ -94,7 +94,7 @@ describe('cacheUtil', () => {
       const params = ['elephant'];
       const key = getKeyFromParams(params);
       return expect(getDataAndSetKeyInClient(params, key)
-        .then(() => values[key]))
+        .then(() => mockClient.values[key]))
         .to
         .eventually
         .equal('{"loxodonta":"africana"}');
