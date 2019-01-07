@@ -157,6 +157,7 @@ class App extends React.Component {
       Actions.updateSelectedFacet(selectedFacet);
       Actions.updateIsKeywordValid(false);
       Actions.updateSearchKeyword('');
+      Actions.updateSearchData([]);
     } else {
       makeClientApiCall(
         searchKeyword,
