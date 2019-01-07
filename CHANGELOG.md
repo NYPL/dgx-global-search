@@ -9,6 +9,9 @@
 #### Added
 - Adding the instruction message to ask the user to enter a search keyword.
 - Adding the methods to call AWS KMS service to decrypt the API root for search requests.
+- Adding caching. This includes clientWrapper, cacheUtil, and cacheUtil.test
+- Change ApiRoutes to cache results when using axios
+- Document use of redis in README
 
 ### v1.0.1
 #### Updated

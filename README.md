@@ -24,6 +24,7 @@ We use four environment variables so far for this application.
   - `APP_ENV` indicates the environment the app is running in. It could be `development`, `qa`, or `production`. The default value is `production`.
   - `NODE_ENV` indicates if the app is running locally or on a remote server. It could be `development` or `production`. The default value is `development`.
   - `REGION_ENV` indicates the region where the app's AWS Elastic Beanstalk instance is. If it is not specified, the default value will be `us-east-1`.
+  - `SKIP_CACHING` an optional variable that can be set to `true` if you don't want to use caching
 
 ### Development Mode
 We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
@@ -32,6 +33,15 @@ You do not need any environment variables if you want to run it locally in devel
 
 To run locally, run:
 `npm start`
+
+You will need to have a redis server running in another tab if you want to use caching:
+`redis-server`
+Download redis here:
+`https://redis.io/topics/quickstart`
+
+If you don't want to use caching, you can run:
+`SKIP_CACHING=true npm start`
+To avoid logging errors related to lack of caching.
 
 You can also set the APP_ENV variable which dictates what API environment to use as the main source.
 ```sh
