@@ -6,6 +6,7 @@
 - Updating Results.jsx to remove the unnecessary function to parse the snippet of a result item.
 - Tab attributes use tab names instead of numbers
 - The current tab is tracked from the selectedFacet property in the Store
+- Updating to display an empty result page if there is no valid search keyword after a client side search request.
 #### Added
 - Adding the instruction message to ask the user to enter a search keyword.
 - Adding the methods to call AWS KMS service to decrypt the API root for search requests.
