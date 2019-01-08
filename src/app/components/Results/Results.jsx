@@ -17,7 +17,7 @@ import ReturnLink from '../ReturnLink/ReturnLink';
 
 
 // Import utilities
-import { makeClientApiCall } from '../../utils/MakeClientApiCall';
+import makeClientApiCall from '../../utils/MakeClientApiCall';
 import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils';
 import { displayNameForFacet } from '../../utils/TabIndex';
 
