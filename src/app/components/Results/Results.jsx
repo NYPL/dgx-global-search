@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 // Import libraries
@@ -34,7 +33,6 @@ class Results extends React.Component {
 
     this.state = {
       resultsStart,
-      isLoadingPagination: false,
       incrementResults: 10,
       searchResults: results,
       timeToLoadResults: new Date().getTime(),
@@ -45,6 +43,9 @@ class Results extends React.Component {
     this.addMoreResults = this.addMoreResults.bind(this);
     this.onChange = this.onChange.bind(this);
     this.moveFocusToNextPage = this.moveFocusToNextPage.bind(this);
+    // The property to store all the nodes of the result items
+    // We need these nodes so that we can have the items focused
+    this.resultsItemNodes = {};
   }
 
   componentDidMount() {
@@ -88,7 +89,6 @@ class Results extends React.Component {
     // Update the Store with new fetched data
     this.setState({
       resultsStart: Store.getState().resultsStart,
-      isLoadingPagination: false,
       searchResults: Store.getState().searchData,
       timeToLoadResults: new Date().getTime(),
       queriesForGA: Store.getState().queriesForGA,
@@ -119,7 +119,7 @@ class Results extends React.Component {
       <ResultsItem
         key={index}
         index={index}
-        ref={`result-${index}`}
+        ref={(node) => { this.resultsItemNodes[`result-${index}`] = node || null; }}
         title={item.title}
         link={item.link}
         snippet={item.snippet}
@@ -147,11 +147,17 @@ class Results extends React.Component {
     const {
       resultsStart,
     } = this.state;
+
     setTimeout(() => {
       const updatedCounter = counter + 1;
       if (numResultsOnPage !== resultsStart) {
         const refResultIndex = `result-${resultsStart}`;
-        ReactDOM.findDOMNode(this.refs[refResultIndex].refs[`${refResultIndex}-item`]).focus();
+
+        try {
+          this.resultsItemNodes[refResultIndex].refs[`${refResultIndex}-item`].focus();
+        } catch (err) {
+          // Skip to focus if for we do not have the node of the next result item
+        }
       } else if (counter < 20) {
         this.moveFocusToNextPage(numResultsOnPage, updatedCounter);
       }
@@ -205,13 +211,7 @@ class Results extends React.Component {
           searchedFrom: queriesForGA.searchedFrom,
           timestamp: new Date().getTime(),
         });
-      },
-      // The callback function for changing the value of isLoadingPagination
-      // to trigger the animation of the pagination button.
-      (value) => {
-        this.setState({ isLoadingPagination: value });
       });
-
     this.moveFocusToNextPage(originalResultsStart, 0);
   }
 
@@ -231,7 +231,6 @@ class Results extends React.Component {
 
     const {
       incrementResults,
-      isLoadingPagination,
     } = this.state;
 
     if (parseInt(amount, 10) < incrementResults) {
@@ -251,7 +250,6 @@ class Results extends React.Component {
         <BasicButton
           id={`${id}-paginationButton`}
           className={`${id}-paginationButton`}
-          isLoading={isLoadingPagination}
           onClick={this.addMoreResults}
           label={label}
           icon={<DownWedgeIcon stroke="#1B7FA7" />}
