@@ -7,6 +7,7 @@
 - Tab attributes use tab names instead of numbers.
 - The current tab is tracked from the selectedFacet property in the Store.
 - Removing the related parameters for displaying loading status on the pages.
+- Updating to display an empty result page if there is no valid search keyword after a client side search request.
 #### Added
 - Adding the instruction message to ask the user to enter a search keyword.
 - Adding the methods to call AWS KMS service to decrypt the API root for search requests.

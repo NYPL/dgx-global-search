@@ -1,21 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import Results from './../src/app/components/Results/Results.jsx';
+import Results from '../src/app/components/Results/Results';
 
 describe('Results', () => {
   const tabs = [
     { anchor: 'All', label: 'all_results', resultSummarydisplayName: '' },
     { anchor: 'Database', label: 'articles_databases', resultSummarydisplayName: 'databases' },
-    { anchor: 'Events', label: 'events_classes', resultSummarydisplayName: 'events' }
+    { anchor: 'Events', label: 'events_classes', resultSummarydisplayName: 'events' },
   ];
 
-  describe('Search results summary', () => {
-    describe('if the user visits the main paqgie without a keyword as the pathname', () => {
+  describe('Search results summary and search results', () => {
+    describe('if the user visits the main page without a keyword as the pathname.', () => {
       let component;
 
       before(() => {
-        component  = shallow(<Results isKeywordValid={true} />);
+        component = shallow(<Results isKeywordValid />);
       });
 
       it('search results summary should be empty.', () => {
@@ -24,6 +24,10 @@ describe('Results', () => {
           .to.equal(true);
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(false);
+      });
+
+      it('should display an empty result page.', () => {
+        expect(component.find('#results').children()).to.have.length(0);
       });
     });
 
@@ -34,7 +38,7 @@ describe('Results', () => {
         component = shallow(<Results isKeywordValid={false} />);
       });
 
-      it('should show the message asking for a search keyword', () => {
+      it('should show the message asking for a search keyword.', () => {
         expect(component.find('#search-results-summary').text())
           .to.deep.equal('Please enter a keyword');
         expect(component.find('#search-results-summary').hasClass('noResultMessage'))
@@ -42,80 +46,102 @@ describe('Results', () => {
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(false);
       });
+
+      it('should display an empty result page.', () => {
+        expect(component.find('#results').children()).to.have.length(0);
+      });
     });
 
-    describe('if there are no results but there is a search keyword', () => {
+    describe('if there are no results but there is a search keyword.', () => {
       let component;
 
       before(() => {
-        component  = shallow(
-          <Results tabs={tabs} searchKeyword={'jibberish'} results={[]} isKeywordValid={true} />
+        component = shallow(
+          <Results
+            tabs={tabs}
+            searchKeyword="jibberish"
+            results={[]}
+            isKeywordValid
+          />,
         );
       });
 
       it('should render "No results were found.', () => {
         expect(component.find('#search-results-summary').text()).to.deep.equal(
-          'No results were found'
+          'No results were found',
         );
         expect(component.find('#search-results-summary').hasClass('noResultMessage'))
           .to.equal(true);
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(false);
       });
+
+      it('should display an empty result page.', () => {
+        expect(component.find('#results').children()).to.have.length(0);
+      });
     });
 
-    describe('if there is a search keyword and a facet other than "All" is selected, ' +
-      'yet there are no matching search results', () => {
+    describe('if there is a search keyword and a facet other than "All" is selected, '
+      + 'yet there are no matching search results', () => {
       let component;
 
       before(() => {
-        component  = shallow(
+        component = shallow(
           <Results
             tabs={tabs}
-            searchKeyword={'jibberish'}
-            selectedFacet={'events_classes'}
+            searchKeyword="jibberish"
+            selectedFacet="events_classes"
             results={[]}
-            isKeywordValid={true}
-          />);
+            isKeywordValid
+          />,
+        );
       });
 
       it('should render "No results were found in selected_facet_name".', () => {
         expect(component.find('#search-results-summary').text()).to.deep.equal(
-          'No results were found in events'
+          'No results were found in events',
         );
         expect(component.find('#search-results-summary').hasClass('noResultMessage'))
           .to.equal(true);
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(false);
       });
+
+      it('should display an empty result page.', () => {
+        expect(component.find('#results').children()).to.have.length(0);
+      });
     });
 
-    describe('if there is a search keyword and the facet "All" is selected, ' +
-      'yet there are no search results', () => {
+    describe('if there is a search keyword and the facet "All" is selected, '
+      + 'yet there are no search results', () => {
       let component;
 
       before(() => {
         // When the selected facet is all, that means no selectedFacet value is passed to
         // the component
-        component  = shallow(
+        component = shallow(
           <Results
             tabs={tabs}
-            searchKeyword={'jibberish'}
-            selectedFacet={''}
+            searchKeyword="jibberish"
+            selectedFacet=""
             results={[]}
-            isKeywordValid={true}
-          />
+            isKeywordValid
+          />,
         );
       });
 
       it('should render "No results were found".', () => {
         expect(component.find('#search-results-summary').text()).to.deep.equal(
-          'No results were found'
+          'No results were found',
         );
         expect(component.find('#search-results-summary').hasClass('noResultMessage'))
           .to.equal(true);
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(false);
+      });
+
+      it('should display an empty result page.', () => {
+        expect(component.find('#results').children()).to.have.length(0);
       });
     });
 
@@ -129,22 +155,26 @@ describe('Results', () => {
           <Results
             tabs={tabs}
             amount={amount}
-            searchKeyword={'okapi'}
-            selectedFacet={'articles_databases'}
+            searchKeyword="okapi"
+            selectedFacet="articles_databases"
             results={results}
-            isKeywordValid={true}
-          />
+            isKeywordValid
+          />,
         );
       });
 
       it('should render the proper summary for the results.', () => {
         expect(component.find('#search-results-summary').text()).to.deep.equal(
-          'Found about 3 results for "okapi" in databases'
+          'Found about 3 results for "okapi" in databases',
         );
         expect(component.find('#search-results-summary').hasClass('noResultMessage'))
           .to.equal(false);
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(true);
+      });
+
+      it('should display a result page with valid results.', () => {
+        expect(component.find('#results').children()).to.have.length(3);
       });
     });
 
@@ -160,20 +190,24 @@ describe('Results', () => {
           <Results
             tabs={tabs}
             amount={amount}
-            searchKeyword={'okapi'}
-            selectedFacet={''}
+            searchKeyword="okapi"
+            selectedFacet=""
             results={results}
-            isKeywordValid={true}
-          />
+            isKeywordValid
+          />,
         );
       });
 
       it('should render the proper summary for the results.', () => {
         expect(component.find('#search-results-summary').text()).to.deep.equal(
-          'Found about 3 results for "okapi"'
+          'Found about 3 results for "okapi"',
         );
         expect(component.find('#search-results-summary').hasClass('noResultMessage')).to.equal(false);
         expect(component.find('#search-results-summary').hasClass('results-length')).to.equal(true);
+      });
+
+      it('should display a result page with valid results.', () => {
+        expect(component.find('#results').children()).to.have.length(3);
       });
     });
 
@@ -187,20 +221,24 @@ describe('Results', () => {
           <Results
             tabs={tabs}
             amount={amount}
-            searchKeyword={'volcano'}
-            selectedFacet={'articles_databases'}
+            searchKeyword="volcano"
+            selectedFacet="articles_databases"
             results={results}
-            isKeywordValid={true}
-          />
+            isKeywordValid
+          />,
         );
       });
 
       it('should render the proper summary for the 1 result.', () => {
         expect(component.find('#search-results-summary').text()).to.deep.equal(
-          'Found about 1 result for "volcano" in databases'
+          'Found about 1 result for "volcano" in databases',
         );
         expect(component.find('#search-results-summary').hasClass('noResultMessage')).to.equal(false);
         expect(component.find('#search-results-summary').hasClass('results-length')).to.equal(true);
+      });
+
+      it('should display a result page with valid results.', () => {
+        expect(component.find('#results').children()).to.have.length(1);
       });
     });
   });

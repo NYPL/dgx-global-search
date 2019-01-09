@@ -31,7 +31,7 @@ history.listen((location) => {
   const resultsStart = 0;
 
   if (action === 'POP') {
-    makeClientApiCall(
+    makeClientApiCall.makeClientApiCall(
       searchKeyword,
       searchFacet,
       resultsStart,
@@ -159,7 +159,7 @@ class App extends React.Component {
       Actions.updateSearchKeyword('');
       Actions.updateSearchData([]);
     } else {
-      makeClientApiCall(
+      makeClientApiCall.makeClientApiCall(
         searchKeyword,
         selectedFacet,
         0,
