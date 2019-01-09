@@ -41,7 +41,6 @@ function decrypt(encrypted, profile, region) {
         if (err) return reject(err);
 
         const decrypted = data.Plaintext.toString('ascii');
-        console.log('here');
         return resolve(decrypted);
       },
     );
