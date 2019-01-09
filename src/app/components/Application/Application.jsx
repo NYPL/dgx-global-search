@@ -15,7 +15,7 @@ import Store from '../../stores/Store';
 import Actions from '../../actions/Actions';
 
 // Import utilities
-import { makeClientApiCall } from '../../utils/MakeClientApiCall';
+import makeClientApiCall from '../../utils/MakeClientApiCall';
 import { createAppHistory } from '../../utils/SearchHistory';
 import { nativeGA } from '../../utils/GAUtils';
 
