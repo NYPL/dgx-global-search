@@ -16,7 +16,7 @@ import Actions from '../../actions/Actions';
 
 // Import utilities
 import makeClientApiCall from '../../utils/MakeClientApiCall';
-import { createAppHistory } from '../../utils/SearchHistory';
+import createAppHistory from '../../utils/SearchHistory';
 import { nativeGA } from '../../utils/GAUtils';
 
 const history = createAppHistory();

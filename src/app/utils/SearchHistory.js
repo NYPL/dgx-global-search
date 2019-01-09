@@ -12,4 +12,4 @@ const createAppHistory = () => {
   return useQueries(createMemoryHistory)();
 };
 
-export { createAppHistory };
+export default createAppHistory;
