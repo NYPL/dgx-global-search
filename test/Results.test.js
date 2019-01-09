@@ -11,7 +11,7 @@ describe('Results', () => {
   ];
 
   describe('Search results summary', () => {
-    describe('if the user visits the main paqgie without a keyword as the pathname', () => {
+    describe('if the user visits the main page without a keyword as the pathname.', () => {
       let component;
 
       before(() => {
@@ -34,7 +34,7 @@ describe('Results', () => {
         component = shallow(<Results isKeywordValid={false} />);
       });
 
-      it('should show the message asking for a search keyword', () => {
+      it('should show the message asking for a search keyword.', () => {
         expect(component.find('#search-results-summary').text())
           .to.deep.equal('Please enter a keyword');
         expect(component.find('#search-results-summary').hasClass('noResultMessage'))
@@ -42,9 +42,13 @@ describe('Results', () => {
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(false);
       });
+
+      it('should display an empty result page.', () => {
+        expect(component.find('#gs-results').isEmpty()).to.equal(true);
+      });
     });
 
-    describe('if there are no results but there is a search keyword', () => {
+    describe('if there are no results but there is a search keyword.', () => {
       let component;
 
       before(() => {
@@ -61,6 +65,10 @@ describe('Results', () => {
           .to.equal(true);
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(false);
+      });
+
+      it('should display an empty result page.', () => {
+        expect(component.find('#gs-results').isEmpty()).to.equal(true);
       });
     });
 
@@ -87,6 +95,10 @@ describe('Results', () => {
           .to.equal(true);
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(false);
+      });
+
+      it('should display an empty result page.', () => {
+        expect(component.find('#gs-results').isEmpty()).to.equal(true);
       });
     });
 
@@ -117,6 +129,10 @@ describe('Results', () => {
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(false);
       });
+
+      it('should display an empty result page.', () => {
+        expect(component.find('#gs-results').isEmpty()).to.equal(true);
+      });
     });
 
     describe('if more than 1 results are returned and a facet other than "All" is selected', () => {
@@ -145,6 +161,12 @@ describe('Results', () => {
           .to.equal(false);
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(true);
+      });
+
+      it('should display a result page with valid results.', () => {
+              // console.log('leeeeeength', component.find('ol').childAt(0).children());
+        // expect(component.find('#gs-results').isEmpty()).to.equal(false);
+        // expect(component.find('#gs-results').children()).to.have.lengthOf(results.length);
       });
     });
 
