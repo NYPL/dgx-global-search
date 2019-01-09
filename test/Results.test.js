@@ -10,7 +10,7 @@ describe('Results', () => {
     { anchor: 'Events', label: 'events_classes', resultSummarydisplayName: 'events' }
   ];
 
-  describe('Search results summary', () => {
+  describe('Search results summary and search results', () => {
     describe('if the user visits the main page without a keyword as the pathname.', () => {
       let component;
 
@@ -24,6 +24,10 @@ describe('Results', () => {
           .to.equal(true);
         expect(component.find('#search-results-summary').hasClass('results-length'))
           .to.equal(false);
+      });
+
+      it('should display an empty result page.', () => {
+        expect(component.find('#results').children()).to.have.length(0);
       });
     });
 
@@ -44,7 +48,7 @@ describe('Results', () => {
       });
 
       it('should display an empty result page.', () => {
-        expect(component.find('#gs-results').isEmpty()).to.equal(true);
+        expect(component.find('#results').children()).to.have.length(0);
       });
     });
 
@@ -68,7 +72,7 @@ describe('Results', () => {
       });
 
       it('should display an empty result page.', () => {
-        expect(component.find('#gs-results').isEmpty()).to.equal(true);
+        expect(component.find('#results').children()).to.have.length(0);
       });
     });
 
@@ -98,7 +102,7 @@ describe('Results', () => {
       });
 
       it('should display an empty result page.', () => {
-        expect(component.find('#gs-results').isEmpty()).to.equal(true);
+        expect(component.find('#results').children()).to.have.length(0);
       });
     });
 
@@ -131,7 +135,7 @@ describe('Results', () => {
       });
 
       it('should display an empty result page.', () => {
-        expect(component.find('#gs-results').isEmpty()).to.equal(true);
+        expect(component.find('#results').children()).to.have.length(0);
       });
     });
 
@@ -164,9 +168,7 @@ describe('Results', () => {
       });
 
       it('should display a result page with valid results.', () => {
-              // console.log('leeeeeength', component.find('ol').childAt(0).children());
-        // expect(component.find('#gs-results').isEmpty()).to.equal(false);
-        // expect(component.find('#gs-results').children()).to.have.lengthOf(results.length);
+        expect(component.find('#results').children()).to.have.length(3);
       });
     });
 
@@ -197,6 +199,10 @@ describe('Results', () => {
         expect(component.find('#search-results-summary').hasClass('noResultMessage')).to.equal(false);
         expect(component.find('#search-results-summary').hasClass('results-length')).to.equal(true);
       });
+
+      it('should display a result page with valid results.', () => {
+        expect(component.find('#results').children()).to.have.length(3);
+      });
     });
 
     describe('if only 1 result is returned', () => {
@@ -223,6 +229,10 @@ describe('Results', () => {
         );
         expect(component.find('#search-results-summary').hasClass('noResultMessage')).to.equal(false);
         expect(component.find('#search-results-summary').hasClass('results-length')).to.equal(true);
+      });
+
+      it('should display a result page with valid results.', () => {
+        expect(component.find('#results').children()).to.have.length(1);
       });
     });
   });
