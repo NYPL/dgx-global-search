@@ -4,11 +4,15 @@
 #### Updated
 - Updating Results.jsx to move the functions related to modeling data out of it.
 - Updating Results.jsx to remove the unnecessary function to parse the snippet of a result item.
-- Tab attributes use tab names instead of numbers
-- The current tab is tracked from the selectedFacet property in the Store
+- Tab attributes use tab names instead of numbers.
+- The current tab is tracked from the selectedFacet property in the Store.
+- Removing the related parameters for displaying loading status on the pages.
 #### Added
 - Adding the instruction message to ask the user to enter a search keyword.
 - Adding the methods to call AWS KMS service to decrypt the API root for search requests.
+- Adding caching. This includes clientWrapper, cacheUtil, and cacheUtil.test
+- Change ApiRoutes to cache results when using axios
+- Document use of redis in README
 
 ### v1.0.1
 #### Updated

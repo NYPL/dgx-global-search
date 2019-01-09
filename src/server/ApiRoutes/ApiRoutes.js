@@ -1,5 +1,7 @@
 import express from 'express';
 import axios from 'axios';
+import cache from './cacheUtil';
+
 import {
   fetchResultLength,
   fetchResultItems,
@@ -7,8 +9,12 @@ import {
 } from '../../app/utils/SearchModel';
 
 const router = express.Router();
-
-const getSearchData = url => axios.get(url);
+const { addCaching } = cache;
+let getSearchData;
+addCaching(url => axios.get(url), !process.env.SKIP_CACHING, null, process.env.APP_ENV)
+  .then((cacheAdded) => {
+    getSearchData = cacheAdded;
+  });
 
 const generateQueryString = (req) => {
   const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
