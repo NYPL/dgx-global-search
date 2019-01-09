@@ -1,14 +1,15 @@
+/* eslint-env mocha */
 import { expect } from 'chai';
 import {
   fetchResultLength,
   fetchResultItems,
   fetchSearchFacetsList,
-} from './../src/app/utils/SearchModel.js';
+} from '../src/app/utils/SearchModel';
 import {
   testData,
   matchedResults,
   presetFacets,
-} from './SearchModelTestExampleData.js';
+} from './SearchModelTestExampleData';
 
 describe('fetchResultLength', () => {
   it('should return 0 if data is undefined or null.', () => {
@@ -32,38 +33,30 @@ describe('fetchResultItems', () => {
   it('should return an item with preset label if labels is undefined or null.',
     () => {
       expect(fetchResultItems(testData.noLabels)).to.deep.equal(matchedResults.presetItem);
-    }
-  );
+    });
 
-  it('should return an item with the first label.displayName as its label if searchRequest is ' +
-    'undefined or null.',
-    () => {
-      expect(fetchResultItems(testData.contentWithHTMLTags)).to.deep.equal(
-        matchedResults.itemWithExhibitionLabel
-      );
-    }
-  );
+  it('should return an item with the first label.displayName as its label if searchRequest is '
+    + 'undefined or null.',
+  () => {
+    expect(fetchResultItems(testData.contentWithHTMLTags)).to.deep.equal(
+      matchedResults.itemWithExhibitionLabel,
+    );
+  });
 
   it('should return an item with the matched label with search facet.',
     () => {
-      expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')
-      ).to.deep.equal(matchedResults.itemWithExhibitionLabel);
-    }
-  );
+      expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')).to.deep.equal(matchedResults.itemWithExhibitionLabel);
+    });
 
   it('should return an item without HTML tags in its title and snippet.',
     () => {
-      expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')
-      ).to.deep.equal(matchedResults.itemWithExhibitionLabel);
-    }
-  );
+      expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')).to.deep.equal(matchedResults.itemWithExhibitionLabel);
+    });
 
   it('should return an item with correct attributes.',
     () => {
-      expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')
-      ).to.deep.equal(matchedResults.itemWithExhibitionLabel);
-    }
-  );
+      expect(fetchResultItems(testData.contentWithHTMLTags, 'apple more:exhibitions')).to.deep.equal(matchedResults.itemWithExhibitionLabel);
+    });
 
   it('should return the converted link of a result item to start with "https" instead of "http".',
     () => {
@@ -71,11 +64,11 @@ describe('fetchResultItems', () => {
         .to.deep.equal(matchedResults.itemWithExhibitionLabel);
     });
 
-  it('should preserve the link of a result item to start with "http" if its domain is specified' +
-    ' as an execption.', () => {
-      expect(fetchResultItems(testData.contentWithUnchangeableHttpLink, 'apple more:exhibitions'))
-        .to.deep.equal(matchedResults.itemWithUnchangeableLink);
-    });
+  it('should preserve the link of a result item to start with "http" if its domain is specified'
+    + ' as an execption.', () => {
+    expect(fetchResultItems(testData.contentWithUnchangeableHttpLink, 'apple more:exhibitions'))
+      .to.deep.equal(matchedResults.itemWithUnchangeableLink);
+  });
 });
 
 describe('fetchSearchFacetsList', () => {

@@ -5,7 +5,7 @@ import {
 } from 'history';
 
 const createAppHistory = () => {
-  if (typeof(window) !== 'undefined') {
+  if (typeof (window) !== 'undefined') {
     return useQueries(createHistory)();
   }
 

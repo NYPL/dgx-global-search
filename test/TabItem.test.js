@@ -1,7 +1,8 @@
+/* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import TabItem from './../src/app/components/TabItem/TabItem.jsx';
+import TabItem from '../src/app/components/TabItem/TabItem';
 
 describe('TabItem', () => {
   let component;
@@ -42,7 +43,7 @@ describe('TabItem', () => {
 
     it('should render 3 list items of the tab list on desktop view.', () => {
       expect(component.find('ul')).to.have.length(1);
-      expect(component.find('ul').find('li')).to.have.length(3)
+      expect(component.find('ul').find('li')).to.have.length(3);
     });
 
     it('should render the list item values with correct anchors.', () => {

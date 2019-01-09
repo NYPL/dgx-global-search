@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const cleanBuild = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const pkg = require('./package.json');
 
 // References the applications root path
 const ROOT_PATH = path.resolve(__dirname);
@@ -40,7 +39,7 @@ const commonSettings = {
     new cleanBuild(['dist']),
     new ExtractTextPlugin('styles.css'),
     new webpack.DefinePlugin({
-      'loadA11y': process.env.loadA11y || false,
+      loadA11y: process.env.loadA11y || false,
       appEnv: JSON.stringify(appEnv),
     }),
   ],
@@ -53,7 +52,7 @@ const commonSettings = {
  * the common app configuration with the
  * additional development specific settings.
  *
-**/
+* */
 // Need to configure webpack-dev-server and hot-reload
 // module correctly.
 if (ENV === 'development') {
@@ -99,7 +98,7 @@ if (ENV === 'development') {
  * the common app configuration with the
  * additional production specific settings.
  *
-**/
+* */
 if (ENV === 'production') {
   module.exports = merge(commonSettings, {
     devtool: 'source-map',
@@ -110,16 +109,16 @@ if (ENV === 'production') {
           exclude: /(node_modules)/,
           loader: ['babel'],
           query: {
-            presets: ['es2015', 'react']
-          }
+            presets: ['es2015', 'react'],
+          },
         },
         {
           test: /\.scss$/,
           include: path.resolve(ROOT_PATH, 'src'),
           loader: ExtractTextPlugin.extract(
             // activate source maps via loader query
-            'css?sourceMap!' +
-            'sass?sourceMap'
+            'css?sourceMap!'
+            + 'sass?sourceMap',
           ),
         },
       ],
