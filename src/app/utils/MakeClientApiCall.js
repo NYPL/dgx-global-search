@@ -40,4 +40,4 @@ const makeClientApiCall = (
   }
 };
 
-export default makeClientApiCall;
+module.exports = { makeClientApiCall };

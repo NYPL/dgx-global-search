@@ -195,7 +195,7 @@ class Results extends React.Component {
     const nextResultCount = resultsStart + incrementResults;
     const originalResultsStart = resultsStart;
 
-    makeClientApiCall(searchKeyword, selectedFacet, nextResultCount,
+    makeClientApiCall.makeClientApiCall(searchKeyword, selectedFacet, nextResultCount,
       (searchResultsItems) => {
         Actions.addMoreSearchData(searchResultsItems);
         Actions.updateResultsStart(nextResultCount);
