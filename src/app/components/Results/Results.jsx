@@ -272,7 +272,7 @@ class Results extends React.Component {
     } = this.state;
 
     let resultsNumberSuggestion;
-    // Converts the string of amount into interger
+    // Converts the string of amount into integer
     // We need to remove the possible thousands separators first
     const amountInt = parseInt(amount.replace(/,/g, ''), 10);
     const textOfResult = amountInt === 1 ? 'result' : 'results';
@@ -342,7 +342,7 @@ class Results extends React.Component {
 
     const results = this.getList(searchResults);
     const inputValue = searchKeyword || '';
-    // Converts the string of amount into interger
+    // Converts the string of amount into integer
     // We need to remove the possible thousands separators first
     const amountInt = parseInt(amount.replace(/,/g, ''), 10);
 
