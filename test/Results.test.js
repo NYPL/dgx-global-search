@@ -214,7 +214,7 @@ describe('Results', () => {
     describe('if only 1 result is returned', () => {
       let component;
       const results = [{}];
-      const amount = results.length;
+      const amount = results.length.toString();
 
       before(() => {
         component = shallow(

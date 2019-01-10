@@ -19,7 +19,7 @@ const fetchResultLength = (data) => {
   try {
     const {
       searchInformation: {
-        formattedTotalResults: totalResults = 0,
+        formattedTotalResults: totalResults = '0',
       },
     } = data;
     return totalResults;
