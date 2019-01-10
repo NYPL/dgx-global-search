@@ -17,7 +17,7 @@ import ReturnLink from '../ReturnLink/ReturnLink';
 
 
 // Import utilities
-import makeClientApiCall from '../../utils/MakeClientApiCall';
+import searchApiCaller from '../../utils/SearchApiCaller';
 import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils';
 import { displayNameForFacet } from '../../utils/TabIndex';
 
@@ -175,9 +175,9 @@ class Results extends React.Component {
 
   /**
    * addMoreResults()
-   * The function calls makeClientApiCall() to get the result data with the new resultsStart value.
-   * When it gets the response data, it adds the new results items to the exist
-   * result array by Actions.addMoreSearchData().
+   * The function calls searchApiCaller.makeClientApiCall() to get the result data
+   * with the new resultsStart value. When it gets the response data,
+   * it adds the new results items to the exist result array by Actions.addMoreSearchData().
    * Finally, it updates the resultsStart in the Store with Actions.updateResultsStart().
    */
   addMoreResults() {
@@ -195,7 +195,7 @@ class Results extends React.Component {
     const nextResultCount = resultsStart + incrementResults;
     const originalResultsStart = resultsStart;
 
-    makeClientApiCall(searchKeyword, selectedFacet, nextResultCount,
+    searchApiCaller.makeClientApiCall(searchKeyword, selectedFacet, nextResultCount,
       (searchResultsItems) => {
         Actions.addMoreSearchData(searchResultsItems);
         Actions.updateResultsStart(nextResultCount);
