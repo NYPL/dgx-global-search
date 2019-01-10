@@ -225,17 +225,8 @@ class Results extends React.Component {
    */
   renderSeeMoreButton(remainingResults) {
     const {
-      amount,
       id,
     } = this.props;
-
-    const {
-      incrementResults,
-    } = this.state;
-
-    if (parseInt(amount, 10) < incrementResults) {
-      return null;
-    }
 
     if (remainingResults <= 0) {
       return (
@@ -263,7 +254,7 @@ class Results extends React.Component {
    * renderResultsNumberSuggestion(resultsLength)
    * Renders the <p> for displaying results summary.
    *
-   * @param {string} resultsLength - the amount of the total result items
+   * @param {number} resultsLength - the amount of the total result items
    * @return {HTML Element} p
    */
   renderResultsNumberSuggestion(resultsLength) {
@@ -281,8 +272,11 @@ class Results extends React.Component {
     } = this.state;
 
     let resultsNumberSuggestion;
-    const textOfResult = parseInt(amount, 10) === 1 ? 'result' : 'results';
-    const resultMessageClass = (parseInt(resultsLength, 10) === 0 || !isKeywordValid)
+    // Converts the string of amount into interger
+    // We need to remove the possible thousands separators first
+    const amountInt = parseInt(amount.replace(/,/g, ''), 10);
+    const textOfResult = amountInt === 1 ? 'result' : 'results';
+    const resultMessageClass = (resultsLength === 0 || !isKeywordValid)
       ? 'noResultMessage' : `${className}-length`;
 
     if (!searchKeyword) {
@@ -348,6 +342,9 @@ class Results extends React.Component {
 
     const results = this.getList(searchResults);
     const inputValue = searchKeyword || '';
+    // Converts the string of amount into interger
+    // We need to remove the possible thousands separators first
+    const amountInt = parseInt(amount.replace(/,/g, ''), 10);
 
     return (
       <div className={`${className}-wrapper`}>
@@ -381,7 +378,7 @@ class Results extends React.Component {
             </ol>
             {
               results.length % 10 === 0
-              && this.renderSeeMoreButton(Math.min(parseInt(amount, 10) - results.length, 10))
+              && this.renderSeeMoreButton(Math.min(amountInt - results.length, 10))
             }
             <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
           </div>
