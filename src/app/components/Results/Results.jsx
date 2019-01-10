@@ -226,7 +226,20 @@ class Results extends React.Component {
   renderSeeMoreButton(remainingResults) {
     const {
       id,
+      amount,
     } = this.props;
+
+    const {
+      incrementResults,
+    } = this.state;
+
+    // Converts the string of amount into interger
+    // We need to remove the possible thousands separators first
+    const amountInt = parseInt(amount.replace(/[^0-9]+/g, ''), 10);
+
+    if (amountInt < incrementResults) {
+      return null;
+    }
 
     if (remainingResults <= 0) {
       return (
@@ -274,7 +287,7 @@ class Results extends React.Component {
     let resultsNumberSuggestion;
     // Converts the string of amount into interger
     // We need to remove the possible thousands separators first
-    const amountInt = parseInt(amount.replace(/,/g, ''), 10);
+    const amountInt = parseInt(amount.replace(/[^0-9]+/g, ''), 10);
     const textOfResult = amountInt === 1 ? 'result' : 'results';
     const resultMessageClass = (resultsLength === 0 || !isKeywordValid)
       ? 'noResultMessage' : `${className}-length`;
@@ -344,7 +357,7 @@ class Results extends React.Component {
     const inputValue = searchKeyword || '';
     // Converts the string of amount into interger
     // We need to remove the possible thousands separators first
-    const amountInt = parseInt(amount.replace(/,/g, ''), 10);
+    const amountInt = parseInt(amount.replace(/[^0-9]+/g, ''), 10);
 
     return (
       <div className={`${className}-wrapper`}>
