@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import Application from '../src/app/components/Application/Application';
 import Actions from '../src/app/actions/Actions';
-import makeClientApiCall from '../src/app/utils/MakeClientApiCall';
+import searchApiCaller from '../src/app/utils/SearchApiCaller';
 
 describe('Application', () => {
   describe('after component mounted', () => {
@@ -43,7 +43,7 @@ describe('Application', () => {
     const updateIsKeywordValidSpy = sinon.spy(Actions, 'updateIsKeywordValid');
     const updateSearchKeywordSpy = sinon.spy(Actions, 'updateSearchKeyword');
     const updateSearchDataSpy = sinon.spy(Actions, 'updateSearchData');
-    const makeClientApiCallSpy = sinon.spy(makeClientApiCall, 'makeClientApiCall');
+    const makeClientApiCallSpy = sinon.spy(searchApiCaller, 'makeClientApiCall');
 
     describe('if there is no valid search keyword', () => {
       let component;

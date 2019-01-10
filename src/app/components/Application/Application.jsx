@@ -15,7 +15,7 @@ import Store from '../../stores/Store';
 import Actions from '../../actions/Actions';
 
 // Import utilities
-import makeClientApiCall from '../../utils/MakeClientApiCall';
+import searchApiCaller from '../../utils/SearchApiCaller';
 import { createAppHistory } from '../../utils/SearchHistory';
 import { nativeGA } from '../../utils/GAUtils';
 
@@ -31,7 +31,7 @@ history.listen((location) => {
   const resultsStart = 0;
 
   if (action === 'POP') {
-    makeClientApiCall.makeClientApiCall(
+    searchApiCaller.makeClientApiCall(
       searchKeyword,
       searchFacet,
       resultsStart,
@@ -159,7 +159,7 @@ class App extends React.Component {
       Actions.updateSearchKeyword('');
       Actions.updateSearchData([]);
     } else {
-      makeClientApiCall.makeClientApiCall(
+      searchApiCaller.makeClientApiCall(
         searchKeyword,
         selectedFacet,
         0,
