@@ -33,7 +33,9 @@ Import style rules from App components
 @import "components/PaginationButton";
 @import "components/_ReturnLink";
 
-*:focus {outline: none;}
+*:focus {
+  outline: none;
+}
 
 
 #app {
