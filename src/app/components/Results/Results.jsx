@@ -372,6 +372,7 @@ class Results extends React.Component {
           <div
             tabIndex="0"
             role="tabpanel"
+            className="tabPanel"
             aria-labelledby={`link_${displayNameForFacet(selectedFacet)}`}
           >
             <div className="clear-float" />
