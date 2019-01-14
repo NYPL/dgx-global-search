@@ -349,8 +349,8 @@ class App extends React.Component {
                 tabs={searchFacets}
                 selectedFacet={selectedFacet}
                 searchBySelectedFacetFunction={this.searchBySelectedFacetFunction}
-                />
-              </div>
+              />
+            </div>
           </div>
           {resultsComponentData}
         </main>
