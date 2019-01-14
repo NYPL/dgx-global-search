@@ -10,6 +10,7 @@ import Results from '../Results/Results';
 import InputField from '../InputField/InputField';
 import SearchButton from '../SearchButton/SearchButton';
 import TabItem from '../TabItem/TabItem';
+import ResultsNumberSuggestion from '../ResultsNumberSuggestion/ResultsNumberSuggestion';
 
 // Import alt components
 import Store from '../../stores/Store';
@@ -284,6 +285,7 @@ class App extends React.Component {
         queriesForGA={queriesForGA}
         searchBySelectedFacetFunction={this.searchBySelectedFacet}
         isKeywordValid={isKeywordValid}
+        suggestion={this.suggestion}
       />
     );
   }
@@ -301,9 +303,9 @@ class App extends React.Component {
     return (
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
-        <main id="gs-mainContent" className="gs-mainContent" tabIndex="-1">
+        <main id="gs-mainContent" tabIndex="-1">
           <div className="gs-header">
-            <div aria-label="NYPL Site Search" role="search">
+            <div className="gs-mainContent" aria-label="NYPL Site Search" role="search">
               <h1>NYPL.org Search</h1>
               <div id="gs-operations" className="gs-operations">
                 <div id="gs-searchField" className="gs-searchField">
@@ -339,13 +341,16 @@ class App extends React.Component {
                   </a>
                 </div>
               </div>
-            </div>
-            <TabItem
-              id="gs-tabs"
-              tabs={searchFacets}
-              selectedFacet={selectedFacet}
-              searchBySelectedFacetFunction={this.searchBySelectedFacetFunction}
-            />
+              <ResultsNumberSuggestion
+                ref={(input) => { this.suggestion = input; }}
+              />
+              <TabItem
+                id="gs-tabs"
+                tabs={searchFacets}
+                selectedFacet={selectedFacet}
+                searchBySelectedFacetFunction={this.searchBySelectedFacetFunction}
+                />
+              </div>
           </div>
           {resultsComponentData}
         </main>

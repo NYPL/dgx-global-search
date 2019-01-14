@@ -347,6 +347,7 @@ class Results extends React.Component {
       searchKeyword,
       selectedFacet,
       tabs,
+      suggestion,
     } = this.props;
 
     const {
@@ -358,10 +359,11 @@ class Results extends React.Component {
     // Converts the string of amount into integer
     // We need to remove the possible thousands separators first
     const amountInt = parseInt(amount.replace(/[^0-9]+/g, ''), 10);
-
+    if (suggestion) {
+      suggestion.update(this.renderResultsNumberSuggestion(results.length));
+    }
     return (
-      <div className={`${className}-wrapper`}>
-        {this.renderResultsNumberSuggestion(results.length)}
+      <div className={`minHeight gs-mainContent ${className}-wrapper`}>
         {typeof results.length !== 'undefined' && results.length !== 0 ? (
           <div
             tabIndex="0"

@@ -47,18 +47,27 @@ header {
   z-index: 1001;
 }
 
-.gs-mainContent:focus {
-  outline: none;
-}
-.gs-mainContent {
-  @include grid-span(3, 1);
-
-  position: relative;
-
+.minHeight {
   @include layout-at(9, $tablet-landscape) {
     box-sizing: border-box;
     min-height: 860px;
   }
+}
+
+.gs-header {
+  display: inline-block;
+  width: 100vw;
+  background-color: $LIGHTGRAY_COLOR;
+  border-bottom: 2px solid $BLACK_COLOR;
+  margin: 0;
+}
+
+.gs-mainContent {
+
+
+  @include grid-span(3, 1);
+
+  position: relative;
 
   @include min-screen($desktop) {
     box-sizing: content-box;
@@ -90,21 +99,6 @@ header {
     }
   }
 
-.gs-header {
-
-  display: inline-block;
-
-  @include min-screen($tablet-landscape){
-    background-color: $LIGHTGRAY_COLOR;
-    border-bottom: 2px solid $BLACK_COLOR;
-    margin: 0;
-  }
-
-  @include min-screen($desktop){
-    margin: 0 -9999rem;
-    padding: 0.25rem 9999rem;
-  }
-}
 
   .gs-operations {
     display: block;
