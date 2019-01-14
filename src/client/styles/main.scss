@@ -77,6 +77,22 @@ header {
     padding: 0;
   }
 
+  .gs-results-length {
+    @include layout-at(8, $tablet-landscape) {
+      @include grid-span(8, 1);
+    }
+
+    color: $BLACK_COLOR;
+    font-size: 18px;
+    line-height: 1.25;
+    margin: 16px 0 16px 0;
+    width: 100%;
+
+    @include min-screen($tablet-landscape){
+      margin: 16px 0 16px 0;
+    }
+  }
+
   h1 {
     @include Kievit-Book;
 
