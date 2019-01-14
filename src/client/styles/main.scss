@@ -68,9 +68,9 @@ header {
   @include grid-span(3, 1);
 
   position: relative;
-
+  box-sizing: border-box;
   @include min-screen($desktop) {
-    box-sizing: content-box;
+    box-sizing: border-box;
     float: none;
     margin: 0 auto;
     width: 1333px;
@@ -162,7 +162,7 @@ header {
 
       &:hover {
         text-decoration: underline;
-        transition: text-decordation $DURATION_LONG ease;
+        transition: text-decoration $DURATION_LONG ease;
       }
     }
   }
