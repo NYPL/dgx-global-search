@@ -359,6 +359,7 @@ class Results extends React.Component {
     // Converts the string of amount into integer
     // We need to remove the possible thousands separators first
     const amountInt = parseInt(amount.replace(/[^0-9]+/g, ''), 10);
+    console.log('suggestion:', suggestion)
     if (suggestion) {
       suggestion.update(this.renderResultsNumberSuggestion(results.length));
     }

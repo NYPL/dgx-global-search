@@ -19,9 +19,22 @@ class ResultsNumberSuggestion extends React.Component {
       results,
     } = this.state;
     return (
-      <div>
-        {results}
-      </div>
+      (results
+        ? (
+          <div>
+            {results}
+          </div>
+        )
+        : (
+          <p
+            id="search-results-summary"
+            className="noResultMessage"
+            aria-live="polite"
+            aria-atomic="true"
+            data-reactid="223"
+          />
+        )
+      )
     );
   }
 }
