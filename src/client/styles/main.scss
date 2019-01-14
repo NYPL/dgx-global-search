@@ -64,7 +64,7 @@ header {
 
 .gs-mainContent {
 
-
+  @include Kievit-Book
   @include grid-span(3, 1);
 
   position: relative;
@@ -91,6 +91,12 @@ header {
     @include min-screen($tablet-landscape){
       margin: 16px 0 16px 0;
     }
+  }
+
+  .noResultMessage {
+    @extend .gs-results-length;
+
+    color: $WARNING_COLOR;
   }
 
   h1 {
