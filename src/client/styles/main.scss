@@ -47,6 +47,9 @@ header {
   z-index: 1001;
 }
 
+.gs-mainContent:focus {
+  outline: none;
+}
 .gs-mainContent {
   @include grid-span(3, 1);
 
@@ -88,6 +91,8 @@ header {
   }
 
 .gs-header {
+
+  display: inline-block;
 
   @include min-screen($tablet-landscape){
     background-color: $LIGHTGRAY_COLOR;

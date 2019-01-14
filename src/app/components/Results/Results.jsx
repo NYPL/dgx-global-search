@@ -362,12 +362,6 @@ class Results extends React.Component {
     return (
       <div className={`${className}-wrapper`}>
         {this.renderResultsNumberSuggestion(results.length)}
-        <TabItem
-          id="gs-tabs"
-          tabs={tabs}
-          selectedFacet={selectedFacet}
-          searchBySelectedFacetFunction={searchBySelectedFacetFunction}
-        />
         {typeof results.length !== 'undefined' && results.length !== 0 ? (
           <div
             tabIndex="0"
@@ -375,17 +369,6 @@ class Results extends React.Component {
             aria-labelledby={`link_${displayNameForFacet(selectedFacet)}`}
           >
             <div className="clear-float" />
-            <DivideLineIcon
-              ariaHidden
-              className={`${className}-divideLineIcon`}
-              height="4"
-              length="84"
-              stroke="transparent"
-              strokeWidth="4"
-              title="divide.line.icon.svg"
-              viewBox="0 0 84 4"
-              width="84"
-            />
             <ol id={id} className={className}>
               {results}
             </ol>

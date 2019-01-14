@@ -9,6 +9,7 @@ import Footer from '@nypl/dgx-react-footer';
 import Results from '../Results/Results';
 import InputField from '../InputField/InputField';
 import SearchButton from '../SearchButton/SearchButton';
+import TabItem from '../TabItem/TabItem';
 
 // Import alt components
 import Store from '../../stores/Store';
@@ -292,6 +293,7 @@ class App extends React.Component {
       resultsComponentData,
       searchKeyword,
       selectedFacet,
+      searchFacets,
     } = this.state;
     const inputValue = searchKeyword || '';
     const inputPlaceholder = 'What would you like to find?';
@@ -336,11 +338,16 @@ class App extends React.Component {
                     {'Find books, music, or movies instead >'}
                   </a>
                 </div>
-
               </div>
-              {resultsComponentData}
             </div>
+            <TabItem
+              id="gs-tabs"
+              tabs={searchFacets}
+              selectedFacet={selectedFacet}
+              searchBySelectedFacetFunction={this.searchBySelectedFacetFunction}
+            />
           </div>
+          {resultsComponentData}
         </main>
         <Footer id="footer" className="footer" />
       </div>
