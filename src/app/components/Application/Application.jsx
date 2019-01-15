@@ -73,8 +73,6 @@ class App extends React.Component {
       Store.getState(),
     );
 
-    this.suggestion = [];
-
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
@@ -300,7 +298,6 @@ class App extends React.Component {
         queriesForGA={queriesForGA}
         searchBySelectedFacetFunction={this.searchBySelectedFacet}
         isKeywordValid={isKeywordValid}
-        suggestion={this.suggestion}
       />
     );
   }

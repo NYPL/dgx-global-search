@@ -359,10 +359,6 @@ class Results extends React.Component {
     // Converts the string of amount into integer
     // We need to remove the possible thousands separators first
     const amountInt = parseInt(amount.replace(/[^0-9]+/g, ''), 10);
-    console.log('suggestion:', suggestion)
-    if (suggestion[0]) {
-      suggestion[0].update(this.renderResultsNumberSuggestion(results.length));
-    }
     return (
       <div className="gs-mainContent">
         <div className={`minHeight ${className}-wrapper`}>
