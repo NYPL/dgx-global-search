@@ -25,7 +25,7 @@ class ResultsItem extends React.Component {
    */
   createMarkup(text) {
     const searchKeyword = Store.getState().searchKeyword;
-    const modifiedText = text.split(' ').map(word => word.toLowerCase().includes(searchKeyword) ? `<b>${word}</b>` : word).join(' ');
+    const modifiedText = text.replace(new RegExp(searchKeyword, "gi"), match => `<b>${match}</b>`);
     console.log(searchKeyword, text, modifiedText, { __html: modifiedText })
     return ({ __html: modifiedText });
   }
