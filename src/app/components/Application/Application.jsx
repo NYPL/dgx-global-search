@@ -341,18 +341,20 @@ class App extends React.Component {
                   </a>
                 </div>
               </div>
-              <ResultsNumberSuggestion
-                ref={(input) => { this.suggestion = input; }}
-              />
-              <TabItem
-                id="gs-tabs"
-                tabs={searchFacets}
-                selectedFacet={selectedFacet}
-                searchBySelectedFacetFunction={this.searchBySelectedFacetFunction}
-              />
+              <div className="gs-results-wrapper">
+                <ResultsNumberSuggestion
+                  ref={(input) => { this.suggestion = input; }}
+                  />
+                <TabItem
+                  id="gs-tabs"
+                  tabs={searchFacets}
+                  selectedFacet={selectedFacet}
+                  searchBySelectedFacetFunction={this.searchBySelectedFacetFunction}
+                  />
+              </div>
             </div>
           </div>
-          {resultsComponentData}
+            {resultsComponentData}
         </main>
         <Footer id="footer" className="footer" />
       </div>

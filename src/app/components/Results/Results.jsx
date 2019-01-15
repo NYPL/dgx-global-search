@@ -364,24 +364,26 @@ class Results extends React.Component {
       suggestion.update(this.renderResultsNumberSuggestion(results.length));
     }
     return (
-      <div className={`minHeight gs-mainContent ${className}-wrapper`}>
-        {typeof results.length !== 'undefined' && results.length !== 0 ? (
-          <div
-            tabIndex="0"
-            role="tabpanel"
-            aria-labelledby={`link_${displayNameForFacet(selectedFacet)}`}
-          >
-            <div className="clear-float" />
-            <ol id={id} className={className}>
-              {results}
-            </ol>
-            {
-              results.length % 10 === 0
-              && this.renderSeeMoreButton(Math.min(amountInt - results.length, 10))
-            }
-            <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
-          </div>
-        ) : null}
+      <div className="gs-mainContent">
+        <div className={`minHeight ${className}-wrapper`}>
+          {typeof results.length !== 'undefined' && results.length !== 0 ? (
+            <div
+              tabIndex="0"
+              role="tabpanel"
+              aria-labelledby={`link_${displayNameForFacet(selectedFacet)}`}
+            >
+              <div className="clear-float" />
+              <ol id={id} className={className}>
+                {results}
+              </ol>
+              {
+                results.length % 10 === 0
+                && this.renderSeeMoreButton(Math.min(amountInt - results.length, 10))
+              }
+              <ReturnLink linkRoot="/search/apachesolr_search/" inputValue={inputValue} />
+            </div>
+          ) : null}
+        </div>
       </div>
     );
   }
