@@ -344,9 +344,9 @@ class App extends React.Component {
                   </a>
                 </div>
               </div>
-                <ResultsNumberSuggestion
-                  ref={(input) => { console.log('input', input); if (input) { this.suggestion[0] = input; } }}
-                />
+              <ResultsNumberSuggestion
+                ref={(input) => { console.log('input', input); if (input) { this.suggestion[0] = input; } }}
+              />
               <div className="gs-results-wrapper">
                 <TabItem
                   id="gs-tabs"
