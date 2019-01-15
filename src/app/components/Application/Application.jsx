@@ -377,8 +377,8 @@ class App extends React.Component {
                   </a>
                 </div>
               </div>
-              {resultsNumberSuggestion}
               <div className="gs-results-wrapper">
+                {resultsNumberSuggestion}
                 <TabItem
                   id="gs-tabs"
                   tabs={searchFacets}
