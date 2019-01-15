@@ -21,13 +21,13 @@ class ResultsNumberSuggestion extends React.Component {
 
     if (results) {
       return (
-        <div>
+        <div className="gs-results-wrapper">
           {results}
         </div>
       );
     }
     return (
-      <div>
+      <div className="gs-results-wrapper">
         <p
           id="search-results-summary"
           className="noResultMessage"

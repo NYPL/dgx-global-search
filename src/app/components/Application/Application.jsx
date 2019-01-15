@@ -73,6 +73,8 @@ class App extends React.Component {
       Store.getState(),
     );
 
+    this.suggestion = [];
+
     this.onChange = this.onChange.bind(this);
     this.inputChange = this.inputChange.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
@@ -342,10 +344,10 @@ class App extends React.Component {
                   </a>
                 </div>
               </div>
-              <div className="gs-results-wrapper">
                 <ResultsNumberSuggestion
-                  ref={(input) => { this.suggestion = input; }}
+                  ref={(input) => { console.log('input', input); if (input) { this.suggestion[0] = input; } }}
                 />
+              <div className="gs-results-wrapper">
                 <TabItem
                   id="gs-tabs"
                   tabs={searchFacets}

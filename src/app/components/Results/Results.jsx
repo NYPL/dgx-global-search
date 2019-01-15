@@ -360,8 +360,8 @@ class Results extends React.Component {
     // We need to remove the possible thousands separators first
     const amountInt = parseInt(amount.replace(/[^0-9]+/g, ''), 10);
     console.log('suggestion:', suggestion)
-    if (suggestion) {
-      suggestion.update(this.renderResultsNumberSuggestion(results.length));
+    if (suggestion[0]) {
+      suggestion[0].update(this.renderResultsNumberSuggestion(results.length));
     }
     return (
       <div className="gs-mainContent">
