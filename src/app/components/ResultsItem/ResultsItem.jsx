@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils.js';
+// Import alt components
+import Store from '../../stores/Store';
 
 class ResultsItem extends React.Component {
   constructor(props) {
@@ -22,7 +24,10 @@ class ResultsItem extends React.Component {
    * @return {object}
    */
   createMarkup(text) {
-    return ({ __html: text });
+    const searchKeyword = Store.getState().searchKeyword;
+    const modifiedText = text.split('').map(word => word === searchKeyword ? `<b>${word}</b>` : word).join('');
+    console.log({ __html: modifiedText })
+    return ({ __html: modifiedText });
   }
 
   /**
