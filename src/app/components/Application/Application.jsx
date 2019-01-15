@@ -299,6 +299,7 @@ class App extends React.Component {
     } = this.state;
     const inputValue = searchKeyword || '';
     const inputPlaceholder = 'What would you like to find?';
+    console.log(302)
 
     return (
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
@@ -344,13 +345,13 @@ class App extends React.Component {
               <div className="gs-results-wrapper">
                 <ResultsNumberSuggestion
                   ref={(input) => { this.suggestion = input; }}
-                  />
+                />
                 <TabItem
                   id="gs-tabs"
                   tabs={searchFacets}
                   selectedFacet={selectedFacet}
                   searchBySelectedFacetFunction={this.searchBySelectedFacetFunction}
-                  />
+                />
               </div>
             </div>
           </div>
