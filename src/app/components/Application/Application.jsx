@@ -331,8 +331,6 @@ class App extends React.Component {
     } = this.state;
     const inputValue = searchKeyword || '';
     const inputPlaceholder = 'What would you like to find?';
-    console.log(302)
-
     return (
       <div id="nyplGlobalSearchApp" className="nyplGlobalSearchApp">
         <Header navData={navConfig.current} skipNav={{ target: 'gs-mainContent' }} />
