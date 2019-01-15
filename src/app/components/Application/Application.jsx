@@ -81,6 +81,7 @@ class App extends React.Component {
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
     this.searchBySelectedFacet = this.searchBySelectedFacet.bind(this);
+    this.renderResultsNumberSuggestion = this.renderResultsNumberSuggestion.bind(this);
   }
 
   // Setting state in componentWillMount() helps us render the results for the first time before
@@ -89,6 +90,12 @@ class App extends React.Component {
   componentWillMount() {
     this.setState({
       resultsComponentData: this.renderResults(
+        Store.getState().searchKeyword,
+        Store.getState().searchData,
+        Store.getState().searchDataLength,
+        Store.getState().isKeywordValid,
+      ),
+      resultsNumberSuggestion: this.renderResultsNumberSuggestion(
         Store.getState().searchKeyword,
         Store.getState().searchData,
         Store.getState().searchDataLength,
@@ -113,6 +120,12 @@ class App extends React.Component {
       searchKeyword: Store.getState().searchKeyword,
       selectedFacet: Store.getState().selectedFacet,
       resultsComponentData: this.renderResults(
+        Store.getState().searchKeyword,
+        Store.getState().searchData,
+        Store.getState().searchDataLength,
+        Store.getState().isKeywordValid,
+      ),
+      resultsNumberSuggestion: this.renderResultsNumberSuggestion(
         Store.getState().searchKeyword,
         Store.getState().searchData,
         Store.getState().searchDataLength,
@@ -292,8 +305,28 @@ class App extends React.Component {
     );
   }
 
+  renderResultsNumberSuggestion(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid) {
+    const {
+      searchFacets,
+      selectedFacet,
+    } = this.state;
+
+    return (
+      <ResultsNumberSuggestion
+        amount={searchResultsLength}
+        className="gs-results"
+        searchKeyword={searchKeyword}
+        selectedFacet={selectedFacet}
+        tabs={searchFacets}
+        isKeywordValid={isKeywordValid}
+        resultsLength={searchResultsLength}
+      />
+    );
+  }
+
   render() {
     const {
+      resultsNumberSuggestion,
       resultsComponentData,
       searchKeyword,
       selectedFacet,
@@ -344,9 +377,7 @@ class App extends React.Component {
                   </a>
                 </div>
               </div>
-              <ResultsNumberSuggestion
-                ref={(input) => { console.log('input', input); if (input) { this.suggestion[0] = input; } }}
-              />
+              {resultsNumberSuggestion}
               <div className="gs-results-wrapper">
                 <TabItem
                   id="gs-tabs"
