@@ -378,7 +378,7 @@ class App extends React.Component {
                   id="gs-tabs"
                   tabs={searchFacets}
                   selectedFacet={selectedFacet}
-                  searchBySelectedFacetFunction={this.searchBySelectedFacetFunction}
+                  searchBySelectedFacetFunction={this.searchBySelectedFacet}
                 />
               </div>
             </div>
