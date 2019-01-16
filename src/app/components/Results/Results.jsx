@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // Import libraries
 import { contains as _contains, map as _map } from 'underscore';
-import { DivideLineIcon, DownWedgeIcon } from '@nypl/dgx-svg-icons';
+import { DownWedgeIcon } from '@nypl/dgx-svg-icons';
 import { BasicButton } from 'dgx-react-buttons';
 
 // Import alt components
@@ -12,7 +12,6 @@ import Actions from '../../actions/Actions';
 
 // Import components
 import ResultsItem from '../ResultsItem/ResultsItem';
-import TabItem from '../TabItem/TabItem';
 import ReturnLink from '../ReturnLink/ReturnLink';
 
 
@@ -268,11 +267,8 @@ class Results extends React.Component {
       amount,
       className,
       id,
-      searchBySelectedFacetFunction,
       searchKeyword,
       selectedFacet,
-      tabs,
-      suggestion,
     } = this.props;
 
     const {
@@ -316,12 +312,9 @@ Results.propTypes = {
   results: PropTypes.arrayOf(PropTypes.object),
   amount: PropTypes.string,
   searchKeyword: PropTypes.string,
-  isKeywordValid: PropTypes.bool,
   resultsStart: PropTypes.number,
   selectedFacet: PropTypes.string,
   queriesForGA: PropTypes.objectOf(PropTypes.any),
-  tabs: PropTypes.arrayOf(PropTypes.object),
-  searchBySelectedFacetFunction: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
@@ -330,11 +323,9 @@ Results.defaultProps = {
   results: [],
   amount: '0',
   searchKeyword: '',
-  isKeywordValid: true,
   resultsStart: 0,
   selectedFacet: '',
   queriesForGA: {},
-  tabs: [],
 };
 
 export default Results;
