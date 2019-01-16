@@ -16,7 +16,7 @@ const ResultsNumberSuggestion = (props) => {
   // We need to remove the possible thousands separators first
   const amountInt = parseInt(amount.replace(/[^0-9]+/g, ''), 10);
   const textOfResult = amountInt === 1 ? 'result' : 'results';
-  const resultMessageClass = (resultsLength === "0" || !isKeywordValid)
+  const resultMessageClass = (resultsLength === '0' || !isKeywordValid)
     ? 'noResultMessage' : `${className}-length`;
 
   if (!searchKeyword) {

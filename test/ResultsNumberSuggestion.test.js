@@ -149,6 +149,7 @@ describe('ResultsNumberSuggestion', () => {
           searchKeyword="okapi"
           selectedFacet="articles_databases"
           isKeywordValid
+          className="results"
         />,
       );
     });
@@ -164,20 +165,59 @@ describe('ResultsNumberSuggestion', () => {
     });
   });
 
+  describe('if more than 1 results are returned and the facet "All" is selected', () => {
+    let component;
+    const results = [{}, {}, {}];
+    const amount = results.length.toString();
+
+    before(() => {
+      component = shallow(
+        <ResultsNumberSuggestion
+          tabs={tabs}
+          amount={amount}
+          resultsLength={amount}
+          searchKeyword="okapi"
+          selectedFacet=""
+          isKeywordValid
+          className="results"
+        />,
+      );
+    });
+
+    it('should render the proper summary for the results.', () => {
+      expect(component.find('#search-results-summary').text()).to.deep.equal(
+        'Found about 3 results for "okapi"',
+      );
+      expect(component.find('#search-results-summary').hasClass('noResultMessage')).to.equal(false);
+      expect(component.find('#search-results-summary').hasClass('results-length')).to.equal(true);
+    });
+  });
+
+  describe('if only 1 result is returned', () => {
+    let component;
+    const results = [{}];
+    const amount = results.length.toString();
+
+    before(() => {
+      component = shallow(
+        <ResultsNumberSuggestion
+          tabs={tabs}
+          amount={amount}
+          resultsLength={amount}
+          searchKeyword="volcano"
+          selectedFacet="articles_databases"
+          isKeywordValid
+          className="results"
+        />,
+      );
+    });
+
+    it('should render the proper summary for the 1 result.', () => {
+      expect(component.find('#search-results-summary').text()).to.deep.equal(
+        'Found about 1 result for "volcano" in databases',
+      );
+      expect(component.find('#search-results-summary').hasClass('noResultMessage')).to.equal(false);
+      expect(component.find('#search-results-summary').hasClass('results-length')).to.equal(true);
+    });
+  });
 });
-      //                         it('should render the proper summary for the results.', () => {
-      //                           expect(component.find('#search-results-summary').text()).to.deep.equal(
-      //                             'Found about 3 results for "okapi"',
-      //                           );
-      //                           expect(component.find('#search-results-summary').hasClass('noResultMessage')).to.equal(false);
-      //                           expect(component.find('#search-results-summary').hasClass('results-length')).to.equal(true);
-      //                         });
-      //
-      //
-      //                               it('should render the proper summary for the 1 result.', () => {
-      //                                 expect(component.find('#search-results-summary').text()).to.deep.equal(
-      //                                   'Found about 1 result for "volcano" in databases',
-      //                                 );
-      //                                 expect(component.find('#search-results-summary').hasClass('noResultMessage')).to.equal(false);
-      //                                 expect(component.find('#search-results-summary').hasClass('results-length')).to.equal(true);
-      //                               });
