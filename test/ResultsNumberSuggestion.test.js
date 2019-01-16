@@ -19,7 +19,7 @@ describe('ResultsNumberSuggestion', () => {
           isKeywordValid
           amount="0"
           resultsLength="0"
-        />
+        />,
       );
     });
 
@@ -137,7 +137,7 @@ describe('ResultsNumberSuggestion', () => {
 
   describe('if more than 1 results are returned and a facet other than "All is selected"', () => {
     let component;
-    const results = [{},{},{}];
+    const results = [{}, {}, {}];
     const amount = results.length.toString();
 
     before(() => {
