@@ -302,7 +302,9 @@ class App extends React.Component {
     );
   }
 
-  renderResultsNumberSuggestion(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid) {
+  renderResultsNumberSuggestion(
+    searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid,
+  ) {
     const {
       searchFacets,
       selectedFacet,
@@ -383,7 +385,7 @@ class App extends React.Component {
               </div>
             </div>
           </div>
-            {resultsComponentData}
+          {resultsComponentData}
         </main>
         <Footer id="footer" className="footer" />
       </div>
