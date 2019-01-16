@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ResultsNumberSuggestion = (props) => {
   const {
@@ -30,7 +31,7 @@ const ResultsNumberSuggestion = (props) => {
       resultsNumberSuggestion = '';
     }
   } else {
-    resultsNumberSuggestion = (resultsLength === "0")
+    resultsNumberSuggestion = (resultsLength === '0')
       ? 'No results were found'
       : `Found about ${amount.toLocaleString()} ${textOfResult} for `
       + `"${searchKeyword}"`;
@@ -58,11 +59,31 @@ const ResultsNumberSuggestion = (props) => {
       // Assigns the key to the element for telling React that this element should be re-rendered
       // every time when making a search request, even if the final result is
       // the same as previous. Therefore, aria-live can be picked up by screen readers.
-      key='results-number-suggestion'
+      key="results-number-suggestion"
     >
       {resultsNumberSuggestion}
     </p>
   );
-}
+};
+
+ResultsNumberSuggestion.propTypes = {
+  amount: PropTypes.string,
+  className: PropTypes.string,
+  searchKeyword: PropTypes.string,
+  selectedFacet: PropTypes.string,
+  tabs: PropTypes.arrayOf(PropTypes.object),
+  isKeywordValid: PropTypes.bool,
+  resultsLength: PropTypes.string,
+};
+
+ResultsNumberSuggestion.defaultProps = {
+  amount: '0',
+  className: 'results',
+  searchKeyword: '',
+  isKeywordValid: true,
+  selectedFacet: '',
+  tabs: [],
+  resultsLength: '0',
+};
 
 export default ResultsNumberSuggestion;
