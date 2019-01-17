@@ -294,7 +294,7 @@ class Results extends React.Component {
       ? 'noResultMessage' : `${className}-length`;
 
     if (error) {
-      resultsNumberSuggestion = "Search results aren't currently available. Please check back later. (API communication error)";
+      resultsNumberSuggestion = "Search results aren't currently available. Please check back later.";
     } else if (!searchKeyword) {
       if (!isKeywordValid) {
         // Show 'Please enter a keyword' only if pressing a tab or
