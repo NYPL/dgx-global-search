@@ -14,6 +14,7 @@ let getSearchData;
 addCaching(url => axios.get(url), !process.env.SKIP_CACHING, null, process.env.APP_ENV)
   .then((cacheAdded) => {
     getSearchData = cacheAdded;
+    getSearchData = () => Promise.reject(new Error(''));
   });
 
 const generateQueryString = (req) => {
@@ -95,6 +96,10 @@ const requestResultsFromClient = (req, res) => {
     .catch((error) => {
       console.log(`error calling API : ${JSON.stringify(error)}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
+      res.status(500);
+      res.json({
+        searchResultsItems: [],
+      });
     });
 };
 

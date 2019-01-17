@@ -31,10 +31,10 @@ const makeClientApiCall = (
       .get(`/search/request/api/${requestParameter}?start=${start.toString()}`)
       .then((response) => {
         const { searchResultsItems, resultLength } = response.data;
-
         callbackFunction(searchResultsItems, resultLength);
       })
       .catch((error) => {
+        console.log("response: ", JSON.stringify(error, null, 2))
         console.log(`error calling API to search '${requestParameter}': ${error}`);
       });
   }
