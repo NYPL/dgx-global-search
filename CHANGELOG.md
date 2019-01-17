@@ -1,5 +1,9 @@
 ## Changelog
 
+### v1.1.1
+#### Updated
+- Adding bolding of search keyword in result snippets and titles 
+
 ### v1.1.0
 #### Updated
 - Updating Results.jsx to move the functions related to modeling data out of it.
