@@ -272,7 +272,6 @@ class App extends React.Component {
    * @return {object} object
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid, error) {
-
     const {
       tabIdValue,
       searchFacets,

@@ -1,6 +1,6 @@
-import Actions from '../actions/Actions.js';
-import filterNames from '../utils/FilterNames.js';
 import alt from 'dgx-alt-center';
+import Actions from '../actions/Actions';
+import filterNames from '../utils/FilterNames';
 
 class SearchStore {
   constructor() {
