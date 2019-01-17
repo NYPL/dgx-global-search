@@ -99,7 +99,7 @@ const requestResultsFromClient = (req, res) => {
       res.json(searchModeled);
     })
     .catch((error) => {
-      console.log(`error calling API : ${JSON.stringify(error)}`);
+      console.log(`error calling API : ${JSON.stringify(error, null, 2)}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
     });
 };
