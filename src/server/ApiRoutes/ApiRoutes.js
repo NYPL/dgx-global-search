@@ -64,7 +64,7 @@ const requestSearchResult = (req, res, next) => {
         SearchStore: {
           searchRequest: '',
           searchData: [],
-          searchDataLength: 0,
+          searchDataLength: '0',
           searchFacets: fetchSearchFacetsList(),
           error,
           queriesForGA,
