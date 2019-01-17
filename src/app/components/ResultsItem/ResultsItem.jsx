@@ -6,8 +6,6 @@ class ResultsItem extends React.Component {
   constructor(props) {
     super(props);
 
-    this.createMarkup = this.createMarkup.bind(this);
-    this.generateWholeRowClass = this.generateWholeRowClass.bind(this);
     this.renderTitle = this.renderTitle.bind(this);
     this.renderImage = this.renderImage.bind(this);
     this.sendGAClickthroughEvent = this.sendGAClickthroughEvent.bind(this);
@@ -60,7 +58,9 @@ class ResultsItem extends React.Component {
     if (event) {
       if (event.keyCode === 13 || event.key === 'Enter') {
         this.sendGAClickthroughEvent(index, target, event);
-        window.location = link;
+        // we should test if we can remove this
+        // It might cause problem with mobile
+        // window.location = link;
       }
     }
   }
