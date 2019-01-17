@@ -46,6 +46,7 @@ history.listen((location) => {
           searchedFrom: 'betasearch',
           timestamp: new Date().getTime(),
         });
+        Actions.updateError(false);
       },
       () => {
         Actions.updateSearchKeyword('');
@@ -54,6 +55,7 @@ history.listen((location) => {
           searchedFrom: 'betasearch',
           timestamp: new Date().getTime(),
         });
+        Actions.updateError(false);
       },
       this.errorCallback,
     );
@@ -191,6 +193,7 @@ class App extends React.Component {
             searchedFrom: 'betasearch',
             timestamp: new Date().getTime(),
           });
+          Actions.updateError(false);
         },
         () => {
           Actions.updateSearchKeyword('');
@@ -199,6 +202,7 @@ class App extends React.Component {
             searchedFrom: 'betasearch',
             timestamp: new Date().getTime(),
           });
+          Actions.updateError(false);
         },
         this.errorCallback,
       );

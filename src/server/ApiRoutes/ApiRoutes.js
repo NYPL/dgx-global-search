@@ -50,6 +50,7 @@ const requestSearchResult = (req, res, next) => {
           resultsStart: 0,
           searchFacets: fetchSearchFacetsList(),
           queriesForGA,
+          error: false,
         },
         completeApiUrl: searchApiUrl,
       };
