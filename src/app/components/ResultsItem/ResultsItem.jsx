@@ -27,7 +27,7 @@ class ResultsItem extends React.Component {
     const {
       searchKeyword,
     } = this.props;
-    const modifiedText = text.replace(new RegExp(searchKeyword, 'gi'), match => `<b>${match}</b>`);
+    const modifiedText = text.replace(new RegExp(searchKeyword, 'gi'), match => `<strong class="gs-results-bold">${match}</strong>`);
     return ({ __html: modifiedText });
   }
 

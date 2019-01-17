@@ -65,10 +65,6 @@ header {
     padding: 0;
   }
 
-  b {
-    @include Kievit-Medium;
-  }
-
   h1 {
     @include Kievit-Book;
 
