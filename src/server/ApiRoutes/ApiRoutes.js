@@ -14,7 +14,6 @@ let getSearchData;
 addCaching(url => axios.get(url), !process.env.SKIP_CACHING, null, process.env.APP_ENV)
   .then((cacheAdded) => {
     getSearchData = cacheAdded;
-    getSearchData = () => Promise.reject(new Error(''));
   });
 
 const generateQueryString = (req) => {
