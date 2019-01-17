@@ -86,17 +86,13 @@ class App extends React.Component {
   // the component making any client call. This is for the situation of the user who gets to the
   // main page with a search term
   componentWillMount() {
-    const {
-      error,
-    } = this.state;
-
     this.setState({
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
         Store.getState().searchDataLength,
         Store.getState().isKeywordValid,
-        error,
+        Store.getState().error,
       ),
     });
   }
@@ -113,9 +109,6 @@ class App extends React.Component {
 
   onChange() {
     // Updates the state with the new search data
-    const {
-      error,
-    } = this.state;
     this.setState({
       searchKeyword: Store.getState().searchKeyword,
       selectedFacet: Store.getState().selectedFacet,
@@ -124,7 +117,7 @@ class App extends React.Component {
         Store.getState().searchData,
         Store.getState().searchDataLength,
         Store.getState().isKeywordValid,
-        error,
+        Store.getState().error,
       ),
       queriesForGA: Store.getState().queriesForGA,
     });
@@ -156,9 +149,8 @@ class App extends React.Component {
 
 
   errorCallback() {
-    this.setState({
-      error: true,
-    }, () => this.onChange());
+    console.log(152)
+    Actions.updateError(true);
   }
 
   /**
@@ -281,6 +273,8 @@ class App extends React.Component {
    * @return {object} object
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid, error) {
+
+    console.log(277)
     const {
       tabIdValue,
       searchFacets,

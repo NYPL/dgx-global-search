@@ -67,6 +67,7 @@ const requestSearchResult = (req, res, next) => {
           searchData: [],
           searchDataLength: 0,
           searchFacets: fetchSearchFacetsList(),
+          error,
           queriesForGA,
         },
       };
