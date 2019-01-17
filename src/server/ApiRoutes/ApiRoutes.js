@@ -10,11 +10,19 @@ import {
 
 const router = express.Router();
 const { addCaching } = cache;
+const errorMessage = {
+  searchResultsItems: [
+    {
+      title: 'There seems to be a problem with the search website. Please try again later',
+    },
+  ],
+};
 let getSearchData;
 addCaching(url => axios.get(url), !process.env.SKIP_CACHING, null, process.env.APP_ENV)
   .then((cacheAdded) => {
     getSearchData = cacheAdded;
   });
+
 
 const generateQueryString = (req) => {
   const searchFilter = (req.params.searchFilter) ? ` more:${req.params.searchFilter}` : '';
@@ -95,6 +103,7 @@ const requestResultsFromClient = (req, res) => {
     .catch((error) => {
       console.log(`error calling API : ${JSON.stringify(error)}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
+      res.json(errorMessage);
     });
 };
 
