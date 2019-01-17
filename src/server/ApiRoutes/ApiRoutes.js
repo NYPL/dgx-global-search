@@ -21,6 +21,11 @@ let getSearchData;
 addCaching(url => axios.get(url), !process.env.SKIP_CACHING, null, process.env.APP_ENV)
   .then((cacheAdded) => {
     getSearchData = cacheAdded;
+  })
+  .catch((error) => {
+    console.log('Error adding caching with: ', process.env.SKIP_CACHING, process.env.APP_ENV);
+    console.log('addCaching error: ', JSON.stringify(error, null, 2));
+    getSearchData = url => axios.get(url);
   });
 
 
