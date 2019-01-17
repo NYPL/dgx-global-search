@@ -23,26 +23,11 @@ class ResultsItem extends React.Component {
     const {
       searchKeyword,
     } = this.props;
-    const modifiedText = text.replace(new RegExp(searchKeyword, 'gi'), match => `<strong class="gs-results-bold">${match}</strong>`);
+    const modifiedText = text.replace(
+      new RegExp(searchKeyword, 'gi'),
+      match => `<strong class="gs-results-bold">${match}</strong>`,
+    );
     return ({ __html: modifiedText });
-  }
-
-  /**
-   * generateWholeRowClass(src)
-   * The function generates the class name for the component based on the exsistence
-   * of the image data.
-   * If no image data, the class name will be 'whole-row' so the html element will be
-   * applied to the matched styles.
-   *
-   * @param {string} src
-   * @return {string}
-   */
-  generateWholeRowClass(src) {
-    if (!src) {
-      return 'whole-row';
-    }
-
-    return '';
   }
 
   /**
@@ -55,9 +40,9 @@ class ResultsItem extends React.Component {
    * @param {object} event
    */
   triggerGASend(index, target, event) {
-    const {
-      link,
-    } = this.props;
+    // const {
+    //   link,
+    // } = this.props;
 
     if (event) {
       if (event.keyCode === 13 || event.key === 'Enter') {
@@ -87,7 +72,8 @@ class ResultsItem extends React.Component {
       queriesForGA,
     } = this.props;
 
-    // Check if a click through has already happened once. We only send the first click through
+    // Check if a click through has already happened once.
+    // We only send the first click through
     if (!isGAClickThroughClicked) {
       updateGAClickThroughClicked(true);
       // Index is 0-based, we need ordinality to start at 1.
@@ -146,11 +132,11 @@ class ResultsItem extends React.Component {
       index,
     } = this.props;
     const newTitle = title || 'No Title for this Item';
-    const visuallyHiddenClass = title ? '' : 'visuallyHidden';
+    const visuallyHiddenClass = title ? '' : ' visuallyHidden';
 
     return (
       <h2
-        className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
+        className={`${className}-title${wholeRowClass}${visuallyHiddenClass}`}
         role="presentation"
         dangerouslySetInnerHTML={this.createMarkup(newTitle)}
         onClick={(e) => {
@@ -223,20 +209,20 @@ class ResultsItem extends React.Component {
       snippet,
     } = this.props;
 
-    const wholeRowClass = this.generateWholeRowClass(thumbnailSrc);
+    const wholeRowClass = (!thumbnailSrc) ? ' whole-row' : '';
 
     return (
       <li
         id={`${id}-${index}`}
-        className={`${className} ${wholeRowClass}`}
+        className={`${className}${wholeRowClass}`}
       >
         <p
-          className={`${className}-label ${wholeRowClass}`}
+          className={`${className}-label${wholeRowClass}`}
         >
           {label}
         </p>
         <a
-          className={`${className}-link ${wholeRowClass}`}
+          className={`${className}-link${wholeRowClass}`}
           href={link}
           ref={`result-${index}-item`}
           onKeyDown={(e) => { this.triggerGASend(index, 'ResultTitle', e); }}
@@ -245,12 +231,12 @@ class ResultsItem extends React.Component {
           {this.renderTitle(title, className, wholeRowClass)}
         </a>
         <p
-          className={`${className}-linkText ${wholeRowClass}`}
+          className={`${className}-linkText${wholeRowClass}`}
         >
           {link}
         </p>
         <p
-          className={`${className}-snippet ${wholeRowClass}`}
+          className={`${className}-snippet${wholeRowClass}`}
           dangerouslySetInnerHTML={this.createMarkup(snippet)}
         />
       </li>
