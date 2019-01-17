@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils.js';
+import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils';
 
 class ResultsItem extends React.Component {
   constructor(props) {
     super(props);
 
-    this.createMarkup = this.createMarkup.bind(this);
-    this.generateWholeRowClass = this.generateWholeRowClass.bind(this);
     this.renderTitle = this.renderTitle.bind(this);
     this.renderImage = this.renderImage.bind(this);
     this.sendGAClickthroughEvent = this.sendGAClickthroughEvent.bind(this);
@@ -22,25 +20,14 @@ class ResultsItem extends React.Component {
    * @return {object}
    */
   createMarkup(text) {
-    return ({ __html: text });
-  }
-
-  /**
-   * generateWholeRowClass(src)
-   * The function generates the class name for the component based on the exsistence
-   * of the image data.
-   * If no image data, the class name will be 'whole-row' so the html element will be
-   * applied to the matched styles.
-   *
-   * @param {string} src
-   * @return {string}
-   */
-  generateWholeRowClass(src) {
-    if (!src) {
-      return 'whole-row';
-    }
-
-    return '';
+    const {
+      searchKeyword,
+    } = this.props;
+    const modifiedText = text.replace(
+      new RegExp(searchKeyword, 'gi'),
+      match => `<strong class="gs-results-bold">${match}</strong>`,
+    );
+    return ({ __html: modifiedText });
   }
 
   /**
@@ -53,10 +40,16 @@ class ResultsItem extends React.Component {
    * @param {object} event
    */
   triggerGASend(index, target, event) {
+    // const {
+    //   link,
+    // } = this.props;
+
     if (event) {
       if (event.keyCode === 13 || event.key === 'Enter') {
         this.sendGAClickthroughEvent(index, target, event);
-        window.location = this.props.link;
+        // we should test if we can remove this
+        // It might cause problem with mobile
+        // window.location = link;
       }
     }
   }
@@ -71,9 +64,18 @@ class ResultsItem extends React.Component {
    * @param {object} event - The event happened to the element
    */
   sendGAClickthroughEvent(index, target, event) {
-    // Check if a click through has already happened once. We only send the first click through
-    if (!this.props.isGAClickThroughClicked) {
-      this.props.updateGAClickThroughClicked(true);
+    const {
+      isGAClickThroughClicked,
+      updateGAClickThroughClicked,
+      searchKeyword,
+      timeToLoadResults,
+      queriesForGA,
+    } = this.props;
+
+    // Check if a click through has already happened once.
+    // We only send the first click through
+    if (!isGAClickThroughClicked) {
+      updateGAClickThroughClicked(true);
       // Index is 0-based, we need ordinality to start at 1.
       const ordinality = (Number.isInteger(index)) ? index + 1 : 0;
       let clickTarget = target;
@@ -81,7 +83,7 @@ class ResultsItem extends React.Component {
 
       // Only on the first 10 results we want to track the CTR event
       if (ordinality < 11) {
-              // Detect the key click combo and add the result to Dimension3/ClickTarget
+        // Detect the key click combo and add the result to Dimension3/ClickTarget
         if (event) {
           if (event.ctrlKey || event.metaKey) {
             clickTarget += 'Keyed';
@@ -98,16 +100,16 @@ class ResultsItem extends React.Component {
           isCTRSent = true;
           nativeGA(
             'Clickthrough',
-            this.props.searchKeyword,
+            searchKeyword,
             ordinality,
-            generateSearchedFrom(this.props.timeToLoadResults, this.props.queriesForGA),
+            generateSearchedFrom(timeToLoadResults, queriesForGA),
             clickTarget,
             () => {
               setTimeout(() => { isCTRSent = false; }, 200);
               if (event.isDefaultPrevented) {
                 event.target.click();
               }
-            }
+            },
           );
         }
       }
@@ -126,39 +128,45 @@ class ResultsItem extends React.Component {
    * @return {object}
    */
   renderTitle(title, className, wholeRowClass) {
+    const {
+      index,
+    } = this.props;
     const newTitle = title || 'No Title for this Item';
-    const visuallyHiddenClass = title ? '' : 'visuallyHidden';
+    const visuallyHiddenClass = title ? '' : ' visuallyHidden';
 
     return (
       <h2
-        className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
+        className={`${className}-title${wholeRowClass}${visuallyHiddenClass}`}
+        role="presentation"
         dangerouslySetInnerHTML={this.createMarkup(newTitle)}
         onClick={(e) => {
-          this.sendGAClickthroughEvent(this.props.index, 'ResultTitle', e);
+          this.sendGAClickthroughEvent(index, 'ResultTitle', e);
         }}
         // Add the event listener to right click
         onContextMenu={(e) => {
           this.sendGAClickthroughEvent(
-            this.props.index,
+            index,
             'ResultTitleContextmenu',
-            e
+            e,
           );
         }}
-      >
-      </h2>
+      />
     );
   }
 
   /**
-   * renderImage(className, src, title)
+   * renderImage(className, src)
    * The function renders <img> if this.props.thumbnailSrc is true.
    *
    * @param {string} className
    * @param {string} src
-   * @param {string} title
    * @return null or {object}
    */
-  renderImage(className, src, title) {
+  renderImage(className, src) {
+    const {
+      index,
+    } = this.props;
+
     if (!src) {
       return null;
     }
@@ -166,16 +174,17 @@ class ResultsItem extends React.Component {
     return (
       <div
         className={`${className}-imageWrapper`}
+        role="presentation"
         onClick={(e) => {
-          this.sendGAClickthroughEvent(this.props.index, 'ResultPicture', e);
+          this.sendGAClickthroughEvent(index, 'ResultPicture', e);
         }}
 
         // Add the event listener to right click
         onContextMenu={(e) => {
           this.sendGAClickthroughEvent(
-            this.props.index,
+            index,
             'ResultPictureContextmenu',
-            e
+            e,
           );
         }}
       >
@@ -189,37 +198,47 @@ class ResultsItem extends React.Component {
   }
 
   render() {
-    const wholeRowClass = this.generateWholeRowClass(this.props.thumbnailSrc);
+    const {
+      id,
+      label,
+      index,
+      thumbnailSrc,
+      title,
+      link,
+      className,
+      snippet,
+    } = this.props;
+
+    const wholeRowClass = (!thumbnailSrc) ? ' whole-row' : '';
 
     return (
       <li
-        id={`${this.props.id}-${this.props.index}`}
-        className={`${this.props.className} ${wholeRowClass}`}
+        id={`${id}-${index}`}
+        className={`${className}${wholeRowClass}`}
       >
         <p
-          className={`${this.props.className}-label ${wholeRowClass}`}
+          className={`${className}-label${wholeRowClass}`}
         >
-          {this.props.label}
+          {label}
         </p>
         <a
-          className={`${this.props.className}-link ${wholeRowClass}`}
-          href={this.props.link}
-          ref={`result-${this.props.index}-item`}
-          onKeyDown={(e) => { this.triggerGASend(this.props.index, 'ResultTitle', e); }}
+          className={`${className}-link${wholeRowClass}`}
+          href={link}
+          ref={`result-${index}-item`}
+          onKeyDown={(e) => { this.triggerGASend(index, 'ResultTitle', e); }}
         >
-          {this.renderImage(this.props.className, this.props.thumbnailSrc, this.props.title)}
-          {this.renderTitle(this.props.title, this.props.className, wholeRowClass)}
+          {this.renderImage(className, thumbnailSrc, title)}
+          {this.renderTitle(title, className, wholeRowClass)}
         </a>
         <p
-          className={`${this.props.className}-linkText ${wholeRowClass}`}
+          className={`${className}-linkText${wholeRowClass}`}
         >
-          {this.props.link}
+          {link}
         </p>
         <p
-          className={`${this.props.className}-snippet ${wholeRowClass}`}
-          dangerouslySetInnerHTML={this.createMarkup(this.props.snippet)}
-        >
-        </p>
+          className={`${className}-snippet${wholeRowClass}`}
+          dangerouslySetInnerHTML={this.createMarkup(snippet)}
+        />
       </li>
     );
   }
@@ -234,19 +253,25 @@ ResultsItem.propTypes = {
   snippet: PropTypes.string,
   thumbnailSrc: PropTypes.string,
   label: PropTypes.string,
-  wholeRowClass: PropTypes.string,
   isGAClickThroughClicked: PropTypes.bool,
   updateGAClickThroughClicked: PropTypes.func,
   searchKeyword: PropTypes.string,
   timeToLoadResults: PropTypes.number,
-  queriesForGA: PropTypes.object,
+  queriesForGA: PropTypes.objectOf(PropTypes.any),
 };
 
 ResultsItem.defaultProps = {
-  lang: 'en',
   id: 'resultsItem',
   className: 'resultsItem',
   index: 0,
+  title: '',
+  link: '',
+  snippet: '',
+  thumbnailSrc: '',
+  label: '',
+  isGAClickThroughClicked: false,
+  updateGAClickThroughClicked: () => {},
+  searchKeyword: '',
   timeToLoadResults: '',
   queriesForGA: {},
 };
