@@ -94,7 +94,7 @@ DO:
 - Check that there are no errors
 - Check the logs to make sure the correct endpoint is being used
 - At this point the old API keys can be deleted
-- If there is a problem with the new API keys, the easiest way to restore production to a working set up is to remove the IP
+- If there is a problem with the new API keys, the easiest way to restore production to a working state is to remove the IP
 restrictions from the new key
 
 #### PR Review and Deployment with Travis
