@@ -3,6 +3,8 @@
 ### v1.1.1
 #### Added
 - Added error handling for adding caching
+#### Updated
+- Adding bolding of search keyword in result snippets and titles 
 
 ### v1.1.0
 #### Updated

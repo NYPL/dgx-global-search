@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils.js';
+import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils';
 
 class ResultsItem extends React.Component {
   constructor(props) {
@@ -22,7 +22,11 @@ class ResultsItem extends React.Component {
    * @return {object}
    */
   createMarkup(text) {
-    return ({ __html: text });
+    const {
+      searchKeyword,
+    } = this.props;
+    const modifiedText = text.replace(new RegExp(searchKeyword, 'gi'), match => `<strong class="gs-results-bold">${match}</strong>`);
+    return ({ __html: modifiedText });
   }
 
   /**
@@ -53,10 +57,13 @@ class ResultsItem extends React.Component {
    * @param {object} event
    */
   triggerGASend(index, target, event) {
+    const {
+      link,
+    } = this.props;
     if (event) {
       if (event.keyCode === 13 || event.key === 'Enter') {
         this.sendGAClickthroughEvent(index, target, event);
-        window.location = this.props.link;
+        window.location = link;
       }
     }
   }
@@ -71,9 +78,16 @@ class ResultsItem extends React.Component {
    * @param {object} event - The event happened to the element
    */
   sendGAClickthroughEvent(index, target, event) {
+    const {
+      isGAClickThroughClicked,
+      updateGAClickThroughClicked,
+      searchKeyword,
+      timeToLoadResults,
+      queriesForGA,
+    } = this.props;
     // Check if a click through has already happened once. We only send the first click through
-    if (!this.props.isGAClickThroughClicked) {
-      this.props.updateGAClickThroughClicked(true);
+    if (!isGAClickThroughClicked) {
+      updateGAClickThroughClicked(true);
       // Index is 0-based, we need ordinality to start at 1.
       const ordinality = (Number.isInteger(index)) ? index + 1 : 0;
       let clickTarget = target;
@@ -81,7 +95,7 @@ class ResultsItem extends React.Component {
 
       // Only on the first 10 results we want to track the CTR event
       if (ordinality < 11) {
-              // Detect the key click combo and add the result to Dimension3/ClickTarget
+      // Detect the key click combo and add the result to Dimension3/ClickTarget
         if (event) {
           if (event.ctrlKey || event.metaKey) {
             clickTarget += 'Keyed';
@@ -98,16 +112,16 @@ class ResultsItem extends React.Component {
           isCTRSent = true;
           nativeGA(
             'Clickthrough',
-            this.props.searchKeyword,
+            searchKeyword,
             ordinality,
-            generateSearchedFrom(this.props.timeToLoadResults, this.props.queriesForGA),
+            generateSearchedFrom(timeToLoadResults, queriesForGA),
             clickTarget,
             () => {
               setTimeout(() => { isCTRSent = false; }, 200);
               if (event.isDefaultPrevented) {
                 event.target.click();
               }
-            }
+            },
           );
         }
       }
