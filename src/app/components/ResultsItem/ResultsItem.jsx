@@ -147,6 +147,7 @@ class ResultsItem extends React.Component {
     return (
       <h2
         className={`${className}-title ${wholeRowClass} ${visuallyHiddenClass}`}
+        role="presentation"
         dangerouslySetInnerHTML={this.createMarkup(newTitle)}
         onClick={(e) => {
           this.sendGAClickthroughEvent(index, 'ResultTitle', e);
@@ -183,6 +184,7 @@ class ResultsItem extends React.Component {
     return (
       <div
         className={`${className}-imageWrapper`}
+        role="presentation"
         onClick={(e) => {
           this.sendGAClickthroughEvent(index, 'ResultPicture', e);
         }}
