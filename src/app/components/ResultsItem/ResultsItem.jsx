@@ -20,7 +20,11 @@ class ResultsItem extends React.Component {
    * @return {object}
    */
   createMarkup(text) {
-    return ({ __html: text });
+    const {
+      searchKeyword,
+    } = this.props;
+    const modifiedText = text.replace(new RegExp(searchKeyword, 'gi'), match => `<strong class="gs-results-bold">${match}</strong>`);
+    return ({ __html: modifiedText });
   }
 
   /**
