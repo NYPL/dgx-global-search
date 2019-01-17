@@ -55,6 +55,7 @@ history.listen((location) => {
           timestamp: new Date().getTime(),
         });
       },
+      this.errorCallback,
     );
   }
 });
@@ -67,6 +68,7 @@ class App extends React.Component {
       {
         resultsComponentData: null,
         isGAQuerySent: false,
+        error: false,
       },
       Store.getState(),
     );
@@ -77,18 +79,24 @@ class App extends React.Component {
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
     this.searchBySelectedFacet = this.searchBySelectedFacet.bind(this);
+    this.errorCallback = this.errorCallback.bind(this);
   }
 
   // Setting state in componentWillMount() helps us render the results for the first time before
   // the component making any client call. This is for the situation of the user who gets to the
   // main page with a search term
   componentWillMount() {
+    const {
+      error,
+    } = this.state;
+
     this.setState({
       resultsComponentData: this.renderResults(
         Store.getState().searchKeyword,
         Store.getState().searchData,
         Store.getState().searchDataLength,
         Store.getState().isKeywordValid,
+        error,
       ),
     });
   }
@@ -105,6 +113,9 @@ class App extends React.Component {
 
   onChange() {
     // Updates the state with the new search data
+    const {
+      error,
+    } = this.state;
     this.setState({
       searchKeyword: Store.getState().searchKeyword,
       selectedFacet: Store.getState().selectedFacet,
@@ -113,6 +124,7 @@ class App extends React.Component {
         Store.getState().searchData,
         Store.getState().searchDataLength,
         Store.getState().isKeywordValid,
+        error,
       ),
       queriesForGA: Store.getState().queriesForGA,
     });
@@ -140,6 +152,13 @@ class App extends React.Component {
    */
   searchBySelectedFacet(selectedFacet = '') {
     this.triggerGAThenSubmit(selectedFacet);
+  }
+
+
+  errorCallback() {
+    this.setState({
+      error: true,
+    }, () => this.onChange());
   }
 
   /**
@@ -191,6 +210,7 @@ class App extends React.Component {
             timestamp: new Date().getTime(),
           });
         },
+        this.errorCallback,
       );
     }
   }
@@ -260,7 +280,7 @@ class App extends React.Component {
    * @param {boolean} isKeywordValid
    * @return {object} object
    */
-  renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid) {
+  renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid, error) {
     const {
       tabIdValue,
       searchFacets,
@@ -283,6 +303,7 @@ class App extends React.Component {
         queriesForGA={queriesForGA}
         searchBySelectedFacetFunction={this.searchBySelectedFacet}
         isKeywordValid={isKeywordValid}
+        error={error}
       />
     );
   }

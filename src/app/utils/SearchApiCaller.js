@@ -6,13 +6,15 @@ import axios from 'axios';
  * The function makes a client side API call to request the data for search results.
  * After it gets the data successfully, it executes the callback function it has passed to.
  * Generally, the callback function will serve to update Store.js with the methods of Actions.js.
- * If it is not assigned with a valid keyword, it executes the callback fucntion for no keyword.
+ * If it is not assigned with a valid keyword, it executes the callback function for no keyword.
+ * If there is an error making the axios call, it executes callbackFunctionError.
  *
  * @param {string} keyword
  * @param {string} facet
  * @param {number} start
  * @param {function} callbackFunction
  * @param {function} callbackFunctionNoKeyword
+ * @param {function} callbackFunctionError
  */
 const makeClientApiCall = (
   keyword = '',
@@ -20,6 +22,7 @@ const makeClientApiCall = (
   start = 0,
   callbackFunction = null,
   callbackFunctionNoKeyword = null,
+  callbackFunctionError,
 ) => {
   const searchFilter = (facet) ? ` more:${facet}` : '';
   const requestParameter = `${keyword}${searchFilter}`;
@@ -34,7 +37,7 @@ const makeClientApiCall = (
         callbackFunction(searchResultsItems, resultLength);
       })
       .catch((error) => {
-        console.log("response: ", JSON.stringify(error, null, 2))
+        callbackFunctionError();
         console.log(`error calling API to search '${requestParameter}': ${error}`);
       });
   }
