@@ -149,7 +149,6 @@ class App extends React.Component {
 
 
   errorCallback() {
-    console.log(152)
     Actions.updateError(true);
   }
 
@@ -274,7 +273,6 @@ class App extends React.Component {
    */
   renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid, error) {
 
-    console.log(277)
     const {
       tabIdValue,
       searchFacets,

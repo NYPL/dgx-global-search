@@ -285,8 +285,6 @@ class Results extends React.Component {
       timeToLoadResults,
     } = this.state;
 
-    console.log('error', error)
-
     let resultsNumberSuggestion;
     // Converts the string of amount into integer
     // We need to remove the possible thousands separators first
