@@ -68,7 +68,6 @@ class App extends React.Component {
       {
         resultsComponentData: null,
         isGAQuerySent: false,
-        error: false,
       },
       Store.getState(),
     );
