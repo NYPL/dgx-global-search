@@ -86,6 +86,16 @@ const generateClient = (customClient = null, appEnv = null, region = 'us-east-1'
   return appEnv
     ? kms.decrypt(redisHosts[appEnv], null, region)
       .then(data => new ClientWrapper(data))
+      .catch((error) => {
+        console.log(
+          'error decrypting redis host with: ',
+          'redisHosts: ', JSON.stringify(redisHosts, null, 2),
+          'appEnv: ', appEnv,
+          'region: ', region,
+        );
+        console.log('generateCLient decryption error: ', JSON.stringify(error, null, 2));
+        return new ClientWrapper();
+      })
     : Promise.resolve(new ClientWrapper());
 };
 
