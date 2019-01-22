@@ -40,16 +40,9 @@ class ResultsItem extends React.Component {
    * @param {object} event
    */
   triggerGASend(index, target, event) {
-    // const {
-    //   link,
-    // } = this.props;
-
     if (event) {
       if (event.keyCode === 13 || event.key === 'Enter') {
         this.sendGAClickthroughEvent(index, target, event);
-        // we should test if we can remove this
-        // It might cause problem with mobile
-        // window.location = link;
       }
     }
   }
