@@ -57,7 +57,6 @@ const requestSearchResult = (req, res, next) => {
           queriesForGA,
           error: false,
         },
-        completeApiUrl: searchApiUrl,
       };
 
       next();
