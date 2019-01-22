@@ -67,7 +67,7 @@ $ APP_ENV=production NODE_ENV=production npm start // Starts localhost:3001 with
 ### Deployment
 NYPL Digital uses Travis to help deploy this application. With the configurations in .travis.yml, we can deploy the branch we want by just pushing it and then Travis will take care of the deployment.
 
-Now we have three environments, `nypl-global-search-production`, `nypl-global-search-qa`, and `nypl-global-search-development`. They are deployed from three branches respectively, `master`, `qa`, and `development`. Once the feature branch is merged into one of these three branches and then pushed, Travis will start to run installation and execute tests. If the tests are passed, Travis will start to deploy to AWS.
+Now we have three environments, `nypl-global-search-production`, `nypl-global-search-qa`, and `nypl-global-search-development`. They are deployed from three branches respectively, `master`, `qa`, and `development`. Once the feature branch is merged into one of these three branches and then pushed, Travis will start to run installation and execute tests. If the tests are passed, Travis will start to deploy to AWS. If a new environment is created, make sure it can access our API endpoint by adding its public IP to the IP restrictions of the API key in the Google console.
 
 We can track the activities of Travis here,
 https://travis-ci.org/NYPL/dgx-global-search
@@ -76,6 +76,26 @@ https://travis-ci.org/NYPL/dgx-global-search
 https://console.aws.amazon.com
 
 You will need the credentials. Please contact NYPL Digital if you need one.
+
+### Updating API Keys
+
+We have IP restrictions for our Google CSE API keys. These API keys have to be updated for security reasons, and should
+be updated with caution.
+
+DO:
+
+- Make sure of the IP addresses for qa and production EC2 instances. These can be found by ssh-ing onto the instance
+(note that there are two production instances)
+- Generate a new API key with the new IP addresses and the NYPL address (this is done in Google console)
+- Change the API_ROOT environment variable on AWS in qa to match this API key
+- Check that it is still working. Remember it can take a few minutes for the API key and environment variable updates to take effect
+- Check that production EC2 instances can hit CSE using the new endpoint
+- Update the production API_ROOT environment variable AND the endpoints in appConfig
+- Check that there are no errors
+- Check the logs to make sure the correct endpoint is being used
+- At this point the old API keys can be deleted
+- If there is a problem with the new API keys, the easiest way to restore production to a working state is to remove the IP
+restrictions from the new key
 
 #### PR Review and Deployment with Travis
 CREATING A NEW BRANCH
