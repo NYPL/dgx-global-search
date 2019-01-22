@@ -37,6 +37,10 @@ class Actions {
   updateQueriesForGA(data) {
     return data;
   }
+
+  updateError(data) {
+    return data;
+  }
 }
 
 export default alt.createActions(Actions);
