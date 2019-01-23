@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const cleanBuild = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const pkg = require('./package.json');
 
 // References the applications root path
 const ROOT_PATH = path.resolve(__dirname);
@@ -40,7 +39,7 @@ const commonSettings = {
     new cleanBuild(['dist']),
     new ExtractTextPlugin('styles.css'),
     new webpack.DefinePlugin({
-      'loadA11y': process.env.loadA11y || false,
+      loadA11y: process.env.loadA11y || false,
       appEnv: JSON.stringify(appEnv),
     }),
   ],
@@ -53,7 +52,7 @@ const commonSettings = {
  * the common app configuration with the
  * additional development specific settings.
  *
-**/
+ **/
 // Need to configure webpack-dev-server and hot-reload
 // module correctly.
 if (ENV === 'development') {
