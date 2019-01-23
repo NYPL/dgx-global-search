@@ -44,7 +44,6 @@ const requestSearchResult = (req, res, next) => {
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const { data } = searchData;
-
       res.locals.data = {
         SearchStore: {
           searchKeyword: req.params.searchRequest,
