@@ -25,7 +25,7 @@ const fetchResultLength = (data) => {
     return totalResults;
   } catch (e) {
     console.log(e);
-    return 0;
+    return '0';
   }
 };
 
