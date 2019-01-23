@@ -44,7 +44,6 @@ const requestSearchResult = (req, res, next) => {
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const { data } = searchData;
-
       res.locals.data = {
         SearchStore: {
           searchKeyword: req.params.searchRequest,
@@ -68,7 +67,7 @@ const requestSearchResult = (req, res, next) => {
         SearchStore: {
           searchRequest: '',
           searchData: [],
-          searchDataLength: 0,
+          searchDataLength: '0',
           searchFacets: fetchSearchFacetsList(),
           queriesForGA,
         },

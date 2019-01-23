@@ -1,9 +1,9 @@
 // Import libraries
 import { ga } from 'dgx-react-ga';
-import gaConfig from '../../../gaConfig.js';
 import {
   extend as _extend,
 } from 'underscore';
+import gaConfig from '../../../gaConfig';
 
 /**
  * generateSearchedFrom(time, queriesForGA)
@@ -40,16 +40,14 @@ const generateSearchedFrom = (time, queriesForGA) => {
 
   if ((timeToLoadResults - querySentTime) > 60000) {
     searchedFrom = 'DirectLink';
+  } else if (querySentFrom === 'header_search') {
+    searchedFrom = 'HeaderSearch';
+  } else if (querySentFrom === 'betasearch_link') {
+    searchedFrom = 'BetaSearchLink';
+  } else if (querySentFrom === 'betasearch') {
+    searchedFrom = 'BetaSearchForm';
   } else {
-    if (querySentFrom === 'header_search') {
-      searchedFrom = 'HeaderSearch';
-    } else if (querySentFrom === 'betasearch_link') {
-      searchedFrom = 'BetaSearchLink';
-    } else if (querySentFrom === 'betasearch') {
-      searchedFrom = 'BetaSearchForm';
-    } else {
-      searchedFrom = 'Unknown';
-    }
+    searchedFrom = 'Unknown';
   }
 
   return searchedFrom;
@@ -148,7 +146,7 @@ const nativeGA = (action, label, value, searchedFrom, target, hitCallback) => {
     label,
     value,
     generateCustomDimensions(searchedFrom, target),
-    { hitCallback: createFunctionWithTimeout(hitCallback) }
+    { hitCallback: createFunctionWithTimeout(hitCallback) },
   );
 };
 
