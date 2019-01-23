@@ -12,7 +12,7 @@ import {
 
 describe('fetchResultLength', () => {
   it('should return 0 if data is undefined or null.', () => {
-    expect(fetchResultLength()).to.deep.equal(0);
+    expect(fetchResultLength()).to.deep.equal('0');
   });
 });
 
