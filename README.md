@@ -61,7 +61,7 @@ We use Webpack to fire off a hot-reloading development server. This allows for c
 
 ```sh
 $ npm run dist // Builds dist path & files
-$ APP_ENV=production NODE_ENV=production npm start // Starts localhost:3001 with set APP_ENV
+$ AWS_PROFILE=nypl-digital-dev APP_ENV=production NODE_ENV=production npm start // Starts localhost:3001 with set APP_ENV
 ```
 
 ### Deployment
