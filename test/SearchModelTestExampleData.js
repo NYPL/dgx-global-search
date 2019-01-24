@@ -16,7 +16,7 @@ const testData = {
   contentWithHTMLTags: {
     items: [
       {
-        title: 'Get Started with SimplyE for Apple &lt;span&gt;iOS&lt;/span&gt;',
+        htmlTitle: 'Get Started with SimplyE for Apple &lt;span&gt;iOS&lt;/span&gt;',
         link: 'https://gethelp.nypl.org/customer/portal/articles/2214923',
         pagemap: {
           cse_thumbnail: [
@@ -26,7 +26,7 @@ const testData = {
             },
           ],
         },
-        snippet: 'Jun 23, 2016 ... &lt;i&gt;SimplyE requires an Apple ID&lt;/i&gt; and a device '
+        htmlSnippet: 'Jun 23, 2016 ... &lt;i&gt;SimplyE requires an Apple ID&lt;/i&gt; and a device '
           + 'with iOS8 or higher in order to download &lt;br&gt;the SimplyE app. iPad, iPad 2, '
           + 'iPad Air, iPad mini iOS 8+ ...&lt;/div',
         'thumbnail-url': 'https://encrypted-tbn3.gstatic.com/images?q=tbn:'
@@ -51,7 +51,7 @@ const testData = {
   contentWithChangeableHttpLink: {
     items: [
       {
-        title: 'Get Started with SimplyE for Apple &lt;span&gt;iOS&lt;/span&gt;',
+        htmlTitle: 'Get Started with SimplyE for Apple &lt;span&gt;iOS&lt;/span&gt;',
         link: 'http://gethelp.nypl.org/customer/portal/articles/2214923',
         pagemap: {
           cse_thumbnail: [
@@ -61,7 +61,7 @@ const testData = {
             },
           ],
         },
-        snippet: 'Jun 23, 2016 ... &lt;i&gt;SimplyE requires an Apple ID&lt;/i&gt; and a device '
+        htmlSnippet: 'Jun 23, 2016 ... &lt;i&gt;SimplyE requires an Apple ID&lt;/i&gt; and a device '
           + 'with iOS8 or higher in order to download &lt;br&gt;the SimplyE app. iPad, iPad 2, '
           + 'iPad Air, iPad mini iOS 8+ ...&lt;/div',
         'thumbnail-url': 'https://encrypted-tbn3.gstatic.com/images?q=tbn:'
@@ -86,7 +86,7 @@ const testData = {
   contentWithUnchangeableHttpLink: {
     items: [
       {
-        title: 'Get Started with SimplyE for Apple &lt;span&gt;iOS&lt;/span&gt;',
+        htmlTitle: 'Get Started with SimplyE for Apple &lt;span&gt;iOS&lt;/span&gt;',
         link: 'http://exhibitions.nypl.org/biblion/worldsfair/gallery/gallery-aquacade',
         pagemap: {
           cse_thumbnail: [
@@ -96,7 +96,7 @@ const testData = {
             },
           ],
         },
-        snippet: 'Jun 23, 2016 ... &lt;i&gt;SimplyE requires an Apple ID&lt;/i&gt; and a device '
+        htmlSnippet: 'Jun 23, 2016 ... &lt;i&gt;SimplyE requires an Apple ID&lt;/i&gt; and a device '
           + 'with iOS8 or higher in order to download &lt;br&gt;the SimplyE app. iPad, iPad 2, '
           + 'iPad Air, iPad mini iOS 8+ ...&lt;/div',
         'thumbnail-url': 'https://encrypted-tbn3.gstatic.com/images?q=tbn:'
