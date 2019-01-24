@@ -47,6 +47,10 @@ header {
   z-index: 1001;
 }
 
+b {
+  @include Kievit-Medium;
+}
+
 .gs-mainContent {
   @include grid-span(3, 1);
 

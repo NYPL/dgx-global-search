@@ -192,8 +192,8 @@ const fetchItem = (item, searchRequest) => {
     };
   }
 
-  const modeledTitle = stripPossibleHTMLTag(fetchItemFeature(item, 'title'));
-  const modeledSnippet = stripPossibleHTMLTag(fetchItemFeature(item, 'snippet'));
+  const modeledTitle = stripPossibleHTMLTag(fetchItemFeature(item, 'htmlTitle'));
+  const modeledSnippet = stripPossibleHTMLTag(fetchItemFeature(item, 'htmlSnippet'));
 
   return {
     title: modeledTitle,
