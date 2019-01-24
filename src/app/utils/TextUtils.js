@@ -11,8 +11,17 @@ import Pluralize from 'pluralize';
 
 const escape = string => string.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 
+/**
+ * makePlural(string)
+ * Returns a string denoting a regex that will match any text where the input occurs
+ * in singular or plural form, but not preceded or followed by any other letters.
+ * The last requirement is in order to avoid bolding subwords
+ * @param {string} string
+ * @return {string}
+ */
 
-const makePlural = string => `(^|[^a-zA-Z])(${string}|${Pluralize(string, 2)})($|[^a-zA-Z])`
+
+const makePlural = string => `(?<![a-zA-Z])(${string}|${Pluralize(string, 2)})(?![a-zA-Z])`
 
 
 /**
