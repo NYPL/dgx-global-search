@@ -21,7 +21,7 @@ const escape = string => string.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
  */
 
 
-const makePlural = string => `(?<![a-zA-Z])(${string}|${Pluralize(string, 2)})(?![a-zA-Z])`
+const makePlural = string => `(?<![a-zA-Z])(${string}|${Pluralize(string, 2)})(?![a-zA-Z])`;
 
 
 /**
