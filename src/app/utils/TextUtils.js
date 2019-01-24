@@ -1,3 +1,5 @@
+import Pluralize from 'pluralize';
+
 /**
  * escape(string)
  * Escapes all the regex special characters in a string. The first argument to
@@ -10,6 +12,9 @@
 const escape = string => string.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 
 
+const makePlural = string => `(^|[^a-zA-Z])(${string}|${Pluralize(string, 2)})($|[^a-zA-Z])`
+
+
 /**
  * splitKeyword(keyword)
  * Splits the keyword into individual words, interpreting all whitespace as a
@@ -18,7 +23,7 @@ const escape = string => string.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
  * @param {string} keyword
  * @return {string}
  */
-const splitKeyword = keyword => keyword.split(/\s+/).map(escape).join('|');
+const splitKeyword = keyword => keyword.split(/\s+/).map(escape).map(makePlural).join('|');
 
 /**
  * boldText(text, keyword)
