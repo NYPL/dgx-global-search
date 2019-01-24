@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { generateSearchedFrom, nativeGA } from '../../utils/GAUtils';
+import boldText from '../../utils/TextUtils';
 
 class ResultsItem extends React.Component {
   constructor(props) {
@@ -23,13 +24,7 @@ class ResultsItem extends React.Component {
     const {
       searchKeyword,
     } = this.props;
-    const escape = s => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-    const searchKeywords = searchKeyword.split(/\s+/).map(escape).join('|');
-    const modifiedText = text.replace(
-      new RegExp(searchKeywords, 'gi'),
-      match => `<strong class="gs-results-bold">${match}</strong>`,
-    );
-    return ({ __html: modifiedText });
+    return ({ __html: boldText(text, searchKeyword) });
   }
 
   /**
