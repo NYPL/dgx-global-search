@@ -23,7 +23,8 @@ class ResultsItem extends React.Component {
     const {
       searchKeyword,
     } = this.props;
-    const searchKeywords = searchKeyword.split(' ').join('|');
+    const escape = s => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+    const searchKeywords = searchKeyword.split(/\s+/).map(escape).join('|');
     const modifiedText = text.replace(
       new RegExp(searchKeywords, 'gi'),
       match => `<strong class="gs-results-bold">${match}</strong>`,
