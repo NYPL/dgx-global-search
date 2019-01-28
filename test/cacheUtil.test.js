@@ -48,7 +48,7 @@ describe('cacheUtil', () => {
           resolveTo = '';
       }
       return Promise.resolve(resolveTo);
-    }
+    };
 
 
     mockClient = new MockClient();
@@ -73,12 +73,12 @@ describe('cacheUtil', () => {
         .equal('world');
     });
 
-    it('should resolve to null for a value that has not been set', () => {
-      return expect(checkForKeyInRedis('goodbye'))
+    it('should resolve to null for a value that has not been set', () => (
+      expect(checkForKeyInRedis('goodbye'))
         .to
         .eventually
-        .equal(null);
-    });
+        .equal(null)
+    ));
   });
 
   describe('getDataAndSetKeyInClient', () => {
@@ -103,57 +103,57 @@ describe('cacheUtil', () => {
   });
 
   describe('useCachedOrGetData', () => {
-    it('should call the data function for a new key', () => {
-      return expect(useCachedOrGetData(['elephant'])
+    it('should call the data function for a new key', () => (
+      expect(useCachedOrGetData(['elephant'])
         .then(() => calledWith.length === 1))
         .to
         .eventually
-        .equal(true);
-    });
+        .equal(true)
+    ));
 
-    it('should return the correct value for a new key', () => {
-      return expect(useCachedOrGetData(['elephant']))
+    it('should return the correct value for a new key', () => (
+      expect(useCachedOrGetData(['elephant']))
         .to
         .eventually
-        .equal('{"loxodonta":"africana"}');
-    })
+        .equal('{"loxodonta":"africana"}')
+    ));
 
-    it('should not call the data function for an old key', () => {
-      return expect(useCachedOrGetData(['elephant'])
+    it('should not call the data function for an old key', () => (
+      expect(useCachedOrGetData(['elephant'])
         .then(() => useCachedOrGetData(['elephant']))
         .then(() => calledWith.length === 1))
         .to
         .eventually
-        .equal(true);
-    });
+        .equal(true)
+    ));
 
-    it('should return the correct value for an old key', () => {
-      return expect(useCachedOrGetData(['elephant'])
+    it('should return the correct value for an old key', () => (
+      expect(useCachedOrGetData(['elephant'])
         .then(() => useCachedOrGetData(['elephant'])))
         .to
         .eventually
-        .equal('{"loxodonta":"africana"}');
-    });
+        .equal('{"loxodonta":"africana"}')
+    ));
   });
 
   describe('addCaching', () => {
-    it('should return a promise resolving to the dataFunction if useClient is false', () => {
-      return addCaching(mockDataFunction, false, mockClient)
+    it('should return a promise resolving to the dataFunction if useClient is false', () => (
+      addCaching(mockDataFunction, false, mockClient)
         .then((datafunction) => {
           expect(datafunction)
             .to
             .equal(mockDataFunction);
-        });
-    });
+        })
+    ));
   });
 
   describe('getSearchData', () => {
-    it('should return the correct object', () => {
-      return expect(getSearchData('elephant'))
+    it('should return the correct object', () => (
+      expect(getSearchData('elephant'))
         .to
         .eventually
         .deep
-        .equal({ loxodonta: 'africana' });
-    });
+        .equal({ loxodonta: 'africana' })
+    ));
   });
 });

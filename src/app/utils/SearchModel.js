@@ -6,7 +6,7 @@ import {
   find as _find,
 } from 'underscore';
 import filterNames from './FilterNames';
-import execptionalDomains from './ExecptionalDomains';
+import exceptionalDomains from './ExceptionalDomains';
 
 /**
  * fetchResultLength(data)
@@ -25,7 +25,7 @@ const fetchResultLength = (data) => {
     return totalResults;
   } catch (e) {
     console.log(e);
-    return 0;
+    return '0';
   }
 };
 
@@ -125,7 +125,7 @@ const stripPossibleHTMLTag = string => string
 /**
  * secureHttpsProtocol(url, domains)
  * The function gets the URL that begins with http and converts it to begin with https,
- * unless if the URL belongs to one of the execptional domains.
+ * unless if the URL belongs to one of the exceptional domains.
  *
  * @param {String} url
  * @param {Array} domains
@@ -197,7 +197,7 @@ const fetchItem = (item, searchRequest) => {
 
   return {
     title: modeledTitle,
-    link: secureHttpsProtocol(fetchItemFeature(item, 'link'), execptionalDomains),
+    link: secureHttpsProtocol(fetchItemFeature(item, 'link'), exceptionalDomains),
     snippet: modeledSnippet,
     thumbnailSrc: fetchThumbnail(item),
     label: fetchDisplayName(item.labels, searchRequest),

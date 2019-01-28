@@ -5,11 +5,11 @@ import {
 } from 'history';
 
 const createAppHistory = () => {
-  if (typeof(window) !== 'undefined') {
+  if (typeof (window) !== 'undefined') {
     return useQueries(createHistory)();
   }
 
   return useQueries(createMemoryHistory)();
 };
 
-export { createAppHistory };
+export default createAppHistory;

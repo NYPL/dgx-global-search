@@ -32,8 +32,14 @@
   "overrides": [
     {
       "files": ["*.test.js"],
-      rules: {
+      "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+      }
+    },
+    {
+      "files": ["src/app/actions/Actions.js"],
+      "rules": {
+        "class-methods-use-this": [1]
       }
     }
   ],

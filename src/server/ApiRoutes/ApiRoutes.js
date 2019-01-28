@@ -14,6 +14,11 @@ let getSearchData;
 addCaching(url => axios.get(url), !process.env.SKIP_CACHING, null, process.env.APP_ENV)
   .then((cacheAdded) => {
     getSearchData = cacheAdded;
+  })
+  .catch((error) => {
+    console.log('error adding caching with: ', 'SKIP_CACHING: ', process.env.SKIP_CACHING, 'APP_ENV: ', process.env.APP_ENV);
+    console.log('addCaching error: ', JSON.stringify(error, null, 2));
+    getSearchData = url => axios.get(url);
   });
 
 const generateQueryString = (req) => {
@@ -39,7 +44,6 @@ const requestSearchResult = (req, res, next) => {
   getSearchData(searchApiUrl)
     .then((searchData) => {
       const { data } = searchData;
-
       res.locals.data = {
         SearchStore: {
           searchKeyword: req.params.searchRequest,
@@ -51,20 +55,19 @@ const requestSearchResult = (req, res, next) => {
           searchFacets: fetchSearchFacetsList(),
           queriesForGA,
         },
-        completeApiUrl: searchApiUrl,
       };
 
       next();
     })
     .catch((error) => {
-      console.log(`error calling API : ${error}`);
+      console.log(`error calling API : ${JSON.stringify(error, null, 2)}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
 
       res.locals.data = {
         SearchStore: {
           searchRequest: '',
           searchData: [],
-          searchDataLength: 0,
+          searchDataLength: '0',
           searchFacets: fetchSearchFacetsList(),
           queriesForGA,
         },
@@ -93,7 +96,7 @@ const requestResultsFromClient = (req, res) => {
       res.json(searchModeled);
     })
     .catch((error) => {
-      console.log(`error calling API : ${JSON.stringify(error)}`);
+      console.log(`error calling API : ${JSON.stringify(error, null, 2)}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
     });
 };
