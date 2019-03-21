@@ -60,7 +60,6 @@ const getDataAndSetKeyInClient = (dataFunction, client) => (params, key) => data
 
 const useCachedOrGetData = (dataFunction, client) => (params) => {
   const key = getKeyFromParams(params);
-
   return checkForKeyInRedis(client)(key)
     .then(
       redisResponse => (redisResponse === null

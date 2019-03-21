@@ -14,7 +14,6 @@ class SearchStore {
       addMoreSearchData: Actions.ADD_MORE_SEARCH_DATA,
       updateResultsStart: Actions.UPDATE_RESULTS_START,
       updateQueriesForGA: Actions.UPDATE_QUERIES_FOR_GA,
-      updateError: Actions.UPDATE_ERROR,
     });
 
     this.on('init', () => {
@@ -30,7 +29,6 @@ class SearchStore {
         searchedFrom: '',
         timestamp: '',
       };
-      this.error = false;
     });
   }
 
@@ -68,10 +66,6 @@ class SearchStore {
 
   updateQueriesForGA(data) {
     this.queriesForGA = data;
-  }
-
-  updateError(data) {
-    this.error = data;
   }
 }
 

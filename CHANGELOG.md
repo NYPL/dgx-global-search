@@ -1,14 +1,10 @@
 ## Changelog
 
-### v1.1.2
-#### Updated
-- Updated @nypl/dgx-react-footer to 0.5.2.
-
 ### v1.1.1
 #### Added
-- Added error handling for adding caching.
+- Added error handling for adding caching
 #### Updated
-- Added bolding of search keyword in result snippets and titles.
+- Added bolding of search keyword in result snippets and titles 
 
 ### v1.1.0
 #### Updated

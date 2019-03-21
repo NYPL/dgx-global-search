@@ -278,7 +278,6 @@ class Results extends React.Component {
       selectedFacet,
       tabs,
       isKeywordValid,
-      error,
     } = this.props;
 
     const {
@@ -290,12 +289,10 @@ class Results extends React.Component {
     // We need to remove the possible thousands separators first
     const amountInt = parseInt(amount.replace(/[^0-9]+/g, ''), 10);
     const textOfResult = amountInt === 1 ? 'result' : 'results';
-    const resultMessageClass = (resultsLength === 0 || !isKeywordValid || error)
+    const resultMessageClass = (resultsLength === 0 || !isKeywordValid)
       ? 'noResultMessage' : `${className}-length`;
 
-    if (error) {
-      resultsNumberSuggestion = "Search results aren't currently available. Please check back later.";
-    } else if (!searchKeyword) {
+    if (!searchKeyword) {
       if (!isKeywordValid) {
         // Show 'Please enter a keyword' only if pressing a tab or
         // the search button without a keyword
@@ -360,10 +357,7 @@ class Results extends React.Component {
     const inputValue = searchKeyword || '';
     // Converts the string of amount into integer
     // We need to remove the possible thousands separators first
-    let amountInt;
-    if (amount) {
-      amountInt = parseInt(amount.replace(/[^0-9]+/g, ''), 10);
-    }
+    const amountInt = parseInt(amount.replace(/[^0-9]+/g, ''), 10);
 
     return (
       <div className={`${className}-wrapper`}>
@@ -419,7 +413,6 @@ Results.propTypes = {
   queriesForGA: PropTypes.objectOf(PropTypes.any),
   tabs: PropTypes.arrayOf(PropTypes.object),
   searchBySelectedFacetFunction: PropTypes.func.isRequired,
-  error: PropTypes.bool,
 };
 
 Results.defaultProps = {
@@ -433,7 +426,6 @@ Results.defaultProps = {
   selectedFacet: '',
   queriesForGA: {},
   tabs: [],
-  error: false,
 };
 
 export default Results;

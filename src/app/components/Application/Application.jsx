@@ -46,7 +46,6 @@ history.listen((location) => {
           searchedFrom: 'betasearch',
           timestamp: new Date().getTime(),
         });
-        Actions.updateError(false);
       },
       () => {
         Actions.updateSearchKeyword('');
@@ -55,9 +54,7 @@ history.listen((location) => {
           searchedFrom: 'betasearch',
           timestamp: new Date().getTime(),
         });
-        Actions.updateError(false);
       },
-      this.errorCallback,
     );
   }
 });
@@ -80,7 +77,6 @@ class App extends React.Component {
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.renderResults = this.renderResults.bind(this);
     this.searchBySelectedFacet = this.searchBySelectedFacet.bind(this);
-    this.errorCallback = this.errorCallback.bind(this);
   }
 
   // Setting state in componentWillMount() helps us render the results for the first time before
@@ -93,7 +89,6 @@ class App extends React.Component {
         Store.getState().searchData,
         Store.getState().searchDataLength,
         Store.getState().isKeywordValid,
-        Store.getState().error,
       ),
     });
   }
@@ -118,7 +113,6 @@ class App extends React.Component {
         Store.getState().searchData,
         Store.getState().searchDataLength,
         Store.getState().isKeywordValid,
-        Store.getState().error,
       ),
       queriesForGA: Store.getState().queriesForGA,
     });
@@ -146,11 +140,6 @@ class App extends React.Component {
    */
   searchBySelectedFacet(selectedFacet = '') {
     this.triggerGAThenSubmit(selectedFacet);
-  }
-
-
-  errorCallback() {
-    Actions.updateError(true);
   }
 
   /**
@@ -193,7 +182,6 @@ class App extends React.Component {
             searchedFrom: 'betasearch',
             timestamp: new Date().getTime(),
           });
-          Actions.updateError(false);
         },
         () => {
           Actions.updateSearchKeyword('');
@@ -202,9 +190,7 @@ class App extends React.Component {
             searchedFrom: 'betasearch',
             timestamp: new Date().getTime(),
           });
-          Actions.updateError(false);
         },
-        this.errorCallback,
       );
     }
   }
@@ -274,7 +260,7 @@ class App extends React.Component {
    * @param {boolean} isKeywordValid
    * @return {object} object
    */
-  renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid, error) {
+  renderResults(searchKeyword, searchResultsArray, searchResultsLength, isKeywordValid) {
     const {
       tabIdValue,
       searchFacets,
@@ -297,7 +283,6 @@ class App extends React.Component {
         queriesForGA={queriesForGA}
         searchBySelectedFacetFunction={this.searchBySelectedFacet}
         isKeywordValid={isKeywordValid}
-        error={error}
       />
     );
   }

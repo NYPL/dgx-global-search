@@ -54,7 +54,6 @@ const requestSearchResult = (req, res, next) => {
           resultsStart: 0,
           searchFacets: fetchSearchFacetsList(),
           queriesForGA,
-          error: false,
         },
       };
 
@@ -70,7 +69,6 @@ const requestSearchResult = (req, res, next) => {
           searchData: [],
           searchDataLength: '0',
           searchFacets: fetchSearchFacetsList(),
-          error,
           queriesForGA,
         },
       };
@@ -100,10 +98,6 @@ const requestResultsFromClient = (req, res) => {
     .catch((error) => {
       console.log(`error calling API : ${JSON.stringify(error, null, 2)}`);
       console.log(`from the endpoint: ${searchApiUrl}`);
-      res.status(500);
-      res.json({
-        searchResultsItems: [],
-      });
     });
 };
 
