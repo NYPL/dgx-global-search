@@ -65,7 +65,7 @@ describe('fetchResultItems', () => {
     });
 
   it('should preserve the link of a result item to start with "http" if its domain is specified'
-    + ' as an execption.', () => {
+    + ' as an excption.', () => {
     expect(fetchResultItems(testData.contentWithUnchangeableHttpLink, 'apple more:exhibitions'))
       .to.deep.equal(matchedResults.itemWithUnchangeableLink);
   });

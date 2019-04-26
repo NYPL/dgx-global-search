@@ -1,5 +1,13 @@
 ## Changelog
 
+### v1.1.4
+#### Added
+- Added fix to skip installation if Falcon Crowdstrike already existed.
+
+### v1.1.3
+#### Added
+- Added Falcon CrowdStrike sensor to operating system.
+
 ### v1.1.2
 #### Updated
 - Updated @nypl/dgx-react-footer to 0.5.2.

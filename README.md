@@ -6,7 +6,8 @@ This repository is the global search application for nypl.org.
 https://www.nypl.org/search
 
 ### Version
-> v1.1.2
+> v1.1.4
+
 
 ### Installation
 Install all dependencies listed under package.json
@@ -25,6 +26,8 @@ We use four environment variables so far for this application.
   - `NODE_ENV` indicates if the app is running locally or on a remote server. It could be `development` or `production`. The default value is `development`.
   - `REGION_ENV` indicates the region where the app's AWS Elastic Beanstalk instance is. If it is not specified, the default value will be `us-east-1`.
   - `SKIP_CACHING` an optional variable that can be set to `true` if you don't want to use caching
+  - `AWS_PROFILE` an optional variable that can be used to set the AWS profile the app will use. It will usually be either
+  `nypl-sandbox` or `nypl-digital-dev`. You should not have to set this variable unless you are running in production mode locally.
 
 ### Development Mode
 We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
@@ -61,7 +64,7 @@ We use Webpack to fire off a hot-reloading development server. This allows for c
 
 ```sh
 $ npm run dist // Builds dist path & files
-$ APP_ENV=production NODE_ENV=production npm start // Starts localhost:3001 with set APP_ENV
+$ AWS_PROFILE=nypl-digital-dev APP_ENV=production NODE_ENV=production npm start // Starts localhost:3001 with set APP_ENV
 ```
 
 ### Deployment
