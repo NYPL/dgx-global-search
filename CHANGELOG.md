@@ -1,5 +1,9 @@
 ## Changelog
 
+### v1.1.5
+#### Updated
+- Updated @nypl/dgx-header-component to 2.5.4
+
 ### v1.1.4
 #### Added
 - Added fix to skip installation if Falcon Crowdstrike already existed.
