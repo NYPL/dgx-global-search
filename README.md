@@ -111,20 +111,15 @@ DO:
 - If there is a problem with the new API keys, the easiest way to restore production to a working state is to remove the IP
 restrictions from the new key
 
-#### PR Review and Deployment with Travis
-CREATING A NEW BRANCH
+### PR Review and Deployment with Travis
 
-When starting work on a new feature, developers should cut their feature branches off of the `pr_approved` branch.
+Steps to add a feature:
 
-CREATING A NEW PR
-
-The pr_approved branch reflects all work that has been approved in a PR.  This means that when a developer creates a PR, the base branch should be the `pr_approved` branch.
-
-TESTING A FEATURE ON THE DEVELOPMENT SERVER
-
-When a developer is ready to create a new PR, they should use the CLI to merge their feature branch into the development branch and push it to the `development` branch on GitHub.  This will cause Travis to deploy the `development` branch to the development server.
-
-DEPLOYMENT BY TRAVIS
+- Cut feature branch from `pr_approved`
+- Merge feature to `development` to trigger a development deploy
+- Create PR to merge feature into `pr_approved` (Link to development URL in PR)
+- When approved, merge `pr_approved` > `qa`
+- Finally merge `qa` > `master`
 
 The travis.yml file states that these branches get deployed to these environments:
 
