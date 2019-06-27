@@ -107,7 +107,8 @@ const generateClient = (customClient = null, appEnv = null, region = 'us-east-1'
  useClient is not set to false. appEnv and region are passed to generateClient.
 
  @param {function} datafunction
- @param {boolean} useClient
+ @param {boolean} useClient - Controls whether or not to use caching
+                              (in practice, set to !process.env.USE_CACHING)
  @param {object} customClient
  @param {string} appEnv
  @param {string} region

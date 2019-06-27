@@ -8,3 +8,4 @@ npm-debug.log
 !.elasticbeanstalk/*.global.yml
 json-results
 dump.rdb
+.env
