@@ -22,7 +22,7 @@ From the CLI, run `npm run lint` to run the ESLint tool for checking JavaScript 
 The following environment variables are used by this application:
 
   - `API_ROOT` indicates the root of the endpoint this app calls for search requests.
-  - `APP_ENV` indicates the environment the app is running in. It could be `development`, `qa`, or `production`. If left unset, the app mostly behaves the same as "production".
+  - `APP_ENV` indicates the environment the app is running in. It could be `development`, `qa`, or `production`. If left unset, the app connects to production Google Search API and `localhost` redis (See [.env-sample](./.env-sample) for more info.)
   - `NODE_ENV` indicates if the app is running locally or on a remote server. It could be `development` or `production`. The default value is `development`.
   - `REGION_ENV` indicates the region where the app's AWS Elastic Beanstalk instance is. If it is not specified, the default value will be `us-east-1`.
   - `SKIP_CACHING` an optional variable that can be set to `true` if you don't want to use caching
