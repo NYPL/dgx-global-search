@@ -35,7 +35,7 @@ const getApiRoot = (req, res, next) => (
   if (app.locals.apiRoot) {
     next();
   } else if (apiRootEnv) {
-    // Assigns API_ROOT env variable to the API root if the app receives it
+    // Use API_ROOT env variable if the app receives it
     app.locals.apiRoot = apiRootEnv;
     next();
   } else {
