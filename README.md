@@ -6,7 +6,7 @@ This repository is the global search application for nypl.org.
 https://www.nypl.org/search
 
 ### Version
-> v1.1.5
+> v1.1.6
 
 ### Installation
 Install all dependencies listed under package.json
@@ -119,7 +119,7 @@ Steps to add a feature:
 - Merge feature to `development` to trigger a development deploy
 - Create PR to merge feature into `pr_approved` (Link to development URL in PR)
 - When approved, merge `pr_approved` > `qa`
-- Finally merge `qa` > `master`
+- Finally merge `pr_approved` > `master`
 
 The travis.yml file states that these branches get deployed to these environments:
 
