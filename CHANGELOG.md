@@ -1,5 +1,17 @@
 ## Changelog
 
+### v1.1.6
+#### Updated
+- Updating @nypl/dgx-header-component to 2.5.8
+
+### v1.1.5
+#### Updated
+- Updating @nypl/dgx-header-component to 2.5.6
+
+### v1.1.4
+#### Added
+- Added fix to skip CrowdStrike installation to prevent deployment failures.
+
 ### v1.1.3
 #### Added
 - Added Falcon CrowdStrike sensor to operating system.

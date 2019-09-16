@@ -6,7 +6,7 @@ This repository is the global search application for nypl.org.
 https://www.nypl.org/search
 
 ### Version
-> v1.1.3
+> v1.1.6
 
 ### Installation
 Install all dependencies listed under package.json
@@ -18,37 +18,49 @@ $ npm install
 From the CLI, run `npm run lint` to run the ESLint tool for checking JavaScript syntax.  Here is an example of how to lint only one file: `npm run lint-single-file src/app/components/TabItem/TabItem.jsx`
 
 ### Environment Variables
-We use four environment variables so far for this application.
+
+The following environment variables are used by this application:
 
   - `API_ROOT` indicates the root of the endpoint this app calls for search requests.
-  - `APP_ENV` indicates the environment the app is running in. It could be `development`, `qa`, or `production`. The default value is `production`.
+  - `APP_ENV` indicates the environment the app is running in. It could be `development`, `qa`, or `production`. If left unset, the app connects to production Google Search API and `localhost` redis (See [.env-sample](./.env-sample) for more info.)
   - `NODE_ENV` indicates if the app is running locally or on a remote server. It could be `development` or `production`. The default value is `development`.
   - `REGION_ENV` indicates the region where the app's AWS Elastic Beanstalk instance is. If it is not specified, the default value will be `us-east-1`.
   - `SKIP_CACHING` an optional variable that can be set to `true` if you don't want to use caching
   - `AWS_PROFILE` an optional variable that can be used to set the AWS profile the app will use. It will usually be either
   `nypl-sandbox` or `nypl-digital-dev`. You should not have to set this variable unless you are running in production mode locally.
 
+See [.env-sample](./.env-sample) for an example `.env` file with more information.
+
+As a convenience, you may choose to `cp .env-sample .env`, modify the variables therein, and then run the app via `source .env; npm start`.
+
 ### Development Mode
+
+Without setting any environmental variables, the following will start the server in development mode (i.e. Webpack hot-reloading) and connect to the `production` Google Search API:
+
+`SKIP_CACHING=true npm start`
+
 We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
 
-You do not need any environment variables if you want to run it locally in development mode. However, you will need valid AWS credentials stored locally and correct AWS Elastic Beanstalk Region to decrypt the correct API endpoint for search. Contact NYPL Digital Department for further information.
+Note the above assumes you have valid AWS credentials associated with profile "nypl-digital-dev". Contact NYPL Digital Department to establish your `nypl-digital-dev` and `nypl-sandbox` accounts.
 
-To run locally, run:
-`npm start`
+#### Local Redis
 
-You will need to have a redis server running in another tab if you want to use caching:
-`redis-server`
-Download redis here:
-`https://redis.io/topics/quickstart`
+To run locally against a local Redis, [download Redis](https://redis.io/topics/quickstart), start it (i.e. run `redis-server` in another tab), and then run:
 
-If you don't want to use caching, you can run:
-`SKIP_CACHING=true npm start`
-To avoid logging errors related to lack of caching.
-
-You can also set the APP_ENV variable which dictates what API environment to use as the main source.
-```sh
-$ APP_ENV=development|qa|production npm start // Starts localhost:3001 with set APP_ENV
 ```
+# Make sure APP_ENV= so that app doesn't connect to a remote Redis
+APP_ENV= npm start
+```
+
+#### Running locally in "Development Mode" against different remote environments
+
+See [.env-sample](./.env-sample) for the full impact of setting `APP_ENV`, but you can connect to different combinations of Google and Redis environments via:
+
+```sh
+$ AWS_PROFILE=nypl-digital-dev|nypl-sandbox APP_ENV=development|qa|production npm start
+```
+
+*Note that `AWS_PROFILE` is required when connecting to remote redis locally. This is due to a bug wherein the remote Redis host decryption is not performed against an established profile. (Decryption of Google endpoints is performed against auto-detected AWS profile.) As a consequence, unless you've disabled caching, you'll need to use an `AWS_PROFILE` appropriate for your `APP_ENV`.*
 
 You can set API_ROOT directly as well if you have the info. Notice it needs to be decrypted. For example,
 
@@ -99,20 +111,15 @@ DO:
 - If there is a problem with the new API keys, the easiest way to restore production to a working state is to remove the IP
 restrictions from the new key
 
-#### PR Review and Deployment with Travis
-CREATING A NEW BRANCH
+### PR Review and Deployment with Travis
 
-When starting work on a new feature, developers should cut their feature branches off of the `pr_approved` branch.
+Steps to add a feature:
 
-CREATING A NEW PR
-
-The pr_approved branch reflects all work that has been approved in a PR.  This means that when a developer creates a PR, the base branch should be the `pr_approved` branch.
-
-TESTING A FEATURE ON THE DEVELOPMENT SERVER
-
-When a developer is ready to create a new PR, they should use the CLI to merge their feature branch into the development branch and push it to the `development` branch on GitHub.  This will cause Travis to deploy the `development` branch to the development server.
-
-DEPLOYMENT BY TRAVIS
+- Cut feature branch from `pr_approved`
+- Merge feature to `development` to trigger a development deploy
+- Create PR to merge feature into `pr_approved` (Link to development URL in PR)
+- When approved, merge `pr_approved` > `qa`
+- Finally merge `pr_approved` > `master`
 
 The travis.yml file states that these branches get deployed to these environments:
 
