@@ -11,14 +11,14 @@ import {
 const router = express.Router();
 const { addCaching } = cache;
 let getSearchData;
-addCaching(url => axios.get(url), !process.env.SKIP_CACHING, null, process.env.APP_ENV)
+addCaching((url) => axios.get(url), !process.env.SKIP_CACHING, null, process.env.APP_ENV)
   .then((cacheAdded) => {
     getSearchData = cacheAdded;
   })
   .catch((error) => {
     console.log('error adding caching with: ', 'SKIP_CACHING: ', process.env.SKIP_CACHING, 'APP_ENV: ', process.env.APP_ENV);
     console.log('addCaching error: ', JSON.stringify(error, null, 2));
-    getSearchData = url => axios.get(url);
+    getSearchData = (url) => axios.get(url);
   });
 
 const generateQueryString = (req) => {

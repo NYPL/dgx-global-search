@@ -64,7 +64,7 @@ const extractSearchElements = (requestCombo) => {
   };
 };
 
-const displayName = name => filterNames.find(obj => obj.value === name).anchor;
+const displayName = (name) => filterNames.find((obj) => obj.value === name).anchor;
 /**
  * fetchDisplayName(labelsArray, searchRequest)
  * The function returns the display name of the item.
@@ -88,7 +88,7 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
     return '';
   }
 
-  const displayNameArray = _map(labelsArray, label => ({ name: label.name || '' }));
+  const displayNameArray = _map(labelsArray, (label) => ({ name: label.name || '' }));
 
   const {
     searchFacet,
@@ -97,7 +97,7 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
   if (!searchFacet) {
     name = displayNameArray[0].name;
   } else {
-    name = _find(displayNameArray, item => item.name === searchFacet).name;
+    name = _find(displayNameArray, (item) => item.name === searchFacet).name;
   }
 
   return displayName(name || '');
@@ -118,7 +118,7 @@ const fetchDisplayName = (labelsArray, searchRequest) => {
  * @param {String} string
  * @return {String}
  */
-const stripPossibleHTMLTag = string => string
+const stripPossibleHTMLTag = (string) => string
   .replace(/&lt;[^(&gt;)]+?&gt;/g, '').replace(/&lt;.*/, '');
 
 
@@ -132,7 +132,7 @@ const stripPossibleHTMLTag = string => string
  * @return {String}
  */
 const secureHttpsProtocol = (url, domains) => {
-  if (domains.some(domain => url.includes(domain))) {
+  if (domains.some((domain) => url.includes(domain))) {
     return url;
   }
 
@@ -217,7 +217,7 @@ const fetchItem = (item, searchRequest) => {
  */
 const fetchResultItems = (data, searchRequest = '') => {
   try {
-    return _map(data.items, item => fetchItem(item, searchRequest));
+    return _map(data.items, (item) => fetchItem(item, searchRequest));
   } catch (e) {
     console.log(e);
     return [];

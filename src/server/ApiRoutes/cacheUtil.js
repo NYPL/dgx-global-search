@@ -10,7 +10,7 @@ const { redisHosts } = appConfig;
  @param {array} params
  */
 
-const getKeyFromParams = params => params.map(x => JSON.stringify(x)).join(',');
+const getKeyFromParams = (params) => params.map((x) => JSON.stringify(x)).join(',');
 
 /**
  checkForKeyInRedis(client)
@@ -22,7 +22,7 @@ const getKeyFromParams = params => params.map(x => JSON.stringify(x)).join(',');
  @param {string} key
  */
 
-const checkForKeyInRedis = client => key => new Promise(resolve => client
+const checkForKeyInRedis = (client) => (key) => new Promise((resolve) => client
   .get(key, (err, cachedResponse) => resolve(cachedResponse)));
 
 /**
@@ -62,7 +62,7 @@ const useCachedOrGetData = (dataFunction, client) => (params) => {
   const key = getKeyFromParams(params);
   return checkForKeyInRedis(client)(key)
     .then(
-      redisResponse => (redisResponse === null
+      (redisResponse) => (redisResponse === null
         ? getDataAndSetKeyInClient(dataFunction, client)(params, key)
         : redisResponse),
     );
@@ -84,7 +84,7 @@ const generateClient = (customClient = null, appEnv = null, region = 'us-east-1'
   }
   return appEnv
     ? kms.decrypt(redisHosts[appEnv], null, region)
-      .then(data => new ClientWrapper(data))
+      .then((data) => new ClientWrapper(data))
       .catch((error) => {
         console.log(
           'error decrypting redis host with: ',
@@ -120,8 +120,8 @@ const addCaching = (dataFunction, useClient = true, customClient = null, appEnv,
   }
 
   return generateClient(customClient, appEnv, region)
-    .then(client => (...params) => useCachedOrGetData(dataFunction, client)(params)
-      .then(stringifiedData => JSON.parse(stringifiedData)));
+    .then((client) => (...params) => useCachedOrGetData(dataFunction, client)(params)
+      .then((stringifiedData) => JSON.parse(stringifiedData)));
 };
 
 export default {

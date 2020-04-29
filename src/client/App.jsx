@@ -9,7 +9,7 @@ import Iso from 'iso';
 
 import './styles/main.scss';
 
-import App from '../app/components/Application/Application.jsx';
+import App from '../app/components/Application/Application';
 
 // Accessibility checking. Call react-a11y here if loadA11y is true
 if (loadA11y) {
