@@ -1,5 +1,47 @@
 ## Changelog
 
+### v1.1.9
+#### Updated
+- Updating babel-eslint to 10.1.0
+- Updating eslint to 6.8.0
+- Updating eslint-config-airbnb to 18.1.0
+- Updating eslint-loader to 4.0.2
+- Updating eslint-plugin-import to 2.20.2
+- Updating eslint-plugin-jsx-a11y to 6.2.3
+- Updating eslint-plugin-react to 7.19.0
+- Updating aws-sdk to 2.664.0
+- Updating axios to 0.19.2
+- Updating @babel/core to 7.9.0
+- Updating babel-loader to 8.1.0
+- Updating @babel/preset-react to 7.9.4
+- Updating @babel/register to 7.9.0
+- Updating breakpoint-sass to 2.7.1
+- Updating clean-webpack-plugin to 3.0.0
+- Updating css-loader to 3.5.2
+- Updating esdoc to 1.1.0
+- Updating express to 4.17.1
+- Updating mocha to 7.1.1
+- Updating node-sass to 4.13.1
+- Updating redis to 3.0.2
+- Updating sass-loader to 8.0.2
+- Updating style-loader to 1.1.4s
+- Updating underscore to 1.10.2
+- Updating webpack to 4.43.0
+- Updating webpack-dev-server to 3.10.3
+- Updating webpack-merge to 4.2.2
+#### Added
+- Adding terser-webpack-plugin
+- Adding core-js
+- Adding webpack-cli
+- Adding @babel/preset-env; replaces babel-preset-es2015
+- Adding mini-css-extract-plugin; replaces extract-text-plugin
+- Adding terser-webpack-plugin; replaces calls to UglifyJS
+#### Replaced
+- Replacing babel-preset-es2015
+- Replacing extract-text-webpack-plugin
+#### Removed
+- Removing babel-polyfill; included with @babel/preset-env
+
 ### v1.1.8
 #### Updated
 - Updating @nypl/dgx-react-footer to 0.5.4.

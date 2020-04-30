@@ -7,7 +7,7 @@
     "start": "node index",
     "eb-start": "npm run dist && npm run start",
     "dist": "NODE_ENV=production webpack --config webpack.config.js",
-    "test": "node_modules/.bin/mocha --compilers js:babel-core/register",
+    "test": "node_modules/.bin/mocha --require @babel/register",
     "accessibility-check": "loadA11y=true node index",
     "lint": "eslint ./",
     "lint-single-file": "eslint"
@@ -59,7 +59,7 @@
     "core-js": "3.6.5",
     "css-loader": "3.5.2",
     "dgx-alt-center": "git+https://git@github.com/NYPL/dgx-alt-center.git#master",
-    "dgx-feature-flags": "git+https://git@bitbucket.org/NYPL/dgx-feature-flags.git#master",
+    "dgx-feature-flags": "git+https://git@github.com/NYPL/dgx-feature-flags.git#master",
     "dgx-react-buttons": "git+https://git@github.com/NYPL/dgx-react-buttons.git#master",
     "dgx-react-ga": "git+https://git@github.com/NYPL/dgx-react-ga.git#master",
     "ejs": "2.5.5",
