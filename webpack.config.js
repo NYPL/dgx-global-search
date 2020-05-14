@@ -1,8 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const cleanBuild = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 
 // References the applications root path
 const ROOT_PATH = path.resolve(__dirname);
@@ -19,11 +20,10 @@ const commonSettings = {
   // This is the path and file of our top level
   // React App that is to be rendered.
   entry: [
-    'babel-polyfill',
     path.resolve(ROOT_PATH, 'src/client/App.jsx'),
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx'],
   },
   output: {
     // Sets the output path to ROOT_PATH/dist
@@ -32,12 +32,23 @@ const commonSettings = {
     // Additionally we can isolate vendor files as well
     filename: 'bundle.js',
   },
+  // Minification (Utilized in Production)
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserWebpackPlugin({
+        test: /\.js(\?.*)?$/i,
+      }),
+    ],
+  },
   plugins: [
     // Cleans the Dist folder after every build.
     // Alternately, we can run rm -rf dist/ as
     // part of the package.json scripts.
-    new cleanBuild(['dist']),
-    new ExtractTextPlugin('styles.css'),
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'styles.css',
+    }),
     new webpack.DefinePlugin({
       loadA11y: process.env.loadA11y || false,
       appEnv: JSON.stringify(appEnv),
@@ -57,33 +68,36 @@ const commonSettings = {
 // module correctly.
 if (ENV === 'development') {
   module.exports = merge(commonSettings, {
+    mode: 'development',
     devtool: 'eval',
     entry: [
       'webpack-dev-server/client?http://localhost:3000',
       'webpack/hot/only-dev-server',
-      'babel-polyfill',
-      path.resolve(ROOT_PATH, 'src/client/App.jsx'),
     ],
     output: {
       publicPath: 'http://localhost:3000/',
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
     ],
     resolve: {
-      extensions: ['', '.js', '.jsx', '.scss'],
+      extensions: ['*', '.js', '.jsx', '.scss'],
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.jsx?$/,
           exclude: /(node_modules)/,
-          loaders: ['react-hot', 'babel'],
+          loaders: ['react-hot-loader', 'babel-loader'],
         },
         {
-          test: /\.scss?$/,
-          loader: 'style!css!sass',
+          test: /\.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            'sass-loader',
+            'css-loader',
+            'style-loader',
+          ],
           include: path.resolve(ROOT_PATH, 'src'),
         },
       ],
@@ -101,25 +115,27 @@ if (ENV === 'development') {
 **/
 if (ENV === 'production') {
   module.exports = merge(commonSettings, {
+    mode: 'production',
     devtool: 'source-map',
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.jsx?$/,
           exclude: /(node_modules)/,
-          loader: ['babel'],
-          query: {
-            presets: ['es2015', 'react']
-          }
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
         },
         {
           test: /\.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            'sass-loader',
+            'css-loader',
+            'style-loader',
+          ],
           include: path.resolve(ROOT_PATH, 'src'),
-          loader: ExtractTextPlugin.extract(
-            // activate source maps via loader query
-            'css?sourceMap!' +
-            'sass?sourceMap'
-          ),
         },
       ],
     },
@@ -127,12 +143,6 @@ if (ENV === 'production') {
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('production'),
-        },
-      }),
-      // Minification (Utilized in Production)
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
         },
       }),
     ],
