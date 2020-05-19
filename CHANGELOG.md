@@ -1,6 +1,6 @@
 ## Changelog
 
-### v1.1.9
+### v1.2.0
 #### Updated
 - Updating babel-eslint to 10.1.0
 - Updating eslint to 6.8.0
@@ -41,6 +41,10 @@
 - Replacing extract-text-webpack-plugin
 #### Removed
 - Removing babel-polyfill; included with @babel/preset-env
+
+### v1.1.9
+- Updating @nypl/dgx-react-footer to 0.5.5.
+- Updating Falcon CrowdStrike sensor to 5.29.
 
 ### v1.1.8
 #### Updated
