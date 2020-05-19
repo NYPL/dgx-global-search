@@ -20,6 +20,7 @@ const commonSettings = {
   // This is the path and file of our top level
   // React App that is to be rendered.
   entry: [
+    path.resolve(ROOT_PATH, 'src/client/styles/main.scss'),
     path.resolve(ROOT_PATH, 'src/client/App.jsx'),
   ],
   resolve: {
@@ -37,7 +38,9 @@ const commonSettings = {
     // Alternately, we can run rm -rf dist/ as
     // part of the package.json scripts.
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin('styles.css'),
+    new MiniCssExtractPlugin({
+      filename: 'styles.css'
+    }),
     new webpack.DefinePlugin({
       loadA11y: process.env.loadA11y || false,
       appEnv: JSON.stringify(appEnv),
@@ -57,6 +60,7 @@ const commonSettings = {
 // module correctly.
 if (ENV === 'development') {
   module.exports = merge(commonSettings, {
+    mode: 'development',
     devtool: 'eval',
     entry: [
       'webpack-dev-server/client?http://localhost:3000',
@@ -74,11 +78,15 @@ if (ENV === 'development') {
         {
           test: /\.jsx?$/,
           exclude: /(node_modules)/,
-          loaders: ['react-hot-loader', 'babel-loader'],
+          loaders: ['react-hot-loader/webpack', 'babel-loader'],
         },
         {
           test: /\.scss?$/,
-          loader: 'style-loader!css-loader!sass-loader',
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            'sass-loader',
+          ],
           include: path.resolve(ROOT_PATH, 'src'),
         },
       ],
@@ -96,6 +104,7 @@ if (ENV === 'development') {
   */
 if (ENV === 'production') {
   module.exports = merge(commonSettings, {
+    mode: 'production',
     devtool: 'source-map',
     module: {
       rules: [
@@ -112,23 +121,21 @@ if (ENV === 'production') {
         },
         {
           test: /\.scss$/,
-          include: path.resolve(ROOT_PATH, 'src'),
           use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-            },
-            'css-loader?sourceMap!sass-loader?sourceMap',
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            'sass-loader',
           ],
+          include: path.resolve(ROOT_PATH, 'src'),
         },
       ],
     },
     // Minification (Utilized in Production)
     optimization: {
+      minimize: true,
       minimizer: [
         new TerserWebpackPlugin({
-          terserOptions: {
-            warnings: false,
-          },
+          test: /\.js(\?.*)?$/i,
         }),
       ],
     },
