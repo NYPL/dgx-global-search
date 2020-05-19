@@ -20,6 +20,7 @@ const commonSettings = {
   // This is the path and file of our top level
   // React App that is to be rendered.
   entry: [
+    path.resolve(ROOT_PATH, 'src/client/styles/main.scss'),
     path.resolve(ROOT_PATH, 'src/client/App.jsx'),
   ],
   resolve: {
@@ -57,13 +58,12 @@ const commonSettings = {
 };
 
 /**
- * DEVELOPMENT ENVIRONMENT CONFIG
- * ------------------------------
- * Uses the webpack-merge plugin to merge
- * the common app configuration with the
- * additional development specific settings.
- *
- **/
+  * DEVELOPMENT ENVIRONMENT CONFIG
+  * ------------------------------
+  * Uses the webpack-merge plugin to merge
+  * the common app configuration with the
+  * additional development specific settings.
+  */
 // Need to configure webpack-dev-server and hot-reload
 // module correctly.
 if (ENV === 'development') {
@@ -88,15 +88,14 @@ if (ENV === 'development') {
         {
           test: /\.jsx?$/,
           exclude: /(node_modules)/,
-          loaders: ['react-hot-loader', 'babel-loader'],
+          loaders: ['react-hot-loader/webpack', 'babel-loader'],
         },
         {
           test: /\.scss$/,
           use: [
             MiniCssExtractPlugin.loader,
-            'sass-loader',
             'css-loader',
-            'style-loader',
+            'sass-loader',
           ],
           include: path.resolve(ROOT_PATH, 'src'),
         },
@@ -106,13 +105,12 @@ if (ENV === 'development') {
 }
 
 /**
- * PRODUCTION ENVIRONMENT CONFIG
- * ------------------------------
- * Uses the webpack-merge plugin to merge
- * the common app configuration with the
- * additional production specific settings.
- *
-**/
+  * PRODUCTION ENVIRONMENT CONFIG
+  * ------------------------------
+  * Uses the webpack-merge plugin to merge
+  * the common app configuration with the
+  * additional production specific settings.
+  */
 if (ENV === 'production') {
   module.exports = merge(commonSettings, {
     mode: 'production',
@@ -131,9 +129,8 @@ if (ENV === 'production') {
           test: /\.scss$/,
           use: [
             MiniCssExtractPlugin.loader,
-            'sass-loader',
             'css-loader',
-            'style-loader',
+            'sass-loader',
           ],
           include: path.resolve(ROOT_PATH, 'src'),
         },

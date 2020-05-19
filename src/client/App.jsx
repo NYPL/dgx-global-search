@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import alt from 'dgx-alt-center';
-import { config, gaUtils } from 'dgx-react-ga';
+import reactGA from 'dgx-react-ga';
 import a11y from 'react-a11y';
 import FeatureFlags from 'dgx-feature-flags';
 import Iso from 'iso';
@@ -20,7 +20,7 @@ window.onload = () => {
   if (!window.ga) {
     const isProd = process.env.NODE_ENV === 'production';
     const gaOpts = { debug: !isProd, titleCase: false };
-    gaUtils.initialize(config.google.code(isProd), gaOpts);
+    reactGA.gaUtils.initialize(reactGA.config.google.code(isProd), gaOpts);
   }
 
   if (!window.dgxFeatureFlags) {
@@ -37,5 +37,5 @@ window.onload = () => {
     ReactDOM.render(<App />, container);
   });
 
-  gaUtils.trackPageview(window.location.pathname);
+  reactGA.gaUtils.trackPageview(window.location.pathname);
 };
