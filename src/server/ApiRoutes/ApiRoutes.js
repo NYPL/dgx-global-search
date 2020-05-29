@@ -1,6 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import cache from './cacheUtil';
+import logger from '../../../logger';
 
 import {
   fetchResultLength,
@@ -16,8 +17,8 @@ addCaching((url) => axios.get(url), !process.env.SKIP_CACHING, null, process.env
     getSearchData = cacheAdded;
   })
   .catch((error) => {
-    console.log('error adding caching with: ', 'SKIP_CACHING: ', process.env.SKIP_CACHING, 'APP_ENV: ', process.env.APP_ENV);
-    console.log('addCaching error: ', JSON.stringify(error, null, 2));
+    logger.error('error adding caching with: ', 'SKIP_CACHING: ', process.env.SKIP_CACHING, 'APP_ENV: ', process.env.APP_ENV);
+    logger.error('addCaching error: ', JSON.stringify(error, null, 2));
     getSearchData = (url) => axios.get(url);
   });
 
@@ -60,8 +61,8 @@ const requestSearchResult = (req, res, next) => {
       next();
     })
     .catch((error) => {
-      console.log(`error calling API : ${JSON.stringify(error, null, 2)}`);
-      console.log(`from the endpoint: ${searchApiUrl}`);
+      logger.error(`error calling API : ${JSON.stringify(error, null, 2)}`);
+      logger.error(`from the endpoint: ${searchApiUrl}`);
 
       res.locals.data = {
         SearchStore: {
@@ -96,8 +97,8 @@ const requestResultsFromClient = (req, res) => {
       res.json(searchModeled);
     })
     .catch((error) => {
-      console.log(`error calling API : ${JSON.stringify(error, null, 2)}`);
-      console.log(`from the endpoint: ${searchApiUrl}`);
+      logger.error(`error calling API : ${JSON.stringify(error, null, 2)}`);
+      logger.error(`from the endpoint: ${searchApiUrl}`);
     });
 };
 

@@ -18,6 +18,7 @@ import webpackConfig from './webpack.config';
 import Application from './src/app/components/Application/Application';
 import apiRoutes from './src/server/ApiRoutes/ApiRoutes';
 import getApiRoot from './src/server/GetApiRoot';
+import logger from './logger';
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
@@ -93,14 +94,14 @@ const server = app.listen(app.get('port'), (error) => {
 // This function is called when you want the server to die gracefully
 // i.e. wait for existing connections
 const gracefulShutdown = () => {
-  console.log('Received kill signal, shutting down gracefully.');
+  logger.info('Received kill signal, shutting down gracefully.');
   server.close(() => {
-    console.log('Closed out remaining connections.');
+    logger.info('Closed out remaining connections.');
     process.exit(0);
   });
   // if after
   setTimeout(() => {
-    console.error('Could not close connections in time, forcefully shutting down');
+    logger.error('Could not close connections in time, forcefully shutting down');
     process.exit();
   }, 1000);
 };
@@ -119,15 +120,15 @@ if (!isProduction) {
     publicPath: webpackConfig.output.publicPath,
     hot: true,
     stats: false,
-    historyApiFallback: true,
     headers: {
       'Access-Control-Allow-Origin': 'http://localhost:3001',
       'Access-Control-Allow-Headers': 'X-Requested-With',
     },
-  }).listen(3000, 'localhost', (error) => {
+    sockPort: 3000,
+  }).listen(3000, 'localhost', (error, result) => {
     if (error) {
       console.log(colors.red(error));
     }
-    console.log(colors.magenta('Webpack Dev Server listening at'), colors.cyan('localhost3000'));
+    console.log(colors.magenta('Webpack Dev Server listening at'), colors.cyan('localhost:3000'));
   });
 }

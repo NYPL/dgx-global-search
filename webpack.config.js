@@ -20,7 +20,6 @@ const commonSettings = {
   // This is the path and file of our top level
   // React App that is to be rendered.
   entry: [
-    path.resolve(ROOT_PATH, 'src/client/styles/main.scss'),
     path.resolve(ROOT_PATH, 'src/client/App.jsx'),
   ],
   resolve: {
@@ -39,7 +38,7 @@ const commonSettings = {
     // part of the package.json scripts.
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'styles.css'
+      filename: 'styles.css',
     }),
     new webpack.DefinePlugin({
       loadA11y: process.env.loadA11y || false,
@@ -61,15 +60,17 @@ const commonSettings = {
 if (ENV === 'development') {
   module.exports = merge(commonSettings, {
     mode: 'development',
-    devtool: 'eval',
+    devtool: 'eval-source-map',
     entry: [
       'webpack-dev-server/client?http://localhost:3000',
       'webpack/hot/only-dev-server',
     ],
     output: {
-      publicPath: '/',
+      publicPath: 'http://localhost:3000/',
     },
-    plugins: [new webpack.HotModuleReplacementPlugin()],
+    plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+    ],
     resolve: {
       extensions: ['*', '.js', '.jsx', '.scss'],
     },
@@ -78,12 +79,18 @@ if (ENV === 'development') {
         {
           test: /\.jsx?$/,
           exclude: /(node_modules)/,
-          loaders: ['react-hot-loader/webpack', 'babel-loader'],
+          loaders: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react',
+            ],
+          },
         },
         {
           test: /\.scss?$/,
           use: [
-            MiniCssExtractPlugin.loader,
+            'style-loader',
             'css-loader',
             'sass-loader',
           ],

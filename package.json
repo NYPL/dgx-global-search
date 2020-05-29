@@ -7,9 +7,10 @@
     "start": "node index",
     "eb-start": "npm run dist && npm run start",
     "dist": "NODE_ENV=production webpack --config webpack.config.js",
+    "docs": "esdoc ./ -c esdoc.json",
     "test": "node_modules/.bin/mocha --require @babel/register",
     "accessibility-check": "loadA11y=true node index",
-    "lint": "eslint ./",
+    "lint": "eslint .",
     "lint-single-file": "eslint"
   },
   "repository": {
@@ -31,7 +32,6 @@
     "@babel/core": "7.9.0",
     "@babel/preset-env": "7.9.5",
     "@babel/preset-react": "7.9.4",
-    "@babel/register": "7.9.0",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.1.0",
     "breakpoint-sass": "2.7.1",
@@ -41,6 +41,8 @@
     "css-loader": "3.5.3",
     "enzyme": "2.2.0",
     "esdoc": "1.1.0",
+    "esdoc-jsx-plugin": "1.0.0",
+    "esdoc-standard-plugin": "1.0.0",
     "eslint": "^7.0.0",
     "eslint-config-airbnb": "18.1.0",
     "eslint-loader": "4.0.2",
@@ -51,14 +53,15 @@
     "mocha": "7.1.1",
     "node-sass": "4.14.1",
     "react-addons-test-utils": "15.6.2",
-    "react-hot-loader": "4.12.21",
     "sass-loader": "8.0.2",
     "sinon": "4.1.2",
+    "style-loader": "1.2.1",
     "terser-webpack-plugin": "2.3.5",
     "webpack-cli": "3.3.11",
     "webpack-merge": "4.2.2"
   },
   "dependencies": {
+    "@babel/register": "7.9.0",
     "@nypl/dgx-header-component": "2.6.0",
     "@nypl/dgx-react-footer": "0.5.5",
     "@nypl/dgx-svg-icons": "0.3.11",
@@ -89,6 +92,7 @@
     "singularitygs": "1.7.0",
     "underscore": "1.10.2",
     "webpack": "4.43.0",
-    "webpack-dev-server": "3.10.3"
+    "webpack-dev-server": "3.10.3",
+    "winston": "3.2.1"
   }
 }

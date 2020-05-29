@@ -36,6 +36,8 @@
 - Adding @babel/preset-env; replaces babel-preset-es2015
 - Adding mini-css-extract-plugin; replaces extract-text-plugin
 - Adding terser-webpack-plugin; replaces calls to UglifyJS
+- Adding esdoc plugins
+- Adding winston v3; and logger.js
 #### Replaced
 - Replacing babel-preset-es2015
 - Replacing extract-text-webpack-plugin
