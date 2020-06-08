@@ -44,6 +44,10 @@
 #### Removed
 - Removing babel-polyfill; included with @babel/preset-env
 
+### v1.1.10
+#### Updated
+- Updating @nypl/dgx-react-footer to 0.5.6.
+
 ### v1.1.9
 - Updating @nypl/dgx-react-footer to 0.5.5.
 - Updating Falcon CrowdStrike sensor to 5.29.
