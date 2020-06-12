@@ -43,6 +43,15 @@ We use Webpack to fire off a hot-reloading development server. This allows for c
 
 Note the above assumes you have valid AWS credentials associated with profile "nypl-digital-dev". Contact NYPL Digital Department to establish your `nypl-digital-dev` and `nypl-sandbox` accounts.
 
+To use the Custom Search API locally, you must obtain credentials from Google via https://console.developers.google.com.
+
+* Create an account
+* Select "Credentials" on the account page
+* Add a new API key
+* Enable the APIs you wish to associate with that key including the Custom Search API
+
+You can then use that key in the `.env` file for the `API_ROOT` variable. Additionally, you'll need the ID for NYPL's Custom Search Engine, "NYPL Search." This can be obtained in NYPL's parameter store. Contact a contributing developer for further information. It may take a few minutes for your key to gain access to the search engine results.
+
 #### Local Redis
 
 To run locally against a local Redis, [download Redis](https://redis.io/topics/quickstart), start it (i.e. run `redis-server` in another tab), and then run:
