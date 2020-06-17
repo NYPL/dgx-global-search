@@ -1,5 +1,5 @@
 // Import libraries
-import { ga } from 'dgx-react-ga';
+import reactGA from 'dgx-react-ga';
 import {
   extend as _extend,
 } from 'underscore';
@@ -97,7 +97,7 @@ const sendGAEvent = (action, label, value, searchedFrom, target) => {
     value,
   }, generateCustomDimensions(searchedFrom, target));
 
-  ga.event(eventObj);
+  reactGA.ga.event(eventObj);
 };
 
 /**
@@ -138,7 +138,7 @@ const createFunctionWithTimeout = (callback, optTimeout) => {
  * The format of it should be { hitCallback: () => {} }
  */
 const nativeGA = (action, label, value, searchedFrom, target, hitCallback) => {
-  ga.ga(
+  reactGA.ga.ga(
     'send',
     'event',
     'Search',

@@ -2,10 +2,13 @@ dist
 node_modules
 npm-debug.log
 .DS_STORE
+json-results
+dump.rdb
+.env
+log/*.log
+esdoc
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
-json-results
-dump.rdb
-.env
