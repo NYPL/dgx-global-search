@@ -4,14 +4,14 @@
   ],
   "rules": {
     "function-paren-newline": ["error", "consistent"],
-    "jsx-a11y/label-has-associated-control": [ "error", {
+    "jsx-a11y/label-has-associated-control": ["error", {
     "required": {
-        "some": [ "nesting", "id"  ]
+        "some": ["nesting", "id"]
       }
     }],
-    "jsx-a11y/label-has-for": [ "error", {
+    "jsx-a11y/label-has-for": ["error", {
       "required": {
-        "some": [ "nesting", "id"  ]
+        "some": ["nesting", "id"]
       }
     }],
     "prefer-destructuring": ["error", {
@@ -54,7 +54,9 @@
     }
   },
   "plugins": [
-    "react"
+    "react",
+    "jsx-a11y",
+    "import"
   ],
   "env": {
     "es6": true,

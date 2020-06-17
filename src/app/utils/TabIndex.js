@@ -1,6 +1,6 @@
 import filterNames from './FilterNames';
 
-const values = filterNames.map(filter => filter.value);
+const values = filterNames.map((filter) => filter.value);
 
 /**
  * incrementIndex(arr, index, step)
@@ -37,7 +37,7 @@ const incrementTab = (name, step) => values[incrementIndex(values, values.indexO
  * @param {string} facet - the value property of the facet
  */
 
-const displayNameForFacet = facet => (facet === '' ? 'all' : facet);
+const displayNameForFacet = (facet) => (facet === '' ? 'all' : facet);
 
 export {
   incrementTab, incrementIndex, values, displayNameForFacet,
