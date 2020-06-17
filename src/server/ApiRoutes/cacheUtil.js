@@ -103,7 +103,7 @@ const generateClient = (customClient = null, appEnv = null, region = 'us-east-1'
  * @param {function} dataFunction
  * @param {boolean} useClient - Controls whether or not to use caching
  *                              (in practice, set to !process.env.USE_CACHING)
- * @param {?Object} customClient
+ * @param {object} customClient
  * @param {string} appEnv
  * @param {string} region
  */
