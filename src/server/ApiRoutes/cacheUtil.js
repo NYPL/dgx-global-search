@@ -35,6 +35,9 @@ const checkForKeyInRedis = (client) => (key) => new Promise((resolve) => client
  */
 const getDataAndSetKeyInClient = (dataFunction, client) => (params, key) => dataFunction(...params)
   .then((response) => {
+    // Remove the 'request' object from the response added by axios. The included
+    // request object can cause circular reference errors.
+    delete response.request;
     const stringifiedResponse = JSON.stringify(response);
     // Note that this is asynchronous, but shouldn't matter in this simplest case
     client.set(key, stringifiedResponse, 'EX', 3600);

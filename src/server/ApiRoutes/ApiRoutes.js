@@ -61,7 +61,7 @@ const requestSearchResult = (req, res, next) => {
       next();
     })
     .catch((error) => {
-      logger.error(`error calling API : ${JSON.stringify(error, null, 2)}`);
+      logger.error(`error calling API from server : ${JSON.stringify(error, null, 2)}`);
       logger.error(`from the endpoint: ${searchApiUrl}`);
 
       res.locals.data = {
@@ -97,7 +97,7 @@ const requestResultsFromClient = (req, res) => {
       res.json(searchModeled);
     })
     .catch((error) => {
-      logger.error(`error calling API : ${JSON.stringify(error, null, 2)}`);
+      logger.error(`error calling API from client : ${JSON.stringify(error, null, 2)}`);
       logger.error(`from the endpoint: ${searchApiUrl}`);
     });
 };
