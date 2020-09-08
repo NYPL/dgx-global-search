@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import appConfig from '../../appConfig';
 import aws from '../app/utils/kms-helper';
 
@@ -6,6 +7,7 @@ import aws from '../app/utils/kms-helper';
  * A helper method for setting the AWS profile. There is only a profile if app is
  * running locally, in which case it depends on whether we are running in development
  * or production mode.
+ *
  * @param {string} appEnv
  */
 const generateAwsProfile = (appEnv) => {
