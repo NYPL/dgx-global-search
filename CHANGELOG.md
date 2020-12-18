@@ -1,5 +1,9 @@
 ## Changelog
 
+### v1.2.1
+#### Updated
+- Updating @nypl/dgx-header-component to 2.7.1.
+
 ### v1.2.0
 #### Updated
 - Updating babel-eslint to 10.1.0
