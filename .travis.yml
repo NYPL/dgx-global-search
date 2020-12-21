@@ -39,18 +39,18 @@ deploy:
   on:
     repo: NYPL/dgx-global-search
     branch: qa
-- provider: elasticbeanstalk
-  skip_cleanup: true
-  access_key_id: $AWS_ACCESS_KEY_ID_DEVELOPMENT
-  secret_access_key: $AWS_SECRET_ACCESS_KEY_DEVELOPMENT
-  region: us-east-1
-  app: nypl-global-search
-  env: nypl-global-search-development
-  bucket_name: elasticbeanstalk-us-east-1-224280085904
-  bucket_path: nypl-global-search-development
-  on:
-    repo: NYPL/dgx-global-search
-    branch: development
+# - provider: elasticbeanstalk
+#   skip_cleanup: true
+#   access_key_id: $AWS_ACCESS_KEY_ID_DEVELOPMENT
+#   secret_access_key: $AWS_SECRET_ACCESS_KEY_DEVELOPMENT
+#   region: us-east-1
+#   app: nypl-global-search
+#   env: nypl-global-search-development
+#   bucket_name: elasticbeanstalk-us-east-1-224280085904
+#   bucket_path: nypl-global-search-development
+#   on:
+#     repo: NYPL/dgx-global-search
+#     branch: development
 after_deploy: echo 'Successfully executed deploy trigger for NYPL Global Search on AWS'
 env:
   global:
