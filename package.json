@@ -94,7 +94,7 @@
     "singularitygs": "1.7.0",
     "style-loader": "1.2.1",
     "terser-webpack-plugin": "2.3.5",
-    "underscore": "1.10.2",
+    "underscore": "1.12.1",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.10.3",
